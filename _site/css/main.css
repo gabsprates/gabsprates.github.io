@@ -11,7 +11,7 @@ dl, dd, ol, ul, figure {
  * Basic styling
  */
 body {
-  font: 400 16px/1.5 "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font: 400 16px/1.5 "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif;
   color: #111;
   background-color: #f9f9f9;
   -webkit-text-size-adjust: 100%;
@@ -28,7 +28,7 @@ h1, h2, h3, h4, h5, h6,
 p, blockquote, pre,
 ul, ol, dl, figure,
 .highlight {
-  margin-bottom: 15px; }
+  margin-bottom: 22.5px; }
 
 /**
  * Images
@@ -82,7 +82,6 @@ blockquote {
   border-left: 4px solid #e8e8e8;
   padding-left: 15px;
   font-size: 18px;
-  letter-spacing: -1px;
   font-style: italic; }
   blockquote > :last-child {
     margin-bottom: 0; }
@@ -156,7 +155,7 @@ pre {
 
 .site-title {
   font-size: 26px;
-  font-weight: 300;
+  font-weight: 600;
   line-height: 56px;
   letter-spacing: -1px;
   margin-bottom: 0;
@@ -164,6 +163,8 @@ pre {
   text-shadow: 1px 1px 1px #406b63; }
   .site-title, .site-title:visited {
     color: #fbfcfc; }
+  .site-title:hover, .site-title:focus {
+    text-decoration: none; }
 
 .site-nav {
   float: right;
