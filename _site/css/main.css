@@ -157,7 +157,10 @@ pre {
 .site-header {
   border-top: 5px solid #406b63;
   border-bottom: 1px solid #fbfcfc;
-  background-color: #7BB0A6;
+  background-image: url(http://gabsprates.com/site/imagens/adwaita-day.jpg);
+  background-position: top center;
+  background-repeat: repeat;
+  background-attachment: fixed;
   min-height: 56px;
   position: relative; }
 
@@ -287,7 +290,9 @@ pre {
   margin-left: 0;
   list-style: none; }
   .post-list > li {
-    margin-bottom: 30px; }
+    margin-bottom: 30px;
+    border-bottom: 1px solid #e8e8e8;
+    padding-bottom: 30px; }
 
 .post-meta {
   font-size: 14px;
@@ -313,6 +318,9 @@ pre {
 
 .post-content {
   margin-bottom: 30px; }
+  .post-content h2, .post-content h3, .post-content h4 {
+    margin-bottom: 10px;
+    margin-top: 30px; }
   .post-content h2 {
     font-size: 32px; }
     @media screen and (max-width: 800px) {
