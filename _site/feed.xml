@@ -6,9 +6,118 @@
 </description>
     <link>http://blog.gabsprates.com/</link>
     <atom:link href="http://blog.gabsprates.com/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Thu, 30 Jun 2016 19:38:19 -0300</pubDate>
-    <lastBuildDate>Thu, 30 Jun 2016 19:38:19 -0300</lastBuildDate>
+    <pubDate>Thu, 30 Jun 2016 19:40:16 -0300</pubDate>
+    <lastBuildDate>Thu, 30 Jun 2016 19:40:16 -0300</lastBuildDate>
     <generator>Jekyll v3.1.2</generator>
+    
+      <item>
+        <title>Bulma: framework CSS baseado em flexbox</title>
+        <description>&lt;p&gt;Este artigo foi originalmente postado no &lt;a href=&quot;tableless.com.br/bulma-framework-css-baseado-em-flexbox/&quot;&gt;Tableless&lt;/a&gt; no dia 28 de junho de 2016.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;“Inspirado pelo Bootstrap, o Bulma visa oferecer a todos a alegria de fazer o design do site, com a simplicidade do flexbox e a elegância de Sass.” - &lt;a href=&quot;http://jgthms.com/&quot;&gt;Jeremy Thomas&lt;/a&gt;, criador do projeto Bulma.io.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Como o título diz, o &lt;a href=&quot;http://bulma.io/&quot;&gt;Bulma&lt;/a&gt; é um framework CSS baseado na tecnologia flexbox, que já tem uma grande &lt;a href=&quot;http://caniuse.com/#search=flexbox&quot;&gt;compatibilidade&lt;/a&gt; entre os navegadores. O pacote contém todos os elementos mais comuns como botões, formulários, menus, tabelas, títulos, notificações, barras de progresso e um simples sistema de grid (basta adicionar uma coluna, o resize das colunas é automático).&lt;/p&gt;
+
+&lt;p&gt;Vou mostrar alguns exemplos para que você possa entender o poder do Bulma.&lt;/p&gt;
+
+&lt;p&gt;Primeiramente, faremos a instalação que não precisa de nada mais que um link para o arquivo de estilos do Bulma:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;link&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;rel=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;stylesheet&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;href=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;https://cdnjs.cloudflare.com/ajax/libs/bulma/0.0.26/css/bulma.css&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Claro que você pode baixar e deixar no seu diretório local, e também baixar com o NPM: &lt;code class=&quot;highlighter-rouge&quot;&gt;npm install bulma&lt;/code&gt;; mas o que quero mostrar é que tudo que você precisa é apenas de um arquivo de CSS.&lt;/p&gt;
+
+&lt;p&gt;Baixando com o NPM você terá como personalizar facilmente com SASS.&lt;/p&gt;
+
+&lt;p&gt;O Bulma não vem com nenhum pacote de icon-fonts acoplado, então, caso você pretenda usar algum, como o Font Awesome, você deve inserí-lo também.&lt;/p&gt;
+
+&lt;h2 id=&quot;o-grid&quot;&gt;O Grid&lt;/h2&gt;
+&lt;p&gt;Lembrando: como o Bulma foi baseado no Bootstrap, uma das semelhanças é o sistema de grid com 12 colunas.&lt;/p&gt;
+
+&lt;p&gt;Como falei, o grid funciona de forma muito simples. Tudo que você precisa é ter uma &lt;code class=&quot;highlighter-rouge&quot;&gt;div&lt;/code&gt; com a classe &lt;code class=&quot;highlighter-rouge&quot;&gt;.columns&lt;/code&gt; e suas filhas &lt;code class=&quot;highlighter-rouge&quot;&gt;.column&lt;/code&gt;, como no exemplo abaixo:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;div&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;columns&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;&amp;lt;div&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;column&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;.column&lt;span class=&quot;nt&quot;&gt;&amp;lt;/div&amp;gt;&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;&amp;lt;div&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;column&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;.column&lt;span class=&quot;nt&quot;&gt;&amp;lt;/div&amp;gt;&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;&amp;lt;div&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;column&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;.column&lt;span class=&quot;nt&quot;&gt;&amp;lt;/div&amp;gt;&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;&amp;lt;div&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;column&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;.column&lt;span class=&quot;nt&quot;&gt;&amp;lt;/div&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;/div&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Você pode entender melhor como funciona com &lt;a href=&quot;http://codepen.io/gabsprates/full/PNVJrP/&quot;&gt;esse exemplo&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Mas e se você quiser que uma coluna ocupe o espaço de duas? Ou três? Ou quatro? Simples!!!&lt;/p&gt;
+
+&lt;p&gt;Podemos utilizar as classes &lt;code class=&quot;highlighter-rouge&quot;&gt;is-2&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;is-3&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;is-4&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;is-5&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;is-6&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;is-7&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;is-8&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;is-9&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;is-10&lt;/code&gt; e &lt;code class=&quot;highlighter-rouge&quot;&gt;is-11&lt;/code&gt; para especificar qual a área ocupada pela &lt;code class=&quot;highlighter-rouge&quot;&gt;.column&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Para entender melhor, aconselho a dar uma olhada &lt;a href=&quot;http://bulma.io/documentation/grid/columns/&quot;&gt;neste&lt;/a&gt; e &lt;a href=&quot;http://bulma.io/documentation/grid/tiles/&quot;&gt;neste&lt;/a&gt; links.&lt;/p&gt;
+
+&lt;h2 id=&quot;hero&quot;&gt;Hero&lt;/h2&gt;
+&lt;p&gt;Você já teve problemas com alinhar elementos verticalmente ao centro? O Bulma é um verdadeiro herói para essas situações! Veja este exemplo:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;section&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;hero is-large&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;div&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;hero-body&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+      &lt;span class=&quot;nt&quot;&gt;&amp;lt;div&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;container&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;nt&quot;&gt;&amp;lt;h1&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;title&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+          Título
+        &lt;span class=&quot;nt&quot;&gt;&amp;lt;/h1&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;nt&quot;&gt;&amp;lt;h2&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;subtitle&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+          Exemplo do uso do hero
+        &lt;span class=&quot;nt&quot;&gt;&amp;lt;/h2&amp;gt;&lt;/span&gt;
+      &lt;span class=&quot;nt&quot;&gt;&amp;lt;/div&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;/div&amp;gt;&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;&amp;lt;/section&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Aqui o Bulma centraliza os títulos na vertical, qualquer conteúdo seria alinhado também. &lt;a href=&quot;http://bulma.io/documentation/layout/hero/&quot;&gt;Clique aqui&lt;/a&gt; mais exemplos.&lt;/p&gt;
+
+&lt;h2 id=&quot;level&quot;&gt;Level&lt;/h2&gt;
+&lt;p&gt;Por último, quero falar um pouco sobre as navbars. Veja esse código:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;nav&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;level&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;p&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;level-item has-text-centered&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+      &lt;span class=&quot;nt&quot;&gt;&amp;lt;a&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;link is-info&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;Home&lt;span class=&quot;nt&quot;&gt;&amp;lt;/a&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;/p&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;p&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;level-item has-text-centered&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+      &lt;span class=&quot;nt&quot;&gt;&amp;lt;a&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;link is-info&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;Menu&lt;span class=&quot;nt&quot;&gt;&amp;lt;/a&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;/p&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;p&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;level-item has-text-centered&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+      &lt;span class=&quot;nt&quot;&gt;&amp;lt;img&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;src=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;http://bulma.io/images/bulma.png&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;alt=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;style=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;height: 33px;&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;/p&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;p&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;level-item has-text-centered&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+      &lt;span class=&quot;nt&quot;&gt;&amp;lt;a&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;link is-info&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;Reservations&lt;span class=&quot;nt&quot;&gt;&amp;lt;/a&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;/p&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;p&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;level-item has-text-centered&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+      &lt;span class=&quot;nt&quot;&gt;&amp;lt;a&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;link is-info&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;Contact&lt;span class=&quot;nt&quot;&gt;&amp;lt;/a&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;/p&amp;gt;&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;&amp;lt;/nav&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Ele gera uma navbar em que os elementos são divididos com a largura igual e com alinhamento vertical no centro, mesmo com imagem ou até mesmo um &lt;code class=&quot;highlighter-rouge&quot;&gt;form&lt;/code&gt;, ele manteria esse alinhamento.&lt;/p&gt;
+
+&lt;p&gt;Veja mais &lt;a href=&quot;http://bulma.io/documentation/components/level/&quot;&gt;aqui&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;enfim&quot;&gt;Enfim…&lt;/h2&gt;
+&lt;p&gt;Estes foram alguns exemplos do poder do Bulma mas há muito mais que você pode conferir na própria &lt;a href=&quot;http://bulma.io/documentation/overview/start/&quot;&gt;documentação do projeto&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Existem vários componentes legais, como cards, menus, paginação, mensagens, e várias outras coisas fáceis de usar e simples de compreender.&lt;/p&gt;
+
+&lt;p&gt;Isso é tudo pessoal (:&lt;/p&gt;
+</description>
+        <pubDate>Thu, 30 Jun 2016 00:00:00 -0300</pubDate>
+        <link>http://blog.gabsprates.com/2016/06/30/bulma-framework-css-baseado-em-flexbox.html</link>
+        <guid isPermaLink="true">http://blog.gabsprates.com/2016/06/30/bulma-framework-css-baseado-em-flexbox.html</guid>
+        
+        
+      </item>
     
       <item>
         <title>Nostalgia e Lakka</title>
