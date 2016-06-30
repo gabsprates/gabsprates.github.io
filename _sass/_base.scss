@@ -63,6 +63,17 @@ figcaption {
 
 
 /**
+ * hr
+ */
+hr {
+    border: 0;
+    border-bottom: 2px solid $grey-color-light;
+    margin-bottom: $spacing-unit;
+}
+
+
+
+/**
  * Lists
  */
 ul, ol {

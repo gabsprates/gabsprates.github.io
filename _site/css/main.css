@@ -47,6 +47,14 @@ figcaption {
   font-size: 14px; }
 
 /**
+ * hr
+ */
+hr {
+  border: 0;
+  border-bottom: 2px solid #e8e8e8;
+  margin-bottom: 30px; }
+
+/**
  * Lists
  */
 ul, ol {
