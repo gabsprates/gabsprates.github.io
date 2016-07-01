@@ -3,7 +3,7 @@ layout: post
 title:  "Bulma: framework CSS baseado em flexbox"
 ---
 
-Este artigo foi originalmente postado no [Tableless](tableless.com.br/bulma-framework-css-baseado-em-flexbox/) no dia 28 de junho de 2016.
+Este artigo foi originalmente postado no [Tableless](//tableless.com.br/bulma-framework-css-baseado-em-flexbox/) no dia 28 de junho de 2016.
 
 ---
 
