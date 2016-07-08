@@ -157,7 +157,7 @@ pre {
 .site-header {
   border-top: 5px solid #406b63;
   border-bottom: 1px solid #fbfcfc;
-  background-image: url(http://gabsprates.com/site/imagens/adwaita-day.jpg);
+  background-image: url(/assets/adwaita-day.jpg);
   background-position: top center;
   background-repeat: repeat;
   background-attachment: fixed;
@@ -176,6 +176,12 @@ pre {
     color: #fbfcfc; }
   .site-title:hover, .site-title:focus {
     text-decoration: none; }
+  .site-title__image {
+    width: 40px;
+    border-radius: 12345678px;
+    margin: 8px 10px 0 0;
+    float: left;
+    box-shadow: 0 1px 2px #406b63; }
 
 .site-nav {
   float: right;
