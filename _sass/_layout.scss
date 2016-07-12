@@ -25,6 +25,7 @@
     text-shadow: 1px 1px 1px $blue-color-dark;
 
     &,
+    &:hover,
     &:visited {
         color: $blue-color-light;
     }

@@ -142,11 +142,15 @@ code {
     font-size: 15px;
     border: 1px solid $grey-color-light;
     border-radius: 3px;
-    background-color: #eef;
+    background-color: #343434;
+    color: #999;
 }
 
 code {
     padding: 1px 5px;
+    background-color: #f9f2f4;
+    border-color: #f9bfd0;
+    color: #c7254e;
 }
 
 pre {
@@ -154,6 +158,8 @@ pre {
     overflow-x: auto;
 
     > code {
+        background: none;
+        color: inherit;
         border: 0;
         padding-right: 0;
         padding-left: 0;
