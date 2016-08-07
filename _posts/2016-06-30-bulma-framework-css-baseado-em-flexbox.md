@@ -1,6 +1,7 @@
 ---
 layout: post
 title:  "Bulma: framework CSS baseado em flexbox"
+description: "Inspirado pelo Bootstrap, o Bulma visa oferecer a todos a alegria de fazer o design do site, com a simplicidade do flexbox e a elegância de Sass."
 ---
 
 Este artigo foi originalmente postado no [Tableless](//tableless.com.br/bulma-framework-css-baseado-em-flexbox/) no dia 28 de junho de 2016.

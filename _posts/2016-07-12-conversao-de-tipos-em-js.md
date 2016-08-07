@@ -1,6 +1,7 @@
 ---
 layout: post
 title:  "Conversão de tipos em JavaScript"
+description: "Acontece muita coisa por baixo dos panos do JavaScript. A conversão de tipo é uma delas, então vamos aprender sobre isso."
 ---
 
 Um dia desses eu recebi um quebra-gelo no Telegram, com o seguinte:
