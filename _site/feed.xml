@@ -6,9 +6,98 @@
 </description>
     <link>http://blog.gabsprates.com/</link>
     <atom:link href="http://blog.gabsprates.com/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sun, 07 Aug 2016 04:11:14 -0300</pubDate>
-    <lastBuildDate>Sun, 07 Aug 2016 04:11:14 -0300</lastBuildDate>
+    <pubDate>Sun, 07 Aug 2016 04:43:33 -0300</pubDate>
+    <lastBuildDate>Sun, 07 Aug 2016 04:43:33 -0300</lastBuildDate>
     <generator>Jekyll v3.2.0</generator>
+    
+      <item>
+        <title>Que não vai padronizar, o quê?!</title>
+        <description>&lt;blockquote&gt;
+  &lt;p&gt;Baaam!&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Adotar padrões pode parecer chato no início, mas é a melhor opção para manter o código legível e fácil de manter. Talvez, não exista nada pior que um código mal formatado, com identações malucas (com tabulações e espaços juntas), funções com nomes escritos de forma aleatória e sem sentido, e vários outros problemas que dificultam a leitura, não somente de terceiros, mas do próprio autor do código depois de uma semana.&lt;/p&gt;
+
+&lt;p&gt;Pensando nisso, foram desenvolvidos os guias de estilo de código. Geralmente, as comunidades de linguagens desenvolveram seus padrões, até mesmo para facilitar a vida dos desenvolvedores, e até mesmo na construção de frameworks. A ideia desse post é apresentar alguns dos padrões que conheço, então se você conhece algum outro, deixe nos comentários.&lt;/p&gt;
+
+&lt;p&gt;Ah, antes de continuar, é bom lembrar que algumas empresas tem seus próprios &lt;em&gt;Style Guides&lt;/em&gt;, então é sempre bom passar saber se na sua tem algum. #FicaADica&lt;/p&gt;
+
+&lt;p&gt;Por padrão, vamos por ordem alfabética. (:&lt;/p&gt;
+
+&lt;h2 id=&quot;c&quot;&gt;C&lt;/h2&gt;
+&lt;p&gt;Um dia, em uma aula de Estrutura de Dados, fiquei curioso pra saber se existia algum guia para a &lt;a href=&quot;https://pt.wikipedia.org/wiki/C_(linguagem_de_programa%C3%A7%C3%A3o)&quot;&gt;linguagem C&lt;/a&gt; e fiquei contente em encontrar pelo menos 2. São eles:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://httpd.apache.org/dev/styleguide.html&quot;&gt;Apache Developers' C Language Style Guide&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://homepages.inf.ed.ac.uk/dts/pm/Papers/nasa-c-style.pdf&quot;&gt;NASA - C Style Guide&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Não encontrei uma fonte oficial do guia da NASA, mas mesmo assim vale a pena dar uma olhada, é um material bacana.&lt;/p&gt;
+
+&lt;h2 id=&quot;css&quot;&gt;CSS&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;https://pt.wikipedia.org/wiki/Cascading_Style_Sheets&quot;&gt;CSS&lt;/a&gt; é sem dúvidas umas das coisas mais legais pra mim. Por ser fácil de começar brincar com CSS, a chance de se encontrar um código bagunçado é muito alta. Existem alguns guias para ajudar a deixar seu código mais estiloso:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://google.github.io/styleguide/htmlcssguide.xml&quot;&gt;Google HTML/CSS Style Guide&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://contribute.jquery.org/style-guide/css/&quot;&gt;jQuery - CSS Style Guide&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://primercss.io/&quot;&gt;Primer - GitHub CSS Style Guide&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://make.wordpress.org/core/handbook/best-practices/coding-standards/css/&quot;&gt;WordPress CSS Coding Standards&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Alguns deles falam sobre HTML também, por isso não vou colocar uma seção específica pra HTML aqui.&lt;/p&gt;
+
+&lt;p&gt;Existem algumas técnicas muito legais também. Talvez você já tenha ouvido falar em SMACSS, BEM, OOCSS, e por aí vai. Recomendo o post do &lt;a href=&quot;https://twitter.com/jcemer&quot;&gt;Jean Carlo Emer&lt;/a&gt;: &lt;a href=&quot;http://tableless.com.br/oocss-smacss-bem-dry-css-afinal-como-escrever-css/&quot;&gt;OOCSS, SMACSS, BEM, DRY CSS: afinal, como escrever CSS?&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;javascript&quot;&gt;JavaScript&lt;/h2&gt;
+&lt;p&gt;Por ser a linguagem que está dominando o mundo, o &lt;a href=&quot;https://pt.wikipedia.org/wiki/JavaScript&quot;&gt;JavaScript&lt;/a&gt; tem vários &lt;em&gt;Style Guides&lt;/em&gt;, e quando digo ‘vários’, é porque tem muitos mesmo. Vou citar os mais comuns pra mim:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/airbnb/javascript&quot;&gt;Airbnb JavaScript Style Guide&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://google.github.io/styleguide/javascriptguide.xml&quot;&gt;Google JavaScript Style Guide&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://contribute.jquery.org/style-guide/js/&quot;&gt;jQuery - JavaScript Style Guide&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://docs.npmjs.com/misc/coding-style&quot;&gt;npm-coding-style&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Preciso fazer um gancho pra um projeto sobre JS. Se você não sabe JS, ou acha que não sabe, dê uma lida na &lt;a href=&quot;https://github.com/cezaraugusto/You-Dont-Know-JS&quot;&gt;série de livros &lt;em&gt;You Don't Know JS&lt;/em&gt;&lt;/a&gt;. Caso você já saiba ou se sente seguro sobre grande parte da linguagem, nos ajude a terminar essas traduções (:&lt;/p&gt;
+
+&lt;h2 id=&quot;php&quot;&gt;PHP&lt;/h2&gt;
+&lt;p&gt;Com certeza, &lt;a href=&quot;https://pt.wikipedia.org/wiki/PHP&quot;&gt;PHP&lt;/a&gt; é uma das linguagens com uma das comunidades mais ativa, e particularmente, uma das minhas linguagens preferidas. Aqui estão alguns guias bacanas:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;http://www.codeigniter.com/user_guide/general/styleguide.html&quot;&gt;CodeIgniter - PHP Style Guide&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://www.php-fig.org/psr/psr-2/&quot;&gt;PSR-2: Coding Style Guide&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://make.wordpress.org/core/handbook/best-practices/coding-standards/php/&quot;&gt;WordPress - PHP Coding Standards&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Existe o &lt;a href=&quot;http://www.php-fig.org/&quot;&gt;PHP-FIG (PHP Framework Interoperability Group)&lt;/a&gt;, que cuida das PSRs (PHP Standard Recommendation), padrões gerais para se trabalhar com PHP. É um trabalho muito interessante e eu recomendo que você dê uma olhada em todas as PSRs.&lt;/p&gt;
+
+&lt;h2 id=&quot;python&quot;&gt;Python&lt;/h2&gt;
+&lt;p&gt;Não tenho muito para falar de &lt;a href=&quot;https://pt.wikipedia.org/wiki/Python&quot;&gt;Python&lt;/a&gt; por não conhecer muito, mas sei que existe o tal da &lt;a href=&quot;https://www.python.org/dev/peps/pep-0008/&quot;&gt;PEP 8 – Style Guide for Python Code&lt;/a&gt;, que é um guia de estilo da própria linguagem. Acho que já uma boa referência.&lt;/p&gt;
+
+&lt;h2 id=&quot;ruby&quot;&gt;Ruby&lt;/h2&gt;
+&lt;p&gt;Comecei estudar a &lt;a href=&quot;https://pt.wikipedia.org/wiki/Ruby_(linguagem_de_programa%C3%A7%C3%A3o)&quot;&gt;linguagem Ruby&lt;/a&gt; há algum tempo e achei muito bonita. Estou seguindo o &lt;em&gt;style guide&lt;/em&gt; do GitHub, mas encontrei outro aqui também, então aqui estão os links:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/styleguide/ruby&quot;&gt;GitHub - Ruby Styleguide&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://ruby-hacking-style-guide.github.io/&quot;&gt;Ruby Hacking Style Guide&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;Alguns desses guias se divergem, outros são bem parecidos, mas isso é bom, dá pra pegar o melhor de cada um.&lt;/p&gt;
+
+&lt;p&gt;Não falei de algum que você gosta, ou deixei de falar de alguma linguagem que você conhece e sabe que tem um &lt;em&gt;style guide&lt;/em&gt; bacana? Deixe nos comentários, será um prazer aprender contigo!&lt;/p&gt;
+
+&lt;p&gt;Espero ter ajudado (:&lt;/p&gt;
+
+&lt;p&gt;Até a próxima.&lt;/p&gt;
+</description>
+        <pubDate>Sun, 07 Aug 2016 00:00:00 -0300</pubDate>
+        <link>http://blog.gabsprates.com/2016/08/07/que-nao-vai-padronizar-o-que.html</link>
+        <guid isPermaLink="true">http://blog.gabsprates.com/2016/08/07/que-nao-vai-padronizar-o-que.html</guid>
+        
+        
+      </item>
     
       <item>
         <title>Conversão de tipos em JavaScript</title>
