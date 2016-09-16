@@ -6,9 +6,126 @@
 </description>
     <link>http://blog.gabsprates.com/</link>
     <atom:link href="http://blog.gabsprates.com/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Thu, 15 Sep 2016 22:47:44 -0300</pubDate>
-    <lastBuildDate>Thu, 15 Sep 2016 22:47:44 -0300</lastBuildDate>
+    <pubDate>Thu, 15 Sep 2016 23:03:34 -0300</pubDate>
+    <lastBuildDate>Thu, 15 Sep 2016 23:03:34 -0300</lastBuildDate>
     <generator>Jekyll v3.2.0</generator>
+    
+      <item>
+        <title>DuckDuckGo: Uma (ótima) opção busca!</title>
+        <description>&lt;p&gt;Pelo lema de privacidade e resultados otimizados, ser open-source e ter uma grande comunidade, o DuckDuckGo tem a marca de mais de 10 milhões de buscas por dia.&lt;/p&gt;
+
+&lt;h2 id=&quot;um-pouco-de-contexto&quot;&gt;Um pouco de contexto&lt;/h2&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;DuckDuckGo começou como uma ideia para uma melhor experiência de busca com mais respostas instantâneas e menos spam.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Essa foi a ideia do meu chará, &lt;a href=&quot;https://twitter.com/yegg&quot;&gt;Gabriel Weinberg&lt;/a&gt;, para a criação do DuckDuckGo, em Fevereiro de 2008. Não muito depois da ideia, o buscador &lt;del&gt;(DDG para os íntimos)&lt;/del&gt; foi publicado na rede no dia 25 de Setembro do mesmo ano, tendo sido anunciado no Hacker News e nas comunidades do Reddit.&lt;/p&gt;
+
+&lt;p&gt;Em Janeiro de 2009, eles decidiram fazer uma jogada ousada e não recolher, nem compartilhar nenhuma das nossas informações pessoais. Eles deixam bem claro que “&lt;em&gt;o que você está procurando, é assunto seu, e nós pretendemos manter isso assim.&lt;/em&gt;”. Daí o lema “&lt;em&gt;We don’t track you.&lt;/em&gt;” (Não rastreamos você.), e alguns movimentos, como o &lt;a href=&quot;http://dontbubble.us/&quot;&gt;&lt;em&gt;Filter Bubble&lt;/em&gt;&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h4 id=&quot;isso--bom-ou-ruim&quot;&gt;&lt;em&gt;Isso é bom ou ruim?!&lt;/em&gt;&lt;/h4&gt;
+&lt;p&gt;Bom, depende. Nesse ponto podemos ter “problemas” para as agências publicitárias, uma vez que as campanhas de anúncios não funcionariam. Por outro lado, satisfazemos a vontade de milhões de usuários de manter sua privacidade. Claro que existem pessoas que gostam de ver os anúncios do Google Adsense ou do YouTube, mas também existem as que não gostam &lt;del&gt;rsrsrs&lt;/del&gt;.&lt;/p&gt;
+
+&lt;p&gt;A ideia deste post não é apontar &lt;strong&gt;certo&lt;/strong&gt; ou &lt;strong&gt;errado&lt;/strong&gt;, mas sim apresentar uma nova possibilidade, então vamos seguir.&lt;/p&gt;
+
+&lt;h2 id=&quot;comunidade&quot;&gt;Comunidade&lt;/h2&gt;
+
+&lt;p&gt;Vários exemplos nos mostram que a participação da comunidade faz a diferença em um projeto. O DDG também prova isso. Em Julho de 2010, foi criada a &lt;a href=&quot;https://duck.co&quot;&gt;DuckDuckGo Community&lt;/a&gt;, onde os usuários poderiam fazer do DDG o mecanismo de busca do povo. Viva o &lt;em&gt;open-source&lt;/em&gt;!!!&lt;/p&gt;
+
+&lt;p&gt;A ideia de que o mecanismo de busca é mais que servidores e algoritmos, mostra que os usuários podem apresentar propostas de melhoria e reportar problemas. Então, em Maio de 2012, entrou em cena uma das melhores coisas do DDG (na minha opinião): as &lt;strong&gt;Respostas Instantâneas&lt;/strong&gt; (ou como eu gosto de chamar &lt;strong&gt;hacks do DuckDuckGo&lt;/strong&gt;), falaremos mais na próxima seção.&lt;/p&gt;
+
+&lt;p&gt;Aqui deixo o convite para você ajudar esse mecanismo de busca, pode ser dando ideias de novas funcionalidades, novas respostas instantâneas (&lt;strong&gt;&lt;em&gt;^^,&lt;/em&gt;&lt;/strong&gt; quem sabe até implementando elas), com traduções, uma proposta de design bacana, ou simplesmente, compartilhando a experiência com seus amigos! &lt;strong&gt;XD&lt;/strong&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;respostas-instantneas&quot;&gt;Respostas Instantâneas&lt;/h2&gt;
+
+&lt;p&gt;Chegamos ao ponto mais interessante e útil, a parte que me faz amar o DuckDuckGo, os Hacks!!!&lt;/p&gt;
+
+&lt;p&gt;Experimente a seguinte busca:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;a href=&quot;https://duckduckgo.com/?q=!yt+braziljs+2016&quot;&gt;!yt braziljs 2016&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h4 id=&quot;pera-a-a-busca-foi-no-youtube&quot;&gt;&lt;em&gt;Pera aí… a busca foi no YouTube?&lt;/em&gt;&lt;/h4&gt;
+&lt;p&gt;Hmm… também. Você acabou de passar pela experiência do &lt;a href=&quot;https://duckduckgo.com/bang&quot;&gt;&lt;strong&gt;!bang&lt;/strong&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;A ideia é que você possa fazer uma busca direta em um site específico, diretamente pela busca do DDG.&lt;/p&gt;
+
+&lt;p&gt;Experimente essa aqui, buscar a série de livros &lt;em&gt;You Don’t Know JS&lt;/em&gt; na Amazon:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;a href=&quot;https://duckduckgo.com/?q=!a+You+Don%27t+Know+JS&quot;&gt;!a You Don’t Know JS&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;De quebra, tá aqui a tradução dessa série: &lt;a href=&quot;https://github.com/cezaraugusto/You-Dont-Know-JS&quot;&gt;&lt;strong&gt;cezaraugusto/You-Dont-Know-JS&lt;/strong&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Existe uma lista enooooorme de &lt;strong&gt;!bang&lt;/strong&gt; (&lt;strong&gt;&lt;em&gt;!g&lt;/em&gt;&lt;/strong&gt; para buscar no Google &lt;em&gt;hehe&lt;/em&gt;), e você pode encontrar vários exemplos aqui: &lt;a href=&quot;https://duckduckgo.com/bang#bangs-list&quot;&gt;8,615 bangs&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Seguindo!!&lt;/p&gt;
+
+&lt;p&gt;Digamos que você está no Rio de Janeiro e acabou de acordar. Ainda não levantou da cama e quer saber como está o tempo hoje. Simples, é só abrir o DuckDuckGo no seu navegador, ou pelo &lt;a href=&quot;https://play.google.com/store/apps/details?id=com.duckduckgo.mobile.android&amp;amp;hl=pt_BR&quot;&gt;app&lt;/a&gt;, e buscar:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;a href=&quot;https://duckduckgo.com/?q=Rio+de+Janeiro+weather&amp;amp;ia=weather&quot;&gt;&lt;strong&gt;Rio de Janeiro weather&lt;/strong&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Pronto! Previsão do tempo de hoje até daqui 7 dias para você se planejar.&lt;/p&gt;
+
+&lt;p&gt;Outra situação, você teve vontade de saber quanto está a cotação Bitcoin. Novamente, é só perguntar ao DDG! Faça a seguinte busca:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;a href=&quot;https://duckduckgo.com/?q=16+USD+to+EUR&amp;amp;ia=currency&quot;&gt;&lt;strong&gt;1 BTC to BRL&lt;/strong&gt;&lt;/a&gt;.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Pros designers: você está no telefone, sem um &lt;em&gt;color picker&lt;/em&gt; e teve a ideia de uma cor bacana para um layout. Vai lá no DDG e pesquisa o seguinte:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;a href=&quot;https://duckduckgo.com/?q=color+picker&amp;amp;ia=colorpicker&quot;&gt;&lt;strong&gt;colorpicker&lt;/strong&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Problema resolvido (:&lt;/p&gt;
+
+&lt;p&gt;Ou então, por algum motivo na vida, você precisa de &lt;a href=&quot;https://duckduckgo.com/?q=512+words+of+lorem+ipsum&quot;&gt;&lt;strong&gt;512 words of lorem ipsum&lt;/strong&gt;&lt;/a&gt;. O DuckDuckGo tem todas elas pra você.&lt;/p&gt;
+
+&lt;p&gt;Sabe aquelas carinhas legais feitas com caracteres, por exemplo: &lt;code class=&quot;highlighter-rouge&quot;&gt;¯\_(ツ)_/¯&lt;/code&gt;? Pois é, o DDG tem uma listinha com as mais bacanas: &lt;a href=&quot;https://duckduckgo.com/?q=shruggie+and+friends&quot;&gt;&lt;strong&gt;shruggie and friends&lt;/strong&gt;&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Outro exemplo, se você é um desenvolvedor e está querendo aprender a trabalhar com JavaScript no Vim, aqui tem duas buscas que podem te ajudar:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;a href=&quot;https://duckduckgo.com/?q=vim+cheat+sheet&quot;&gt;&lt;strong&gt;vim cheat sheet&lt;/strong&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;a href=&quot;https://duckduckgo.com/?q=javascript+syntax&quot;&gt;&lt;strong&gt;javascript syntax&lt;/strong&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Deu pra entender como isso é bom? Facilita o dia-a-dia. Eu poderia ficar dando exemplos, mas prefiro deixar que você explore as possibilidades.&lt;/p&gt;
+
+&lt;p&gt;Aqui está: &lt;a href=&quot;https://duck.co/ia&quot;&gt;&lt;strong&gt;duck.co/ia&lt;/strong&gt;&lt;/a&gt;, centenas de possibilidades de respostas instantâneas!&lt;/p&gt;
+
+&lt;p&gt;Dê uma olhada lá e me diga qual foi mais útil pra você.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;Estou aproveitando esse desbravamento no DDG pra criar uma lista com os hacks que acho mais legais. Gostaria da sua ajuda, então aqui está o link para a &lt;a href=&quot;https://github.com/gabsprates/awesome-ddg&quot;&gt;&lt;strong&gt;Awesome DDG&lt;/strong&gt;&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Dê sugestões de hacks interessantes que você achou e também de como essa lista poderia ser melhor, mais acessível e mais organizada &lt;del&gt;rsrsrs&lt;/del&gt;.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;Enfim, aconselho você a dar uma olhada na página do &lt;a href=&quot;https://duckduckgo.com/tour&quot;&gt;&lt;strong&gt;Welcome to DuckDuckGo!&lt;/strong&gt;&lt;/a&gt; e no &lt;a href=&quot;https://duckduckgo.com/about&quot;&gt;&lt;strong&gt;About&lt;/strong&gt;&lt;/a&gt;. Faça buscas no DDG, teste a capacidade dele, depois me conte sua experiência.&lt;/p&gt;
+
+&lt;p&gt;Isso é tudo pessoal, até a próxima.&lt;/p&gt;
+
+&lt;p&gt;(:&lt;/p&gt;
+</description>
+        <pubDate>Thu, 15 Sep 2016 00:00:00 -0300</pubDate>
+        <link>http://blog.gabsprates.com/2016/09/15/duckduckgo-uma-opcao-busca.html</link>
+        <guid isPermaLink="true">http://blog.gabsprates.com/2016/09/15/duckduckgo-uma-opcao-busca.html</guid>
+        
+        
+      </item>
     
       <item>
         <title>Que não vai padronizar, o quê?!</title>
