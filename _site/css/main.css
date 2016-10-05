@@ -11,8 +11,8 @@ dl, dd, ol, ul, figure {
  * Basic styling
  */
 body {
-  font: 400 16px/1.5 "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  color: #111;
+  font: 400 16px/1.75 "Ubuntu", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: #232323;
   background-color: #f9f9f9;
   -webkit-text-size-adjust: 100%;
   -webkit-font-feature-settings: "kern" 1;
@@ -79,7 +79,7 @@ a {
   a:visited {
     color: #538b81; }
   a:hover {
-    color: #111;
+    color: #232323;
     text-decoration: underline; }
 
 /**
@@ -87,8 +87,10 @@ a {
  */
 blockquote {
   color: #828282;
-  border-left: 4px solid #e8e8e8;
-  padding-left: 15px;
+  border-left: 5px solid #e8e8e8;
+  padding-left: 18px;
+  padding-top: 8px;
+  padding-bottom: 12px;
   font-size: 18px;
   font-style: italic; }
   blockquote > :last-child {
@@ -196,7 +198,7 @@ pre {
     display: none; }
   .site-nav .page-link {
     color: #fbfcfc;
-    line-height: 1.5;
+    line-height: 1.75;
     text-shadow: 1px 1px 1px #406b63; }
     .site-nav .page-link:not(:last-child) {
       margin-right: 20px; }
@@ -349,6 +351,9 @@ pre {
       .post-content h4 {
         font-size: 18px; } }
 
+.full-width {
+  width: 100%; }
+
 /**
  * Syntax highlighting styles
  */
@@ -365,6 +370,7 @@ pre {
     color: #a61717;
     background-color: #e3d2d2; }
   .highlight .k {
+    color: #11deb3;
     font-weight: bold; }
   .highlight .o {
     color: #9fca56;
@@ -413,6 +419,7 @@ pre {
   .highlight .kc {
     font-weight: bold; }
   .highlight .kd {
+    color: #ffbf00;
     font-weight: bold; }
   .highlight .kp {
     font-weight: bold; }
@@ -448,6 +455,8 @@ pre {
     color: #55b5db; }
   .highlight .nv {
     color: #9fca56; }
+  .highlight .nx {
+    color: #fff; }
   .highlight .ow {
     font-weight: bold; }
   .highlight .w {

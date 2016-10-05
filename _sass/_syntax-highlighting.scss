@@ -12,7 +12,7 @@
     .p     { font-weight: bold; } // (), {}, []
     .c     { color: #998; font-style: italic } // Comment
     .err   { color: #a61717; background-color: #e3d2d2 } // Error
-    .k     { font-weight: bold } // Keyword
+    .k     { color: #11deb3; font-weight: bold } // Keyword
     .o     { color: #9fca56; font-weight: bold } // Operator
     .cm    { color: #998; font-style: italic } // Comment.Multiline
     .cp    { color: #999; font-weight: bold } // Comment.Preproc
@@ -31,7 +31,7 @@
     .gu    { color: #aaa } // Generic.Subheading
     .gt    { color: #a00 } // Generic.Traceback
     .kc    { font-weight: bold } // Keyword.Constant
-    .kd    { font-weight: bold } // Keyword.Declaration
+    .kd    { color: #ffbf00; font-weight: bold; } // Keyword.Declaration
     .kp    { font-weight: bold } // Keyword.Pseudo
     .kr    { font-weight: bold } // Keyword.Reserved
     .kt    { color: #458; font-weight: bold } // Keyword.Type
@@ -47,6 +47,7 @@
     .nn    { color: #555 } // Name.Namespace
     .nt    { color: #55b5db } // Name.Tag
     .nv    { color: #9fca56 } // Name.Variable
+    .nx    { color: #fff } // Name.Variable
     .ow    { font-weight: bold } // Operator.Word
     .w     { color: #bbb } // Text.Whitespace
     .mf    { color: #cd3f45 } // Literal.Number.Float
