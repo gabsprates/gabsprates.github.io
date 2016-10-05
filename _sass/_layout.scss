@@ -240,6 +240,13 @@
 .post-content {
     margin-bottom: $spacing-unit;
 
+    a::after {
+      content: "[ link ]";
+      transform: translate(0, -10px);
+      display: inline-block;
+      font-size: 10px;
+    }
+
     h2, h3, h4 {
       margin-bottom: 10px;
       margin-top: $spacing-unit;

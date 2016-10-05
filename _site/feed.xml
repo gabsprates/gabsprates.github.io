@@ -6,9 +6,231 @@
 </description>
     <link>http://blog.gabsprates.com/</link>
     <atom:link href="http://blog.gabsprates.com/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Wed, 05 Oct 2016 01:29:39 -0300</pubDate>
-    <lastBuildDate>Wed, 05 Oct 2016 01:29:39 -0300</lastBuildDate>
+    <pubDate>Wed, 05 Oct 2016 18:52:37 -0300</pubDate>
+    <lastBuildDate>Wed, 05 Oct 2016 18:52:37 -0300</lastBuildDate>
     <generator>Jekyll v3.2.0</generator>
+    
+      <item>
+        <title>WAT JS - Mergulhando nos Comportamentos do JavaScript</title>
+        <description>&lt;p&gt;No post &lt;a href=&quot;http://blog.gabsprates.com/2016/07/12/conversao-de-tipos-em-js.html&quot;&gt;Conversão de tipos em JavaScript&lt;/a&gt;, que fiz há algum tempo, expliquei um pouco de como o motor do JS trata algumas conversões internamente, e recebi um desafio para explicar algumas &lt;em&gt;bizarrices&lt;/em&gt; da linguagem, que você pode ver no vídeo abaixo.&lt;/p&gt;
+
+&lt;video class=&quot;full-width&quot; poster=&quot;https://www.destroyallsoftware.com/images/posters/talks/wat.poster.png&quot; preload=&quot;none&quot; controls=&quot;&quot;&gt;
+  &lt;source src=&quot;https://destroyallsoftware-talks.s3.amazonaws.com/wat.mp4?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;amp;X-Amz-Credential=AKIAIKRVCECXBC4ZGHIQ%2F20161002%2Fus-east-1%2Fs3%2Faws4_request&amp;amp;X-Amz-Date=20161002T054907Z&amp;amp;X-Amz-Expires=14400&amp;amp;X-Amz-SignedHeaders=host&amp;amp;X-Amz-Signature=30a2b4f269fd19e5da7f2c86ebdd237ebc3fbe15129576be7b02ea648d4579b7&quot; /&gt;
+&lt;/video&gt;
+
+&lt;p&gt;Fonte: &lt;a href=&quot;https://www.destroyallsoftware.com/talks/wat&quot;&gt;https://www.destroyallsoftware.com/talks/wat&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Ah, se você ainda não leu o post que falei, &lt;a href=&quot;http://blog.gabsprates.com/2016/07/12/conversao-de-tipos-em-js.html&quot;&gt;clique aqui pra ler&lt;/a&gt;, ajudará a entender algumas partes deste post. &lt;strong&gt;;)&lt;/strong&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;esclarecimento&quot;&gt;Esclarecimento&lt;/h3&gt;
+
+&lt;p&gt;Gostaria de fazer uma observação aqui. Em um dos últimos parágrafos do post, eu disse que a operação &lt;code class=&quot;highlighter-rouge&quot;&gt;==&lt;/code&gt; entre &lt;strong&gt;objetos&lt;/strong&gt; compara se eles (os objetos) são iguais. Na verdade, esta operação avalia se o &lt;strong&gt;objeto&lt;/strong&gt; é o mesmo. &lt;strong&gt;&lt;em&gt;Como assim?&lt;/em&gt;&lt;/strong&gt; Devemos saber que quando atribuímos um objeto à uma variável, estamos criando uma nova instância daquele objeto. Veja bem:&lt;/p&gt;
+
+&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;// Nesse caso os objetos realmente são iguais.&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;foo&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;lang&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'js'&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;bar&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;lang&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'js'&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;// Mas a operação de comparação retorna `false`&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;// Porque são duas instâncias diferentes&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;foo&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;bar&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// false&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;// Entretanto, se fizermos o seguinte:&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;foo&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;bar&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;lang&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'js'&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;// Podemos comparar os objetos e teremos `true`&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;// Já que é a mesma instância.&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;foo&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;bar&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// true&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;foo == bar&lt;/code&gt; retorna &lt;code class=&quot;highlighter-rouge&quot;&gt;true&lt;/code&gt; porque é a mesma instância do objeto, como se fosse um ponteiro. Nesse caso, podemos fazer até a atribuição de outras propriedades ou métodos, assim:&lt;/p&gt;
+
+&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nx&quot;&gt;foo&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;baz&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;94&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;foo&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;fn&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;lang&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;// E ambos os objetos terão o mesmo conteúdo&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;foo&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// { lang: 'js', baz: 94, fn: [Function] }&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;bar&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// { lang: 'js', baz: 94, fn: [Function] }&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Pronto, tudo certo. Podemos prosseguir.&lt;/p&gt;
+
+&lt;h2 id=&quot;operadores-aditivos&quot;&gt;Operadores Aditivos&lt;/h2&gt;
+
+&lt;p&gt;Para explicar os &lt;em&gt;WAT JS&lt;/em&gt;, precisamos entender um pouco do funcionamento dos operadores aditivos, já que eles que causam o &lt;em&gt;“problema”&lt;/em&gt;. Então, vou tentar explicar um pouco do que eles (&lt;strong&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;+&lt;/code&gt;&lt;/strong&gt; e &lt;strong&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;-&lt;/code&gt;&lt;/strong&gt;) fazem aqui.&lt;/p&gt;
+
+&lt;h3 id=&quot;o-operador-de-adio-&quot;&gt;O Operador de Adição (+)&lt;/h3&gt;
+
+&lt;p&gt;Segundo a &lt;a href=&quot;http://www.ecma-international.org/ecma-262/6.0/index.html#sec-addition-operator-plus&quot;&gt;seção 12.7.3 da especificação do ES6&lt;/a&gt;:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;O operador de adição executa concatenação de strings, ou adição numérica.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;Mas como ele sabe qual ação deve realizar?&lt;/em&gt;&lt;/strong&gt; Simples: antes de trabalhar com os dados, o algoritmo da adição pega os valores primitivos dos termos e trabalha em cima desses valores. Considere a operação &lt;code class=&quot;highlighter-rouge&quot;&gt;a + b&lt;/code&gt; para o algoritmo abaixo (não é uma linguagem de programação específica):&lt;/p&gt;
+
+&lt;div class=&quot;language-rb highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;lval&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;=&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;ToPrimitive&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;rval&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;=&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;ToPrimitive&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;lval&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;OR&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;rval&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;lstr&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;=&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;ToString&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;lval&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;rstr&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;=&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;ToString&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;rval&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;no&quot;&gt;Retorna&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;concatenada&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;de&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lstr&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;e&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;rstr&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;lnum&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;=&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;ToNumber&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;lval&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;rnum&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;=&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;ToNumber&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;rval&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;no&quot;&gt;Retorna&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Operacao&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lnum&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;rnum&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Esse é o algoritmo da adição de forma simplificada. Aqui podemos ver que se o primeiro &lt;strong&gt;OU&lt;/strong&gt; o segundo termo for uma &lt;code class=&quot;highlighter-rouge&quot;&gt;String&lt;/code&gt;, a operação realizada será &lt;strong&gt;concatenação&lt;/strong&gt; e todos os valores serão forçados para o tipo &lt;code class=&quot;highlighter-rouge&quot;&gt;String&lt;/code&gt;; caso contrário, será &lt;strong&gt;soma&lt;/strong&gt;, e todos os valores serão forçados para o tipo &lt;code class=&quot;highlighter-rouge&quot;&gt;Number&lt;/code&gt;, como nos exemplos a seguir:&lt;/p&gt;
+
+&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;s1&quot;&gt;'Java'&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'Script'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;  &lt;span class=&quot;c1&quot;&gt;// &quot;JavaScript&quot;&lt;/span&gt;
+&lt;span class=&quot;s1&quot;&gt;'JavaScript '&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;6&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;  &lt;span class=&quot;c1&quot;&gt;// &quot;JavaScript 6&quot;&lt;/span&gt;
+&lt;span class=&quot;mi&quot;&gt;6&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;' JavaScript'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;  &lt;span class=&quot;c1&quot;&gt;// &quot;6 JavaScript&quot;&lt;/span&gt;
+&lt;span class=&quot;mi&quot;&gt;2015&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;6&lt;/span&gt;         &lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;  &lt;span class=&quot;c1&quot;&gt;// 2021&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Beleza, estamos indo bem, no entando, as operações do vídeo são feitas com objetos mais complexos: &lt;code class=&quot;highlighter-rouge&quot;&gt;Array&lt;/code&gt; e &lt;code class=&quot;highlighter-rouge&quot;&gt;Object&lt;/code&gt;. Vamos fazer o seguinte, assim que eu terminar de explicar a questão dos operadores, eu volto nesse assunto, OK?&lt;/p&gt;
+
+&lt;h3 id=&quot;o-operador-de-subtrao--&quot;&gt;O Operador de Subtração (-)&lt;/h3&gt;
+
+&lt;p&gt;Segundo a &lt;a href=&quot;http://www.ecma-international.org/ecma-262/6.0/index.html#sec-subtraction-operator-minus&quot;&gt;seção 12.7.4 da especificação do ES6&lt;/a&gt;, o operador de subtração (&lt;code class=&quot;highlighter-rouge&quot;&gt;-&lt;/code&gt;) não tem muitos poderes como o de adição (&lt;code class=&quot;highlighter-rouge&quot;&gt;+&lt;/code&gt;), ele apenas subtrai os valores &lt;code class=&quot;highlighter-rouge&quot;&gt;ToNumber()&lt;/code&gt; dos termos. Considere &lt;code class=&quot;highlighter-rouge&quot;&gt;a - b&lt;/code&gt;:&lt;/p&gt;
+
+&lt;div class=&quot;language-rb highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;lnum&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;=&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;ToNumber&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;rnum&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;=&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;ToNumber&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;no&quot;&gt;Retorna&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Operacao&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lnum&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;rnum&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&quot;regras-da-operao&quot;&gt;Regras da Operação&lt;/h3&gt;
+
+&lt;p&gt;A função &lt;code class=&quot;highlighter-rouge&quot;&gt;Operacao()&lt;/code&gt;, invocada nos retornos das operações aditivas, seguirá algumas regras e as mais peculiares são:&lt;/p&gt;
+
+&lt;div class=&quot;language-rb highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;um&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dos&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;termos&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;NaN&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;no&quot;&gt;Retorna&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;NaN&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ambos&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;os&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;termos&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Infinity&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mas&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;de&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sinais&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;opostos&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;no&quot;&gt;Retorna&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;NaN&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Quando um termo é &lt;code class=&quot;highlighter-rouge&quot;&gt;NaN&lt;/code&gt;, significa que o resutado de &lt;code class=&quot;highlighter-rouge&quot;&gt;ToNumber()&lt;/code&gt; de um dos termos não teve uma conversão &lt;code class=&quot;highlighter-rouge&quot;&gt;ToPrimitive()&lt;/code&gt; normal, então, era um elemento do tipo &lt;code class=&quot;highlighter-rouge&quot;&gt;Object&lt;/code&gt; que não tinha um tipo primitivo definido.&lt;/p&gt;
+
+&lt;p&gt;As demais condições seguem a matemática que aprendemos mesmo:&lt;/p&gt;
+
+&lt;div class=&quot;language-rb highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Infinity&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Infinity&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# Infinity&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Infinity&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Infinity&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# -Infinity&lt;/span&gt;
+&lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;                   &lt;span class=&quot;c1&quot;&gt;# 4&lt;/span&gt;
+&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;                   &lt;span class=&quot;c1&quot;&gt;# -4&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;                &lt;span class=&quot;c1&quot;&gt;# 0&lt;/span&gt;
+&lt;span class=&quot;mi&quot;&gt;6&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;                   &lt;span class=&quot;c1&quot;&gt;# 10&lt;/span&gt;
+&lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;6&lt;/span&gt;                   &lt;span class=&quot;c1&quot;&gt;# -1&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Pronto. Agora vamos mudar um pouco de assunto.&lt;/p&gt;
+
+&lt;h2 id=&quot;arrays-e-objects-toprimitive&quot;&gt;Arrays e Objects ToPrimitive()&lt;/h2&gt;
+
+&lt;p&gt;Como vimos, a operação de adição verifica o tipo primitivo do valor para decidir o que fazer. Nossa grande questão é:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Qual o tipo primitivo de um &lt;code class=&quot;highlighter-rouge&quot;&gt;Array&lt;/code&gt; ou de um &lt;code class=&quot;highlighter-rouge&quot;&gt;Object&lt;/code&gt;???&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Antes de mais nada, um &lt;code class=&quot;highlighter-rouge&quot;&gt;Array&lt;/code&gt; é um objeto, certo? Certo!&lt;/p&gt;
+
+&lt;p&gt;Os objetos de &lt;em&gt;normais&lt;/em&gt; (&lt;code class=&quot;highlighter-rouge&quot;&gt;Boolean&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;Number&lt;/code&gt; e &lt;code class=&quot;highlighter-rouge&quot;&gt;String&lt;/code&gt;), que vimos &lt;a href=&quot;http://blog.gabsprates.com/2016/07/12/conversao-de-tipos-em-js.html&quot;&gt;no outro post&lt;/a&gt;, apenas pegam o valor primitivo do objeto. Já os objetos complexos, quando devem ter uma conversão &lt;code class=&quot;highlighter-rouge&quot;&gt;ToPrimitive()&lt;/code&gt;, buscam um método &lt;em&gt;default&lt;/em&gt; para a conversão &lt;code class=&quot;highlighter-rouge&quot;&gt;toString()&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;No caso do &lt;code class=&quot;highlighter-rouge&quot;&gt;Array&lt;/code&gt;, temos o que podemos chamar de &lt;a href=&quot;http://www.ecma-international.org/ecma-262/6.0/index.html#sec-array.prototype.tostring&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Array.prototype.toString&lt;/code&gt;&lt;/a&gt;, que basicamente retorna a &lt;em&gt;string&lt;/em&gt; do &lt;code class=&quot;highlighter-rouge&quot;&gt;join()&lt;/code&gt;. Observe:&lt;/p&gt;
+
+&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;// O `join()` de um Array vazio&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;// sempre será uma string vazia&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;foo&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;Array&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;  &lt;span class=&quot;c1&quot;&gt;// []&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;foo&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;join&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;             &lt;span class=&quot;c1&quot;&gt;// &quot;&quot;&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;foo&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;toString&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;         &lt;span class=&quot;c1&quot;&gt;// &quot;&quot;&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;// Se o Array tiver elementos,&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;// teremos uma string bacana.&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;bar&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;bar&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;join&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;     &lt;span class=&quot;c1&quot;&gt;// &quot;1,2,3,4,5&quot;&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;bar&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;toString&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// &quot;1,2,3,4,5&quot;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Poderíamos modificar o &lt;code class=&quot;highlighter-rouge&quot;&gt;join()&lt;/code&gt; ou o &lt;code class=&quot;highlighter-rouge&quot;&gt;toString()&lt;/code&gt; do &lt;code class=&quot;highlighter-rouge&quot;&gt;Array&lt;/code&gt; caso necessário.&lt;/p&gt;
+
+&lt;p&gt;Já um objeto do tipo &lt;code class=&quot;highlighter-rouge&quot;&gt;Object&lt;/code&gt;, tem um &lt;a href=&quot;http://www.ecma-international.org/ecma-262/6.0/index.html#sec-object.prototype.tostring&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Object.prototype.toString&lt;/code&gt;&lt;/a&gt; um pouco diferente. Nesse caso, o algoritmo verifica o tipo do objeto e retorna o resultado da concatenação do seguinte: &lt;br /&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;'[object ' + objectType + ']'&lt;/code&gt;, gerando o resultado &lt;code class=&quot;highlighter-rouge&quot;&gt;'[object Object]'&lt;/code&gt; na maioria dos casos. Observe o exemplo:&lt;/p&gt;
+
+&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;foo&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;Object&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// {}&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;foo&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;toString&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;         &lt;span class=&quot;c1&quot;&gt;// '[object Object]'&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;// Até mesmo para objetos&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;// que não estejam vazios&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;bar&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;lang&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'js'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;94&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;foo&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;toString&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;     &lt;span class=&quot;c1&quot;&gt;// '[object Object]'&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Enfim, agora que deu pra entender como as coisas funcionam, podemos começar a desmistificar a matemática maluca do WAT JS.&lt;/p&gt;
+
+&lt;h2 id=&quot;wat-js&quot;&gt;WAT JS&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;[] + []&lt;/code&gt; e &lt;code class=&quot;highlighter-rouge&quot;&gt;[] + {}&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Ao avaliar a primeira operação, lembre-se que ao converter um &lt;code class=&quot;highlighter-rouge&quot;&gt;Array&lt;/code&gt; para seu tipo primitivo, teremos uma &lt;em&gt;string&lt;/em&gt; do &lt;code class=&quot;highlighter-rouge&quot;&gt;join()&lt;/code&gt; do seu conteúdo. Já que ambos estão vazios, teremos duas &lt;em&gt;strings&lt;/em&gt; vazias, e como os termos da “soma” são strings, o operados &lt;code class=&quot;highlighter-rouge&quot;&gt;+&lt;/code&gt; irá concatenar as duas &lt;em&gt;strings&lt;/em&gt; vazias. Daí nosso retorno &lt;code class=&quot;highlighter-rouge&quot;&gt;&quot;&quot;&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Já na segunda, a única diferença é que uma das &lt;em&gt;strings&lt;/em&gt; que são concatenadas, vem do &lt;code class=&quot;highlighter-rouge&quot;&gt;toString()&lt;/code&gt; de um &lt;code class=&quot;highlighter-rouge&quot;&gt;Object&lt;/code&gt;, o que nos leva ao resultado &lt;code class=&quot;highlighter-rouge&quot;&gt;&quot;[object Object]&quot;&lt;/code&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;&lt;span class=&quot;p&quot;&gt;{}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[]&lt;/span&gt;&lt;/code&gt; e &lt;code class=&quot;highlighter-rouge&quot;&gt;&lt;span class=&quot;p&quot;&gt;{}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{}&lt;/span&gt;&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Antes de prosseguir, aconselho a leitura &lt;a href=&quot;https://github.com/cezaraugusto/You-Dont-Know-JS/blob/portuguese-translation/scope%20%26%20closures/ch1.md#entendendo-escopo&quot;&gt;deste capítulo&lt;/a&gt;, para entender um pouco mais sobre escopo.&lt;/p&gt;
+
+&lt;p&gt;Vamos analisar a primeira operação. Bom, primeiro entenda que o &lt;em&gt;motor&lt;/em&gt; fará uma análise léxica da esquerda para a direita (isso para todas essas operações, na verdade), e ao examinar o &lt;code class=&quot;highlighter-rouge&quot;&gt;&lt;span class=&quot;p&quot;&gt;{}&lt;/span&gt;&lt;/code&gt;, ele não o reconhece como um objeto vazio, mas sim como um &lt;a href=&quot;http://www.ecma-international.org/ecma-262/6.0/index.html#sec-block&quot;&gt;bloco vazio&lt;/a&gt;. Ao tratar o &lt;code class=&quot;highlighter-rouge&quot;&gt;Array&lt;/code&gt;, como &lt;em&gt;não há outro termo na operação&lt;/em&gt; (devido ao bloco vazio ser desconsiderado), o &lt;a href=&quot;http://www.ecma-international.org/ecma-262/6.0/index.html#sec-unary-plus-operator&quot;&gt;operador unário&lt;/a&gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;+&lt;/code&gt; converterá a &lt;em&gt;string&lt;/em&gt; vazia (valor primitivo do &lt;code class=&quot;highlighter-rouge&quot;&gt;Array&lt;/code&gt; vazio) em um tipo &lt;code class=&quot;highlighter-rouge&quot;&gt;Number&lt;/code&gt;, e &lt;code class=&quot;highlighter-rouge&quot;&gt;Number(&quot;&quot;)&lt;/code&gt; retorna &lt;code class=&quot;highlighter-rouge&quot;&gt;0&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Agora a segunda. No caso desse vídeo, temos a mesma explicação de “bloco vazio” e “operador unário” da operação anterior, mas na parte do operador unário temos &lt;code class=&quot;highlighter-rouge&quot;&gt;+{}&lt;/code&gt;. Aqui há conversão &lt;code class=&quot;highlighter-rouge&quot;&gt;ToPrimitive()&lt;/code&gt; de &lt;code class=&quot;highlighter-rouge&quot;&gt;&lt;span class=&quot;p&quot;&gt;{}&lt;/span&gt;&lt;/code&gt;, que resulta em &lt;code class=&quot;highlighter-rouge&quot;&gt;&quot;[object Object]&quot;&lt;/code&gt;. Por fim, &lt;code class=&quot;highlighter-rouge&quot;&gt;Number(&quot;[object Object]&quot;)&lt;/code&gt; retorna &lt;code class=&quot;highlighter-rouge&quot;&gt;NaN&lt;/code&gt;, que é o resultado obtido no vídeo.&lt;/p&gt;
+
+&lt;p&gt;O resultado do vídeo é o resultado que tenho rodando no console do Firefox 49. Já o Chrome/Chromium +50 e o Node.js 4.5 (V8), que foram meus ambientes de teste, retornam a &lt;em&gt;string&lt;/em&gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;&quot;[object Object][object Object]&quot;&lt;/code&gt;, mas eu ainda estou tendando descobrir o motivo.&lt;/p&gt;
+
+&lt;h2 id=&quot;e-o-batman&quot;&gt;E o Batman?&lt;/h2&gt;
+
+&lt;p&gt;&lt;strong&gt;1)&lt;/strong&gt; Bom, segundo o que já vimos aqui, o que acontece quando se tem um fator do tipo &lt;code class=&quot;highlighter-rouge&quot;&gt;String&lt;/code&gt; numa subtração JS? &lt;code class=&quot;highlighter-rouge&quot;&gt;NaN&lt;/code&gt;! O operador &lt;code class=&quot;highlighter-rouge&quot;&gt;-&lt;/code&gt; não é tão poderoso, faz apenas subtrações, então não pode fazer nada com algo que não é um número. OK.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;2)&lt;/strong&gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;new Array(16)&lt;/code&gt; nos retorna um &lt;code class=&quot;highlighter-rouge&quot;&gt;Array&lt;/code&gt; com 16 posições do tipo &lt;code class=&quot;highlighter-rouge&quot;&gt;undefined&lt;/code&gt;. Então se executarmos um &lt;code class=&quot;highlighter-rouge&quot;&gt;join()&lt;/code&gt;, teremos 16 vírgulas.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;3)&lt;/strong&gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;new Array(16).join(&quot;wat&quot; - 1)&lt;/code&gt; nos retorna 16 &lt;code class=&quot;highlighter-rouge&quot;&gt;NaN&lt;/code&gt;s em sequência, agora é só concatenar um &lt;code class=&quot;highlighter-rouge&quot;&gt;&quot; Batman&quot;&lt;/code&gt; nesse retorno e bater palmas &lt;del&gt;haha&lt;/del&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;concluso&quot;&gt;Conclusão&lt;/h2&gt;
+
+&lt;p&gt;JavaScript não é uma linguagem bizarra, apenas incompreendida.&lt;/p&gt;
+
+&lt;p&gt;Espero ter sido claro, mas se não fui, ou se restou alguma dúvida, deixe nos comentários, será um prazer falar sobre JavaScript.&lt;/p&gt;
+
+&lt;p&gt;Isso é tudo pessoal, até a próxima.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;(:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h4 id=&quot;referncias&quot;&gt;Referências&lt;/h4&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;http://stackoverflow.com/questions/9032856/what-is-the-explanation-for-these-bizarre-javascript-behaviours-mentioned-in-the&quot;&gt;http://stackoverflow.com/questions/9032856/what-is-the-explanation-for-these-bizarre-javascript-behaviours-mentioned-in-the&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://www.ecma-international.org/ecma-262/6.0/index.html&quot;&gt;http://www.ecma-international.org/ecma-262/6.0/index.html&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        <pubDate>Wed, 05 Oct 2016 00:00:00 -0300</pubDate>
+        <link>http://blog.gabsprates.com/2016/10/05/wat-js.html</link>
+        <guid isPermaLink="true">http://blog.gabsprates.com/2016/10/05/wat-js.html</guid>
+        
+        
+      </item>
     
       <item>
         <title>DuckDuckGo: Uma (ótima) opção busca!</title>
