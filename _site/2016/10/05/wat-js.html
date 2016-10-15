@@ -169,7 +169,7 @@
 </code></pre>
 </div>
 
-<p>Beleza, estamos indo bem, no entando, as operações do vídeo são feitas com objetos mais complexos: <code class="highlighter-rouge">Array</code> e <code class="highlighter-rouge">Object</code>. Vamos fazer o seguinte, assim que eu terminar de explicar a questão dos operadores, eu volto nesse assunto, OK?</p>
+<p>Beleza, estamos indo bem, no entanto, as operações do vídeo são feitas com objetos mais complexos: <code class="highlighter-rouge">Array</code> e <code class="highlighter-rouge">Object</code>. Vamos fazer o seguinte, assim que eu terminar de explicar a questão dos operadores, eu volto nesse assunto, OK?</p>
 
 <h3 id="o-operador-de-subtrao--">O Operador de Subtração (-)</h3>
 
@@ -273,7 +273,31 @@
 
 <p>Agora a segunda. No caso desse vídeo, temos a mesma explicação de “bloco vazio” e “operador unário” da operação anterior, mas na parte do operador unário temos <code class="highlighter-rouge">+{}</code>. Aqui há conversão <code class="highlighter-rouge">ToPrimitive()</code> de <code class="highlighter-rouge"><span class="p">{}</span></code>, que resulta em <code class="highlighter-rouge">"[object Object]"</code>. Por fim, <code class="highlighter-rouge">Number("[object Object]")</code> retorna <code class="highlighter-rouge">NaN</code>, que é o resultado obtido no vídeo.</p>
 
-<p>O resultado do vídeo é o resultado que tenho rodando no console do Firefox 49. Já o Chrome/Chromium +50 e o Node.js 4.5 (V8), que foram meus ambientes de teste, retornam a <em>string</em> <code class="highlighter-rouge">"[object Object][object Object]"</code>, mas eu ainda estou tendando descobrir o motivo.</p>
+<p>O resultado do vídeo é o resultado que tenho rodando no console do Firefox 49. Já o Chrome/Chromium +50 e o Node.js 4.5 (V8), que foram meus ambientes de teste, retornam a <em>string</em> <code class="highlighter-rouge">"[object Object][object Object]"</code>, <del>mas eu ainda estou tendando descobrir o motivo</del> e eu acho que posso explicar o motivo nos testes abaixo.</p>
+
+<p>No <strong>Node.js 4.5</strong> ou no <strong>Chrome/Chromium 53</strong> (os ambientes que eu testei), tenho os seguintes resultados:</p>
+
+<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="p">{}</span> <span class="o">+</span> <span class="p">{}</span>   <span class="c1">// "[object Object][object Object]"</span>
+<span class="p">({}</span> <span class="o">+</span> <span class="p">{})</span> <span class="c1">// "[object Object][object Object]"</span>
+<span class="nb">eval</span><span class="p">(</span><span class="s1">'{} + {}'</span><span class="p">)</span>   <span class="c1">// NaN</span>
+<span class="nb">eval</span><span class="p">(</span><span class="s1">'({} + {})'</span><span class="p">)</span> <span class="c1">// "[object Object][object Object]"</span>
+</code></pre>
+</div>
+
+<p>Já no <strong>Firefox 49</strong> tenho o seguinte:</p>
+
+<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="p">{}</span> <span class="o">+</span> <span class="p">{}</span>   <span class="c1">// NaN</span>
+<span class="p">({}</span> <span class="o">+</span> <span class="p">{})</span> <span class="c1">// "[object Object][object Object]"</span>
+<span class="nb">eval</span><span class="p">(</span><span class="s1">'{} + {}'</span><span class="p">)</span>   <span class="c1">// NaN</span>
+<span class="nb">eval</span><span class="p">(</span><span class="s1">'({} + {})'</span><span class="p">)</span> <span class="c1">// "[object Object][object Object]"</span>
+</code></pre>
+</div>
+
+<p>Como vimos, o resultado de <code class="highlighter-rouge"><span class="p">{}</span><span class="w"> </span><span class="err">+</span><span class="w"> </span><span class="p">{}</span></code> é <code class="highlighter-rouge">NaN</code> pelo fato do primeiro <code class="highlighter-rouge"><span class="p">{}</span></code> ser considerado um bloco vazio ao invés de um objeto, o que resulta em <code class="highlighter-rouge">+{}</code> ser <code class="highlighter-rouge">NaN</code>. No outro caso, como temos a operação entre parênteses, ambos os <code class="highlighter-rouge"><span class="p">{}</span></code> são considerados objetos, o que justifica <br /> <code class="highlighter-rouge">"[object Object][object Object]"</code>.</p>
+
+<p>O que não faz sentido, é <code class="highlighter-rouge"><span class="p">{}</span><span class="w"> </span><span class="err">+</span><span class="w"> </span><span class="p">{}</span></code> retornar a string no Chrome/Chromium e no Node.js, quando está fora do <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/eval"><code class="highlighter-rouge">eval()</code></a>. Se você tentar rodar <code class="highlighter-rouge"><span class="p">{</span><span class="w"> </span><span class="err">foo:</span><span class="w"> </span><span class="err">1,</span><span class="w"> </span><span class="err">bar:</span><span class="w"> </span><span class="err">2</span><span class="w"> </span><span class="p">}</span></code> nesses ambientes, eles retornam um objeto mesmo, já no Firefox, ele tenta executar esse código como um bloco, mas dá erro de sintaxe.</p>
+
+<p>A conclusão que cheguei foi que o <a href="https://github.com/v8/v8"><strong>V8</strong></a> deve permitir esses objetos <em>no contexto do console</em> (ou seja, não deve ser resultado de algum comportamento peculiar da linguagem), uma vez que um arquivo <strong>block.js</strong> com o conteúdo <code class="highlighter-rouge"><span class="p">{</span><span class="w"> </span><span class="err">foo:</span><span class="w"> </span><span class="err">1,</span><span class="w"> </span><span class="err">bar:</span><span class="w"> </span><span class="err">2</span><span class="w"> </span><span class="p">}</span></code>, dá o erro esperado quando executado com <code class="highlighter-rouge">node block.js</code></p>
 
 <h2 id="e-o-batman">E o Batman?</h2>
 

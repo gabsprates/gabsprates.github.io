@@ -6,8 +6,8 @@
 </description>
     <link>http://blog.gabsprates.com/</link>
     <atom:link href="http://blog.gabsprates.com/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Wed, 05 Oct 2016 18:52:37 -0300</pubDate>
-    <lastBuildDate>Wed, 05 Oct 2016 18:52:37 -0300</lastBuildDate>
+    <pubDate>Sat, 15 Oct 2016 00:16:42 -0300</pubDate>
+    <lastBuildDate>Sat, 15 Oct 2016 00:16:42 -0300</lastBuildDate>
     <generator>Jekyll v3.2.0</generator>
     
       <item>
@@ -92,7 +92,7 @@
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
-&lt;p&gt;Beleza, estamos indo bem, no entando, as operações do vídeo são feitas com objetos mais complexos: &lt;code class=&quot;highlighter-rouge&quot;&gt;Array&lt;/code&gt; e &lt;code class=&quot;highlighter-rouge&quot;&gt;Object&lt;/code&gt;. Vamos fazer o seguinte, assim que eu terminar de explicar a questão dos operadores, eu volto nesse assunto, OK?&lt;/p&gt;
+&lt;p&gt;Beleza, estamos indo bem, no entanto, as operações do vídeo são feitas com objetos mais complexos: &lt;code class=&quot;highlighter-rouge&quot;&gt;Array&lt;/code&gt; e &lt;code class=&quot;highlighter-rouge&quot;&gt;Object&lt;/code&gt;. Vamos fazer o seguinte, assim que eu terminar de explicar a questão dos operadores, eu volto nesse assunto, OK?&lt;/p&gt;
 
 &lt;h3 id=&quot;o-operador-de-subtrao--&quot;&gt;O Operador de Subtração (-)&lt;/h3&gt;
 
@@ -196,7 +196,31 @@
 
 &lt;p&gt;Agora a segunda. No caso desse vídeo, temos a mesma explicação de “bloco vazio” e “operador unário” da operação anterior, mas na parte do operador unário temos &lt;code class=&quot;highlighter-rouge&quot;&gt;+{}&lt;/code&gt;. Aqui há conversão &lt;code class=&quot;highlighter-rouge&quot;&gt;ToPrimitive()&lt;/code&gt; de &lt;code class=&quot;highlighter-rouge&quot;&gt;&lt;span class=&quot;p&quot;&gt;{}&lt;/span&gt;&lt;/code&gt;, que resulta em &lt;code class=&quot;highlighter-rouge&quot;&gt;&quot;[object Object]&quot;&lt;/code&gt;. Por fim, &lt;code class=&quot;highlighter-rouge&quot;&gt;Number(&quot;[object Object]&quot;)&lt;/code&gt; retorna &lt;code class=&quot;highlighter-rouge&quot;&gt;NaN&lt;/code&gt;, que é o resultado obtido no vídeo.&lt;/p&gt;
 
-&lt;p&gt;O resultado do vídeo é o resultado que tenho rodando no console do Firefox 49. Já o Chrome/Chromium +50 e o Node.js 4.5 (V8), que foram meus ambientes de teste, retornam a &lt;em&gt;string&lt;/em&gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;&quot;[object Object][object Object]&quot;&lt;/code&gt;, mas eu ainda estou tendando descobrir o motivo.&lt;/p&gt;
+&lt;p&gt;O resultado do vídeo é o resultado que tenho rodando no console do Firefox 49. Já o Chrome/Chromium +50 e o Node.js 4.5 (V8), que foram meus ambientes de teste, retornam a &lt;em&gt;string&lt;/em&gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;&quot;[object Object][object Object]&quot;&lt;/code&gt;, &lt;del&gt;mas eu ainda estou tendando descobrir o motivo&lt;/del&gt; e eu acho que posso explicar o motivo nos testes abaixo.&lt;/p&gt;
+
+&lt;p&gt;No &lt;strong&gt;Node.js 4.5&lt;/strong&gt; ou no &lt;strong&gt;Chrome/Chromium 53&lt;/strong&gt; (os ambientes que eu testei), tenho os seguintes resultados:&lt;/p&gt;
+
+&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;{}&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{}&lt;/span&gt;   &lt;span class=&quot;c1&quot;&gt;// &quot;[object Object][object Object]&quot;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;({}&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{})&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// &quot;[object Object][object Object]&quot;&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;eval&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'{} + {}'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;   &lt;span class=&quot;c1&quot;&gt;// NaN&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;eval&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'({} + {})'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// &quot;[object Object][object Object]&quot;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Já no &lt;strong&gt;Firefox 49&lt;/strong&gt; tenho o seguinte:&lt;/p&gt;
+
+&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;{}&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{}&lt;/span&gt;   &lt;span class=&quot;c1&quot;&gt;// NaN&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;({}&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{})&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// &quot;[object Object][object Object]&quot;&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;eval&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'{} + {}'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;   &lt;span class=&quot;c1&quot;&gt;// NaN&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;eval&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'({} + {})'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// &quot;[object Object][object Object]&quot;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Como vimos, o resultado de &lt;code class=&quot;highlighter-rouge&quot;&gt;&lt;span class=&quot;p&quot;&gt;{}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{}&lt;/span&gt;&lt;/code&gt; é &lt;code class=&quot;highlighter-rouge&quot;&gt;NaN&lt;/code&gt; pelo fato do primeiro &lt;code class=&quot;highlighter-rouge&quot;&gt;&lt;span class=&quot;p&quot;&gt;{}&lt;/span&gt;&lt;/code&gt; ser considerado um bloco vazio ao invés de um objeto, o que resulta em &lt;code class=&quot;highlighter-rouge&quot;&gt;+{}&lt;/code&gt; ser &lt;code class=&quot;highlighter-rouge&quot;&gt;NaN&lt;/code&gt;. No outro caso, como temos a operação entre parênteses, ambos os &lt;code class=&quot;highlighter-rouge&quot;&gt;&lt;span class=&quot;p&quot;&gt;{}&lt;/span&gt;&lt;/code&gt; são considerados objetos, o que justifica &lt;br /&gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;&quot;[object Object][object Object]&quot;&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;O que não faz sentido, é &lt;code class=&quot;highlighter-rouge&quot;&gt;&lt;span class=&quot;p&quot;&gt;{}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{}&lt;/span&gt;&lt;/code&gt; retornar a string no Chrome/Chromium e no Node.js, quando está fora do &lt;a href=&quot;https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/eval&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;eval()&lt;/code&gt;&lt;/a&gt;. Se você tentar rodar &lt;code class=&quot;highlighter-rouge&quot;&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;foo:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;1,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;bar:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt; nesses ambientes, eles retornam um objeto mesmo, já no Firefox, ele tenta executar esse código como um bloco, mas dá erro de sintaxe.&lt;/p&gt;
+
+&lt;p&gt;A conclusão que cheguei foi que o &lt;a href=&quot;https://github.com/v8/v8&quot;&gt;&lt;strong&gt;V8&lt;/strong&gt;&lt;/a&gt; deve permitir esses objetos &lt;em&gt;no contexto do console&lt;/em&gt; (ou seja, não deve ser resultado de algum comportamento peculiar da linguagem), uma vez que um arquivo &lt;strong&gt;block.js&lt;/strong&gt; com o conteúdo &lt;code class=&quot;highlighter-rouge&quot;&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;foo:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;1,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;bar:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;, dá o erro esperado quando executado com &lt;code class=&quot;highlighter-rouge&quot;&gt;node block.js&lt;/code&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;e-o-batman&quot;&gt;E o Batman?&lt;/h2&gt;
 
