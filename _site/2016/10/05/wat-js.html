@@ -147,16 +147,18 @@
 
 <p><strong><em>Mas como ele sabe qual ação deve realizar?</em></strong> Simples: antes de trabalhar com os dados, o algoritmo da adição pega os valores primitivos dos termos e trabalha em cima desses valores. Considere a operação <code class="highlighter-rouge">a + b</code> para o algoritmo abaixo (não é uma linguagem de programação específica):</p>
 
-<div class="language-rb highlighter-rouge"><pre class="highlight"><code><span class="n">lval</span> <span class="o">&lt;=</span> <span class="no">ToPrimitive</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
-<span class="n">rval</span> <span class="o">&lt;=</span> <span class="no">ToPrimitive</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
-<span class="k">if</span> <span class="p">(</span><span class="n">lval</span> <span class="o">==</span> <span class="no">String</span><span class="p">)</span> <span class="no">OR</span> <span class="p">(</span><span class="n">rval</span> <span class="o">==</span> <span class="no">String</span><span class="p">)</span>
-  <span class="n">lstr</span> <span class="o">&lt;=</span> <span class="no">ToString</span><span class="p">(</span><span class="n">lval</span><span class="p">)</span>
-  <span class="n">rstr</span> <span class="o">&lt;=</span> <span class="no">ToString</span><span class="p">(</span><span class="n">rval</span><span class="p">)</span>
-  <span class="no">Retorna</span> <span class="n">a</span> <span class="no">String</span> <span class="n">concatenada</span> <span class="n">de</span> <span class="n">lstr</span> <span class="n">e</span> <span class="n">rstr</span>
-<span class="k">else</span>
-  <span class="n">lnum</span> <span class="o">&lt;=</span> <span class="no">ToNumber</span><span class="p">(</span><span class="n">lval</span><span class="p">)</span>
-  <span class="n">rnum</span> <span class="o">&lt;=</span> <span class="no">ToNumber</span><span class="p">(</span><span class="n">rval</span><span class="p">)</span>
-  <span class="no">Retorna</span> <span class="no">Operacao</span><span class="p">(</span> <span class="n">lnum</span> <span class="o">+</span> <span class="n">rnum</span> <span class="p">)</span>
+<div class="highlighter-rouge"><pre class="highlight"><code>lval: recebe o valor de ToPrimitive(a)
+rval: recebe o valor de ToPrimitive(b)
+
+se (lval = String) OR (rval = String):
+  lstr: recebe o valor de ToString(lval)
+  rstr: recebe o valor de ToString(rval)
+  Retorna a String concatenada de lstr e rstr
+
+se não:
+  lnum: recebe o valor de ToNumber(lval)
+  rnum: recebe o valor de ToNumber(rval)
+  Retorna Operacao( lnum + rnum )
 </code></pre>
 </div>
 
@@ -173,11 +175,11 @@
 
 <h3 id="o-operador-de-subtrao--">O Operador de Subtração (-)</h3>
 
-<p>Segundo a <a href="http://www.ecma-international.org/ecma-262/6.0/index.html#sec-subtraction-operator-minus">seção 12.7.4 da especificação do ES6</a>, o operador de subtração (<code class="highlighter-rouge">-</code>) não tem muitos poderes como o de adição (<code class="highlighter-rouge">+</code>), ele apenas subtrai os valores <code class="highlighter-rouge">ToNumber()</code> dos termos. Considere <code class="highlighter-rouge">a - b</code>:</p>
+<p>Segundo a <a href="http://www.ecma-international.org/ecma-262/6.0/index.html#sec-subtraction-operator-minus">seção 12.7.4 da especificação do ES6</a>, o operador de subtração (<code class="highlighter-rouge">-</code>) não tem muitos poderes como o de adição (<code class="highlighter-rouge">+</code>), ele apenas subtrai os valores <code class="highlighter-rouge">ToNumber()</code> dos termos. <br />Considere <code class="highlighter-rouge">a - b</code>:</p>
 
-<div class="language-rb highlighter-rouge"><pre class="highlight"><code><span class="n">lnum</span> <span class="o">&lt;=</span> <span class="no">ToNumber</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
-<span class="n">rnum</span> <span class="o">&lt;=</span> <span class="no">ToNumber</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
-<span class="no">Retorna</span> <span class="no">Operacao</span><span class="p">(</span> <span class="n">lnum</span> <span class="o">-</span> <span class="n">rnum</span> <span class="p">)</span>
+<div class="highlighter-rouge"><pre class="highlight"><code>lnum: recebe o valor de ToNumber(a)
+rnum: recebe o valor de ToNumber(b)
+Retorna Operacao( lnum - rnum )
 </code></pre>
 </div>
 
@@ -185,15 +187,15 @@
 
 <p>A função <code class="highlighter-rouge">Operacao()</code>, invocada nos retornos das operações aditivas, seguirá algumas regras e as mais peculiares são:</p>
 
-<div class="language-rb highlighter-rouge"><pre class="highlight"><code><span class="k">if</span> <span class="p">(</span><span class="n">um</span> <span class="n">dos</span> <span class="n">termos</span> <span class="o">==</span> <span class="no">NaN</span><span class="p">)</span>
-  <span class="no">Retorna</span> <span class="no">NaN</span>
+<div class="highlighter-rouge"><pre class="highlight"><code>se (um dos termos = NaN):
+  Retorna NaN
 
-<span class="k">if</span> <span class="p">(</span><span class="n">ambos</span> <span class="n">os</span> <span class="n">termos</span> <span class="o">==</span> <span class="no">Infinity</span><span class="p">,</span> <span class="n">mas</span> <span class="n">de</span> <span class="n">sinais</span> <span class="n">opostos</span><span class="p">)</span>
-  <span class="no">Retorna</span> <span class="no">NaN</span>
+se (ambos os termos = Infinity, mas de sinais opostos):
+  Retorna NaN
 </code></pre>
 </div>
 
-<p>Quando um termo é <code class="highlighter-rouge">NaN</code>, significa que o resutado de <code class="highlighter-rouge">ToNumber()</code> de um dos termos não teve uma conversão <code class="highlighter-rouge">ToPrimitive()</code> normal, então, era um elemento do tipo <code class="highlighter-rouge">Object</code> que não tinha um tipo primitivo definido.</p>
+<p>Quando um termo é <a href="http://www.ecma-international.org/ecma-262/6.0/index.html#sec-terms-and-definitions-nan"><code class="highlighter-rouge">NaN</code></a>, significa que o resutado de <code class="highlighter-rouge">ToNumber()</code> de um dos termos não teve uma conversão <code class="highlighter-rouge">ToPrimitive()</code> normal, então, era um elemento do tipo <code class="highlighter-rouge">Object</code> que não tinha um tipo primitivo definido.</p>
 
 <p>As demais condições seguem a matemática que aprendemos mesmo:</p>
 

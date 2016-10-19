@@ -6,8 +6,8 @@
 </description>
     <link>http://blog.gabsprates.com/</link>
     <atom:link href="http://blog.gabsprates.com/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Mon, 17 Oct 2016 00:21:12 -0200</pubDate>
-    <lastBuildDate>Mon, 17 Oct 2016 00:21:12 -0200</lastBuildDate>
+    <pubDate>Wed, 19 Oct 2016 00:11:01 -0200</pubDate>
+    <lastBuildDate>Wed, 19 Oct 2016 00:11:01 -0200</lastBuildDate>
     <generator>Jekyll v3.2.0</generator>
     
       <item>
@@ -70,16 +70,18 @@
 
 &lt;p&gt;&lt;strong&gt;&lt;em&gt;Mas como ele sabe qual ação deve realizar?&lt;/em&gt;&lt;/strong&gt; Simples: antes de trabalhar com os dados, o algoritmo da adição pega os valores primitivos dos termos e trabalha em cima desses valores. Considere a operação &lt;code class=&quot;highlighter-rouge&quot;&gt;a + b&lt;/code&gt; para o algoritmo abaixo (não é uma linguagem de programação específica):&lt;/p&gt;
 
-&lt;div class=&quot;language-rb highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;lval&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;=&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;ToPrimitive&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;rval&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;=&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;ToPrimitive&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;lval&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;OR&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;rval&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-  &lt;span class=&quot;n&quot;&gt;lstr&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;=&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;ToString&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;lval&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-  &lt;span class=&quot;n&quot;&gt;rstr&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;=&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;ToString&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;rval&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-  &lt;span class=&quot;no&quot;&gt;Retorna&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;concatenada&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;de&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lstr&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;e&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;rstr&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;
-  &lt;span class=&quot;n&quot;&gt;lnum&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;=&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;ToNumber&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;lval&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-  &lt;span class=&quot;n&quot;&gt;rnum&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;=&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;ToNumber&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;rval&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-  &lt;span class=&quot;no&quot;&gt;Retorna&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Operacao&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lnum&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;rnum&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;lval: recebe o valor de ToPrimitive(a)
+rval: recebe o valor de ToPrimitive(b)
+
+se (lval = String) OR (rval = String):
+  lstr: recebe o valor de ToString(lval)
+  rstr: recebe o valor de ToString(rval)
+  Retorna a String concatenada de lstr e rstr
+
+se não:
+  lnum: recebe o valor de ToNumber(lval)
+  rnum: recebe o valor de ToNumber(rval)
+  Retorna Operacao( lnum + rnum )
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
@@ -96,11 +98,11 @@
 
 &lt;h3 id=&quot;o-operador-de-subtrao--&quot;&gt;O Operador de Subtração (-)&lt;/h3&gt;
 
-&lt;p&gt;Segundo a &lt;a href=&quot;http://www.ecma-international.org/ecma-262/6.0/index.html#sec-subtraction-operator-minus&quot;&gt;seção 12.7.4 da especificação do ES6&lt;/a&gt;, o operador de subtração (&lt;code class=&quot;highlighter-rouge&quot;&gt;-&lt;/code&gt;) não tem muitos poderes como o de adição (&lt;code class=&quot;highlighter-rouge&quot;&gt;+&lt;/code&gt;), ele apenas subtrai os valores &lt;code class=&quot;highlighter-rouge&quot;&gt;ToNumber()&lt;/code&gt; dos termos. Considere &lt;code class=&quot;highlighter-rouge&quot;&gt;a - b&lt;/code&gt;:&lt;/p&gt;
+&lt;p&gt;Segundo a &lt;a href=&quot;http://www.ecma-international.org/ecma-262/6.0/index.html#sec-subtraction-operator-minus&quot;&gt;seção 12.7.4 da especificação do ES6&lt;/a&gt;, o operador de subtração (&lt;code class=&quot;highlighter-rouge&quot;&gt;-&lt;/code&gt;) não tem muitos poderes como o de adição (&lt;code class=&quot;highlighter-rouge&quot;&gt;+&lt;/code&gt;), ele apenas subtrai os valores &lt;code class=&quot;highlighter-rouge&quot;&gt;ToNumber()&lt;/code&gt; dos termos. &lt;br /&gt;Considere &lt;code class=&quot;highlighter-rouge&quot;&gt;a - b&lt;/code&gt;:&lt;/p&gt;
 
-&lt;div class=&quot;language-rb highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;lnum&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;=&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;ToNumber&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;rnum&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;=&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;ToNumber&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;no&quot;&gt;Retorna&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Operacao&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lnum&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;rnum&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;lnum: recebe o valor de ToNumber(a)
+rnum: recebe o valor de ToNumber(b)
+Retorna Operacao( lnum - rnum )
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
@@ -108,15 +110,15 @@
 
 &lt;p&gt;A função &lt;code class=&quot;highlighter-rouge&quot;&gt;Operacao()&lt;/code&gt;, invocada nos retornos das operações aditivas, seguirá algumas regras e as mais peculiares são:&lt;/p&gt;
 
-&lt;div class=&quot;language-rb highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;um&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dos&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;termos&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;NaN&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-  &lt;span class=&quot;no&quot;&gt;Retorna&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;NaN&lt;/span&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;se (um dos termos = NaN):
+  Retorna NaN
 
-&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ambos&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;os&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;termos&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Infinity&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mas&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;de&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sinais&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;opostos&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-  &lt;span class=&quot;no&quot;&gt;Retorna&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;NaN&lt;/span&gt;
+se (ambos os termos = Infinity, mas de sinais opostos):
+  Retorna NaN
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
-&lt;p&gt;Quando um termo é &lt;code class=&quot;highlighter-rouge&quot;&gt;NaN&lt;/code&gt;, significa que o resutado de &lt;code class=&quot;highlighter-rouge&quot;&gt;ToNumber()&lt;/code&gt; de um dos termos não teve uma conversão &lt;code class=&quot;highlighter-rouge&quot;&gt;ToPrimitive()&lt;/code&gt; normal, então, era um elemento do tipo &lt;code class=&quot;highlighter-rouge&quot;&gt;Object&lt;/code&gt; que não tinha um tipo primitivo definido.&lt;/p&gt;
+&lt;p&gt;Quando um termo é &lt;a href=&quot;http://www.ecma-international.org/ecma-262/6.0/index.html#sec-terms-and-definitions-nan&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;NaN&lt;/code&gt;&lt;/a&gt;, significa que o resutado de &lt;code class=&quot;highlighter-rouge&quot;&gt;ToNumber()&lt;/code&gt; de um dos termos não teve uma conversão &lt;code class=&quot;highlighter-rouge&quot;&gt;ToPrimitive()&lt;/code&gt; normal, então, era um elemento do tipo &lt;code class=&quot;highlighter-rouge&quot;&gt;Object&lt;/code&gt; que não tinha um tipo primitivo definido.&lt;/p&gt;
 
 &lt;p&gt;As demais condições seguem a matemática que aprendemos mesmo:&lt;/p&gt;
 
