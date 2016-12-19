@@ -6,9 +6,9 @@
 </description>
     <link>http://blog.gabsprates.com/</link>
     <atom:link href="http://blog.gabsprates.com/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Wed, 19 Oct 2016 00:11:01 -0200</pubDate>
-    <lastBuildDate>Wed, 19 Oct 2016 00:11:01 -0200</lastBuildDate>
-    <generator>Jekyll v3.2.0</generator>
+    <pubDate>Sun, 18 Dec 2016 23:58:42 -0200</pubDate>
+    <lastBuildDate>Sun, 18 Dec 2016 23:58:42 -0200</lastBuildDate>
+    <generator>Jekyll v3.3.1</generator>
     
       <item>
         <title>WAT JS - Mergulhando nos Comportamentos do JavaScript</title>
@@ -60,7 +60,7 @@
 
 &lt;p&gt;Para explicar os &lt;em&gt;WAT JS&lt;/em&gt;, precisamos entender um pouco do funcionamento dos operadores aditivos, já que eles que causam o &lt;em&gt;“problema”&lt;/em&gt;. Então, vou tentar explicar um pouco do que eles (&lt;strong&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;+&lt;/code&gt;&lt;/strong&gt; e &lt;strong&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;-&lt;/code&gt;&lt;/strong&gt;) fazem aqui.&lt;/p&gt;
 
-&lt;h3 id=&quot;o-operador-de-adio-&quot;&gt;O Operador de Adição (+)&lt;/h3&gt;
+&lt;h3 id=&quot;o-operador-de-adição-&quot;&gt;O Operador de Adição (+)&lt;/h3&gt;
 
 &lt;p&gt;Segundo a &lt;a href=&quot;http://www.ecma-international.org/ecma-262/6.0/index.html#sec-addition-operator-plus&quot;&gt;seção 12.7.3 da especificação do ES6&lt;/a&gt;:&lt;/p&gt;
 
@@ -96,7 +96,7 @@ se não:
 
 &lt;p&gt;Beleza, estamos indo bem, no entanto, as operações do vídeo são feitas com objetos mais complexos: &lt;code class=&quot;highlighter-rouge&quot;&gt;Array&lt;/code&gt; e &lt;code class=&quot;highlighter-rouge&quot;&gt;Object&lt;/code&gt;. Vamos fazer o seguinte, assim que eu terminar de explicar a questão dos operadores, eu volto nesse assunto, OK?&lt;/p&gt;
 
-&lt;h3 id=&quot;o-operador-de-subtrao--&quot;&gt;O Operador de Subtração (-)&lt;/h3&gt;
+&lt;h3 id=&quot;o-operador-de-subtração--&quot;&gt;O Operador de Subtração (-)&lt;/h3&gt;
 
 &lt;p&gt;Segundo a &lt;a href=&quot;http://www.ecma-international.org/ecma-262/6.0/index.html#sec-subtraction-operator-minus&quot;&gt;seção 12.7.4 da especificação do ES6&lt;/a&gt;, o operador de subtração (&lt;code class=&quot;highlighter-rouge&quot;&gt;-&lt;/code&gt;) não tem muitos poderes como o de adição (&lt;code class=&quot;highlighter-rouge&quot;&gt;+&lt;/code&gt;), ele apenas subtrai os valores &lt;code class=&quot;highlighter-rouge&quot;&gt;ToNumber()&lt;/code&gt; dos termos. &lt;br /&gt;Considere &lt;code class=&quot;highlighter-rouge&quot;&gt;a - b&lt;/code&gt;:&lt;/p&gt;
 
@@ -106,7 +106,7 @@ Retorna Operacao( lnum - rnum )
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
-&lt;h3 id=&quot;regras-da-operao&quot;&gt;Regras da Operação&lt;/h3&gt;
+&lt;h3 id=&quot;regras-da-operação&quot;&gt;Regras da Operação&lt;/h3&gt;
 
 &lt;p&gt;A função &lt;code class=&quot;highlighter-rouge&quot;&gt;Operacao()&lt;/code&gt;, invocada nos retornos das operações aditivas, seguirá algumas regras e as mais peculiares são:&lt;/p&gt;
 
@@ -232,7 +232,7 @@ se (ambos os termos = Infinity, mas de sinais opostos):
 
 &lt;p&gt;&lt;strong&gt;3)&lt;/strong&gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;new Array(16).join(&quot;wat&quot; - 1)&lt;/code&gt; nos retorna 16 &lt;code class=&quot;highlighter-rouge&quot;&gt;NaN&lt;/code&gt;s em sequência, agora é só concatenar um &lt;code class=&quot;highlighter-rouge&quot;&gt;&quot; Batman&quot;&lt;/code&gt; nesse retorno e bater palmas &lt;del&gt;haha&lt;/del&gt;.&lt;/p&gt;
 
-&lt;h2 id=&quot;concluso&quot;&gt;Conclusão&lt;/h2&gt;
+&lt;h2 id=&quot;conclusão&quot;&gt;Conclusão&lt;/h2&gt;
 
 &lt;p&gt;JavaScript não é uma linguagem bizarra, apenas incompreendida.&lt;/p&gt;
 
@@ -244,7 +244,7 @@ se (ambos os termos = Infinity, mas de sinais opostos):
 
 &lt;hr /&gt;
 
-&lt;h4 id=&quot;referncias&quot;&gt;Referências&lt;/h4&gt;
+&lt;h4 id=&quot;referências&quot;&gt;Referências&lt;/h4&gt;
 
 &lt;ul&gt;
   &lt;li&gt;&lt;a href=&quot;http://stackoverflow.com/questions/9032856/what-is-the-explanation-for-these-bizarre-javascript-behaviours-mentioned-in-the&quot;&gt;http://stackoverflow.com/questions/9032856/what-is-the-explanation-for-these-bizarre-javascript-behaviours-mentioned-in-the&lt;/a&gt;&lt;/li&gt;
@@ -272,7 +272,7 @@ se (ambos os termos = Infinity, mas de sinais opostos):
 
 &lt;p&gt;Em Janeiro de 2009, eles decidiram fazer uma jogada ousada e não recolher, nem compartilhar nenhuma das nossas informações pessoais. Eles deixam bem claro que “&lt;em&gt;o que você está procurando, é assunto seu, e nós pretendemos manter isso assim.&lt;/em&gt;”. Daí o lema “&lt;em&gt;We don’t track you.&lt;/em&gt;” (Não rastreamos você.), e alguns movimentos, como o &lt;a href=&quot;http://dontbubble.us/&quot;&gt;&lt;em&gt;Filter Bubble&lt;/em&gt;&lt;/a&gt;.&lt;/p&gt;
 
-&lt;h4 id=&quot;isso--bom-ou-ruim&quot;&gt;&lt;em&gt;Isso é bom ou ruim?!&lt;/em&gt;&lt;/h4&gt;
+&lt;h4 id=&quot;isso-é-bom-ou-ruim&quot;&gt;&lt;em&gt;Isso é bom ou ruim?!&lt;/em&gt;&lt;/h4&gt;
 &lt;p&gt;Bom, depende. Nesse ponto podemos ter “problemas” para as agências publicitárias, uma vez que as campanhas de anúncios não funcionariam. Por outro lado, satisfazemos a vontade de milhões de usuários de manter sua privacidade. Claro que existem pessoas que gostam de ver os anúncios do Google Adsense ou do YouTube, mas também existem as que não gostam &lt;del&gt;rsrsrs&lt;/del&gt;.&lt;/p&gt;
 
 &lt;p&gt;A ideia deste post não é apontar &lt;strong&gt;certo&lt;/strong&gt; ou &lt;strong&gt;errado&lt;/strong&gt;, mas sim apresentar uma nova possibilidade, então vamos seguir.&lt;/p&gt;
@@ -285,7 +285,7 @@ se (ambos os termos = Infinity, mas de sinais opostos):
 
 &lt;p&gt;Aqui deixo o convite para você ajudar esse mecanismo de busca, pode ser dando ideias de novas funcionalidades, novas respostas instantâneas (&lt;strong&gt;&lt;em&gt;^^,&lt;/em&gt;&lt;/strong&gt; quem sabe até implementando elas), com traduções, uma proposta de design bacana, ou simplesmente, compartilhando a experiência com seus amigos! &lt;strong&gt;XD&lt;/strong&gt;&lt;/p&gt;
 
-&lt;h2 id=&quot;respostas-instantneas&quot;&gt;Respostas Instantâneas&lt;/h2&gt;
+&lt;h2 id=&quot;respostas-instantâneas&quot;&gt;Respostas Instantâneas&lt;/h2&gt;
 
 &lt;p&gt;Chegamos ao ponto mais interessante e útil, a parte que me faz amar o DuckDuckGo, os Hacks!!!&lt;/p&gt;
 
@@ -295,7 +295,7 @@ se (ambos os termos = Infinity, mas de sinais opostos):
   &lt;p&gt;&lt;a href=&quot;https://duckduckgo.com/?q=!yt+braziljs+2016&quot;&gt;!yt braziljs 2016&lt;/a&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
 
-&lt;h4 id=&quot;pera-a-a-busca-foi-no-youtube&quot;&gt;&lt;em&gt;Pera aí… a busca foi no YouTube?&lt;/em&gt;&lt;/h4&gt;
+&lt;h4 id=&quot;pera-aí-a-busca-foi-no-youtube&quot;&gt;&lt;em&gt;Pera aí… a busca foi no YouTube?&lt;/em&gt;&lt;/h4&gt;
 &lt;p&gt;Hmm… também. Você acabou de passar pela experiência do &lt;a href=&quot;https://duckduckgo.com/bang&quot;&gt;&lt;strong&gt;!bang&lt;/strong&gt;&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;A ideia é que você possa fazer uma busca direta em um site específico, diretamente pela busca do DDG.&lt;/p&gt;

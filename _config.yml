@@ -24,3 +24,10 @@ markdown: kramdown
 # Gems
 gems:
   - jekyll-seo-tag
+  - octopress-minify-html
+
+html_press:
+  unquoted_attributes: false
+  drop_empty_values: false
+  strip_crlf: false
+  js_minifier_options: false
