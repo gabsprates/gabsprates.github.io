@@ -6,9 +6,30 @@
 </description>
     <link>http://blog.gabsprates.com/</link>
     <atom:link href="http://blog.gabsprates.com/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sun, 18 Dec 2016 23:58:42 -0200</pubDate>
-    <lastBuildDate>Sun, 18 Dec 2016 23:58:42 -0200</lastBuildDate>
+    <pubDate>Mon, 19 Dec 2016 00:15:33 -0200</pubDate>
+    <lastBuildDate>Mon, 19 Dec 2016 00:15:33 -0200</lastBuildDate>
     <generator>Jekyll v3.3.1</generator>
+    
+      <item>
+        <title>Yes! I am back!!</title>
+        <description>&lt;p&gt;&lt;em&gt;Rapaiz,&lt;/em&gt; pense num final de ano apertado! Seminários e provas na faculdade, algumas mudanças no trabalho, muita coisa pra fazer e pouco tempo pra isso tudo. Talvez você já passou por isso, se não, é uma questão de tempo &lt;del&gt;rsrs&lt;/del&gt;.&lt;/p&gt;
+
+&lt;p&gt;Foi um período de correria, mas também de grande aprendizado. Descobri o &lt;a href=&quot;https://mpdf.github.io/&quot;&gt;mPDF&lt;/a&gt; (uma &lt;em&gt;lib&lt;/em&gt; para gerar PDF com HTML e PHP), tive que aprender &lt;a href=&quot;https://pt.wikipedia.org/wiki/Shell_script&quot;&gt;Shell Script&lt;/a&gt;, fiz um quiz em &lt;a href=&quot;https://facebook.github.io/react/&quot;&gt;React&lt;/a&gt; pra um trabalho da faculdade, consegui um tempinho pra estudar mais de &lt;a href=&quot;https://nodejs.org/en/&quot;&gt;Node.js&lt;/a&gt;, precisei me virar um pouco com &lt;a href=&quot;https://www.docker.com/what-docker&quot;&gt;Docker&lt;/a&gt;, tirei um fim de semana pra instalar o &lt;a href=&quot;&quot;&gt;Arch Linux&lt;/a&gt; (deu trabalho, mas a recompensa… &amp;lt;3) e descobri a Engenharia de Software pelo livro de Ian Sommerville (confesso que estou apaixonado por essa parte).&lt;/p&gt;
+
+&lt;p&gt;Agora estou aqui, depois de tudo isso, dando um alô e deixando claro que ainda estou no jogo &lt;strong&gt;;)&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Um amigo me cobrou posts e eu não esqueci do blog! Na verdade, nessas últimas semanas eu comecei escrever alguns rascunhos e agora terei o tempo que precisava pra terminá-los e contar mais dessas experiências que falei.&lt;/p&gt;
+
+&lt;p&gt;Esse post foi mais como uma nota de esclarecimento e um sinal de vida, no mais, é isso &lt;strong&gt;(:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Até a próxima!&lt;/p&gt;
+</description>
+        <pubDate>Sat, 17 Dec 2016 00:00:00 -0200</pubDate>
+        <link>http://blog.gabsprates.com/2016/12/17/yes-i-am-back.html</link>
+        <guid isPermaLink="true">http://blog.gabsprates.com/2016/12/17/yes-i-am-back.html</guid>
+        
+        
+      </item>
     
       <item>
         <title>WAT JS - Mergulhando nos Comportamentos do JavaScript</title>
