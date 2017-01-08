@@ -6,9 +6,188 @@
 </description>
     <link>http://blog.gabsprates.com/</link>
     <atom:link href="http://blog.gabsprates.com/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Mon, 19 Dec 2016 00:15:33 -0200</pubDate>
-    <lastBuildDate>Mon, 19 Dec 2016 00:15:33 -0200</lastBuildDate>
+    <pubDate>Sun, 08 Jan 2017 05:25:40 -0200</pubDate>
+    <lastBuildDate>Sun, 08 Jan 2017 05:25:40 -0200</lastBuildDate>
     <generator>Jekyll v3.3.1</generator>
+    
+      <item>
+        <title>Shell Script -n1 --intro</title>
+        <description>&lt;p&gt;Resolver as coisas pelo terminal ou não precisar muito do mouse sempre foi uma coisa que me chamou a atenção. Depois de passar alguns dias estudando (e colocando em prática) um pouco de shell script, consegui experimentar um pouco mais disso. Pude experimentar recursos e aprender mais como as coisas funcionam. Tem sido um ótimo período!&lt;/p&gt;
+
+&lt;p&gt;Pretendo escrever uma série de artigos sobre shell script, já que é uma coisa que se tornou parte do meu dia-a-dia, e assim compartilhar dessa experiência. Esse talvez será o mais conceitual, já que devemos nos acostumar com uma série de conceitos e termos.&lt;/p&gt;
+
+&lt;h2 id=&quot;primeiros-passos&quot;&gt;Primeiros passos&lt;/h2&gt;
+
+&lt;p&gt;Antes de prosseguirmos, precisamos responder algumas questões, e a primeira delas é:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;O que é &lt;strong&gt;shell&lt;/strong&gt;???&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Podemos definir &lt;strong&gt;shell&lt;/strong&gt; como uma interface de usuário, seja ela uma &lt;em&gt;Command-Line Interface&lt;/em&gt; (CLI), ou uma &lt;em&gt;Graphical User Interface&lt;/em&gt; (GUI). Shells são interativos, ou seja, aceitam comandos, sejam eles via mouse ou teclado. Alguma dúvida aqui?&lt;/p&gt;
+
+&lt;p&gt;Segunda pergunta:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Se &lt;strong&gt;shell&lt;/strong&gt; é uma interface de usuário, o que é &lt;strong&gt;Shell Script&lt;/strong&gt;?&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Ok. Interfaces de usuário aceitam comandos, certo? Sejam GUIs ou CLIs (onde é mais explícito), elas aceitam comandos. Falando em CLIs, escrevemos os comandos. Esse conjunto de comandos que escrevemos para interagir com o shell em questão, quando escritos em blocos, podem ser considerados shell script.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;O que é POSIX?&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;em&gt;POSIX&lt;/em&gt; (&lt;strong&gt;P&lt;/strong&gt;ortable &lt;strong&gt;O&lt;/strong&gt;perating &lt;strong&gt;S&lt;/strong&gt;ystem &lt;strong&gt;I&lt;/strong&gt;nterface) é uma família de padrões de sistemas abertos baseados em Unix, definidos pela &lt;a href=&quot;http://www.ieee.org/index.html&quot;&gt;IEEE&lt;/a&gt;, também conhecido como &lt;strong&gt;IEEE 1003&lt;/strong&gt;. Ah, o &lt;strong&gt;X&lt;/strong&gt; de POSIX, vem do Uni&lt;strong&gt;x&lt;/strong&gt; e esse termo foi proposto por &lt;a href=&quot;https://en.wikipedia.org/wiki/Richard_Stallman&quot;&gt;Richard Stallman&lt;/a&gt;.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;em&gt;Tá&lt;/em&gt;, mas qual é a relação de shell script e POSIX?&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Scripts shell são construídos de palavras-chave, comandos padrão, comandos do SO, funções e estruturas de controle. Parece uma linguagem de programação qualquer, certo? Esse é o padrão, é o conjunto de normas propostos pelo POSIX.&lt;/p&gt;
+
+&lt;p&gt;Existem várias implementações de interpretadores baseados no POSIX: &lt;a href=&quot;https://www.gnu.org/software/bash/&quot;&gt;Bash&lt;/a&gt;, &lt;a href=&quot;https://en.wikipedia.org/wiki/C_shell&quot;&gt;CSH&lt;/a&gt;, &lt;a href=&quot;https://en.wikipedia.org/wiki/KornShell&quot;&gt;KSH&lt;/a&gt;, &lt;a href=&quot;https://en.wikipedia.org/wiki/Tcsh&quot;&gt;TCSH&lt;/a&gt;, &lt;a href=&quot;https://en.wikipedia.org/wiki/Z_shell&quot;&gt;ZSH&lt;/a&gt; e outros. O Bash é o mais comum deles, muito usado nos descendentes da família Unix (aqui estou contando com o GNU/Linux e os sistemas MacOS). Por ser mais comum, e o que eu uso, vou adotar Bash para os exemplos desses artigos.&lt;/p&gt;
+
+&lt;h2 id=&quot;filosofia-unix&quot;&gt;Filosofia Unix&lt;/h2&gt;
+
+&lt;p&gt;Já ouviu falar sobre a Filosofia Unix? Ela propõe algumas ideias interessantes para o desenvolvimento de software, como por exemplo:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Programas devem fazer uma coisa, e fazer aquilo bem feito.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Programas devem trabalhar juntos para atingir objetivos.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;em&gt;Keep it Simple, Stupid&lt;/em&gt; (Mantenha isso simples, estúpido).&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Esses pontos foram disseminados em praticamente todas as comunidades de desenvolvimento de software, porque realmente são boas práticas. Em Shell Script não é diferente, talvez é até mais perceptível. Futuramente vamos falar de redirecionamento de entradas e saídas, e algumas outras coisas que deixarão isso mais claro.&lt;/p&gt;
+
+&lt;h2 id=&quot;nosso-hello-world&quot;&gt;Nosso “Hello World”!&lt;/h2&gt;
+
+&lt;p&gt;Vamos escrever um pequeno programinha em Bash, para eu poder explicar algumas coisas durante o caminho.&lt;/p&gt;
+
+&lt;h3 id=&quot;tipos-de-comandos&quot;&gt;Tipos de Comandos&lt;/h3&gt;
+
+&lt;p&gt;Vamos lá. Podemos dizer que temos alguns tipos de comandos, são eles:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Alias&lt;/strong&gt;: São atalhos definidos para algum outro programa. Ex.: &lt;strong&gt;ll&lt;/strong&gt; é um alias para &lt;strong&gt;ls -lh&lt;/strong&gt;;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Palavras-chave&lt;/strong&gt;: &lt;code class=&quot;highlighter-rouge&quot;&gt;if&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;then&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;for&lt;/code&gt;, etc.;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Funções&lt;/strong&gt;: Funções definidas pelo usuários;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;&lt;em&gt;Built in&lt;/em&gt;&lt;/strong&gt; (Embutidos): Funções que fazem parte do próprio shell;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Programas&lt;/strong&gt;.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;O último item, os &lt;strong&gt;Programas&lt;/strong&gt; são localizados pelo sistema através da variável &lt;code class=&quot;highlighter-rouge&quot;&gt;$PATH&lt;/code&gt;. Se você mexe com NPM, provavelmente já se deparou com essa variável de ambiente. Vamos dar uma olhada nela, abra seu terminal (ou seu Prompt Shell, para falar bonito), digite &lt;code class=&quot;highlighter-rouge&quot;&gt;echo $PATH&lt;/code&gt; e observe o retorno. No meu caso:&lt;/p&gt;
+
+&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$PATH&lt;/span&gt;
+/usr/local/bin:/usr/local/sbin:/usr/bin:/home/gabriel/.npm-global/bin
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Separados por &lt;code class=&quot;highlighter-rouge&quot;&gt;:&lt;/code&gt; (dois pontos), esses são os caminhos que contém os programas rastreados pelo sistema, aqueles que você começa digitar e aperta &lt;code class=&quot;highlighter-rouge&quot;&gt;TAB&lt;/code&gt; para autocompletar. Então, esses são os comandos que estão disponibilizados para trabalharmos.&lt;/p&gt;
+
+&lt;p&gt;Ah, você pode usar o &lt;code class=&quot;highlighter-rouge&quot;&gt;type&lt;/code&gt; para saber informações sobre o tipo do comando. Ex.: &lt;code class=&quot;highlighter-rouge&quot;&gt;type echo&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Vamos usar alguns desses comandos para exibir todos os programas rastreados pelo sistema. Crie o arquivo &lt;code class=&quot;highlighter-rouge&quot;&gt;listar-programas.sh&lt;/code&gt; e dê permissão para que seu usuário execute esse programa com o comando &lt;code class=&quot;highlighter-rouge&quot;&gt;chmod u+x listar-programas.sh&lt;/code&gt;, vamos trabalhar nele.&lt;/p&gt;
+
+&lt;p&gt;Por enquanto, salve o arquivo com o comando que executamos antes, mas assim:&lt;/p&gt;
+
+&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;#!/bin/bash&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$PATH&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;A primeira linha desse código é o nosso &lt;strong&gt;&lt;em&gt;Shebang&lt;/em&gt;&lt;/strong&gt; (&lt;code class=&quot;highlighter-rouge&quot;&gt;#!&lt;/code&gt;). Em sistemas &lt;em&gt;Unix-like&lt;/em&gt;, ele é usado para indicar um executor para o determinado script. Talvez você já tenha visto algo parecido em algum projeto em Node.js (&lt;code class=&quot;highlighter-rouge&quot;&gt;&lt;span class=&quot;err&quot;&gt;#&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;!&lt;/span&gt;&lt;span class=&quot;sr&quot;&gt;/usr/&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;bin&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;node&lt;/span&gt;&lt;/code&gt;), ou Python (&lt;code class=&quot;highlighter-rouge&quot;&gt;&lt;span class=&quot;c&quot;&gt;#!/usr/bin/python&lt;/span&gt;&lt;/code&gt;).&lt;/p&gt;
+
+&lt;p&gt;Ok, você deu a permissão de execução que falei? Então vá no seu prompt shell e execute esse arquivo. Teve o mesmo retorno de quando executamos o código direto na linha de comando? Sim? Ótimo, vamos continuar.&lt;/p&gt;
+
+&lt;h3 id=&quot;read--ifs&quot;&gt;read &amp;amp; $IFS&lt;/h3&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;$IFS&lt;/code&gt; é uma variável especial em Bash. &lt;strong&gt;Internal Field Separator&lt;/strong&gt; (IFS) é usada para separar expressões, ou linhas, dentro do comando &lt;code class=&quot;highlighter-rouge&quot;&gt;read&lt;/code&gt;. Seu valor padrão é composto pelos caracteres de &lt;strong&gt;espaço&lt;/strong&gt;, &lt;strong&gt;tabulação&lt;/strong&gt;, e &lt;strong&gt;nova linha&lt;/strong&gt;, mas pode ser alterado quando necessário.&lt;/p&gt;
+
+&lt;p&gt;Como vimos, a saída do comando &lt;code class=&quot;highlighter-rouge&quot;&gt;echo $PATH&lt;/code&gt; mostra os caminhos separados por dois pontos (&lt;code class=&quot;highlighter-rouge&quot;&gt;:&lt;/code&gt;), portanto, vamos usar o &lt;code class=&quot;highlighter-rouge&quot;&gt;$IFS&lt;/code&gt; para mostrar que setar nosso caractere de separação:&lt;/p&gt;
+
+&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;#!/bin/bash&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;# A atribuição de valores não deve conter espaços&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# entre o identificador da variável e o valor atribuído.&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;IFS&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;':'&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Agora vamos usar o comando &lt;code class=&quot;highlighter-rouge&quot;&gt;read&lt;/code&gt; para fazer a leitura da variável &lt;code class=&quot;highlighter-rouge&quot;&gt;$PATH&lt;/code&gt;, quebrando seu conteúdo em todos os caracteres &lt;code class=&quot;highlighter-rouge&quot;&gt;:&lt;/code&gt;. Acrescente o seguinte comando:&lt;/p&gt;
+
+&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# O parânetro `-a` atribui o conteúdo lido a índices&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# sequenciais da variável `caminhos`, iniciando em zero&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;# `&amp;lt;&amp;lt;&amp;lt;` é uma maneira de direcionar entrada, que falarei em um post posterior&lt;/span&gt;
+
+&lt;span class=&quot;nb&quot;&gt;read&lt;/span&gt; -a caminhos &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$PATH&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Pronto, temos um array de caminhos dos programas registrados pelo sistema. Como temos que iterar em um loop, já que vamos ler cada um dos valores do array, conheça a estrutura de repetição &lt;code class=&quot;highlighter-rouge&quot;&gt;for&lt;/code&gt;, em Bash:&lt;/p&gt;
+
+&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# O índice `@` pega todos os valores de `caminhos`&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;caminho &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;caminhos&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[@]&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;do
+  &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$caminho&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;done&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Salve o script e teste. O retorno deve ser cada um dos caminhos do &lt;code class=&quot;highlighter-rouge&quot;&gt;$PATH&lt;/code&gt;, um em cada linha. Como temos o &lt;em&gt;path&lt;/em&gt; de onde estão os programas, vamos trocar o &lt;code class=&quot;highlighter-rouge&quot;&gt;echo&lt;/code&gt; por &lt;code class=&quot;highlighter-rouge&quot;&gt;ls&lt;/code&gt;, para que sejam exibidos todos os programas que estejam nesses diretórios. O código final (sem os comentários) ficará assim:&lt;/p&gt;
+
+&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;#!/bin/bash&lt;/span&gt;
+
+&lt;span class=&quot;nv&quot;&gt;IFS&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;':'&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;read&lt;/span&gt; -a caminhos &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$PATH&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;caminho &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;caminhos&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[@]&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;do
+  &lt;/span&gt;ls &lt;span class=&quot;nv&quot;&gt;$caminho&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;done&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&quot;conclusão&quot;&gt;Conclusão&lt;/h2&gt;
+
+&lt;p&gt;Este artigo foi para dar uma pequena introdução no assunto. Pretendo escrever mais coisas sobre Shell Script (lembrando que estou escrevendo os exemplos para o interpretador Bash), aí iremos explorar mais recursos e comandos básicos. Espero te ajudar de alguma forma.&lt;/p&gt;
+
+&lt;p&gt;Isso é tudo pessoal, até a próxima.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;(:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h3 id=&quot;referências&quot;&gt;Referências&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;http://tiswww.case.edu/php/chet/bash/bash-intro.html&quot;&gt;http://tiswww.case.edu/php/chet/bash/bash-intro.html&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://en.wikipedia.org/wiki/Unix_shell&quot;&gt;https://en.wikipedia.org/wiki/Unix_shell&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://bash.cyberciti.biz/guide/Main_Page&quot;&gt;https://bash.cyberciti.biz/guide/Main_Page&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        <pubDate>Sun, 08 Jan 2017 00:00:00 -0200</pubDate>
+        <link>http://blog.gabsprates.com/2017/01/08/shell-script-01-introducao.html</link>
+        <guid isPermaLink="true">http://blog.gabsprates.com/2017/01/08/shell-script-01-introducao.html</guid>
+        
+        
+      </item>
     
       <item>
         <title>Yes! I am back!!</title>
