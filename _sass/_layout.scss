@@ -3,12 +3,7 @@
  */
 .site-header {
     border-top: 5px solid $blue-color-dark;
-    border-bottom: 1px solid $blue-color-light;
-    // background-color: $blue-color;
-    background-image: url(/assets/adwaita-day.jpg);
-    background-position: top center;
-    background-repeat: repeat;
-    background-attachment: fixed;
+    border-bottom: 1px solid #ccc;
     min-height: 56px;
 
     // Positioning context for the mobile navigation icon
@@ -120,8 +115,19 @@
  * Site footer
  */
 .site-footer {
-    border-top: 1px solid $grey-color-light;
+    border-top: 5px solid $blue-color-dark;
     padding: $spacing-unit 0;
+    color: #FFF;
+
+    a,
+    * {
+        color: #FFF;
+        text-shadow: 1px 1px 1px rgba(0,0,0,0.5)
+    }
+
+    svg {
+      filter: brightness(200%);
+    }
 }
 
 .footer-heading {
@@ -191,6 +197,7 @@
  */
 .page-content {
     padding: $spacing-unit 0;
+    background-color: $background-color;
 }
 
 .page-heading {

@@ -13,7 +13,10 @@ dl, dd, ol, ul, figure {
 body {
   font: 400 16px/1.75 "Ubuntu", "Helvetica Neue", Helvetica, Arial, sans-serif;
   color: #232323;
-  background-color: #f9f9f9;
+  background-image: url(/assets/adwaita-day.jpg);
+  background-position: top center;
+  background-repeat: repeat;
+  background-attachment: fixed;
   -webkit-text-size-adjust: 100%;
   -webkit-font-feature-settings: "kern" 1;
   -moz-font-feature-settings: "kern" 1;
@@ -164,11 +167,7 @@ pre {
  */
 .site-header {
   border-top: 5px solid #406b63;
-  border-bottom: 1px solid #fbfcfc;
-  background-image: url(/assets/adwaita-day.jpg);
-  background-position: top center;
-  background-repeat: repeat;
-  background-attachment: fixed;
+  border-bottom: 1px solid #ccc;
   min-height: 56px;
   position: relative; }
 
@@ -243,8 +242,15 @@ pre {
  * Site footer
  */
 .site-footer {
-  border-top: 1px solid #e8e8e8;
-  padding: 30px 0; }
+  border-top: 5px solid #406b63;
+  padding: 30px 0;
+  color: #FFF; }
+  .site-footer a,
+  .site-footer * {
+    color: #FFF;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5); }
+  .site-footer svg {
+    filter: brightness(200%); }
 
 .footer-heading {
   font-size: 18px;
@@ -295,7 +301,8 @@ pre {
  * Page content
  */
 .page-content {
-  padding: 30px 0; }
+  padding: 30px 0;
+  background-color: #f9f9f9; }
 
 .page-heading {
   font-size: 20px; }
