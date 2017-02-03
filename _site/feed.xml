@@ -4,11 +4,74 @@
     <title>Gabriel Prates</title>
     <description>Desenvolvedor há mais de 5 anos e baterista nas horas vagas. #web #html #css #js #freesoftware #opensource #busquemconhecimento
 </description>
-    <link>http://blog.gabsprates.com/</link>
-    <atom:link href="http://blog.gabsprates.com/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sun, 08 Jan 2017 05:54:56 -0200</pubDate>
-    <lastBuildDate>Sun, 08 Jan 2017 05:54:56 -0200</lastBuildDate>
+    <link>http://gabrielprates.com/</link>
+    <atom:link href="http://gabrielprates.com/feed.xml" rel="self" type="application/rss+xml"/>
+    <pubDate>Fri, 03 Feb 2017 00:45:21 -0200</pubDate>
+    <lastBuildDate>Fri, 03 Feb 2017 00:45:21 -0200</lastBuildDate>
     <generator>Jekyll v3.3.1</generator>
+    
+      <item>
+        <title>O dia que eu aprendi React</title>
+        <description>&lt;p&gt;Apesar de ter ouvido falar tanto de &lt;a href=&quot;https://facebook.github.io/react/&quot;&gt;React&lt;/a&gt; (&lt;a href=&quot;http://zofe.com.br/posts/react-componentes-e-a-web/&quot;&gt;no ZOFE&lt;/a&gt;, &lt;a href=&quot;http://devnaestrada.com.br/2016/09/23/angular-vs-react.html&quot;&gt;no DNE&lt;/a&gt;, num evento da Locaweb, no FrontInBH2016 e no resto da vida), eu, de fato, não havia parado pra ver como era essa &lt;em&gt;lib&lt;/em&gt;. Até que um dia, um professor passou um trabalho que seria basicamente um &lt;em&gt;game show&lt;/em&gt; de perguntas sobre a matéria. Na hora, tive a ideia do que fazer.&lt;/p&gt;
+
+&lt;p&gt;Na verdade, só tive a ideia, mas fiquei sem saber o que utilizar. Comecei com Bootstrap e jQuery, porque pensei &lt;em&gt;“não vou arriscar e fazer algo rápido logo.”&lt;/em&gt;, mas aí eu pensei &lt;em&gt;“olha, na verdade é uma boa oportunidade para testar algo novo…“&lt;/em&gt;, e instalei o &lt;a href=&quot;https://www.angularjs.org/&quot;&gt;AngularJS&lt;/a&gt;. Nos mesmos dias que comecei, eu estava lendo o post do Diego Eis no Medium do Tableless sobre &lt;a href=&quot;https://medium.com/tableless/hello-world-com-react-desde-o-rascunho-7629bd801d3e#.s6ibs85pt&quot;&gt;‘hello world com React’&lt;/a&gt;, e adivinha? Resolvi testar o React. Tá bom, agora é sério, parei aqui.&lt;/p&gt;
+
+&lt;p&gt;No post, Diego Eis fala sobre umas vídeo-aulas que ele viu, do Matheus Lima, no &lt;a href=&quot;http://jscasts.teachable.com/p/comecando-com-react-js&quot;&gt;jscasts&lt;/a&gt; e aí eu resolvi dar uma olhada e seguir nesse projetinho me baseando nesse curso. Daí surgiu a &lt;a href=&quot;https://github.com/gabsprates/english-quiz/releases/tag/v1.0&quot;&gt;v1.0 do English Quiz&lt;/a&gt;, que no fim das contas funcionou bem e meu trabalho foi um sucesso &lt;del&gt;apesar de eu não ter aplicado as melhores práticas no desenvolvimento&lt;/del&gt;. Confesso que pude perceber muito mais, ou talvez, realmente entendi &lt;em&gt;closures&lt;/em&gt; fazendo esse trabalho.&lt;/p&gt;
+
+&lt;p&gt;Apesar do título desse post, eu não aprendi React em um dia. Na verdade, ainda não parei de aprender. Já li boa parte da documentação e implementei várias coisinhas de testes, mas cada vez que converso sobre, eu tenho uns momentos &lt;em&gt;mind blown&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;Exatamente por isso, estou reescrevendo esse projeto. Para isso, gastei uns dias das férias estudando, testando e tendo ótimos momentos de descoberta. Acho que alguns pontos são válidos de colocar aqui separadamente, então vamos lá.&lt;/p&gt;
+
+&lt;h2 id=&quot;es6-es2015-or-whatever&quot;&gt;ES6, ES2015 or &lt;em&gt;whatever&lt;/em&gt;&lt;/h2&gt;
+
+&lt;p&gt;O primeiro deles, e na verdade o mais importante: &lt;strong&gt;JavaScript e as novas &lt;em&gt;features&lt;/em&gt; do ES6!&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Pode parecer clichê dizer isso, mas na verdade é a parte mais importante de todo o resto. Participar da tradução do &lt;a href=&quot;https://github.com/cezaraugusto/You-Dont-Know-JS&quot;&gt;You Don’t Know JS&lt;/a&gt; tem me ajudado bastante, daí a base em JS eu até que já tinha, mas como falei, comecei pelas vídeo-aulas do Matheus Lima, e aquele curso era com &lt;strong&gt;ES5&lt;/strong&gt;. Daí a aplicação, apesar de funcionando, ficou com uma carinha de “esse código poderia ser mais bonito e mais legível”, daí parei pra olhar a documentação do React com mais carinho e mais tempo, vi os exemplos em &lt;strong&gt;ES6&lt;/strong&gt; e fui logo procurar saber sobre as coisas que eu ainda entendia muito, como por exemplo: sistema de módulos e o &lt;code class=&quot;highlighter-rouge&quot;&gt;class&lt;/code&gt; syntax sugar. Depois posso até fazer um post falando mais sobre o sistema de módulos, achei interessante, apesar de (até onde eu saiba) não ter nenhum navegador que implementou suporte (até a presente data).&lt;/p&gt;
+
+&lt;p&gt;Então, se você ainda não começou a usar, dá uma olhada na página do &lt;a href=&quot;http://babeljs.io/learn-es2015/&quot;&gt;Learn ES2015&lt;/a&gt;, do site do Babel. ES6 é um ótimo amigo e já está ficando velho.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;:p&lt;/strong&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;webpack&quot;&gt;webpack&lt;/h2&gt;
+
+&lt;p&gt;Já tentou usar o &lt;a href=&quot;http://webpack.github.io/docs/webpack-dev-server.html&quot;&gt;webpack-dev-server&lt;/a&gt; mas percebeu que ele não gerava um bundle no diretório de &lt;strong&gt;&lt;em&gt;output&lt;/em&gt;&lt;/strong&gt;? Eu percebi, achei que não prestava e achei que não tinha configurado direito, daí deixei pra lá… Até &lt;a href=&quot;&quot;&gt;O dia que eu aprendi React&lt;/a&gt; (#recursividade).&lt;/p&gt;
+
+&lt;p&gt;Sim, comunidades podem ajudar muito e exatamente por isso, leia as documentações e ajude. Aprendi a mexer com o &lt;a href=&quot;http://webpack.github.io/&quot;&gt;webpack&lt;/a&gt; assim, e entendi que o &lt;code class=&quot;highlighter-rouge&quot;&gt;webpack-dev-server&lt;/code&gt; gera o bundle em memória, enquanto roda o servidor. Valeu o estudo porque agora posso usá-lo pra qualquer outra coisa, graças aos vários loaders e plugins! Vivendo e aprendendo. Esses links do webpack vão te levar para a documentação da versão 1, que foi a que eu usei, mas como recentemente foi lançada a versão 2, aconselho você olhar a &lt;a href=&quot;https://webpack.js.org/&quot;&gt;nova documentação&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;react-em-si&quot;&gt;React em si&lt;/h2&gt;
+
+&lt;p&gt;Mais uma vez: leia documentações.&lt;/p&gt;
+
+&lt;p&gt;A do React é muito boa e dá ótimos exemplos e explicações. Se você tiver um tempinho pra dedicar a isso, será muito produtivo. Vídeo-aulas são bacanas, principalmente quando você está um pouco cansado para ler, mas a documentação é onde você acha os verdadeiros porquês por trás das coisas.&lt;/p&gt;
+
+&lt;p&gt;Entender como e quando usar &lt;code class=&quot;highlighter-rouge&quot;&gt;state&lt;/code&gt; e &lt;code class=&quot;highlighter-rouge&quot;&gt;props&lt;/code&gt; é fundamental. Entender os métodos &lt;code class=&quot;highlighter-rouge&quot;&gt;componentDidMount()&lt;/code&gt; e &lt;code class=&quot;highlighter-rouge&quot;&gt;componentWillUnmount()&lt;/code&gt; também são muito importantes para o &lt;a href=&quot;https://facebook.github.io/react/docs/state-and-lifecycle.html&quot;&gt;ciclo de vida&lt;/a&gt; do componente. E a melhor parte (pra mim) &lt;a href=&quot;https://facebook.github.io/react/docs/thinking-in-react.html&quot;&gt;pensar React&lt;/a&gt; e &lt;a href=&quot;https://facebook.github.io/react/docs/composition-vs-inheritance.html&quot;&gt;pensar em composição&lt;/a&gt; ajuda muito.&lt;/p&gt;
+
+&lt;p&gt;Estou refatorando a aplicação e (no presente momento) estou no &lt;a href=&quot;https://facebook.github.io/react/docs/thinking-in-react.html#step-3-identify-the-minimal-but-complete-representation-of-ui-state&quot;&gt;passo 3&lt;/a&gt; do processo de pensar em React. Quando estiver OK eu aviso, ok?&lt;/p&gt;
+
+&lt;h2 id=&quot;outras-coisinhas&quot;&gt;Outras coisinhas&lt;/h2&gt;
+
+&lt;p&gt;Por um motivo bobo, resolvi colocar o &lt;code class=&quot;highlighter-rouge&quot;&gt;border-radius&lt;/code&gt; dos botões que estava criando com um número absurdo: &lt;code class=&quot;highlighter-rouge&quot;&gt;19941101px&lt;/code&gt;. O resultado foi que descobri um break point na versão 50 do Firefox. O &lt;code class=&quot;highlighter-rouge&quot;&gt;border-radius&lt;/code&gt; quebra em &lt;code class=&quot;highlighter-rouge&quot;&gt;17895698px&lt;/code&gt;. Agora, por qual motivo alguém faria isso?&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;¯\_(ツ)_/¯&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;E o que mais? NodeJS e Express.js! Mas isso fica pra outro post. Sendo breve, aproveitei pra escrever uma API simples, com MVC, um CRUD básico e MongoDB pra armazenar as perguntas do quiz. Tá funcionando &lt;del&gt;hehe&lt;/del&gt;, mas já sei o que dá pra melhorar. Tá na lista.&lt;/p&gt;
+
+&lt;h2 id=&quot;conclusão&quot;&gt;Conclusão&lt;/h2&gt;
+
+&lt;p&gt;As férias da faculdade foram bem corridas, apertadas de serviço, e ótimas pra estudar outras coisas que não se vê na sala de aula. Estou feliz com esse progresso, fui até desafiado estudar Ionic2 e Angular2, mas deixa pra algum feriado prolongado aí.&lt;/p&gt;
+
+&lt;p&gt;Alguma dúvida? Algum comentário? Deixa aí embaixo, será um prazer trocar uma ideia.&lt;/p&gt;
+
+&lt;p&gt;Isso é tudo pessoal, até a próxima.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;(:&lt;/strong&gt;&lt;/p&gt;
+</description>
+        <pubDate>Fri, 03 Feb 2017 00:00:00 -0200</pubDate>
+        <link>http://gabrielprates.com/2017/02/03/o-dia-eu-que-aprendi-react.html</link>
+        <guid isPermaLink="true">http://gabrielprates.com/2017/02/03/o-dia-eu-que-aprendi-react.html</guid>
+        
+        
+      </item>
     
       <item>
         <title>Shell Script -n1 --intro</title>
@@ -132,7 +195,7 @@
 
 &lt;p&gt;Agora vamos usar o comando &lt;code class=&quot;highlighter-rouge&quot;&gt;read&lt;/code&gt; para fazer a leitura da variável &lt;code class=&quot;highlighter-rouge&quot;&gt;$PATH&lt;/code&gt;, quebrando seu conteúdo em todos os caracteres &lt;code class=&quot;highlighter-rouge&quot;&gt;:&lt;/code&gt;. Acrescente o seguinte comando:&lt;/p&gt;
 
-&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# O parânetro `-a` atribui o conteúdo lido a índices&lt;/span&gt;
+&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# O parâmetro `-a` atribui o conteúdo lido a índices&lt;/span&gt;
 &lt;span class=&quot;c&quot;&gt;# sequenciais da variável `caminhos`, iniciando em zero&lt;/span&gt;
 
 &lt;span class=&quot;c&quot;&gt;# `&amp;lt;&amp;lt;&amp;lt;` é uma maneira de direcionar entrada, que falarei em um post posterior&lt;/span&gt;
@@ -183,8 +246,8 @@
 &lt;/ul&gt;
 </description>
         <pubDate>Sun, 08 Jan 2017 00:00:00 -0200</pubDate>
-        <link>http://blog.gabsprates.com/2017/01/08/shell-script-01-introducao.html</link>
-        <guid isPermaLink="true">http://blog.gabsprates.com/2017/01/08/shell-script-01-introducao.html</guid>
+        <link>http://gabrielprates.com/2017/01/08/shell-script-01-introducao.html</link>
+        <guid isPermaLink="true">http://gabrielprates.com/2017/01/08/shell-script-01-introducao.html</guid>
         
         
       </item>
@@ -204,15 +267,15 @@
 &lt;p&gt;Até a próxima!&lt;/p&gt;
 </description>
         <pubDate>Sat, 17 Dec 2016 00:00:00 -0200</pubDate>
-        <link>http://blog.gabsprates.com/2016/12/17/yes-i-am-back.html</link>
-        <guid isPermaLink="true">http://blog.gabsprates.com/2016/12/17/yes-i-am-back.html</guid>
+        <link>http://gabrielprates.com/2016/12/17/yes-i-am-back.html</link>
+        <guid isPermaLink="true">http://gabrielprates.com/2016/12/17/yes-i-am-back.html</guid>
         
         
       </item>
     
       <item>
         <title>WAT JS - Mergulhando nos Comportamentos do JavaScript</title>
-        <description>&lt;p&gt;No post &lt;a href=&quot;http://blog.gabsprates.com/2016/07/12/conversao-de-tipos-em-js.html&quot;&gt;Conversão de tipos em JavaScript&lt;/a&gt;, que fiz há algum tempo, expliquei um pouco de como o motor do JS trata algumas conversões internamente, e recebi um desafio para explicar algumas &lt;em&gt;bizarrices&lt;/em&gt; da linguagem, que você pode ver no vídeo abaixo.&lt;/p&gt;
+        <description>&lt;p&gt;No post &lt;a href=&quot;http://gabrielprates.com/2016/07/12/conversao-de-tipos-em-js.html&quot;&gt;Conversão de tipos em JavaScript&lt;/a&gt;, que fiz há algum tempo, expliquei um pouco de como o motor do JS trata algumas conversões internamente, e recebi um desafio para explicar algumas &lt;em&gt;bizarrices&lt;/em&gt; da linguagem, que você pode ver no vídeo abaixo.&lt;/p&gt;
 
 &lt;video class=&quot;full-width&quot; poster=&quot;https://www.destroyallsoftware.com/images/posters/talks/wat.poster.png&quot; preload=&quot;none&quot; controls=&quot;&quot;&gt;
   &lt;source src=&quot;https://destroyallsoftware-talks.s3.amazonaws.com/wat.mp4?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;amp;X-Amz-Credential=AKIAIKRVCECXBC4ZGHIQ%2F20161002%2Fus-east-1%2Fs3%2Faws4_request&amp;amp;X-Amz-Date=20161002T054907Z&amp;amp;X-Amz-Expires=14400&amp;amp;X-Amz-SignedHeaders=host&amp;amp;X-Amz-Signature=30a2b4f269fd19e5da7f2c86ebdd237ebc3fbe15129576be7b02ea648d4579b7&quot; /&gt;
@@ -220,7 +283,7 @@
 
 &lt;p&gt;Fonte: &lt;a href=&quot;https://www.destroyallsoftware.com/talks/wat&quot;&gt;https://www.destroyallsoftware.com/talks/wat&lt;/a&gt;&lt;/p&gt;
 
-&lt;p&gt;Ah, se você ainda não leu o post que falei, &lt;a href=&quot;http://blog.gabsprates.com/2016/07/12/conversao-de-tipos-em-js.html&quot;&gt;clique aqui pra ler&lt;/a&gt;, ajudará a entender algumas partes deste post. &lt;strong&gt;;)&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Ah, se você ainda não leu o post que falei, &lt;a href=&quot;http://gabrielprates.com/2016/07/12/conversao-de-tipos-em-js.html&quot;&gt;clique aqui pra ler&lt;/a&gt;, ajudará a entender algumas partes deste post. &lt;strong&gt;;)&lt;/strong&gt;&lt;/p&gt;
 
 &lt;h3 id=&quot;esclarecimento&quot;&gt;Esclarecimento&lt;/h3&gt;
 
@@ -344,7 +407,7 @@ se (ambos os termos = Infinity, mas de sinais opostos):
 
 &lt;p&gt;Antes de mais nada, um &lt;code class=&quot;highlighter-rouge&quot;&gt;Array&lt;/code&gt; é um objeto, certo? Certo!&lt;/p&gt;
 
-&lt;p&gt;Os objetos de &lt;em&gt;normais&lt;/em&gt; (&lt;code class=&quot;highlighter-rouge&quot;&gt;Boolean&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;Number&lt;/code&gt; e &lt;code class=&quot;highlighter-rouge&quot;&gt;String&lt;/code&gt;), que vimos &lt;a href=&quot;http://blog.gabsprates.com/2016/07/12/conversao-de-tipos-em-js.html&quot;&gt;no outro post&lt;/a&gt;, apenas pegam o valor primitivo do objeto. Já os objetos complexos, quando devem ter uma conversão &lt;code class=&quot;highlighter-rouge&quot;&gt;ToPrimitive()&lt;/code&gt;, buscam um método &lt;em&gt;default&lt;/em&gt; para a conversão &lt;code class=&quot;highlighter-rouge&quot;&gt;toString()&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;Os objetos de &lt;em&gt;normais&lt;/em&gt; (&lt;code class=&quot;highlighter-rouge&quot;&gt;Boolean&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;Number&lt;/code&gt; e &lt;code class=&quot;highlighter-rouge&quot;&gt;String&lt;/code&gt;), que vimos &lt;a href=&quot;http://gabrielprates.com/2016/07/12/conversao-de-tipos-em-js.html&quot;&gt;no outro post&lt;/a&gt;, apenas pegam o valor primitivo do objeto. Já os objetos complexos, quando devem ter uma conversão &lt;code class=&quot;highlighter-rouge&quot;&gt;ToPrimitive()&lt;/code&gt;, buscam um método &lt;em&gt;default&lt;/em&gt; para a conversão &lt;code class=&quot;highlighter-rouge&quot;&gt;toString()&lt;/code&gt;.&lt;/p&gt;
 
 &lt;p&gt;No caso do &lt;code class=&quot;highlighter-rouge&quot;&gt;Array&lt;/code&gt;, temos o que podemos chamar de &lt;a href=&quot;http://www.ecma-international.org/ecma-262/6.0/index.html#sec-array.prototype.tostring&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Array.prototype.toString&lt;/code&gt;&lt;/a&gt;, que basicamente retorna a &lt;em&gt;string&lt;/em&gt; do &lt;code class=&quot;highlighter-rouge&quot;&gt;join()&lt;/code&gt;. Observe:&lt;/p&gt;
 
@@ -452,8 +515,8 @@ se (ambos os termos = Infinity, mas de sinais opostos):
 &lt;/ul&gt;
 </description>
         <pubDate>Wed, 05 Oct 2016 00:00:00 -0300</pubDate>
-        <link>http://blog.gabsprates.com/2016/10/05/wat-js.html</link>
-        <guid isPermaLink="true">http://blog.gabsprates.com/2016/10/05/wat-js.html</guid>
+        <link>http://gabrielprates.com/2016/10/05/wat-js.html</link>
+        <guid isPermaLink="true">http://gabrielprates.com/2016/10/05/wat-js.html</guid>
         
         
       </item>
@@ -569,8 +632,8 @@ se (ambos os termos = Infinity, mas de sinais opostos):
 &lt;p&gt;(:&lt;/p&gt;
 </description>
         <pubDate>Thu, 15 Sep 2016 00:00:00 -0300</pubDate>
-        <link>http://blog.gabsprates.com/2016/09/15/duckduckgo-uma-opcao-busca.html</link>
-        <guid isPermaLink="true">http://blog.gabsprates.com/2016/09/15/duckduckgo-uma-opcao-busca.html</guid>
+        <link>http://gabrielprates.com/2016/09/15/duckduckgo-uma-opcao-busca.html</link>
+        <guid isPermaLink="true">http://gabrielprates.com/2016/09/15/duckduckgo-uma-opcao-busca.html</guid>
         
         
       </item>
@@ -658,8 +721,8 @@ se (ambos os termos = Infinity, mas de sinais opostos):
 &lt;p&gt;Até a próxima.&lt;/p&gt;
 </description>
         <pubDate>Sun, 07 Aug 2016 00:00:00 -0300</pubDate>
-        <link>http://blog.gabsprates.com/2016/08/07/que-nao-vai-padronizar-o-que.html</link>
-        <guid isPermaLink="true">http://blog.gabsprates.com/2016/08/07/que-nao-vai-padronizar-o-que.html</guid>
+        <link>http://gabrielprates.com/2016/08/07/que-nao-vai-padronizar-o-que.html</link>
+        <guid isPermaLink="true">http://gabrielprates.com/2016/08/07/que-nao-vai-padronizar-o-que.html</guid>
         
         
       </item>
@@ -855,8 +918,8 @@ se (ambos os termos = Infinity, mas de sinais opostos):
 &lt;p&gt;Até a próxima.&lt;/p&gt;
 </description>
         <pubDate>Tue, 12 Jul 2016 00:00:00 -0300</pubDate>
-        <link>http://blog.gabsprates.com/2016/07/12/conversao-de-tipos-em-js.html</link>
-        <guid isPermaLink="true">http://blog.gabsprates.com/2016/07/12/conversao-de-tipos-em-js.html</guid>
+        <link>http://gabrielprates.com/2016/07/12/conversao-de-tipos-em-js.html</link>
+        <guid isPermaLink="true">http://gabrielprates.com/2016/07/12/conversao-de-tipos-em-js.html</guid>
         
         
       </item>
@@ -964,8 +1027,8 @@ se (ambos os termos = Infinity, mas de sinais opostos):
 &lt;p&gt;Isso é tudo pessoal (:&lt;/p&gt;
 </description>
         <pubDate>Thu, 30 Jun 2016 00:00:00 -0300</pubDate>
-        <link>http://blog.gabsprates.com/2016/06/30/bulma-framework-css-baseado-em-flexbox.html</link>
-        <guid isPermaLink="true">http://blog.gabsprates.com/2016/06/30/bulma-framework-css-baseado-em-flexbox.html</guid>
+        <link>http://gabrielprates.com/2016/06/30/bulma-framework-css-baseado-em-flexbox.html</link>
+        <guid isPermaLink="true">http://gabrielprates.com/2016/06/30/bulma-framework-css-baseado-em-flexbox.html</guid>
         
         
       </item>
@@ -993,8 +1056,8 @@ se (ambos os termos = Infinity, mas de sinais opostos):
 &lt;p&gt;Então, é isso. Se você gostou desse projeto e da ideia, dê uma estrela no &lt;a href=&quot;https://github.com/libretro/Lakka&quot;&gt;GitHub do Lakka&lt;/a&gt; e contribua como puder.&lt;/p&gt;
 </description>
         <pubDate>Sun, 26 Jun 2016 00:00:00 -0300</pubDate>
-        <link>http://blog.gabsprates.com/2016/06/26/nostalgia-e-lakka.html</link>
-        <guid isPermaLink="true">http://blog.gabsprates.com/2016/06/26/nostalgia-e-lakka.html</guid>
+        <link>http://gabrielprates.com/2016/06/26/nostalgia-e-lakka.html</link>
+        <guid isPermaLink="true">http://gabrielprates.com/2016/06/26/nostalgia-e-lakka.html</guid>
         
         
       </item>
@@ -1006,8 +1069,8 @@ se (ambos os termos = Infinity, mas de sinais opostos):
 &lt;p&gt;Então… é isso (:&lt;/p&gt;
 </description>
         <pubDate>Sun, 12 Jun 2016 17:54:40 -0300</pubDate>
-        <link>http://blog.gabsprates.com/2016/06/12/entao-e-isso.html</link>
-        <guid isPermaLink="true">http://blog.gabsprates.com/2016/06/12/entao-e-isso.html</guid>
+        <link>http://gabrielprates.com/2016/06/12/entao-e-isso.html</link>
+        <guid isPermaLink="true">http://gabrielprates.com/2016/06/12/entao-e-isso.html</guid>
         
         
       </item>

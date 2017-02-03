@@ -12,10 +12,10 @@ description: > # this means to ignore newlines until "baseurl:"
   Desenvolvedor há mais de 5 anos e baterista nas horas vagas.
   #web #html #css #js #freesoftware #opensource #busquemconhecimento
 baseurl: "" # the subpath of your site, e.g. /blog
-url: "http://blog.gabsprates.com" # the base hostname & protocol for your site
+url: "http://gabrielprates.com" # the base hostname & protocol for your site
 twitter_username: gabsprates
 github_username:  gabsprates
-linkedin_username: gabsprates
+linkedin_username: gabrielprates
 codepen_username: gabsprates
 
 # Build settings

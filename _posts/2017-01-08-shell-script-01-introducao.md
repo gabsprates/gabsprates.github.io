@@ -102,7 +102,7 @@ IFS=':'
 Agora vamos usar o comando `read` para fazer a leitura da variável `$PATH`, quebrando seu conteúdo em todos os caracteres `:`. Acrescente o seguinte comando:
 
 ```sh
-# O parânetro `-a` atribui o conteúdo lido a índices
+# O parâmetro `-a` atribui o conteúdo lido a índices
 # sequenciais da variável `caminhos`, iniciando em zero
 
 # `<<<` é uma maneira de direcionar entrada, que falarei em um post posterior
