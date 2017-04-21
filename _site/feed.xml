@@ -6,9 +6,65 @@
 </description>
     <link>http://gabrielprates.com/</link>
     <atom:link href="http://gabrielprates.com/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sat, 04 Mar 2017 00:58:19 -0300</pubDate>
-    <lastBuildDate>Sat, 04 Mar 2017 00:58:19 -0300</lastBuildDate>
+    <pubDate>Fri, 21 Apr 2017 12:03:58 -0300</pubDate>
+    <lastBuildDate>Fri, 21 Apr 2017 12:03:58 -0300</lastBuildDate>
     <generator>Jekyll v3.3.1</generator>
+    
+      <item>
+        <title>Prioridades e Conforto</title>
+        <description>&lt;p&gt;Depois de quase 6 anos no mercado de tecnologia e 4 anos na faculdade, pude perceber que tudo é uma questão de prioridade e, quando não se tem isso, é fácil de perder tempo na vida. Gostaria de sair um pouco do contexto mais técnico que eu geralmente posto e compartilhar um pouco dessas reflexões.&lt;/p&gt;
+
+&lt;p&gt;Nem sempre fui dedicado e estudioso. Na verdade, eu passei muito tempo acomodado com o que fazia:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;O HTML/CSS que precisava pra deixar a página bonitinha, sem muito efeito ou firula (pra não dar trabalho), e se precisasse, usava um jQuery &lt;code class=&quot;highlighter-rouge&quot;&gt;.animate(...)&lt;/code&gt;;&lt;/li&gt;
+  &lt;li&gt;Fazer os trabalhos da faculdade pra ganhar uns pontos e garantir a média, o que conseguisse à mais seria lucro;&lt;/li&gt;
+  &lt;li&gt;Escutar as músicas pra tocar, mas “pra que ficar estudando tempo e compasso?”;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;E por aí vai. Naquele tempo eu não cresci quase nada em termos de conhecimento. Acho que deu pra perceber que eu não conseguia fazer nada disso bem feito, né? A questão não era que eu não queria fazer as coisas da maneira correta, eu queria! Só que eu não dava importância pras coisas que eu não achava úteis e isso afetava o todo. Talvez eu não gostasse de ter que me esforçar, e esse &lt;strong&gt;é o maior perigo&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;Por exemplo, você acha uma boa gastar tempo lendo documentações? Você acha que a disciplina Filosofia é importante a para um curso de TI, ou computação? E Português? E Direito?! Se você respondeu não para alguma delas, por favor, reconsidere. Eu sei que às vezes é difícil animar com algo que não pareça tão atrativo, ou que pareça não encaixar com o nosso contexto de gosto. Mas veja como os exemplos deste parágrafo são importantes:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Nossa comunicação é muito escrita (e-mail, Slack, Twitter);&lt;/li&gt;
+  &lt;li&gt;Nossas leis são baseadas em coisas escritas por Platão e Aristóteles;&lt;/li&gt;
+  &lt;li&gt;Entender a necessidade de outras áreas nos faz perceber oportunidades;&lt;/li&gt;
+  &lt;li&gt;Para trabalhar em equipe você precisa saber referenciar conteúdos;&lt;/li&gt;
+  &lt;li&gt;Documentações te ensinam a tecnologia com detalhes, uma seção geralmente tem vários links para outras partes que complementam o conhecimento.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Essas são apenas algumas coisas. Acho que aqui dá até pra falar sobre um assunto polêmico… Aposto que você já ouviu algo parecido com:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Não preciso fazer faculdade para atuar no mercado de tecnologia, então preciso menos ainda estudar algo que não gosto!&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;É VERDADE, em partes! Eu também acho que não é necessário ter um diploma de curso superior para trabalhar com tecnologia. No entanto, em vários momentos da vida profissional você terá que fazer algo que não gosta e, acredite, pode ser uma ótima oportunidade de aprendizado. O que a faculdade me ensinou, e me ensina, é correr atrás das coisas, ou como é bonitinho de falar “sair da zona de conforto”. Sei que não faria isso sozinho. Aprendi a pesquisar e produzir conhecimento, vi a relação direta da matemática com a computação, também aprendi lidar melhor com trabalho em equipe e descobri a Engenharia de Software, que me fez acordar para o caminho das boas práticas. Por isso eu acho que é bom avaliar antes de falar que “faculdade não serve pra nada”.&lt;/p&gt;
+
+&lt;p&gt;Lembro quando comecei a me incomodar em sempre &lt;em&gt;catar pedaços&lt;/em&gt; de CSS de projetos anteriores, e vi falar sobre frameworks. Daí eu conheci o Bootstrap e também sobre layout responsivo. O Bootstrap era escrito em LESS, mas também tinha opção em SASS (aí já foram duas novas tecnologias). Por causa do SASS, instalei o Ruby e acabei conhecendo o Jekyll. Sem falar nas APIs novas &lt;del&gt;(na época eram novas rsrs)&lt;/del&gt; do HTML5 e animações com CSS3, nem precisava de JavaScript!!! Lembro de ter pensado “&lt;em&gt;então por quê as pessoas usam JS pra animações, isso é pra validar formulários e fazer requisições AJAX?&lt;/em&gt;” e depois “&lt;em&gt;Canvas?!?!&lt;/em&gt;”, daí percebi que &lt;a href=&quot;https://github.com/cezaraugusto/You-Dont-Know-JS&quot;&gt;eu não sabia JS&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Realmente não é fácil começar estudar algo novo, principalmente se não há muito interesse naquilo. Mas descobri que tudo é uma questão de prioridade, foco e propósito.&lt;/p&gt;
+
+&lt;p&gt;Quando você estabelece um propósito e mantém o foco nele, você enfrenta qualquer desafio para alcançá-lo. Se for para uma formação superior, você estuda as disciplinas que não são da área e aprende muito com elas. Se for para trabalhar com determinada tecnologia, você aprende ler a documentação dela e acha praticamente todas as respostas que procura. Se for de carreira, você enfrenta alguns momentos turbulentos e complicados para alcançar o sonho.&lt;/p&gt;
+
+&lt;p&gt;Talvez esse post seja mais motivacional (igual alguns dos episódios do &lt;a href=&quot;http://devnaestrada.com.br/&quot;&gt;DevNaEstrada&lt;/a&gt;), ou de desabafo. Mas isso realmente é verdade. Então se você parar pra pensar um dia e falar &lt;em&gt;“Eu tenho um sonho…“&lt;/em&gt;, corra atrás. Se planeje, e vai. A mensagem que eu gostaria que ficasse com esse post é:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;h3 id=&quot;tenha-sonhos-estabeleça-suas-metas-foque-nos-seus-propósitos-e-saia-da-sua-zona-de-conforto&quot;&gt;Tenha sonhos, estabeleça suas metas, foque nos seus propósitos e saia da sua zona de conforto!&lt;/h3&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Bom… isso é tudo pessoal.&lt;/p&gt;
+
+&lt;p&gt;Até a próxima.
+(:&lt;/p&gt;
+</description>
+        <pubDate>Fri, 21 Apr 2017 00:00:00 -0300</pubDate>
+        <link>http://gabrielprates.com/2017/04/21/prioridades-e-conforto.html</link>
+        <guid isPermaLink="true">http://gabrielprates.com/2017/04/21/prioridades-e-conforto.html</guid>
+        
+        
+      </item>
     
       <item>
         <title>Atribuição múltipla com Destruturing Assignment</title>
@@ -1233,35 +1289,6 @@ se (ambos os termos = Infinity, mas de sinais opostos):
         <pubDate>Thu, 30 Jun 2016 00:00:00 -0300</pubDate>
         <link>http://gabrielprates.com/2016/06/30/bulma-framework-css-baseado-em-flexbox.html</link>
         <guid isPermaLink="true">http://gabrielprates.com/2016/06/30/bulma-framework-css-baseado-em-flexbox.html</guid>
-        
-        
-      </item>
-    
-      <item>
-        <title>Nostalgia e Lakka</title>
-        <description>&lt;p&gt;Bom, muita gente conhece a emoção de ficar acordado nas madrugadas das férias jogando Top Gear 2, Donkey Kong 3, Super Mario World e Side Pocket, no Super Nintendo. Outros ficaram mais apegados ao Mega Man Battle Network 6 (Falzar) e Pokemón Ruby, do GameBoy Advance. Como as gerações mais novas não tiveram muito disso, creio que é um boa hora para lhes apresentar o &lt;a href=&quot;http://www.lakka.tv/&quot;&gt;Lakka&lt;/a&gt;.&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;Lakka é uma distribuição Linux destinada a transformar um pequeno computador em um console de jogos &lt;em&gt;retro&lt;/em&gt;. É baseado no &lt;a href=&quot;http://openelec.tv/home/what-is-openelec&quot;&gt;OpenELEC&lt;/a&gt; e no &lt;a href=&quot;http://www.libretro.com/index.php/retroarch-2/&quot;&gt;RetroArch&lt;/a&gt;.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;Claro que podemos baixar um emulador qualquer, até mesmo o próprio RetroArch, e instalá-lo em nosso PC para jogar o que quisermos, mas a proposta do Lakka me chamou muita atenção. Com um suporte à mais de 30 consoles diferentes e por rodar em hardwares com baixo desempenho, vale a pena repensar no destino do seu PC antigo que está parado em algum canto.&lt;/p&gt;
-
-&lt;p&gt;Ganhei um PC velho de uma tia, na verdade ela disse que ia jogar fora porque não servia mais, daí eu intervi. Claro que servia! Contava com a configuração de um Intel Celeron com 2.00GHz, 1GB de RAM e um HD de 80GB. Tava ótimo! Eu pensei em instalar alguma distribuição Linux leve, um Debian, ou Xubuntu, para montar uma espécie de &lt;em&gt;jukebox&lt;/em&gt;, mas aí precisei usar o HD para backup e acabou que ele ficou em outra máquina minha.&lt;/p&gt;
-
-&lt;p&gt;Um tempo depois, vi o &lt;a href=&quot;https://www.youtube.com/watch?v=yRQCIgWUmBQ&quot;&gt;vídeo&lt;/a&gt; do &lt;a href=&quot;http://www.diolinux.com.br/&quot;&gt;Diolinux&lt;/a&gt; sobre o RetroArch e vi que eu poderia usar o PC que ganhei pra isso, mas depois lembrei que não tinha mais o HD, &lt;em&gt;hehe&lt;/em&gt;. Daí eu vi falar do Lakka, como já vinha com o sistema todo completo, eu não precisaria instalar alguma distribuição para instalar o RetroArch depois, mas ainda estava sem HD.&lt;/p&gt;
-
-&lt;p&gt;Passaram-se algumas semanas e um colega me falou que tinha um PC velho que ele ia jogar fora. Claro que eu intervi!!! Acabou que eu só aproveitei o HD de 20GB mesmo, era um Pentium 4 com 512MB de RAM. Ainda tenho ele aqui, pra algum outro possível projeto.&lt;/p&gt;
-
-&lt;p&gt;Juntei as peças e fiz meu console de games &lt;em&gt;retro&lt;/em&gt;. A instalação do Lakka é muito simples, no site oficial tem todos os passos. Por padrão, a instalação é feita por dispositivos USB. Pode ser que você não consiga &lt;em&gt;bootar&lt;/em&gt; o pendrive apenas com o comando &lt;code class=&quot;highlighter-rouge&quot;&gt;dd&lt;/code&gt;, no GNU/Linux, mas é só usar o UNetbootin que dá certo. Para montar o pendrive &lt;em&gt;bootável&lt;/em&gt; a partir do Windows, use o Win32DiskImager, como diz o manual de instalação do Lakka.&lt;/p&gt;
-
-&lt;p&gt;Agora estou aqui jogando e entendendo a história do Mega Man que eu tanto gostava, mas que na 7ª série eu não entendia os diálogos porque eram em inglês &lt;em&gt;hahaha&lt;/em&gt;.&lt;/p&gt;
-
-&lt;p&gt;Então, é isso. Se você gostou desse projeto e da ideia, dê uma estrela no &lt;a href=&quot;https://github.com/libretro/Lakka&quot;&gt;GitHub do Lakka&lt;/a&gt; e contribua como puder.&lt;/p&gt;
-</description>
-        <pubDate>Sun, 26 Jun 2016 00:00:00 -0300</pubDate>
-        <link>http://gabrielprates.com/2016/06/26/nostalgia-e-lakka.html</link>
-        <guid isPermaLink="true">http://gabrielprates.com/2016/06/26/nostalgia-e-lakka.html</guid>
         
         
       </item>
