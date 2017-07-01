@@ -6,9 +6,232 @@
 </description>
     <link>http://gabrielprates.com/</link>
     <atom:link href="http://gabrielprates.com/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Mon, 29 May 2017 22:40:50 -0300</pubDate>
-    <lastBuildDate>Mon, 29 May 2017 22:40:50 -0300</lastBuildDate>
+    <pubDate>Sat, 01 Jul 2017 14:24:28 -0300</pubDate>
+    <lastBuildDate>Sat, 01 Jul 2017 14:24:28 -0300</lastBuildDate>
     <generator>Jekyll v3.3.1</generator>
+    
+      <item>
+        <title>Exceções e Erros em JavaScript</title>
+        <description>&lt;p&gt;Com o objetivo de tratar exceções e controlar erros, em tempo de execução, algumas linguagens implementam alguns mecanismos interessantes, como por exemplo &lt;a href=&quot;https://golang.org/&quot;&gt;Go&lt;/a&gt;, que você pode trabalhar com funções de retornos múltiplos para passar erro e dados em caso de sucesso; e &lt;a href=&quot;https://www.gnu.org/software/bash/&quot;&gt;Bash&lt;/a&gt; que se trata erros quando o &lt;code class=&quot;highlighter-rouge&quot;&gt;exit&lt;/code&gt; do programa é maior que zero &lt;code class=&quot;highlighter-rouge&quot;&gt;0&lt;/code&gt;, já que zero significa sucesso, sem falar no “&lt;em&gt;exception&lt;/em&gt;” de comandos encadeados com &lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;amp;&amp;amp;&lt;/code&gt;. Agora vamos falar sobre como JavaScript faz isso.&lt;/p&gt;
+
+&lt;p&gt;Bom, pra começar, as exceções são utilizadas como uma forma de &lt;em&gt;feedback&lt;/em&gt;, para cógido saber o que fazer quando cair numa situação de erro. Agora você precisa entender que os &lt;a href=&quot;https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements&quot;&gt;&lt;em&gt;statements&lt;/em&gt;&lt;/a&gt; (declarações, ou “comandos”) e os objetos citados aqui são coisas &lt;strong&gt;separadas&lt;/strong&gt;, apesar de &lt;strong&gt;funcionar em conjunto&lt;/strong&gt;. Mais precisamente, vamos falar sobre 3 coisas:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Objetos do tipo &lt;code class=&quot;highlighter-rouge&quot;&gt;Error&lt;/code&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;o &lt;code class=&quot;highlighter-rouge&quot;&gt;throw&lt;/code&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;e o bloco &lt;code class=&quot;highlighter-rouge&quot;&gt;try...catch&lt;/code&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;em&gt;So, let’s go there!&lt;/em&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;objetos-do-tipo-error&quot;&gt;Objetos do tipo &lt;em&gt;Error&lt;/em&gt;&lt;/h2&gt;
+
+&lt;p&gt;Sabe quando o console te mostra algum erro de sintaxe, ou um erro de referência, falando que uma variável ou função não existe? Aquelas mensagens esquisitas são dos objetos de &lt;code class=&quot;highlighter-rouge&quot;&gt;Error&lt;/code&gt;. Basicamente, esses objetos tem seu prototype composto pelos seguintes itens:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;.constructor&lt;/code&gt;: que inicializa os objetos, é chamado quando se instancia com o &lt;code class=&quot;highlighter-rouge&quot;&gt;new&lt;/code&gt;, ou apenas chamando como função &lt;code class=&quot;highlighter-rouge&quot;&gt;Error()&lt;/code&gt;;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;.message&lt;/code&gt;: a mensagem de erro, que é passada como primeiro argumento do construtor;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;.name&lt;/code&gt;: o tipo do erro. Ex.: “&lt;em&gt;Error&lt;/em&gt;”, “&lt;em&gt;ReferenceError&lt;/em&gt;”;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;.toString()&lt;/code&gt;: herdado do &lt;code class=&quot;highlighter-rouge&quot;&gt;Object.prototype.toString()&lt;/code&gt; e retorna o valor de &lt;code class=&quot;highlighter-rouge&quot;&gt;.message&lt;/code&gt;.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Ok, como eu disse, a propriedade &lt;code class=&quot;highlighter-rouge&quot;&gt;.name&lt;/code&gt; especifica o tipo do Erro. Vamos dar uma olhada nos erros &lt;strong&gt;nativos&lt;/strong&gt; e quando aparecem:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;&lt;em&gt;EvalError&lt;/em&gt;&lt;/strong&gt;: lançado quando a função &lt;code class=&quot;highlighter-rouge&quot;&gt;eval()&lt;/code&gt; lança algum erro;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;&lt;em&gt;RangeError&lt;/em&gt;&lt;/strong&gt;: lançado quando encontra algum valor não está dentro do intervalo permitido;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;&lt;em&gt;ReferenceError&lt;/em&gt;&lt;/strong&gt;: lançado quando uma referência inválida é detectada;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;&lt;em&gt;SyntaxError&lt;/em&gt;&lt;/strong&gt;: lançado quando existe algum erro no &lt;em&gt;parse&lt;/em&gt;, no momento que a &lt;em&gt;engine&lt;/em&gt; lê o código para interpretá-lo;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;&lt;em&gt;TypeError&lt;/em&gt;&lt;/strong&gt;: lançado quando um parâmetro de uma função não é do tipo desejado;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;&lt;em&gt;URIError&lt;/em&gt;&lt;/strong&gt;: lançado quando alguma operação de URI, &lt;code class=&quot;highlighter-rouge&quot;&gt;encodeURI()&lt;/code&gt; ou &lt;code class=&quot;highlighter-rouge&quot;&gt;decodeURI()&lt;/code&gt;, recebem parâmetros inválidos.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Bom, este são os erros nativos. Já que são extensões do objeto &lt;code class=&quot;highlighter-rouge&quot;&gt;Error&lt;/code&gt;, nós também podemos criar nossos erros, para poder tratá-los da melhor forma possível. Exemplo:&lt;/p&gt;
+
+&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;// Erro para regras de negócio&lt;/span&gt;
+&lt;span class=&quot;kr&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;BusinessError&lt;/span&gt; &lt;span class=&quot;kr&quot;&gt;extends&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;Error&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;nx&quot;&gt;constructor&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;msg&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;kr&quot;&gt;super&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;msg&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+  &lt;span class=&quot;c1&quot;&gt;// e podemos adicionar algum método específico&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Ok, &lt;em&gt;next&lt;/em&gt;!&lt;/p&gt;
+
+&lt;h2 id=&quot;o-lançamento-throw&quot;&gt;O “lançamento”: &lt;em&gt;throw&lt;/em&gt;&lt;/h2&gt;
+
+&lt;p&gt;Okay. Reparou que falei dos erros serem lançados? É exatamente isso que acontece.&lt;/p&gt;
+
+&lt;p&gt;Durante a execução do programa, se houver algum tipo de inconsistência, dos tipos nativos de erro, ou se houver alguma situação que devemos avisar sobre erros, utiliza-se o &lt;code class=&quot;highlighter-rouge&quot;&gt;throw&lt;/code&gt; para lançar “coisas” para que “alguém” faça algo com essa coisa.&lt;/p&gt;
+
+&lt;p&gt;Eu disse lançar “coisas” porque você pode lançar qualquer coisa, dentre elas, objetos de erro. Por exemplo:&lt;/p&gt;
+
+&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;// lançar um erro de negócio, com nossa classe `BusinessError`&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;throw&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;BusinessError&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'CPF inválido'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+
+&lt;span class=&quot;c1&quot;&gt;// lançar uma string de erro&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;throw&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Erro: foo&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+
+&lt;span class=&quot;c1&quot;&gt;// lançar o status de erro HTTP&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;throw&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;404&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+
+&lt;span class=&quot;c1&quot;&gt;// lançar objetos literais&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;throw&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;message&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Erro: bar&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;toString&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;message&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
+
+
+&lt;span class=&quot;c1&quot;&gt;// lançar funções&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;throw&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;cm&quot;&gt;/* ¯\_(ツ)_/¯ */&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Não digo que lançar coisas que não sejam objetos de erro seja algo comum, nem que é uma boa prática, mas existe a possibilidade de fazer isso e é bom saber.&lt;/p&gt;
+
+&lt;p&gt;Beleza, deu pra entender a função do &lt;code class=&quot;highlighter-rouge&quot;&gt;throw&lt;/code&gt;? Em poucas palavras, ele lança (ou “joga”) o erro para a estrutura de controle, e é dela que vamos falar agora.&lt;/p&gt;
+
+&lt;h2 id=&quot;o-bloco-trycatch&quot;&gt;O bloco &lt;em&gt;try..catch&lt;/em&gt;&lt;/h2&gt;
+
+&lt;p&gt;Enquanto se &lt;em&gt;tenta&lt;/em&gt; executar determinado trecho de código, pode ser que tenhamos erros que quebram o fluxo e todo o programa, não é mesmo? Para resolver esse problema, podemos tratar alguns erros no caso de &lt;strong&gt;&lt;em&gt;falha&lt;/em&gt;&lt;/strong&gt; durante a &lt;strong&gt;&lt;em&gt;tentativa&lt;/em&gt;&lt;/strong&gt;. Por isso, utilizamos o &lt;code class=&quot;highlighter-rouge&quot;&gt;try..catch&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;A responsabilidade desta estrutura é &lt;strong&gt;tentar executar algo&lt;/strong&gt; e, caso dê algum problema durante a execução, &lt;strong&gt;pegar os erros&lt;/strong&gt; e tratá-los da forma mais adequada possível.&lt;/p&gt;
+
+&lt;p&gt;Então:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;O &lt;code class=&quot;highlighter-rouge&quot;&gt;catch&lt;/code&gt; é quem pega as coisas lançadas pelo &lt;code class=&quot;highlighter-rouge&quot;&gt;throw&lt;/code&gt; dentro do bloco &lt;code class=&quot;highlighter-rouge&quot;&gt;try&lt;/code&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Para entender melhor:&lt;/p&gt;
+
+&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
+&lt;span class=&quot;c1&quot;&gt;// &quot;Tentamos&quot; executar algo&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;try&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+
+  &lt;span class=&quot;cm&quot;&gt;/* ... */&lt;/span&gt;
+
+  &lt;span class=&quot;c1&quot;&gt;// Caso haja algum erro que precise de tratamento (ex.: de negócio)&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;usuario&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;permissao&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+
+    &lt;span class=&quot;c1&quot;&gt;// &quot;Lançamos&quot; um objeto de erro para o `catch`&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;throw&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;BusinessError&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Acesso não autorizado&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+  &lt;span class=&quot;cm&quot;&gt;/* ... */&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;// O `catch` &quot;pega&quot; qualquer coisa lançada no `try`, através do `throw`&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;catch&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;err&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+
+  &lt;span class=&quot;c1&quot;&gt;// e fazemos o que precisar com isso&lt;/span&gt;
+  &lt;span class=&quot;nx&quot;&gt;alert&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;err&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;message&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Lembre o seguinte: qualquer erro nativo também é lançado e cairá no &lt;code class=&quot;highlighter-rouge&quot;&gt;catch&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h3 id=&quot;finally&quot;&gt;&lt;em&gt;finally&lt;/em&gt;!!!&lt;/h3&gt;
+
+&lt;p&gt;O bloco &lt;code class=&quot;highlighter-rouge&quot;&gt;try..catch&lt;/code&gt; também permite a execução de coisas no fim da execução do bloco, tendo sucesso ou caindo no &lt;code class=&quot;highlighter-rouge&quot;&gt;catch&lt;/code&gt;. Para isso, utilizamos o bloco &lt;code class=&quot;highlighter-rouge&quot;&gt;finally&lt;/code&gt;. Exemplo:&lt;/p&gt;
+
+&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
+&lt;span class=&quot;k&quot;&gt;try&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+
+  &lt;span class=&quot;c1&quot;&gt;// throw:&lt;/span&gt;
+  &lt;span class=&quot;c1&quot;&gt;// ┻━┻ ヘ╰( •̀ε•́ ╰)&lt;/span&gt;
+
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;catch&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+
+  &lt;span class=&quot;c1&quot;&gt;// ╰( ⁰ ਊ ⁰ )━☆ﾟ.*･｡ﾟ&lt;/span&gt;
+
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;finally&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+
+  &lt;span class=&quot;c1&quot;&gt;// Sempre executa ao finalizar o `try` ou o `catch`&lt;/span&gt;
+  &lt;span class=&quot;c1&quot;&gt;// É um bom lugar pra executar coisas como:&lt;/span&gt;
+  &lt;span class=&quot;c1&quot;&gt;//  * fechar uma transação com o DB;&lt;/span&gt;
+  &lt;span class=&quot;c1&quot;&gt;//  * fechar arquivos que foram abertos para leitura;&lt;/span&gt;
+  &lt;span class=&quot;c1&quot;&gt;//  * atualizar o estado da view;&lt;/span&gt;
+
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&quot;observação&quot;&gt;Observação&lt;/h3&gt;
+
+&lt;p&gt;Este mecanismo de tratamento de erros em tempo de execução (com &lt;code class=&quot;highlighter-rouge&quot;&gt;try..catch..finally&lt;/code&gt; e &lt;code class=&quot;highlighter-rouge&quot;&gt;throw&lt;/code&gt;) também é adotado por outras linguagens. Podemos citar PHP e Java como exemplo e cada uma delas tem seus objetos de erro específicos. JavaScript utiliza os objetos do tipo &lt;code class=&quot;highlighter-rouge&quot;&gt;Error&lt;/code&gt;, PHP e Java tem seus objetos de &lt;code class=&quot;highlighter-rouge&quot;&gt;Exception&lt;/code&gt;, que servem pra mesma coisa.&lt;/p&gt;
+
+&lt;h2 id=&quot;por-fim&quot;&gt;Por fim&lt;/h2&gt;
+
+&lt;p&gt;Bom, resolvi escrever este post porque eu achei sempre achava um post falando sobre o &lt;code class=&quot;highlighter-rouge&quot;&gt;try..catch&lt;/code&gt;, outro falando sobre o &lt;code class=&quot;highlighter-rouge&quot;&gt;throw&lt;/code&gt;, mas não tinha visto algum que explicava a coisa como um todo.&lt;/p&gt;
+
+&lt;p&gt;Então, fui claro? Deu pra entender a interação desses elementos?&lt;/p&gt;
+
+&lt;p&gt;Se tive alguma dúvida, ou se algo não ficou claro, ou se algo do que falei está errado, deixe um comentário ou me chame no twitter, será um prazer.&lt;/p&gt;
+
+&lt;p&gt;Até a próxima&lt;/p&gt;
+
+&lt;p&gt;(:&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;referências&quot;&gt;Referências&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Error Objects - &lt;a href=&quot;http://www.ecma-international.org/ecma-262/7.0/index.html#sec-error-objects&quot;&gt;http://www.ecma-international.org/ecma-262/7.0/index.html#sec-error-objects&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;ECMAScript Language: Statements and Declarations - &lt;a href=&quot;http://www.ecma-international.org/ecma-262/7.0/index.html#sec-ecmascript-language-statements-and-declarations&quot;&gt;http://www.ecma-international.org/ecma-262/7.0/index.html#sec-ecmascript-language-statements-and-declarations&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;Error - &lt;a href=&quot;https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error&quot;&gt;https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;throw - &lt;a href=&quot;https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/throw&quot;&gt;https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/throw&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;try…catch - &lt;a href=&quot;https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/try...catch&quot;&gt;https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/try…catch&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;try…catch…finally Statement (JavaScript) - &lt;a href=&quot;https://docs.microsoft.com/en-us/scripting/javascript/reference/try-dot-dot-dot-catch-dot-dot-dot-finally-statement-javascript&quot;&gt;https://docs.microsoft.com/en-us/scripting/javascript/reference/try-dot-dot-dot-catch-dot-dot-dot-finally-statement-javascript&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;throw Statement (JavaScript) - &lt;a href=&quot;https://docs.microsoft.com/en-us/scripting/javascript/reference/throw-statement-javascript&quot;&gt;https://docs.microsoft.com/en-us/scripting/javascript/reference/throw-statement-javascript&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;Error Object (JavaScript) - &lt;a href=&quot;https://docs.microsoft.com/en-us/scripting/javascript/reference/error-object-javascript&quot;&gt;https://docs.microsoft.com/en-us/scripting/javascript/reference/error-object-javascript&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        <pubDate>Sat, 01 Jul 2017 14:24:26 -0300</pubDate>
+        <link>http://gabrielprates.com/2017/07/01/excecoes-e-erros-em-js.html</link>
+        <guid isPermaLink="true">http://gabrielprates.com/2017/07/01/excecoes-e-erros-em-js.html</guid>
+        
+        
+      </item>
     
       <item>
         <title>Prioridades e Conforto</title>
@@ -1180,115 +1403,6 @@ se (ambos os termos = Infinity, mas de sinais opostos):
         <pubDate>Tue, 12 Jul 2016 00:00:00 -0300</pubDate>
         <link>http://gabrielprates.com/2016/07/12/conversao-de-tipos-em-js.html</link>
         <guid isPermaLink="true">http://gabrielprates.com/2016/07/12/conversao-de-tipos-em-js.html</guid>
-        
-        
-      </item>
-    
-      <item>
-        <title>Bulma: framework CSS baseado em flexbox</title>
-        <description>&lt;p&gt;Este artigo foi originalmente postado no &lt;a href=&quot;//tableless.com.br/bulma-framework-css-baseado-em-flexbox/&quot;&gt;Tableless&lt;/a&gt; no dia 28 de junho de 2016.&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;“Inspirado pelo Bootstrap, o Bulma visa oferecer a todos a alegria de fazer o design do site, com a simplicidade do flexbox e a elegância de Sass.” - &lt;a href=&quot;http://jgthms.com/&quot;&gt;Jeremy Thomas&lt;/a&gt;, criador do projeto Bulma.io.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;Como o título diz, o &lt;a href=&quot;http://bulma.io/&quot;&gt;Bulma&lt;/a&gt; é um framework CSS baseado na tecnologia flexbox, que já tem uma grande &lt;a href=&quot;http://caniuse.com/#search=flexbox&quot;&gt;compatibilidade&lt;/a&gt; entre os navegadores. O pacote contém todos os elementos mais comuns como botões, formulários, menus, tabelas, títulos, notificações, barras de progresso e um simples sistema de grid (basta adicionar uma coluna, o resize das colunas é automático).&lt;/p&gt;
-
-&lt;p&gt;Vou mostrar alguns exemplos para que você possa entender o poder do Bulma.&lt;/p&gt;
-
-&lt;p&gt;Primeiramente, faremos a instalação que não precisa de nada mais que um link para o arquivo de estilos do Bulma:&lt;/p&gt;
-
-&lt;div class=&quot;language-html highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;link&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;rel=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;stylesheet&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;href=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;https://cdnjs.cloudflare.com/ajax/libs/bulma/0.0.26/css/bulma.css&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;Claro que você pode baixar e deixar no seu diretório local, e também baixar com o NPM: &lt;code class=&quot;highlighter-rouge&quot;&gt;npm install bulma&lt;/code&gt;; mas o que quero mostrar é que tudo que você precisa é apenas de um arquivo de CSS.&lt;/p&gt;
-
-&lt;p&gt;Baixando com o NPM você terá como personalizar facilmente com SASS.&lt;/p&gt;
-
-&lt;p&gt;O Bulma não vem com nenhum pacote de icon-fonts acoplado, então, caso você pretenda usar algum, como o Font Awesome, você deve inserí-lo também.&lt;/p&gt;
-
-&lt;h2 id=&quot;o-grid&quot;&gt;O Grid&lt;/h2&gt;
-&lt;p&gt;Lembrando: como o Bulma foi baseado no Bootstrap, uma das semelhanças é o sistema de grid com 12 colunas.&lt;/p&gt;
-
-&lt;p&gt;Como falei, o grid funciona de forma muito simples. Tudo que você precisa é ter uma &lt;code class=&quot;highlighter-rouge&quot;&gt;div&lt;/code&gt; com a classe &lt;code class=&quot;highlighter-rouge&quot;&gt;.columns&lt;/code&gt; e suas filhas &lt;code class=&quot;highlighter-rouge&quot;&gt;.column&lt;/code&gt;, como no exemplo abaixo:&lt;/p&gt;
-
-&lt;div class=&quot;language-html highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;div&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;columns&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
-  &lt;span class=&quot;nt&quot;&gt;&amp;lt;div&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;column&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;.column&lt;span class=&quot;nt&quot;&gt;&amp;lt;/div&amp;gt;&lt;/span&gt;
-  &lt;span class=&quot;nt&quot;&gt;&amp;lt;div&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;column&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;.column&lt;span class=&quot;nt&quot;&gt;&amp;lt;/div&amp;gt;&lt;/span&gt;
-  &lt;span class=&quot;nt&quot;&gt;&amp;lt;div&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;column&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;.column&lt;span class=&quot;nt&quot;&gt;&amp;lt;/div&amp;gt;&lt;/span&gt;
-  &lt;span class=&quot;nt&quot;&gt;&amp;lt;div&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;column&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;.column&lt;span class=&quot;nt&quot;&gt;&amp;lt;/div&amp;gt;&lt;/span&gt;
-&lt;span class=&quot;nt&quot;&gt;&amp;lt;/div&amp;gt;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;Você pode entender melhor como funciona com &lt;a href=&quot;http://codepen.io/gabsprates/full/PNVJrP/&quot;&gt;esse exemplo&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;Mas e se você quiser que uma coluna ocupe o espaço de duas? Ou três? Ou quatro? Simples!!!&lt;/p&gt;
-
-&lt;p&gt;Podemos utilizar as classes &lt;code class=&quot;highlighter-rouge&quot;&gt;is-2&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;is-3&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;is-4&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;is-5&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;is-6&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;is-7&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;is-8&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;is-9&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;is-10&lt;/code&gt; e &lt;code class=&quot;highlighter-rouge&quot;&gt;is-11&lt;/code&gt; para especificar qual a área ocupada pela &lt;code class=&quot;highlighter-rouge&quot;&gt;.column&lt;/code&gt;.&lt;/p&gt;
-
-&lt;p&gt;Para entender melhor, aconselho a dar uma olhada &lt;a href=&quot;http://bulma.io/documentation/grid/columns/&quot;&gt;neste&lt;/a&gt; e &lt;a href=&quot;http://bulma.io/documentation/grid/tiles/&quot;&gt;neste&lt;/a&gt; links.&lt;/p&gt;
-
-&lt;h2 id=&quot;hero&quot;&gt;Hero&lt;/h2&gt;
-&lt;p&gt;Você já teve problemas com alinhar elementos verticalmente ao centro? O Bulma é um verdadeiro herói para essas situações! Veja este exemplo:&lt;/p&gt;
-
-&lt;div class=&quot;language-html highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;section&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;hero is-large&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
-    &lt;span class=&quot;nt&quot;&gt;&amp;lt;div&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;hero-body&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
-      &lt;span class=&quot;nt&quot;&gt;&amp;lt;div&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;container&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
-        &lt;span class=&quot;nt&quot;&gt;&amp;lt;h1&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;title&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
-          Título
-        &lt;span class=&quot;nt&quot;&gt;&amp;lt;/h1&amp;gt;&lt;/span&gt;
-        &lt;span class=&quot;nt&quot;&gt;&amp;lt;h2&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;subtitle&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
-          Exemplo do uso do hero
-        &lt;span class=&quot;nt&quot;&gt;&amp;lt;/h2&amp;gt;&lt;/span&gt;
-      &lt;span class=&quot;nt&quot;&gt;&amp;lt;/div&amp;gt;&lt;/span&gt;
-    &lt;span class=&quot;nt&quot;&gt;&amp;lt;/div&amp;gt;&lt;/span&gt;
-  &lt;span class=&quot;nt&quot;&gt;&amp;lt;/section&amp;gt;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;Aqui o Bulma centraliza os títulos na vertical, qualquer conteúdo seria alinhado também. &lt;a href=&quot;http://bulma.io/documentation/layout/hero/&quot;&gt;Clique aqui&lt;/a&gt; mais exemplos.&lt;/p&gt;
-
-&lt;h2 id=&quot;level&quot;&gt;Level&lt;/h2&gt;
-&lt;p&gt;Por último, quero falar um pouco sobre as navbars. Veja esse código:&lt;/p&gt;
-
-&lt;div class=&quot;language-html highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;nav&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;level&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
-    &lt;span class=&quot;nt&quot;&gt;&amp;lt;p&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;level-item has-text-centered&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
-      &lt;span class=&quot;nt&quot;&gt;&amp;lt;a&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;link is-info&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;Home&lt;span class=&quot;nt&quot;&gt;&amp;lt;/a&amp;gt;&lt;/span&gt;
-    &lt;span class=&quot;nt&quot;&gt;&amp;lt;/p&amp;gt;&lt;/span&gt;
-    &lt;span class=&quot;nt&quot;&gt;&amp;lt;p&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;level-item has-text-centered&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
-      &lt;span class=&quot;nt&quot;&gt;&amp;lt;a&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;link is-info&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;Menu&lt;span class=&quot;nt&quot;&gt;&amp;lt;/a&amp;gt;&lt;/span&gt;
-    &lt;span class=&quot;nt&quot;&gt;&amp;lt;/p&amp;gt;&lt;/span&gt;
-    &lt;span class=&quot;nt&quot;&gt;&amp;lt;p&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;level-item has-text-centered&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
-      &lt;span class=&quot;nt&quot;&gt;&amp;lt;img&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;src=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;http://bulma.io/images/bulma.png&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;alt=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;style=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;height: 33px;&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
-    &lt;span class=&quot;nt&quot;&gt;&amp;lt;/p&amp;gt;&lt;/span&gt;
-    &lt;span class=&quot;nt&quot;&gt;&amp;lt;p&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;level-item has-text-centered&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
-      &lt;span class=&quot;nt&quot;&gt;&amp;lt;a&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;link is-info&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;Reservations&lt;span class=&quot;nt&quot;&gt;&amp;lt;/a&amp;gt;&lt;/span&gt;
-    &lt;span class=&quot;nt&quot;&gt;&amp;lt;/p&amp;gt;&lt;/span&gt;
-    &lt;span class=&quot;nt&quot;&gt;&amp;lt;p&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;level-item has-text-centered&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
-      &lt;span class=&quot;nt&quot;&gt;&amp;lt;a&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;link is-info&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;Contact&lt;span class=&quot;nt&quot;&gt;&amp;lt;/a&amp;gt;&lt;/span&gt;
-    &lt;span class=&quot;nt&quot;&gt;&amp;lt;/p&amp;gt;&lt;/span&gt;
-  &lt;span class=&quot;nt&quot;&gt;&amp;lt;/nav&amp;gt;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;Ele gera uma navbar em que os elementos são divididos com a largura igual e com alinhamento vertical no centro, mesmo com imagem ou até mesmo um &lt;code class=&quot;highlighter-rouge&quot;&gt;form&lt;/code&gt;, ele manteria esse alinhamento.&lt;/p&gt;
-
-&lt;p&gt;Veja mais &lt;a href=&quot;http://bulma.io/documentation/components/level/&quot;&gt;aqui&lt;/a&gt;.&lt;/p&gt;
-
-&lt;h2 id=&quot;enfim&quot;&gt;Enfim…&lt;/h2&gt;
-&lt;p&gt;Estes foram alguns exemplos do poder do Bulma mas há muito mais que você pode conferir na própria &lt;a href=&quot;http://bulma.io/documentation/overview/start/&quot;&gt;documentação do projeto&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;Existem vários componentes legais, como cards, menus, paginação, mensagens, e várias outras coisas fáceis de usar e simples de compreender.&lt;/p&gt;
-
-&lt;p&gt;Isso é tudo pessoal (:&lt;/p&gt;
-</description>
-        <pubDate>Thu, 30 Jun 2016 00:00:00 -0300</pubDate>
-        <link>http://gabrielprates.com/2016/06/30/bulma-framework-css-baseado-em-flexbox.html</link>
-        <guid isPermaLink="true">http://gabrielprates.com/2016/06/30/bulma-framework-css-baseado-em-flexbox.html</guid>
         
         
       </item>
