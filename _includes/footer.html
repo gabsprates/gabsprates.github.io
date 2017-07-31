@@ -19,20 +19,21 @@
           </li>
           {% endif %}
 
+          {% if site.codepen_username %}
+          <li>
+            {% include icon-codepen.html username=site.codepen_username %}
+          </li>
+          {% endif %}
+
           {% if site.linkedin_username %}
           <li>
             {% include icon-linkedin.html username=site.linkedin_username %}
           </li>
           {% endif %}
 
-          {% if site.codepen_username %}
           <li>
-            {% include icon-codepen.html username=site.codepen_username %}
-          </li>
-          {% endif %}
-          <li>
-            <a href="//gabrielprates.com" title="Meu site" target="_blank">
-              gabrielprates.com
+            <a href="//{{ site.link }}" title="Meu site" target="_blank">
+              {{ site.link }}
             </a>
           </li>
         </ul>

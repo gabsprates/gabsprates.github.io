@@ -9,10 +9,11 @@
 title: Gabriel Prates
 email: me@gabsprates.com
 description: > # this means to ignore newlines until "baseurl:"
-  Desenvolvedor há mais de 5 anos e baterista nas horas vagas.
-  #web #html #css #js #freesoftware #opensource #busquemconhecimento
+  Desenvolvedor há mais de 6 anos e baterista nas horas vagas.
+  #web #css #js #php #freesoftware #opensource #busquemconhecimento
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "http://gabrielprates.com" # the base hostname & protocol for your site
+link: "gabrielprates.com"
 twitter_username: gabsprates
 github_username:  gabsprates
 linkedin_username: gabrielprates
