@@ -56,7 +56,7 @@ Pretendemos manter uma frequência de encontros e descobrimos uma coisa muito bo
 Antes do Sapucaia.Tech, já tínhamos pelo menos 3 grupos de tecnologia:
 
 * **IT Beer**
-* **devNULL**
+* **voidNULL**
 * **GDG Montes Claros**
 
 Nosso objetivo é agregar gente de todos esses grupos, pessoas, instituições de ensino e empresas que tem paixão por tecnologia. Não é uma tarefa fácil, mas já tivemos a oportunidade de conhecer novas pessoas e trocar ideias, então, estamos indo.
