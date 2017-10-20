@@ -5,7 +5,11 @@ title: Shell Script -n1 --intro
 
 Resolver as coisas pelo terminal ou não precisar muito do mouse sempre foi uma coisa que me chamou a atenção. Depois de passar alguns dias estudando (e colocando em prática) um pouco de shell script, consegui experimentar um pouco mais disso. Pude experimentar recursos e aprender mais como as coisas funcionam. Tem sido um ótimo período!
 
-Pretendo escrever uma série de artigos sobre shell script, já que é uma coisa que se tornou parte do meu dia-a-dia, e assim compartilhar dessa experiência. Esse talvez será o mais conceitual, já que devemos nos acostumar com uma série de conceitos e termos.
+Pretendo escrever uma série de artigos sobre shell script, já que é uma coisa que se tornou parte do meu dia-a-dia, e assim compartilhar dessa experiência. Esse talvez será o mais conceitual, já que devemos nos acostumar com uma série de conceitos e termos. Não sei quantos serão, nem qual será a periodicidade, mas aqui estão os links:
+
+* [Shell Script -n1 --intro](http://gabrielprates.com/2017/01/08/shell-script-01-introducao.html) <-- você está aqui
+* [Shell Script -n2 --io-e-mais](http://gabrielprates.com/2017/10/20/shell-script-02-io-e-mais.html)
+
 
 ## Primeiros passos
 
