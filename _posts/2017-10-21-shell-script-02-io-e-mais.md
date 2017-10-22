@@ -148,7 +148,7 @@ Basicamente, é a mesma coisa do redirecionamento de output normal, a única dif
 
 Aqui eu devo falar uma coisa importante:
 
-> A identificação do _FD_ é opicional para os outros casos, menos para o redirecionamento de erros.
+> A identificação do _FD_ é opcional para os outros casos, menos para o redirecionamento de erros.
 
 Isso significa que:
 
@@ -190,7 +190,7 @@ Provavelmente você já viu o **pipe** por aí. Por definição, temos o seguint
 
 Mas essa definição, apesar de oficial, não deixa as coisas muito claras. Então, veja esta:
 
-> O pipe é uma sequencia de um ou mais comando conectados, onde o `stdout` do anterior é conectado ao `stdin` do próximo.
+> O pipe é uma sequência de um ou mais comando conectados, onde o `stdout` do anterior é conectado ao `stdin` do próximo.
 
 Vamos olhar aquele exemplo que eu mostrei novamente:
 
@@ -205,7 +205,7 @@ Então, o `|` funciona como um conector de input e output. Sempre o comando ante
 # Isto vai listar todo o conteúdo do diretório
 # e conectar esse output com o input do `grep`;
 #
-# O `grep` vai filtar os nomes que contém espaço
+# O `grep` vai filtrar os nomes que contém espaço
 # e conectar esse output com o input do `tr`;
 #
 # O `tr` substitui os espaços por underlines e
