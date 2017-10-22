@@ -7,8 +7,8 @@ Resolver as coisas pelo terminal ou não precisar muito do mouse sempre foi uma 
 
 Pretendo escrever uma série de artigos sobre shell script, já que é uma coisa que se tornou parte do meu dia-a-dia, e assim compartilhar dessa experiência. Esse talvez será o mais conceitual, já que devemos nos acostumar com uma série de conceitos e termos. Não sei quantos serão, nem qual será a periodicidade, mas aqui estão os links:
 
-* [Shell Script -n1 --intro](http://gabrielprates.com/2017/01/08/shell-script-01-introducao.html) <-- você está aqui
-* [Shell Script -n2 --io-e-mais](http://gabrielprates.com/2017/10/20/shell-script-02-io-e-mais.html)
+* [Shell Script -n1 --intro]({{ site.baseurl }}/2017/01/08/shell-script-01-introducao.html) <-- você está aqui
+* [Shell Script -n2 --io-e-mais]({{ site.baseurl }}/2017/10/21/shell-script-02-io-e-mais.html)
 
 
 ## Primeiros passos
