@@ -12,6 +12,10 @@ github_username:  gabsprates
 linkedin_username: gabrielprates
 codepen_username: gabsprates
 
+author: "Gabriel Prates"
+lang: "pt_BR"
+logo: "/assets/perfil.jpg"
+
 # Build settings
 markdown: kramdown
 
