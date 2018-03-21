@@ -68,102 +68,25 @@ Recomendo o uso do [VS Code](https://code.visualstudio.com/). Ele tem um ótimo 
 
 Ok, o código original do componente é o seguinte:
 
-<script src="https://gist.github.com/gabsprates/fd93f0ff4a3636495796d1e5bd275d33.js"></script>
+<script src="https://gist.github.com/gabsprates/f10c28281edc500e54518890c0df09da.js?file=React_TodoApp.js"></script>
 
 Vamos dividir esses componentes em arquivos diferentes e ajustar os `import`s dos componentes, vai ficar assim:
 
 - `src/components/TodoApp.tsx`
 
-```typescript
-import * as React from "react";
-import TodoList from "./TodoList";
-
-class TodoApp extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { items: [], text: '' };
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
-
-  render() {
-    return (
-      <div>
-        <h3>TODO</h3>
-        <TodoList items={this.state.items} />
-        <form onSubmit={this.handleSubmit}>
-          <input
-            onChange={this.handleChange}
-            value={this.state.text}
-          />
-          <button>
-            Add #{this.state.items.length + 1}
-          </button>
-        </form>
-      </div>
-    );
-  }
-
-  handleChange(e) {
-    this.setState({ text: e.target.value });
-  }
-
-  handleSubmit(e) {
-    e.preventDefault();
-    if (!this.state.text.length) {
-      return;
-    }
-    const newItem = {
-      text: this.state.text,
-      id: Date.now()
-    };
-    this.setState(prevState => ({
-      items: prevState.items.concat(newItem),
-      text: ''
-    }));
-  }
-}
-
-export default TodoApp;
-```
+<script src="https://gist.github.com/gabsprates/f10c28281edc500e54518890c0df09da.js?file=Modulos_TodoApp.tsx"></script>
 
 - `src/components/TodoList.tsx`:
 
-```typescript
-import * as React from "react";
-
-class TodoList extends React.Component {
-  render() {
-    return (
-      <ul>
-        {this.props.items.map(item => (
-          <li key={item.id}>{item.text}</li>
-        ))}
-      </ul>
-    );
-  }
-}
-
-export default TodoList;
-```
+<script src="https://gist.github.com/gabsprates/f10c28281edc500e54518890c0df09da.js?file=Modulos_TodoList.tsx"></script>
 
 E nosso `src/index.tsx` fica assim:
 
-```typescript
-import * as React from "react";
-import * as ReactDOM from "react-dom";
-
-import TodoApp from "./components/TodoApp";
-
-ReactDOM.render(
-  <TodoApp />,
-  document.getElementById("example")
-);
-```
+<script src="https://gist.github.com/gabsprates/f10c28281edc500e54518890c0df09da.js?file=Modulos_index.tsx"></script>
 
 Você pode conferir como o código deve ficar [nesta tag](https://github.com/gabsprates/todo-react-typescript/tree/modulos). Agora, vamos executar o build do webpack com o `--watch` e ver o que vai acontecer:
 
-```
+```bash
 $ ./node_modules/.bin/webpack --watch
 ```
 
@@ -173,15 +96,7 @@ O build vai mostrar vários erros. Isso era realmente o esperado, agora vamos aj
 
 Em primeiro lugar, esse é um componente _stateless_, então vamos transformá-lo numa função, pra ficar mais enxuto e performático, assim:
 
-```typescript
-const TodoList = (props) => (
-  <ul>
-    {props.items.map(item => (
-      <li key={item.id}>{item.text}</li>
-    ))}
-  </ul>
-);
-```
+<script src="https://gist.github.com/gabsprates/f10c28281edc500e54518890c0df09da.js?file=Tipos_Pre_TodoList.tsx"></script>
 
 Nesse ponto, os erros apontados para este arquivo já foram solucionados, isso porque o compilador estava dizendo que alguns tipos de um componente React não tinham sido especificados.
 
@@ -189,28 +104,7 @@ Agora imagine que você e sua equipe devam utilizar este componente em outras pa
 
 Podemos definir esses "modelos" com `type` ou `interface`, mas acredito que interfaces são mais úteis quando definimos "modelos" ([ou "contratos", como algumas pessoas dizem](https://www.caelum.com.br/apostila-java-orientacao-objetos/interfaces/#interfaces)) para classes/métodos, então vamos criar um tipos mesmo:
 
-```typescript
-import * as React from "react";
-
-export type ItemType = {
-  id: number,
-  text: string
-};
-
-type PropsType = {
-  items: Array<ItemType>
-};
-
-const TodoList = (props: PropsType) => (
-  <ul>
-    {props.items.map(item => (
-      <li key={item.id}>{item.text}</li>
-    ))}
-  </ul>
-);
-
-export default TodoList;
-```
+<script src="https://gist.github.com/gabsprates/f10c28281edc500e54518890c0df09da.js?file=Tipos_Done_TodoList.tsx"></script>
 
 Um pouco mais verboso, né? Vale a pena, você vai ver. O `export` do `ItemType` também  será útil no próximo componente.
 
@@ -218,50 +112,17 @@ Um pouco mais verboso, né? Vale a pena, você vai ver. O `export` do `ItemType`
 
 Este componente não precisa de uma definição de `props`, já que não recebe nada, mas ele contém `state`, então é bom definir esses estados. Vamos importar tudo o que precisamos do outro componente e definir o tipo do nosso `state`:
 
-```typescript
-// @@ 1,10 @@
-import * as React from "react";
-import TodoList, { ItemType } from "./TodoList";
-
-type StateType = {
-  items: Array<ItemType>,
-  text: string
-};
-
-class TodoApp extends React.Component<{}, StateType> {
-  constructor(props: {}) {
-```
+<script src="https://gist.github.com/gabsprates/f10c28281edc500e54518890c0df09da.js?file=Tipos_PT1_TodoApp.tsx"></script>
 
 Reparou no `<{}, StateType>`? Como não precisamos de um modelo de `props`, declaramos apenas o modelo dos estados, daí nosso construtor espera que `props` seja um objeto vazio, ou seja, não precisa declarar nenhuma prop. Podemos até definir um estado _default_, o que ajudaria no caso de querermos reaproveitar esses dados. Veja só:
 
-```typescript
-// @@ 9,20 @@
-class TodoApp extends React.Component<{}, StateType> {
-  static defaultState: StateType = {
-    items:[],
-    text: ""
-  };
-
-  constructor(props: {}) {
-    super(props);
-    this.state = TodoApp.defaultState;
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
-```
+<script src="https://gist.github.com/gabsprates/f10c28281edc500e54518890c0df09da.js?file=Tipos_PT2_TodoApp.tsx"></script>
 
 Isso também poderia ser feito para `props`, e se definir um `static defaultProps`, o próprio compilador já entende o que deve fazer e inicializa nossas props.
 
 Agora os únicos avisos de erro que temos são os tipos dos parâmetros do das funções de _handle_. Vamos ajeitar isso antes de inserir uma nova _feature_ em nosso componente.
 
-```typescript
-// @@ 40,44 @@
-  handleChange(e: React.ChangeEvent<HTMLInputElement>) {
-    this.setState({ text: e.target.value });
-  }
-
-  handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-```
+<script src="https://gist.github.com/gabsprates/f10c28281edc500e54518890c0df09da.js?file=Tipos_PT3_TodoApp.tsx"></script>
 
 O que fizemos até aqui foi definir que nossos componentes devem seguir certo comportamento, mesmo que outra pessoa mexa nesse código, ou reutilize em alguma outra parte da aplicação. Temos `state`, `props` e métodos com consistência. Mesmo que o resultado final seja JavaScript puro, estamos garantindo integridade e qualidade durante o desenvolvimento.
 
@@ -271,25 +132,7 @@ Agora que tudo já está certinho, e está [tudo aqui nesta tag](https://github.
 
 Vamos definir o método, fazer o bind no `constructor` e criar um `<button>` que irá chamá-lo. Vou cortar alguns trechos de código aqui para economizar espaço:
 
-```typescript
-  constructor(props: {}) {
-    // ...
-    this.handleReset = this.handleReset.bind(this);
-  }
-
-  render() {
-      // ...
-          <button type="button" onClick={this.handleReset}>
-            Reset list
-          </button>
-        </form>
-      // ...
-  }
-
-  handleReset() {
-    this.setState(TodoApp.defaultState);
-  }
-```
+<script src="https://gist.github.com/gabsprates/f10c28281edc500e54518890c0df09da.js?file=Reset_TodoApp.tsx"></script>
 
 Viu que reutilizamos o `defaultState`? E que nosso novo método não precisa receber nenhum parâmetro e nem precisa especificar?
 
@@ -336,26 +179,11 @@ No ponto que nossa aplicação está, precisamos configurar tudo para fazer com 
   - `@types/enzyme` e `@types/enzyme-adapter-react-16`
   - Como estamos trabalhando com TypeScript, crie o arquivo `enzyme.adapter.tsx` com o conteúdo referenciado abaixo e coloque ele no `setupFiles` da configuração do Jest no `package.json` (deve ter sido criado no passo 2):
 
-```javascript
-// enzyme.adapter.tsx
-import { configure } from 'enzyme';
-import * as Adapter from 'enzyme-adapter-react-16';
-configure({ adapter: new Adapter() });
-
-
-// package.json
-  "jest": {
-    // ...
-    "setupFiles": [ "./enzyme.adapter.tsx" ]
-  }
-```
+<script src="https://gist.github.com/gabsprates/f10c28281edc500e54518890c0df09da.js?file=enzyme_config.js"></script>
 
 Agora é só criar uma tarefa de testes no npm:
 
-```json
-// vamos alterar a chave "test" para:
-"test": "./node_modules/.bin/jest",
-```
+<script src="https://gist.github.com/gabsprates/f10c28281edc500e54518890c0df09da.js?file=package_test.json"></script>
 
 O resultado final dessas alterações pode ser visto [neste commit](https://github.com/gabsprates/todo-react-typescript/commit/48f8f87bf6bb28f633d971dfa5c258c46cbc5ae1).
 
@@ -369,42 +197,7 @@ Para escrever nossos testes e fazer com que o Jest faça seu trabalho, só preci
 
 No nosso caso, vamos criar um diretório `__tests__`, que irá seguir a mesma estrutura do nosso diretório `src`, então vamos criar nosso primeiro teste, o do nosso componente `<TodoList />`, que é _stateless_:
 
-```typescript
-// __tests__/components/TodoList.tsx
-
-import * as React from "react";
-import { render } from "enzyme";
-
-import TodoList, { ItemType } from "../../src/components/TodoList";
-
-const mock: Array<ItemType> = [
-  { id: 0, text: "Assistir Tarzan" },
-  { id: 1, text: "Assistir Toy Story" },
-  { id: 2, text: "Assistir O Rei Leão" },
-];
-
-describe("Testando <TodoList />", () => {
-
-  it("deve renderizar uma <ul> com 1 item", () => {
-    const movie = mock.slice(0, 1);
-    const wrapper = render(<TodoList items={movie} />);
-    const li = wrapper.find("ul > li");
-    expect(li.length).toEqual(1);
-    expect(li.eq(0).text()).toBe(movie[0].text);
-  });
-
-  it("deve renderizar uma <ul> com 3 itens", () => {
-    const wrapper = render(<TodoList items={mock} />);
-    const li = wrapper.find("ul > li");
-    expect(li.length).toEqual(3);
-
-    mock.forEach((item, index) => {
-      expect(li.eq(index).text()).toBe(item.text);
-    });
-  });
-
-});
-```
+<script src="https://gist.github.com/gabsprates/f10c28281edc500e54518890c0df09da.js?file=Teste_TodoList.tsx"></script>
 
 Muita informação de uma vez, mas vou explicar tudo. Seguinte:
 
@@ -418,61 +211,7 @@ Já o `mount` vai montar toda a árvore de componentes, _"da raiz até as folhas
 
 Vamos testar nosso próximo componente, o `<TodoApp />`. Primeiro vamos testar a renderização e depois o disparo dos métodos de _handle_. Aqui está:
 
-```typescript
-// __tests__/components/TodoApp.tsx
-
-import * as React from "react";
-import { render, shallow } from "enzyme";
-
-import TodoApp from "../../src/components/TodoApp";
-
-describe("Testando <TodoApp />", () => {
-  it("deve renderizar o componente", () => {
-    const wrapper = render(<TodoApp />);
-    expect(wrapper.length).toEqual(1);
-  });
-
-  describe("tentando handlers", () => {
-    it("deve chamar handleChange e alterar state.text quando mudar o valor do input", () => {
-      const handle = jest.spyOn(TodoApp.prototype, "handleChange");
-      const wrapper = shallow(<TodoApp />);
-      const input = wrapper.find("form input");
-      expect(wrapper.state("text")).toBe("");
-      input.simulate("change", { target: { value: "Assistir Star Wars" } });
-      expect(handle).toHaveBeenCalled();
-      expect(wrapper.state("text")).toBe("Assistir Star Wars");
-    });
-
-    it("deve chamar handleSubmit e atualzar state.items quando submeter o form", () => {
-      const handle = jest.spyOn(TodoApp.prototype, "handleSubmit");
-      const wrapper = shallow(<TodoApp />);
-      const instance = wrapper.instance() as TodoApp;
-      const form = wrapper.find("form");
-      instance.setState({ text: "Assistir Star Wars" });
-      expect(wrapper.state("items").length).toEqual(0);
-      form.simulate("submit", { preventDefault: () => { } });
-      expect(handle).toHaveBeenCalled();
-      expect(wrapper.state("items").length).toEqual(1);
-      expect(wrapper.state("items")[0].text).toBe("Assistir Star Wars");
-    });
-
-    it("deve chamar handleReset e atualizar o state quando clicar no botão reset", () => {
-      const handle = jest.spyOn(TodoApp.prototype, "handleReset");
-      const wrapper = shallow(<TodoApp />);
-      const instance = wrapper.instance() as TodoApp;
-      const button = wrapper.find("form button[type='button']");
-      instance.setState({ text: "Assistir The Clone Wars" });
-      instance.setState({ items: [{ id: 0, text: "Assistir Rogue One" }] });
-      expect(wrapper.state("text")).toBe("Assistir The Clone Wars");
-      expect(wrapper.state("items").length).toEqual(1);
-      button.simulate("click");
-      expect(handle).toHaveBeenCalled();
-      expect(wrapper.state("text")).toBe("");
-      expect(wrapper.state("items").length).toEqual(0);
-    });
-  });
-});
-```
+<script src="https://gist.github.com/gabsprates/f10c28281edc500e54518890c0df09da.js?file=Teste_TodoApp.tsx"></script>
 
 Como falei, esses testes tem muito conteúdo, então vou citar algumas particularidades deles aqui:
 
