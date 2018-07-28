@@ -1,6 +1,10 @@
 /**
  * Syntax highlighting styles
  */
+.highlighter-rouge {
+  word-break: break-all;
+}
+
 .highlight {
     background: #fff;
     @extend %vertical-rhythm;
