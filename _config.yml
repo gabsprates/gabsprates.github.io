@@ -8,7 +8,7 @@ baseurl: "" # the subpath of your site, e.g. /blog
 url: "http://gabrielprates.com" # the base hostname & protocol for your site
 link: "gabrielprates.com"
 twitter_username: gabsprates
-github_username:  gabsprates
+github_username: gabsprates
 linkedin_username: gabrielprates
 codepen_username: gabsprates
 
