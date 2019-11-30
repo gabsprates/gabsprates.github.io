@@ -11,7 +11,7 @@ Antes de mais nada, ainda estamos em 2019 e sim, acho que contar um pouco sobre 
 
 Se voltarmos um pouco no tempo, chegaremos numa época em que se criava um grande arquivo `.js`, com todo o código da aplicação, e se colocava a respectiva tag `<script>` na página. Muitas vezes, acompanhado do jQuery. Ok, e se fossemos usar um plugin do jQuery, uma _lib_ de _date picker_? Aí seria preciso colocar mais uma `<script>` na página com essa tal _lib_. Até parece um pouco de _code splitting_ mas calma, chegaremos lá.
 
-Avançando um pouco no tempo, veio o Node.js e conseguimos o poder de criar arquivos JS separados, ou módulos (o que ajudou muito na organização e reutilização de código), pra juntar tudo depois em um único **bundle** final. Também surgiram os pré-processadores de CSS, que juntavam vários arquivos de estilo em um bundle final. Surgiram também ferramentas para automatizar essas tarefas de _build_, como gulp e grunt. Até que surgiram ferramentas que poderiam centralizar todas as tarefas e, talvez o mais importante, juntar todas as peças. É aí que entra o webpack.
+Avançando um pouco no tempo, veio o Node.js e conseguimos o poder de criar arquivos JS separados, ou módulos (o que ajudou muito na organização e reutilização de código), pra juntar tudo depois em um único **bundle** final. Também surgiram os pré-processadores de CSS, que juntavam vários arquivos de estilo em um bundle final. Surgiram também ferramentas para automatizar essas tarefas de _build_, como gulp e grunt. Até que surgiram ferramentas que poderiam centralizar todas as tarefas e, talvez o mais importante, juntar todas as peças. É aí que entra o [webpack](https://webpack.js.org/concepts/).
 
 ## O webpack
 
@@ -189,3 +189,9 @@ Qualquer dúvida, deixe nos comentários, será um prazer ajudar.
 Até a próxima!
 
 (:
+
+---
+
+### Referências
+
+- https://webpack.js.org/concepts/
