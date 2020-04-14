@@ -118,7 +118,7 @@ body {
 
 A mensagem `Module parse failed: ...` seria exibida caso não houvesse o _loader_ para SASS. Já que ele está configurado, o conteúdo do módulo exibido pelo `debug.js` é:
 
-```
+```css
 body {
   background: #f00; }
 
