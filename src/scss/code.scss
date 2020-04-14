@@ -1,0 +1,39 @@
+.post-content {
+  code {
+    color: #b00;
+    border: 1px solid #d2ccce;
+    padding: 1px 5px;
+    border-radius: 3px;
+    background-color: #f9f2f4;
+  }
+
+  a > code {
+    color: $brand-color;
+    border: 0;
+    padding: 0;
+    background: none;
+    text-decoration: underline dashed;
+  }
+
+  pre {
+    color: $grey-color-light;
+    padding: 10px;
+    font-size: 15px;
+    background: $text-color;
+    overflow-x: auto;
+    border-radius: 5px;
+  }
+
+  pre code {
+    color: inherit;
+    border: none;
+    padding: 0;
+    background: inherit;
+    border-radius: 0;
+  }
+
+  .hljs,
+  .hljs-subst {
+    color: $grey-color-light;
+  }
+}
