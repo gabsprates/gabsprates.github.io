@@ -9,12 +9,17 @@
   "private": false,
   "scripts": {
     "test": "jest",
-    "start": "node ./server.js"
+    "start": "./node_modules/.bin/nodemon --ignore dist/ ./server.js"
   },
   "dependencies": {
+    "@types/highlight.js": "^9.12.3",
+    "@types/marked": "^0.7.3",
     "@types/react": "^16.9.32",
     "@types/react-dom": "^16.9.6",
     "@types/react-router-dom": "^5.1.3",
+    "front-matter": "^3.1.0",
+    "highlight.js": "^9.18.1",
+    "marked": "^0.8.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-router-dom": "^5.1.2"
@@ -28,6 +33,7 @@
     "@testing-library/react": "^10.0.2",
     "@types/express": "^4.17.5",
     "@types/jest": "^25.2.1",
+    "@types/memory-fs": "^0.3.2",
     "@types/testing-library__react": "^10.0.1",
     "babel-loader": "^8.1.0",
     "css-loader": "^3.5.1",
@@ -35,6 +41,7 @@
     "html-webpack-plugin": "^4.0.4",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^25.3.0",
+    "mini-css-extract-plugin": "^0.9.0",
     "node-sass": "^4.13.1",
     "nodemon": "^2.0.3",
     "prettier": "^2.0.4",

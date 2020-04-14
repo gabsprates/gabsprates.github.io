@@ -1,5 +1,6 @@
 const path = require("path");
 const nodeExternals = require("webpack-node-externals");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 /** @const {webpack.Configuration} */
 const config = {
@@ -31,20 +32,12 @@ const config = {
       },
       {
         test: /\.scss$/,
-        use: [
-          "style-loader",
-          {
-            loader: "typings-for-css-modules-loader",
-            options: {
-              modules: true,
-              namedExport: true,
-            },
-          },
-          "sass-loader",
-        ],
+        use: [MiniCssExtractPlugin.loader, "css-loader", "sass-loader"],
       },
     ],
   },
+
+  plugins: [new MiniCssExtractPlugin()],
 
   output: {
     path: path.resolve(__dirname, "dist"),
