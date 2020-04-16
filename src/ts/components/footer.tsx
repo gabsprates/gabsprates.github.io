@@ -4,12 +4,52 @@ import { SiteContext } from "../context/site";
 export const Footer = () => {
   const site = useContext(SiteContext);
 
-  return (
-    <footer>
-      <div>
-        <p>{site.metadata.title} </p>
+  const getSocial = () => {
+    if (!site.social) return null;
 
-        <div>{site.metadata.description}</div>
+    return (
+      <React.Fragment>
+        <li>
+          <a href={`https://github.com/${site.social.github}`}>
+            github@{site.social.github}
+          </a>
+        </li>
+        <li>
+          <a href={`https://twitter.com/${site.social.twitter}`}>
+            twitter@{site.social.twitter}
+          </a>
+        </li>
+        <li>
+          <a href={`https://br.linkedin.com/in/${site.social.linkedin}`}>
+            linkedin@{site.social.linkedin}
+          </a>
+        </li>
+      </React.Fragment>
+    );
+  };
+
+  return (
+    <footer className="site-footer">
+      <div className="wrapper">
+        <h2 className="footer-heading">{site.metadata.title}</h2>
+
+        <div className="footer-col-wrapper">
+          <div className="footer-col footer-col-1">
+            <ul className="contact-list">
+              {getSocial()}
+
+              <li>
+                <a href={site.url} title="Meu site" target="_blank">
+                  {site.url.replace(/^https?:\/\//, "")}
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          <div className="footer-col footer-col-3">
+            <p>{site.metadata.description}</p>
+          </div>
+        </div>
       </div>
     </footer>
   );
