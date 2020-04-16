@@ -5,7 +5,10 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 /** @const {webpack.Configuration} */
 const config = {
   mode: "development",
-  entry: path.resolve(__dirname, "./src/middleware.tsx"),
+  entry: {
+    main: path.resolve(__dirname, "./src/renderer.tsx"),
+    style: path.resolve(__dirname, "./src/scss/main.scss"),
+  },
   target: "node",
   devtool: "inline-source-map",
   externals: [nodeExternals()],

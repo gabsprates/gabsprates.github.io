@@ -1,4 +1,6 @@
+const fs = require("fs");
 const path = require("path");
+const http = require("http");
 const express = require("express");
 const webpack = require("webpack");
 const webpackDevMiddleware = require("webpack-dev-middleware");
@@ -6,33 +8,44 @@ const webpackDevMiddleware = require("webpack-dev-middleware");
 const app = express();
 const config = require("./webpack.config");
 const compiler = webpack(config);
+const devMiddleware = webpackDevMiddleware(compiler, {
+  publicPath: config.output.publicPath,
+  writeToDisk: true,
+  serverSideRender: true,
+});
 
 const PORT = 4000;
 
-app.use(
-  webpackDevMiddleware(compiler, {
-    publicPath: config.output.publicPath,
-    writeToDisk: true,
-    serverSideRender: true,
-  })
-);
+app.use(devMiddleware);
 
-app.get("/favicon.ico", (req, res) => {
-  res.send("tem favicon.ico");
+devMiddleware.waitUntilValid((webpackStats) => {
+  const stats = webpackStats.toJson();
+
+  process.env.MODULE_MAIN_PATH = path.resolve(
+    stats.outputPath,
+    stats.assetsByChunkName.main
+  );
+
+  const allPostsPath = fs
+    .readdirSync("./posts", { encoding: "utf-8" })
+    .reduce((prev, post) => {
+      prev[post] = path.resolve(__dirname, "posts", post);
+      return prev;
+    }, {});
+
+  global.BLOG_POSTS = { ...allPostsPath };
+
+  if (process.env.BUILD_STATIC) generateStatic();
 });
 
+app.use("/assets", express.static("./assets"));
+
+app.use("/favicon.ico", express.static("./assets/favicon.ico"));
+
 app.get("/*", (req, res) => {
-  /** @const {webpack.Stats} */
-  const stats = res.locals.webpackStats.toJson();
-
   try {
-    const modulePath = path.resolve(
-      stats.outputPath,
-      stats.assetsByChunkName.main
-    );
-
-    delete require.cache[require.resolve(modulePath)];
-    const { renderer } = require(modulePath);
+    delete require.cache[require.resolve(process.env.MODULE_MAIN_PATH)];
+    const { renderer } = require(process.env.MODULE_MAIN_PATH);
 
     return renderer(req, res);
   } catch (err) {
@@ -46,3 +59,26 @@ app.listen(PORT, (err) => {
   if (err) return console.error(err);
   console.log(`Server running at http://localhost:${PORT}`);
 });
+
+const generateStatic = () => {
+  const { PAGES } = require("./config/pages");
+
+  console.log("generating pages:");
+  Object.keys(PAGES).forEach((page) => {
+    console.log("- ", page);
+    http.get(`http://localhost:4000${PAGES[page]}`, (res) => {
+      res.setEncoding("utf8");
+      let rawData = "";
+      res.on("data", (chunk) => {
+        rawData += chunk;
+      });
+      res.on("end", () => {
+        try {
+          console.log(rawData);
+        } catch (e) {
+          console.error(e.message);
+        }
+      });
+    });
+  });
+};

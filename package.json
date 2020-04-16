@@ -9,7 +9,8 @@
   "private": false,
   "scripts": {
     "test": "jest",
-    "start": "./node_modules/.bin/nodemon --ignore dist/ ./server.js"
+    "start": "./node_modules/.bin/nodemon --ignore dist/ ./server.js",
+    "build": "BUILD_STATIC=true node ./server.js"
   },
   "dependencies": {
     "@types/highlight.js": "^9.12.3",
