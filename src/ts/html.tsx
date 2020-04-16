@@ -64,7 +64,12 @@ export const Html = (props: PropsType) => (
       </div>
 
       <Footer />
-      {/* @TODO <script id="dsq-count-scr" src="//gabsprates.disqus.com/count.js" async></script> */}
+
+      <script
+        id="dsq-count-scr"
+        src="//gabsprates.disqus.com/count.js"
+        async={true}
+      />
 
       <script
         dangerouslySetInnerHTML={{

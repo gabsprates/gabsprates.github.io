@@ -42,7 +42,7 @@ export const Post = (props: RouteComponentProps<PostURLParams>) => {
 
         <hr />
 
-        <Discuss />
+        <Discuss url={props.match.url} />
       </React.Fragment>
     );
   } catch (error) {
