@@ -54,7 +54,7 @@ Segundo a pesquisa citada:
 
 > when the **context is clear and understanding is very high**, as in the case when the reviewer is the owner of changed files, **code review authors receive comments that explore "deeper details," are "more directed" and "more actionable and pertinent," and find "more subtle issues."**
 
-É **importante que você dê contexto** para quer for fazer review. **Contexto** é a palavra chave!
+É **importante que você dê contexto** para quem for fazer review. **Contexto** é a palavra chave!
 
 - Se é uma alteração que propõe uma nova forma de fazer algo, explique e dê exemplos;
 - Se é uma alteração que corrige um bug, dê contexto, diga como reproduzir, explique qual era o erro e como corrigiu;
@@ -70,7 +70,7 @@ Dica: [templates de pull requests](https://help.github.com/en/github/building-a-
 
 ### Como reviewer, faça perguntas no lugar de dar ordens
 
-Já ouviu falar no [Método Socrático](https://pt.wikipedia.org/wiki/M%C3%A9todo_socr%C3%A1tico)? ~Lembrei de algumas pessoas falando que não entendem o motivo de ter filosofia em cursos de computação.~ Podemos aprender algo com ele:
+Já ouviu falar no [Método Socrático](https://pt.wikipedia.org/wiki/M%C3%A9todo_socr%C3%A1tico)? ~~Lembrei de algumas pessoas falando que não entendem o motivo de ter filosofia em cursos de computação.~~ Podemos aprender algo com ele:
 
 > ...é uma técnica de investigação filosófica feita em **diálogo**, que consiste em o professor **conduzir** o aluno **a um processo de reflexão e descoberta** [...] Para isso o professor **faz uso de perguntas simples e quase ingênuas** que têm por **objetivo**, em primeiro lugar, **revelar** as contradições presentes na **atual forma de pensar** do aluno...
 
