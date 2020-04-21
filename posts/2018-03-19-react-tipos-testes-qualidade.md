@@ -153,6 +153,7 @@ Vamos focar em testar as partes mais básicas do teu código e as comunicações
   - https://hipsters.tech/testes-automatizados-hipsters-51/
   - http://zofe.com.br/posts/voce-testa-se-o-teste-do-codigo-testado-testavel/
 
+
 - Pra quem gosta de ler:
   - https://willianjusten.com.br/entendendo-testes-de-software/
   - https://blog.umbler.com/br/qualidade-de-software-1-7-motivos-para-considerar-o-teste-de-software-indispensavel/
@@ -170,9 +171,11 @@ No ponto que nossa aplicação está, precisamos configurar tudo para fazer com 
   - Devemos	 inserir o `babel-loader` na mesma _**rule**_ do `awesome-typescript-loader`, assim:
     - `use: [ { loader: "babel-loader" }, { loader: "awesome-typescript-loader" } ]`
 
+
 2. Instalar o Jest e **ts-jest**:
   - https://facebook.github.io/jest/docs/en/tutorial-react.html#setup-without-create-react-app
   - https://github.com/kulshekhar/ts-jest#usage
+
 
 3. Instalar o **Enzyme**, o seu adaptador para a versão do React que estamos utilizando (v. 16) e os tipos:
   - http://airbnb.io/enzyme/docs/installation/#working-with-react-16

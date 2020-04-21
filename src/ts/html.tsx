@@ -4,6 +4,7 @@ import { Footer } from "./components/footer";
 import { Switch, Route } from "react-router-dom";
 import { PAGES } from "../../config/pages";
 import { Post } from "./pages/post";
+import { Home } from "./pages/home";
 
 type PropsType = {
   styles: string[];
@@ -38,11 +39,7 @@ export const Html = (props: PropsType) => (
       <div className="page-content">
         <main className="wrapper">
           <Switch>
-            <Route path={PAGES.home} exact={true}>
-              <h1>
-                ########################## posts #########################
-              </h1>
-            </Route>
+            <Route path={PAGES.home} exact={true} component={Home} />
             <Route path={PAGES.about} exact={true}>
               <h1>
                 ########################## sobre mim #########################

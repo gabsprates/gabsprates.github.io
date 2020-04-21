@@ -7,9 +7,8 @@ Resolver as coisas pelo terminal ou não precisar muito do mouse sempre foi uma 
 
 Pretendo escrever uma série de artigos sobre shell script, já que é uma coisa que se tornou parte do meu dia-a-dia, e assim compartilhar dessa experiência. Esse talvez será o mais conceitual, já que devemos nos acostumar com uma série de conceitos e termos. Não sei quantos serão, nem qual será a periodicidade, mas aqui estão os links:
 
-* [Shell Script -n1 --intro]({{ site.baseurl }}/2017/01/08/shell-script-01-introducao.html) <-- você está aqui
-* [Shell Script -n2 --io-e-mais]({{ site.baseurl }}/2017/10/21/shell-script-02-io-e-mais.html)
-
+- [Shell Script -n1 --intro](/2017/01/08/shell-script-01-introducao.html) <-- você está aqui
+- [Shell Script -n2 --io-e-mais](/2017/10/21/shell-script-02-io-e-mais.html)
 
 ## Primeiros passos
 
@@ -39,11 +38,11 @@ Existem várias implementações de interpretadores baseados no POSIX: [Bash](ht
 
 Já ouviu falar sobre a Filosofia Unix? Ela propõe algumas ideias interessantes para o desenvolvimento de software, como por exemplo:
 
-* Programas devem fazer uma coisa, e fazer aquilo bem feito.
+- Programas devem fazer uma coisa, e fazer aquilo bem feito.
 
-* Programas devem trabalhar juntos para atingir objetivos.
+- Programas devem trabalhar juntos para atingir objetivos.
 
-* *Keep it Simple, Stupid* (Mantenha isso simples, estúpido).
+- *Keep it Simple, Stupid* (Mantenha isso simples, estúpido).
 
 Esses pontos foram disseminados em praticamente todas as comunidades de desenvolvimento de software, porque realmente são boas práticas. Em Shell Script não é diferente, talvez é até mais perceptível. Futuramente vamos falar de redirecionamento de entradas e saídas, e algumas outras coisas que deixarão isso mais claro.
 
@@ -55,15 +54,15 @@ Vamos escrever um pequeno programinha em Bash, para eu poder explicar algumas co
 
 Vamos lá. Podemos dizer que temos alguns tipos de comandos, são eles:
 
-* **Alias**: São atalhos definidos para algum outro programa. Ex.: **ll** é um alias para **ls -lh**;
+- **Alias**: São atalhos definidos para algum outro programa. Ex.: **ll** é um alias para **ls -lh**;
 
-* **Palavras-chave**: `if`, `then`, `for`, etc.;
+- **Palavras-chave**: `if`, `then`, `for`, etc.;
 
-* **Funções**: Funções definidas pelo usuários;
+- **Funções**: Funções definidas pelo usuários;
 
-* ***Built in*** (Embutidos): Funções que fazem parte do próprio shell;
+- ***Built in*** (Embutidos): Funções que fazem parte do próprio shell;
 
-* **Programas**.
+- **Programas**.
 
 O último item, os **Programas** são localizados pelo sistema através da variável `$PATH`. Se você mexe com NPM, provavelmente já se deparou com essa variável de ambiente. Vamos dar uma olhada nela, abra seu terminal (ou seu Prompt Shell, para falar bonito), digite `echo $PATH` e observe o retorno. No meu caso:
 
@@ -149,6 +148,7 @@ Isso é tudo pessoal, até a próxima.
 ---
 
 ### Referências
-* [http://tiswww.case.edu/php/chet/bash/bash-intro.html](http://tiswww.case.edu/php/chet/bash/bash-intro.html)
-* [https://en.wikipedia.org/wiki/Unix_shell](https://en.wikipedia.org/wiki/Unix_shell)
-* [https://bash.cyberciti.biz/guide/Main_Page](https://bash.cyberciti.biz/guide/Main_Page)
+
+- [http://tiswww.case.edu/php/chet/bash/bash-intro.html](http://tiswww.case.edu/php/chet/bash/bash-intro.html)
+- [https://en.wikipedia.org/wiki/Unix_shell](https://en.wikipedia.org/wiki/Unix_shell)
+- [https://bash.cyberciti.biz/guide/Main_Page](https://bash.cyberciti.biz/guide/Main_Page)

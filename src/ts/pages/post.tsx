@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { RouteComponentProps } from "react-router-dom";
 import { PAGES } from "../../../config/pages";
 import { SiteContext } from "../context/site";
-import { getPostFile, parsePostContent } from "../lib/post";
+import { getPostFile, parsePostContent, markdownToHTML } from "../lib/post";
 import { getDate, getFormatedDate } from "../lib/date";
 import { Discuss } from "../components/discuss";
 
@@ -13,6 +13,7 @@ export const Post = (props: RouteComponentProps<PostURLParams>) => {
     const { params } = props.match;
 
     const post = parsePostContent(getPostFile(posts, params));
+    const html = markdownToHTML(post.body);
     const postDate = getDate(+params.year, +params.month, +params.day);
 
     return (
@@ -36,7 +37,7 @@ export const Post = (props: RouteComponentProps<PostURLParams>) => {
 
           <div
             className="post-content"
-            dangerouslySetInnerHTML={{ __html: post.html }}
+            dangerouslySetInnerHTML={{ __html: html }}
           ></div>
         </article>
 

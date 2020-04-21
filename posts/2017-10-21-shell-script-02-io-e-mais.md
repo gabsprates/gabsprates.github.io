@@ -7,8 +7,8 @@ Já viu a expressão **I/O**? I/O não é só o nome de um evento do Google, nem
 
 Lembrando que este artigo faz parte de uma série de artigos que estou escrevendo sobre Shell Script. Não sei quantos serão, nem qual será a periodicidade, mas aqui estão os links:
 
-* [Shell Script -n1 --intro]({{ site.baseurl }}/2017/01/08/shell-script-01-introducao.html)
-* [Shell Script -n2 --io-e-mais]({{ site.baseurl }}/2017/10/21/shell-script-02-io-e-mais.html) <-- você está aqui
+- [Shell Script -n1 --intro](/2017/01/08/shell-script-01-introducao.html)
+- [Shell Script -n2 --io-e-mais](/2017/10/21/shell-script-02-io-e-mais.html) <-- você está aqui
 
 ## Conceitos
 
@@ -18,9 +18,9 @@ Quando falamos de entradas e saídas no ambiente do Bash, também temos formas d
 
 São eles:
 
-* **Standard Input** (`stdin`): File Descriptor **0**
-* **Standard Output** (`stdout`): File Descriptor **1**
-* **Standard Error** (`stderr`): File Descriptor **2**
+- **Standard Input** (`stdin`): File Descriptor **0**
+- **Standard Output** (`stdout`): File Descriptor **1**
+- **Standard Error** (`stderr`): File Descriptor **2**
 
 Não quero entrar em muitos detalhes dos _File Descriptors_, mas tenha em mente os `std*`s e seus respectivos números, vamos precisar para os próximos tópicos.
 
@@ -30,9 +30,9 @@ _So let's go there!_
 
 Ok, vamos falar agora sobre os inputs. Temos estes três tipos:
 
-* **Redirecionamento**: `<`
-* **Heredoc**: `<<`
-* **Herestring**: `<<<`
+- **Redirecionamento**: `<`
+- **Heredoc**: `<<`
+- **Herestring**: `<<<`
 
 ### Redirecionamento: `<`
 
@@ -96,8 +96,8 @@ Pronto, agora que falamos das inputs, _let's to talk about outputs_.
 
 Sobre outputs, precisamos falar sobre estes dois tipos:
 
-* **Redirecionamento**: `>`
-* **Append** (_Acrescentar_): `>>`
+- **Redirecionamento**: `>`
+- **Append** (_Acrescentar_): `>>`
 
 ### Redirecionamento: `>`
 
@@ -139,8 +139,8 @@ Agora me diga, você já tentou executar algum processo específico e até mando
 
 Sim, os erros continuam aparecendo mesmo que você redirecione o output do comando. Isso acontece porque nós também temos o `stderr`, aquele _File Descriptor_ para os erros. Podemos brincar com ele das seguintes formas:
 
-* **Redirecionamento**: `2>`
-* **Redirecionamento duplo**: `&>`
+- **Redirecionamento**: `2>`
+- **Redirecionamento duplo**: `&>`
 
 ### Redirecionamento de erro: `2>`
 
@@ -152,11 +152,11 @@ Aqui eu devo falar uma coisa importante:
 
 Isso significa que:
 
-* `<` é o mesmo que `0<`;
-* `<<` é o mesmo que `0<<`;
-* `<<<` é o mesmo que `0<<<`;
-* `>` é o mesmo que `1>`;
-* `>>` é o mesmo que `1>>`;
+- `<` é o mesmo que `0<`;
+- `<<` é o mesmo que `0<<`;
+- `<<<` é o mesmo que `0<<<`;
+- `>` é o mesmo que `1>`;
+- `>>` é o mesmo que `1>>`;
 
 Mas o `2>` sempre precisa do `2`, para dizer que é realmente o _FD_ de erro. Caso contrário ele é tratado como output normal.
 
@@ -231,6 +231,6 @@ Isso é tudo pessoal, até a próxima.
 
 ### Referências
 
-* [http://mywiki.wooledge.org/BashGuide/InputAndOutput](http://mywiki.wooledge.org/BashGuide/InputAndOutput)
-* [https://bash.cyberciti.biz/guide/Main_Page](https://bash.cyberciti.biz/guide/Main_Page)
-* [http://www.gnu.org/software/bash/manual/bashref.html#Redirections](http://www.gnu.org/software/bash/manual/bashref.html#Redirections)
+- [http://mywiki.wooledge.org/BashGuide/InputAndOutput](http://mywiki.wooledge.org/BashGuide/InputAndOutput)
+- [https://bash.cyberciti.biz/guide/Main_Page](https://bash.cyberciti.biz/guide/Main_Page)
+- [http://www.gnu.org/software/bash/manual/bashref.html#Redirections](http://www.gnu.org/software/bash/manual/bashref.html#Redirections)
