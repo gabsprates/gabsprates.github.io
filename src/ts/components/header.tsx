@@ -10,10 +10,10 @@ export const Header = () => {
       url: PAGES.about,
       label: "Sobre mim",
     },
-    {
-      url: PAGES.projects,
-      label: "Projetos",
-    },
+    // {
+    //   url: PAGES.projects,
+    //   label: "Projetos",
+    // },
     {
       url: "https://slides.com/gabsprates",
       label: "Talks",

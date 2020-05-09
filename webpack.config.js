@@ -37,6 +37,10 @@ const config = {
         test: /\.scss$/,
         use: [MiniCssExtractPlugin.loader, "css-loader", "sass-loader"],
       },
+      {
+        test: /\.(md|markdown)$/,
+        use: "raw-loader",
+      },
     ],
   },
 

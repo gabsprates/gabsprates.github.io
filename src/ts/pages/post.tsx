@@ -38,7 +38,7 @@ export const Post = (props: RouteComponentProps<PostURLParams>) => {
           <div
             className="post-content"
             dangerouslySetInnerHTML={{ __html: html }}
-          ></div>
+          />
         </article>
 
         <hr />

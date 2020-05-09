@@ -18,6 +18,12 @@ const PORT = 4000;
 
 app.use(devMiddleware);
 
+const loadPosts = () =>
+  fs.readdirSync("./posts", { encoding: "utf-8" }).reduce((prev, post) => {
+    prev[post] = path.resolve(__dirname, "posts", post);
+    return prev;
+  }, {});
+
 devMiddleware.waitUntilValid((webpackStats) => {
   const stats = webpackStats.toJson();
 
@@ -26,12 +32,7 @@ devMiddleware.waitUntilValid((webpackStats) => {
     stats.assetsByChunkName.main
   );
 
-  const allPostsPath = fs
-    .readdirSync("./posts", { encoding: "utf-8" })
-    .reduce((prev, post) => {
-      prev[post] = path.resolve(__dirname, "posts", post);
-      return prev;
-    }, {});
+  const allPostsPath = loadPosts();
 
   global.BLOG_POSTS = { ...allPostsPath };
 

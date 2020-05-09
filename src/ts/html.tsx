@@ -5,6 +5,7 @@ import { Switch, Route } from "react-router-dom";
 import { PAGES } from "../../config/pages";
 import { Post } from "./pages/post";
 import { Home } from "./pages/home";
+import { About } from "./pages/about";
 
 type PropsType = {
   styles: string[];
@@ -40,15 +41,10 @@ export const Html = (props: PropsType) => (
         <main className="wrapper">
           <Switch>
             <Route path={PAGES.home} exact={true} component={Home} />
-            <Route path={PAGES.about} exact={true}>
-              <h1>
-                ########################## sobre mim #########################
-              </h1>
-            </Route>
+            <Route path={PAGES.about} exact={true} component={About} />
             <Route path={PAGES.projects} exact={true}>
-              <h1>
-                ########################## projetos #########################
-              </h1>
+              <h1>Projetos</h1>
+              <p>Em contrução 👷‍♂️</p>
             </Route>
 
             <Route path={POST_PATH} exact={true} component={Post} />

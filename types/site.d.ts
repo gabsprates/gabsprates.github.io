@@ -18,9 +18,4 @@ interface SiteType<Pages> {
   pages: Pages;
 
   posts: { [path: string]: string };
-
-  link?: string; // @TODO do i need it?
-  lang?: string; // @TODO do i need it?
-  author?: string; // @TODO do i need it?
-  baseurl?: string; // @TODO do i need it?
 }
