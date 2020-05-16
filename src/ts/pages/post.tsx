@@ -2,9 +2,16 @@ import React, { useContext } from "react";
 import { RouteComponentProps } from "react-router-dom";
 import { PAGES } from "../../../config/pages";
 import { SiteContext } from "../context/site";
-import { getPostFile, parsePostContent, markdownToHTML } from "../lib/post";
+import {
+  getPostFile,
+  parsePostContent,
+  markdownToHTML,
+  getPostLink,
+  getDescription,
+} from "../lib/post";
 import { getDate, getFormatedDate } from "../lib/date";
 import { Discuss } from "../components/discuss";
+import { SEO } from "../components/seo";
 
 export const Post = (props: RouteComponentProps<PostURLParams>) => {
   const { posts } = useContext<SiteType<typeof PAGES>>(SiteContext);
@@ -15,9 +22,17 @@ export const Post = (props: RouteComponentProps<PostURLParams>) => {
     const post = parsePostContent(getPostFile(posts, params));
     const html = markdownToHTML(post.body);
     const postDate = getDate(+params.year, +params.month, +params.day);
+    const postLink = getPostLink(params);
 
     return (
       <React.Fragment>
+        <SEO
+          url={postLink}
+          blog={{ published_time: postDate }}
+          title={post.attributes.title}
+          description={post.attributes.description || getDescription(post.body)}
+        />
+
         <article
           className="post"
           itemScope={true}

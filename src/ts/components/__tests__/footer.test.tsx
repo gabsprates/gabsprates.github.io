@@ -7,6 +7,9 @@ describe("<Footer />", () => {
   it(`must to render correctly`, () => {
     const footer = render(<Footer />);
     expect(footer.getByText(site.metadata.title));
-    expect(footer.getByText(site.metadata.description));
+
+    const [start, end] = site.metadata.description.split("\n");
+    expect(footer.getByText(new RegExp(`^${start}`)));
+    expect(footer.getByText(new RegExp(`${end}$`)));
   });
 });

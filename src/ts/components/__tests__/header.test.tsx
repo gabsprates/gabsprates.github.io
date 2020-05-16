@@ -8,7 +8,7 @@ describe("<Header />", () => {
     const header = render(<Header />);
     expect(header.getByText(site.metadata.title));
     expect(header.getByText("Sobre mim"));
-    expect(header.getByText("Projetos"));
+    expect(header.queryByText("Projetos")).toBeNull();
     expect(header.getByText("Talks"));
   });
 });

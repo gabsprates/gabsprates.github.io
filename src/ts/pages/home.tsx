@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import fs from "fs";
 import {
   getPostLink,
@@ -8,6 +8,8 @@ import {
   pathToPostParams,
 } from "../lib/post";
 import { getFormatedDate, getDate } from "../lib/date";
+import { SEO } from "../components/seo";
+import { SiteContext } from "../context/site";
 
 const getPosts = () =>
   Object.keys((global as GlobalExtended).BLOG_POSTS)
@@ -33,37 +35,42 @@ const getPosts = () =>
     })
     .reverse();
 
-export const Home = () => (
-  <main className="home">
-    <h1 className="page-heading">Posts</h1>
+export const Home = () => {
+  const site = useContext(SiteContext);
 
-    <ul className="post-list">
-      {getPosts().map((post) => (
-        <li key={post.link}>
-          <span className="post-meta">{post.date}</span>
+  return (
+    <main className="home">
+      <SEO url={site.pages.home} />
 
-          <h2>
-            <a href={post.link} title={post.title} className="post-link">
-              {post.title}
-            </a>
-          </h2>
+      <h1 className="page-heading">Posts</h1>
 
-          <div className="post-content">
-            <p
+      <ul className="post-list">
+        {getPosts().map((post) => (
+          <li key={post.link}>
+            <span className="post-meta">{post.date}</span>
+
+            <h2>
+              <a href={post.link} title={post.title} className="post-link">
+                {post.title}
+              </a>
+            </h2>
+
+            <div
+              className="post-content"
               dangerouslySetInnerHTML={{
                 __html: markdownToHTML(post.description),
               }}
             />
-          </div>
 
-          <a href={post.link}>Leia mais</a>
-        </li>
-      ))}
-    </ul>
+            <a href={post.link}>Leia mais</a>
+          </li>
+        ))}
+      </ul>
 
-    {/* @TODO: rss
+      {/* @TODO: rss
     <p className="rss-subscribe">
       subscribe <a href="/feed.xml">via RSS</a>
     </p> */}
-  </main>
-);
+    </main>
+  );
+};

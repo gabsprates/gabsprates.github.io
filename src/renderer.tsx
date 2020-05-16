@@ -1,15 +1,16 @@
 import React from "react";
 import { StaticRouter } from "react-router-dom";
-import { renderToString } from "react-dom/server";
+import { renderToString, renderToStaticMarkup } from "react-dom/server";
 
 import { Stats } from "webpack";
 import MemoryFileSystem from "memory-fs";
 import { Request, Response } from "express";
 
-import { Html } from "./ts/html";
+import { Html, Body } from "./ts/html";
 import { site } from "./../config/site";
 import { SiteContext } from "./ts/context/site";
 import { getCssFromChunk } from "./ts/lib/css";
+import { Helmet } from "react-helmet";
 
 interface ResponseWithWebpack extends Response {
   locals: {
@@ -33,18 +34,24 @@ export const renderer = async (req: Request, res: ResponseWithWebpack) => {
     const WrapperApp = (
       <StaticRouter location={req.url} context={staticContext}>
         <SiteContext.Provider value={{ ...site, posts }}>
-          <Html styles={styles} />
+          <Body />
         </SiteContext.Provider>
       </StaticRouter>
     );
 
-    const html = renderToString(WrapperApp);
+    const content = renderToString(WrapperApp);
+    const helmet = Helmet.renderStatic();
+
+    const html = renderToStaticMarkup(
+      <Html body={content} helmet={helmet} styles={styles} />
+    );
 
     res.setHeader("Content-Type", "text/html");
     res.status(staticContext.statusCode);
     res.send(`<!DOCTYPE html>${html}`);
     res.end();
-  } catch {
+  } catch (e) {
+    console.error(e);
     process.exit(1);
   }
 };

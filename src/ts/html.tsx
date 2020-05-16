@@ -6,8 +6,11 @@ import { PAGES } from "../../config/pages";
 import { Post } from "./pages/post";
 import { Home } from "./pages/home";
 import { About } from "./pages/about";
+import { HelmetData } from "react-helmet";
 
 type PropsType = {
+  body: string;
+  helmet: HelmetData;
   styles: string[];
 };
 
@@ -15,10 +18,14 @@ const POST_PATH =
   "/:year([0-9]{4})/:month([0-9]{2})/:day([0-9]{2})/:post([a-zA-Z0-9-_]+).html";
 
 export const Html = (props: PropsType) => (
-  <html lang="pt-br">
+  <html lang="pt-br" {...props.helmet.htmlAttributes.toComponent()}>
     <head>
       <meta charSet="UTF-8" />
-      {/* @TODO seo (title + metatags + json-ld) */}
+      {props.helmet.title.toComponent()}
+      {props.helmet.meta.toComponent()}
+      {props.helmet.link.toComponent()}
+      {props.helmet.script.toComponent()}
+
       <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <meta name="theme-color" content="#406b63" />
@@ -34,7 +41,17 @@ export const Html = (props: PropsType) => (
         rel="stylesheet"
       />
     </head>
-    <body>
+
+    <body
+      {...props.helmet.bodyAttributes.toComponent()}
+      dangerouslySetInnerHTML={{ __html: props.body }}
+    />
+  </html>
+);
+
+export const Body = () => {
+  return (
+    <React.Fragment>
       <Header />
 
       <div className="page-content">
@@ -74,6 +91,6 @@ ga('create', 'UA-92988633-1', 'auto');
 ga('send', 'pageview');`,
         }}
       />
-    </body>
-  </html>
-);
+    </React.Fragment>
+  );
+};

@@ -62,6 +62,7 @@ app.listen(PORT, (err) => {
 });
 
 const generateStatic = () => {
+  // @TODO: do this right
   const { PAGES } = require("./config/pages");
 
   console.log("generating pages:");
