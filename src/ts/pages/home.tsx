@@ -11,11 +11,11 @@ import { getFormatedDate, getDate } from "../lib/date";
 import { SEO } from "../components/seo";
 import { SiteContext } from "../context/site";
 
-const getPosts = () =>
-  Object.keys((global as GlobalExtended).BLOG_POSTS)
+const getPosts = (posts: BlogPosts) =>
+  Object.keys(posts)
     .map((path) => {
       const post = parsePostContent(
-        fs.readFileSync((global as GlobalExtended).BLOG_POSTS[path], {
+        fs.readFileSync(posts[path], {
           encoding: "utf-8",
         })
       );
@@ -45,7 +45,7 @@ export const Home = () => {
       <h1 className="page-heading">Posts</h1>
 
       <ul className="post-list">
-        {getPosts().map((post) => (
+        {getPosts(site.posts).map((post) => (
           <li key={post.link}>
             <span className="post-meta">{post.date}</span>
 

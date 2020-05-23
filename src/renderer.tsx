@@ -12,19 +12,20 @@ import { SiteContext } from "./ts/context/site";
 import { getCssFromChunk } from "./ts/lib/css";
 import { Helmet } from "react-helmet";
 
-interface ResponseWithWebpack extends Response {
+interface BlogResponse extends Response {
+  $POSTS: BlogPosts;
   locals: {
     fs: MemoryFileSystem;
     webpackStats: Stats;
   };
 }
 
-export const renderer = async (req: Request, res: ResponseWithWebpack) => {
+export const renderer = async (req: Request, res: BlogResponse) => {
   const staticContext = {
     statusCode: 200,
   };
 
-  const posts = (global as GlobalExtended).BLOG_POSTS;
+  const posts = { ...res.$POSTS };
 
   const styles = getCssFromChunk(
     res.locals.webpackStats.toJson().assetsByChunkName?.style

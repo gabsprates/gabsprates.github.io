@@ -17,5 +17,7 @@ interface SiteType<Pages> {
 
   pages: Pages;
 
-  posts: { [path: string]: string };
+  posts: BlogPosts;
 }
+
+type BlogPosts = { [path: string]: string };

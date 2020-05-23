@@ -16,13 +16,20 @@ const devMiddleware = webpackDevMiddleware(compiler, {
 
 const PORT = 4000;
 
-app.use(devMiddleware);
+const loadPostsMiddleware = (_req, res, next) => {
+  res.$POSTS = fs
+    .readdirSync("./posts", { encoding: "utf-8" })
+    .reduce((prev, post) => {
+      prev[post] = path.resolve(__dirname, "posts", post);
+      return prev;
+    }, {});
 
-const loadPosts = () =>
-  fs.readdirSync("./posts", { encoding: "utf-8" }).reduce((prev, post) => {
-    prev[post] = path.resolve(__dirname, "posts", post);
-    return prev;
-  }, {});
+  next();
+};
+
+app.use(loadPostsMiddleware);
+
+app.use(devMiddleware);
 
 devMiddleware.waitUntilValid((webpackStats) => {
   const stats = webpackStats.toJson();
@@ -31,10 +38,6 @@ devMiddleware.waitUntilValid((webpackStats) => {
     stats.outputPath,
     stats.assetsByChunkName.main
   );
-
-  const allPostsPath = loadPosts();
-
-  global.BLOG_POSTS = { ...allPostsPath };
 
   if (process.env.BUILD_STATIC) generateStatic();
 });
