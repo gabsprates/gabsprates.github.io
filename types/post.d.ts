@@ -6,6 +6,7 @@ type PostURLParams = {
 };
 
 type PostAttributes = {
+  tags: string[];
   title: string;
   description?: string;
 };

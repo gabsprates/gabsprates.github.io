@@ -33,9 +33,6 @@ export const Html = (props: PropsType) => (
         <link key={path} rel="stylesheet" href={`/${path}`} />
       ))}
       <link type="image/x-icon" rel="shortcut icon" href="/favicon.ico" />
-
-      {/* @TODO feed rss */}
-
       <link
         href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700"
         rel="stylesheet"

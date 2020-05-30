@@ -6,6 +6,7 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const config = {
   mode: "development",
   entry: {
+    feed: path.resolve(__dirname, "./src/feed/index.tsx"),
     main: path.resolve(__dirname, "./src/renderer.tsx"),
     style: path.resolve(__dirname, "./src/scss/main.scss"),
   },

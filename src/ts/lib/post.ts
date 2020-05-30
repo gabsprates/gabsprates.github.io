@@ -1,6 +1,7 @@
 import fs from "fs";
 import fm from "front-matter";
 import marked from "marked";
+import { getDate } from "./date";
 
 export const getPostFile = (
   posts: { [path: string]: string },
@@ -21,7 +22,7 @@ export const parsePostContent = (content: string) => {
 export const markdownToHTML = (md: string) =>
   marked(md, {
     gfm: true,
-    xhtml: false,
+    xhtml: true,
     breaks: false,
     pedantic: false,
     sanitize: false,
@@ -56,3 +57,29 @@ export const pathToPostParams = (path: string) => {
   const [, year, month, day, post] = matches;
   return { day, post, year, month };
 };
+
+export const getPosts = (posts: BlogPosts) =>
+  Object.keys(posts)
+    .map((path) => {
+      const post = parsePostContent(
+        fs.readFileSync(posts[path], {
+          encoding: "utf-8",
+        })
+      );
+
+      const params = pathToPostParams(path);
+
+      const date = params
+        ? getDate(+params.year, +params.month, +params.day)
+        : new Date();
+
+      return {
+        date,
+        body: post.body,
+        link: getPostLink(params),
+        tags: post.attributes.tags,
+        title: post.attributes.title,
+        description: post.attributes.description || getDescription(post.body),
+      };
+    })
+    .reverse();

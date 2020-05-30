@@ -1,39 +1,8 @@
 import React, { useContext } from "react";
-import fs from "fs";
-import {
-  getPostLink,
-  getDescription,
-  markdownToHTML,
-  parsePostContent,
-  pathToPostParams,
-} from "../lib/post";
-import { getFormatedDate, getDate } from "../lib/date";
 import { SEO } from "../components/seo";
 import { SiteContext } from "../context/site";
-
-const getPosts = (posts: BlogPosts) =>
-  Object.keys(posts)
-    .map((path) => {
-      const post = parsePostContent(
-        fs.readFileSync(posts[path], {
-          encoding: "utf-8",
-        })
-      );
-
-      const params = pathToPostParams(path);
-
-      const date = getFormatedDate(
-        params ? getDate(+params.year, +params.month, +params.day) : new Date()
-      );
-
-      return {
-        date,
-        link: getPostLink(params),
-        title: post.attributes.title,
-        description: post.attributes.description || getDescription(post.body),
-      };
-    })
-    .reverse();
+import { markdownToHTML, getPosts } from "../lib/post";
+import { getFormatedDate } from "../lib/date";
 
 export const Home = () => {
   const site = useContext(SiteContext);
@@ -47,7 +16,7 @@ export const Home = () => {
       <ul className="post-list">
         {getPosts(site.posts).map((post) => (
           <li key={post.link}>
-            <span className="post-meta">{post.date}</span>
+            <span className="post-meta">{getFormatedDate(post.date)}</span>
 
             <h2>
               <a href={post.link} title={post.title} className="post-link">
@@ -67,10 +36,9 @@ export const Home = () => {
         ))}
       </ul>
 
-      {/* @TODO: rss
-    <p className="rss-subscribe">
-      subscribe <a href="/feed.xml">via RSS</a>
-    </p> */}
+      <p className="rss-subscribe">
+        subscribe <a href="/feed.xml">via RSS</a>
+      </p>
     </main>
   );
 };

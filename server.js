@@ -14,8 +14,6 @@ const devMiddleware = webpackDevMiddleware(compiler, {
   serverSideRender: true,
 });
 
-const PORT = 4000;
-
 const loadPostsMiddleware = (_req, res, next) => {
   res.$POSTS = fs
     .readdirSync("./posts", { encoding: "utf-8" })
@@ -31,25 +29,28 @@ app.use(loadPostsMiddleware);
 
 app.use(devMiddleware);
 
-devMiddleware.waitUntilValid((webpackStats) => {
-  const stats = webpackStats.toJson();
-
-  process.env.MODULE_MAIN_PATH = path.resolve(
-    stats.outputPath,
-    stats.assetsByChunkName.main
-  );
-
-  if (process.env.BUILD_STATIC) generateStatic();
-});
-
 app.use("/assets", express.static("./assets"));
 
 app.use("/favicon.ico", express.static("./assets/favicon.ico"));
 
+app.get("/feed.xml", (req, res) => {
+  try {
+    delete require.cache[require.resolve("./dist/feed")];
+    const { feed } = require("./dist/feed");
+
+    res.type("application/xml");
+    res.send(feed(res.$POSTS));
+  } catch (err) {
+    console.error(err);
+    res.status(500);
+    res.send("internal server error");
+  }
+});
+
 app.get("/*", (req, res) => {
   try {
-    delete require.cache[require.resolve(process.env.MODULE_MAIN_PATH)];
-    const { renderer } = require(process.env.MODULE_MAIN_PATH);
+    delete require.cache[require.resolve("./dist/main")];
+    const { renderer } = require("./dist/main");
 
     return renderer(req, res);
   } catch (err) {
@@ -59,10 +60,18 @@ app.get("/*", (req, res) => {
   }
 });
 
-app.listen(PORT, (err) => {
-  if (err) return console.error(err);
-  console.log(`Server running at http://localhost:${PORT}`);
+devMiddleware.waitUntilValid((webpackStats) => {
+  const PORT = 4000;
+
+  app.listen(PORT, (err) => {
+    if (err) return console.error(err);
+    console.log(`\n\n🥳 - Server running at http://localhost:${PORT}`);
+  });
+
+  if (process.env.BUILD_STATIC) generateStatic();
 });
+
+// ---------------------------------------------------------------------------------------------------
 
 const generateStatic = () => {
   // @TODO: do this right
