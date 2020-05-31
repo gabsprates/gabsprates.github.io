@@ -21,3 +21,5 @@ interface SiteType<Pages> {
 }
 
 type BlogPosts = { [path: string]: string };
+
+type SiteConfig = Omit<SiteType<{}>, "posts">;

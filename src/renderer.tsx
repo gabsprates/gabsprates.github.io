@@ -3,38 +3,29 @@ import { StaticRouter } from "react-router-dom";
 import { renderToString, renderToStaticMarkup } from "react-dom/server";
 
 import { Stats } from "webpack";
-import MemoryFileSystem from "memory-fs";
-import { Request, Response } from "express";
 
 import { Html, Body } from "./ts/html";
-import { site } from "./../config/site";
 import { SiteContext } from "./ts/context/site";
 import { getCssFromChunk } from "./ts/lib/css";
 import { Helmet } from "react-helmet";
+import { PAGES } from "../config/pages";
 
-interface BlogResponse extends Response {
-  $POSTS: BlogPosts;
-  locals: {
-    fs: MemoryFileSystem;
-    webpackStats: Stats;
-  };
-}
+type RendererProps = {
+  url: string;
+  site: SiteConfig;
+  posts: BlogPosts;
+  stats: Stats;
+};
 
-export const renderer = async (req: Request, res: BlogResponse) => {
-  const staticContext = {
-    statusCode: 200,
-  };
-
-  const posts = { ...res.$POSTS };
-
-  const styles = getCssFromChunk(
-    res.locals.webpackStats.toJson().assetsByChunkName?.style
-  );
+export const renderer = async ({ url, site, posts, stats }: RendererProps) => {
+  const styles = getCssFromChunk(stats.toJson().assetsByChunkName?.style);
 
   try {
     const WrapperApp = (
-      <StaticRouter location={req.url} context={staticContext}>
-        <SiteContext.Provider value={{ ...site, posts }}>
+      <StaticRouter location={url}>
+        <SiteContext.Provider
+          value={{ ...site, posts } as SiteType<typeof PAGES>}
+        >
           <Body />
         </SiteContext.Provider>
       </StaticRouter>
@@ -47,12 +38,11 @@ export const renderer = async (req: Request, res: BlogResponse) => {
       <Html body={content} helmet={helmet} styles={styles} />
     );
 
-    res.setHeader("Content-Type", "text/html");
-    res.status(staticContext.statusCode);
-    res.send(`<!DOCTYPE html>${html}`);
-    res.end();
-  } catch (e) {
-    console.error(e);
-    process.exit(1);
+    return { html };
+  } catch (error) {
+    console.error(error);
+    return { error };
   }
 };
+
+export { site } from "../config/site";

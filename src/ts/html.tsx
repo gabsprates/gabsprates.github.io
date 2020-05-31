@@ -34,6 +34,12 @@ export const Html = (props: PropsType) => (
       ))}
       <link type="image/x-icon" rel="shortcut icon" href="/favicon.ico" />
       <link
+        rel="alternate"
+        type="application/rss+xml"
+        title="Gabriel Prates"
+        href="http://gabrielprates.com/feed.xml"
+      />
+      <link
         href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700"
         rel="stylesheet"
       />

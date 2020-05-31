@@ -1,7 +1,5 @@
-import React from "react";
 import { site } from "../../../../config/site";
 import { getJsonLDBase, getJsonLDForPage, getJsonLDForPost } from "../seo";
-import { render } from "@testing-library/react";
 
 describe("getJsonLDBase", () => {
   it(`getJsonLDBase`, () => {

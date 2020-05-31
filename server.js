@@ -47,12 +47,23 @@ app.get("/feed.xml", (req, res) => {
   }
 });
 
-app.get("/*", (req, res) => {
+app.get("/*", async (req, res) => {
   try {
     delete require.cache[require.resolve("./dist/main")];
-    const { renderer } = require("./dist/main");
+    const { site, renderer } = require("./dist/main");
 
-    return renderer(req, res);
+    const result = await renderer({
+      url: req.url,
+      site,
+      posts: res.$POSTS,
+      stats: res.locals.webpackStats,
+    });
+
+    if (result.error) throw result.error;
+
+    res.setHeader("Content-Type", "text/html");
+    res.send(`<!DOCTYPE html>${result.html}`);
+    res.end();
   } catch (err) {
     console.error(err);
     res.status(500);
