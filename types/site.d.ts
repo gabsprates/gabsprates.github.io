@@ -1,4 +1,4 @@
-interface SiteType<Pages> {
+interface SiteConfig {
   url: string;
 
   metadata: {
@@ -15,11 +15,11 @@ interface SiteType<Pages> {
     codepen?: string;
   };
 
-  pages: Pages;
-
-  posts: BlogPosts;
+  pages: PathValue;
 }
 
-type BlogPosts = { [path: string]: string };
+type PathValue = { [path: string]: string };
 
-type SiteConfig = Omit<SiteType<{}>, "posts">;
+type BlogPosts = PathValue;
+
+type SiteAndPosts = SiteConfig & { posts: BlogPosts };

@@ -8,7 +8,6 @@ import { Html, Body } from "./ts/html";
 import { SiteContext } from "./ts/context/site";
 import { getCssFromChunk } from "./ts/lib/css";
 import { Helmet } from "react-helmet";
-import { PAGES } from "../config/pages";
 
 type RendererProps = {
   url: string;
@@ -23,9 +22,7 @@ export const renderer = async ({ url, site, posts, stats }: RendererProps) => {
   try {
     const WrapperApp = (
       <StaticRouter location={url}>
-        <SiteContext.Provider
-          value={{ ...site, posts } as SiteType<typeof PAGES>}
-        >
+        <SiteContext.Provider value={{ ...site, posts }}>
           <Body />
         </SiteContext.Provider>
       </StaticRouter>

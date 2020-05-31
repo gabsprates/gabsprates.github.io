@@ -1,6 +1,7 @@
 const path = require("path");
 const nodeExternals = require("webpack-node-externals");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const { paths } = require("./core/constants");
 
 /** @const {webpack.Configuration} */
 const config = {
@@ -15,7 +16,7 @@ const config = {
   externals: [nodeExternals()],
 
   devServer: {
-    contentBase: "./dist",
+    contentBase: paths.dist,
   },
 
   resolve: {
@@ -48,7 +49,7 @@ const config = {
   plugins: [new MiniCssExtractPlugin()],
 
   output: {
-    path: path.resolve(__dirname, "dist"),
+    path: paths.dist,
     publicPath: "/",
     libraryTarget: "commonjs2",
   },

@@ -1,13 +1,12 @@
 import React, { useContext } from "react";
 import { SiteContext } from "../context/site";
-import { PAGES } from "../../../config/pages";
 
 export const Header = () => {
   const site = useContext(SiteContext);
 
   const navLinks = [
     {
-      url: PAGES.about,
+      url: site.pages.about,
       label: "Sobre mim",
     },
     // {

@@ -1,11 +1,11 @@
-import { PAGES } from "./pages";
-
-export const site: SiteType<typeof PAGES> = {
+export const site: SiteConfig = {
   url: "http://gabrielprates.com",
 
-  pages: PAGES,
-
-  posts: {},
+  pages: {
+    home: "/",
+    about: "/about/",
+    projects: "/projects/",
+  },
 
   social: {
     github: "gabsprates",

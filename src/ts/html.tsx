@@ -1,12 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Header } from "./components/header";
 import { Footer } from "./components/footer";
 import { Switch, Route } from "react-router-dom";
-import { PAGES } from "../../config/pages";
 import { Post } from "./pages/post";
 import { Home } from "./pages/home";
 import { About } from "./pages/about";
 import { HelmetData } from "react-helmet";
+import { SiteContext } from "./context/site";
 
 type PropsType = {
   body: string;
@@ -53,6 +53,8 @@ export const Html = (props: PropsType) => (
 );
 
 export const Body = () => {
+  const site = useContext(SiteContext);
+
   return (
     <React.Fragment>
       <Header />
@@ -60,9 +62,9 @@ export const Body = () => {
       <div className="page-content">
         <main className="wrapper">
           <Switch>
-            <Route path={PAGES.home} exact={true} component={Home} />
-            <Route path={PAGES.about} exact={true} component={About} />
-            <Route path={PAGES.projects} exact={true}>
+            <Route path={site.pages.home} exact={true} component={Home} />
+            <Route path={site.pages.about} exact={true} component={About} />
+            <Route path={site.pages.projects} exact={true}>
               <h1>Projetos</h1>
               <p>Em contrução 👷‍♂️</p>
             </Route>

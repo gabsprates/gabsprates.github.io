@@ -1,6 +1,5 @@
 import React, { useContext } from "react";
 import { RouteComponentProps } from "react-router-dom";
-import { PAGES } from "../../../config/pages";
 import { SiteContext } from "../context/site";
 import {
   getPostFile,
@@ -14,7 +13,7 @@ import { Discuss } from "../components/discuss";
 import { SEO } from "../components/seo";
 
 export const Post = (props: RouteComponentProps<PostURLParams>) => {
-  const { posts } = useContext<SiteType<typeof PAGES>>(SiteContext);
+  const { posts } = useContext(SiteContext);
 
   try {
     const { params } = props.match;

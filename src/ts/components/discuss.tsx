@@ -1,9 +1,8 @@
 import React, { useContext } from "react";
-import { PAGES } from "../../../config/pages";
 import { SiteContext } from "../context/site";
 
 export const Discuss = (props: { url: string }) => {
-  const { url } = useContext<SiteType<typeof PAGES>>(SiteContext);
+  const { url } = useContext<SiteAndPosts>(SiteContext);
 
   return (
     <React.Fragment>
