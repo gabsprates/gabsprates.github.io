@@ -1,9 +1,7 @@
 import React from "react";
 import { StaticRouter } from "react-router-dom";
 import { renderToString, renderToStaticMarkup } from "react-dom/server";
-
 import { Stats } from "webpack";
-
 import { Html, Body } from "./ts/html";
 import { SiteContext } from "./ts/context/site";
 import { getCssFromChunk } from "./ts/lib/css";
@@ -43,3 +41,4 @@ export const renderer = async ({ url, site, posts, stats }: RendererProps) => {
 };
 
 export { site } from "../config/site";
+export { getPostLink, pathToPostParams } from "./ts/lib/post";

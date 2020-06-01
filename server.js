@@ -1,3 +1,4 @@
+const path = require("path");
 const express = require("express");
 const webpack = require("webpack");
 const webpackDevMiddleware = require("webpack-dev-middleware");
@@ -20,8 +21,11 @@ const loadPostsMiddleware = (_req, res, next) => {
 app.use(loadPostsMiddleware);
 app.use(devMiddleware);
 
-app.use("/assets", express.static("./assets"));
-app.use("/favicon.ico", express.static("./assets/favicon.ico"));
+app.use("/assets", express.static(paths.assets));
+app.use(
+  "/favicon.ico",
+  express.static(path.resolve(paths.assets, "favicon.ico"))
+);
 
 app.get("/feed.xml", (req, res) => {
   try {
