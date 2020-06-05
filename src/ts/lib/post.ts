@@ -38,8 +38,15 @@ export const markdownToHTML = (md: string) =>
 
 export const getDescription = (content: string) => {
   const nextLineBreak = content.indexOf("\n");
-  if (nextLineBreak === -1) return content;
-  return content.substr(0, nextLineBreak);
+  if (nextLineBreak === -1) return markdownToText(content);
+  return markdownToText(content.substr(0, nextLineBreak));
+};
+
+export const markdownToText = (content: string) => {
+  return markdownToHTML(content)
+    .replace(/<[^>]*>?/gm, "")
+    .replace("\n", " ")
+    .trim();
 };
 
 export const getPostLink = (params?: PostURLParams) => {

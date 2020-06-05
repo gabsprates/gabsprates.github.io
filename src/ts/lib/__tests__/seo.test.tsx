@@ -19,7 +19,7 @@ describe("getJsonLDBase", () => {
         name: site.metadata.title,
       },
       headline: props.title,
-      description: site.metadata.description,
+      description: site.metadata.description.replace("\n", " "),
       "@context": "https://schema.org",
     });
   });
@@ -42,7 +42,8 @@ describe("getJsonLDForPost", () => {
       url: "/2020/05/16/post-bacana-sobre-js.html",
       blog: { published_time: new Date(2020, 4, 16) },
       title: "Post Bacana Sobre JS",
-      description: "Descrição do post sobre JS",
+      description:
+        "**Descrição** do _post_ [sobre](https://url.com) JS __*com vários*__ highlights no texto!",
     };
     const jsonld = getJsonLDForPost(site, props);
     expect(jsonld.url).toEqual(`${site.url}${props.url}`);

@@ -1,3 +1,5 @@
+import { markdownToText } from "./post";
+
 export type SEOProps = {
   url: string;
   blog?: { published_time: Date };
@@ -20,7 +22,7 @@ export const getJsonLDBase = (site: SiteConfig, props: SEOProps) => ({
     name: site.metadata.title,
   },
   headline: props.title || site.metadata.title,
-  description: props.description || site.metadata.description,
+  description: markdownToText(props.description || site.metadata.description),
   "@context": "https://schema.org",
 });
 
