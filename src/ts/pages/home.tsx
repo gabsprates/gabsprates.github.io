@@ -31,13 +31,18 @@ export const Home = () => {
               }}
             />
 
-            <a href={post.link}>Leia mais</a>
+            <a href={post.link} title={`Ler "${post.title}" por completo`}>
+              Leia mais
+            </a>
           </li>
         ))}
       </ul>
 
       <p className="rss-subscribe">
-        subscribe <a href="/feed.xml">via RSS</a>
+        subscribe{" "}
+        <a href="/feed.xml" title={"subscribe via RSS"}>
+          via RSS
+        </a>
       </p>
     </main>
   );

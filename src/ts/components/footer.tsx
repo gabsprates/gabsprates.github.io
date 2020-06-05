@@ -10,17 +10,29 @@ export const Footer = () => {
     return (
       <React.Fragment>
         <li>
-          <a href={`https://github.com/${site.social.github}`}>
+          <a
+            href={`https://github.com/${site.social.github}`}
+            title={`${site.metadata.title} no GitHub`}
+            target="_blank"
+          >
             github@{site.social.github}
           </a>
         </li>
         <li>
-          <a href={`https://twitter.com/${site.social.twitter}`}>
+          <a
+            href={`https://twitter.com/${site.social.twitter}`}
+            title={`${site.metadata.title} no Twitter`}
+            target="_blank"
+          >
             twitter@{site.social.twitter}
           </a>
         </li>
         <li>
-          <a href={`https://br.linkedin.com/in/${site.social.linkedin}`}>
+          <a
+            href={`https://br.linkedin.com/in/${site.social.linkedin}`}
+            title={`${site.metadata.title} no LinkedIn`}
+            target="_blank"
+          >
             linkedin@{site.social.linkedin}
           </a>
         </li>

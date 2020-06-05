@@ -48,7 +48,7 @@ export const Header = () => {
                 key={link.url}
                 href={link.url}
                 title={link.label}
-                target={link.external ? "_blank" : ""}
+                target={link.external ? "_blank" : void 0}
                 className="page-link"
               >
                 {link.label}

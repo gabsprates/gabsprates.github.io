@@ -26,6 +26,7 @@ export const SEO = (props: PropsWithChildren<SEOProps>) => {
       <link rel="canonical" href={site.url + props.url} />
       <meta property="og:url" content={site.url + props.url} />
       <meta property="og:site_name" content={site.metadata.title} />
+      <meta property="og:image" content={site.url + site.metadata.logo} />
 
       {props.blog && <meta property="og:type" content="article" />}
       {props.blog && (
