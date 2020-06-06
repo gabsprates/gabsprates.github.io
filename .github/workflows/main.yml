@@ -28,14 +28,14 @@ jobs:
           mv docs/ /tmp/docs
           touch /tmp/docs/.nojekyll
           rm -fr ./* .github .gitignore .prettierignore .prettierrc
+          cp -a /tmp/docs/* ./
           ls -lah
-          cp -av /tmp/docs/* ./
-      # - name: commit files
-      #   env:
-      #     EMAIL: ${{ secrets.ASDF_EMAIL }}
-      #     NAME: ${{ secrets.ASDF_NAME }}
-      #   run: |
-      #     git status
+
+      - name: commit files
+        env:
+          EMAIL: ${{ secrets.ASDF_EMAIL }}
+          NAME: ${{ secrets.ASDF_NAME }}
+        run: git status
       #     git subtree split --prefix docs -b gh-pages
       #     git config --local user.email $EMAIL
       #     git config --local user.name $NAME
