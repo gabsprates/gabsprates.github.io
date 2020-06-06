@@ -1,0 +1,43 @@
+name: CI
+
+on:
+  push:
+    branches: [master]
+
+jobs:
+  build:
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: "12"
+
+      - name: installing
+        run: yarn install
+
+      - name: testing
+        run: yarn test
+
+      - name: building
+        run: yarn build
+
+      - name: show files
+        run: ls -lah docs/
+
+      - name: commit files
+        env:
+          EMAIL: ${{ secrets.ASDF_EMAIL }}
+          NAME: ${{ secrets.ASDF_NAME }}
+        run: |
+          git status
+          git config --local user.email $EMAIL
+          git config --local user.name $NAME
+          git add .
+          git commit -m "new deploy"
+          git log --oneline
+
+      - name: push changes
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.ASDF_PUSH }}
