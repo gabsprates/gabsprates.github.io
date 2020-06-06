@@ -27,10 +27,9 @@ jobs:
           ls -lah docs/
           mv docs/ /tmp/docs
           touch /tmp/docs/.nojekyll
-          rm -fr ./*
+          rm -fr ./* .github .gitignore .prettierignore .prettierrc
           ls -lah
-
-
+          cp -av /tmp/docs/* ./
       # - name: commit files
       #   env:
       #     EMAIL: ${{ secrets.ASDF_EMAIL }}
@@ -43,7 +42,6 @@ jobs:
       #     git add .
       #     git commit -m "new version"
       #     git log --oneline
-
       # - name: push changes
       #   uses: ad-m/github-push-action@master
       #   with:
