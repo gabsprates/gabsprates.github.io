@@ -20,31 +20,27 @@ jobs:
         run: yarn test
 
       - name: building
-        run: yarn build
-
-      - name: prepare files
         run: |
+          yarn build
+          touch docs/.nojekyll
           ls -lah docs/
-          mv docs/ /tmp/docs
-          touch /tmp/docs/.nojekyll
-          rm -fr ./* .github .gitignore .prettierignore .prettierrc
-          cp -a /tmp/docs/* ./
-          ls -lah
 
       - name: commit files
         env:
           EMAIL: ${{ secrets.ASDF_EMAIL }}
           NAME: ${{ secrets.ASDF_NAME }}
-        run: git status
-      #     git subtree split --prefix docs -b gh-pages
-      #     git config --local user.email $EMAIL
-      #     git config --local user.name $NAME
-      #     git add .
-      #     git commit -m "new version"
-      #     git log --oneline
-      # - name: push changes
-      #   uses: ad-m/github-push-action@master
-      #   with:
-      #     github_token: ${{ secrets.ASDF_PUSH }}
-      #     branch: gh-pages
-      #     force: true
+        run: |
+          git config --local user.email $EMAIL
+          git config --local user.name $NAME
+          git add docs
+          git commit -m '-- build'
+          git subtree push --prefix docs -b gh-pages
+          git checkout gh-pages
+          git log --oneline
+
+      - name: push changes
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.ASDF_PUSH }}
+          branch: gh-pages
+          force: true
