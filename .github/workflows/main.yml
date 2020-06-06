@@ -1,0 +1,52 @@
+name: CI
+
+on:
+  push:
+    branches: [master]
+
+jobs:
+  build:
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: "12"
+
+      - name: installing
+        run: yarn install
+
+      - name: testing
+        run: yarn test
+
+      - name: building
+        run: yarn build
+
+      - name: prepare files
+        run: |
+          ls -lah docs/
+          mv docs/ /tmp/docs
+          touch /tmp/docs/.nojekyll
+          rm -fr ./*
+          ls -lah
+
+
+      # - name: commit files
+      #   env:
+      #     EMAIL: ${{ secrets.ASDF_EMAIL }}
+      #     NAME: ${{ secrets.ASDF_NAME }}
+      #   run: |
+      #     git status
+      #     git subtree split --prefix docs -b gh-pages
+      #     git config --local user.email $EMAIL
+      #     git config --local user.name $NAME
+      #     git add .
+      #     git commit -m "new version"
+      #     git log --oneline
+
+      # - name: push changes
+      #   uses: ad-m/github-push-action@master
+      #   with:
+      #     github_token: ${{ secrets.ASDF_PUSH }}
+      #     branch: gh-pages
+      #     force: true
