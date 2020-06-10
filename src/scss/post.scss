@@ -36,6 +36,10 @@
 .post-content {
   margin-bottom: $spacing-unit;
 
+  a {
+    word-break: break-word;
+  }
+
   h2,
   h3,
   h4 {
