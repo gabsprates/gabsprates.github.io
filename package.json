@@ -15,6 +15,7 @@
     "gatsby-plugin-manifest": "^2.4.32",
     "gatsby-plugin-offline": "^3.2.29",
     "gatsby-plugin-react-helmet": "^3.3.12",
+    "gatsby-plugin-sass": "^2.3.16",
     "gatsby-plugin-sharp": "^2.6.37",
     "gatsby-remark-copy-linked-files": "^2.3.17",
     "gatsby-remark-images": "^3.3.31",
@@ -28,11 +29,12 @@
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "react-helmet": "^5.2.1",
-    "typeface-merriweather": "0.0.72",
-    "typeface-montserrat": "0.0.75"
+    "sass": "^1.27.0",
+    "typeface-ubuntu": "^1.1.13"
   },
   "devDependencies": {
-    "prettier": "2.1.2"
+    "prettier": "2.1.2",
+    "resolve-url-loader": "^3.1.1"
   },
   "homepage": "https://github.com/gabsprates/gabsprates.github.io#readme",
   "keywords": [

@@ -1,36 +1,57 @@
 import React from "react"
-import { Link } from "gatsby"
+import Header from "./header"
+import { useStaticQuery, graphql } from "gatsby"
+import Footer from "./footer"
 
-const Layout = ({ location, title, children }) => {
-  const rootPath = `${__PATH_PREFIX__}/`
-  const isRootPath = location.pathname === rootPath
-  let header
+const Layout = ({ children }) => {
+  const data = useStaticQuery(query)
 
-  if (isRootPath) {
-    header = (
-      <h1 className="main-heading">
-        <Link to="/">{title}</Link>
-      </h1>
-    )
-  } else {
-    header = (
-      <Link className="header-link-home" to="/">
-        {title}
-      </Link>
-    )
-  }
+  console.log({ data })
+
+  const title = data?.site?.siteMetadata?.title
+  const social = data?.site?.siteMetadata?.social
 
   return (
-    <div className="global-wrapper" data-is-root-path={isRootPath}>
-      <header className="global-header">{header}</header>
-      <main>{children}</main>
-      <footer>
-        © {new Date().getFullYear()}, Built with
-        {` `}
-        <a href="https://www.gatsbyjs.com">Gatsby</a>
-      </footer>
-    </div>
+    <>
+      <Header title={title} avatar={data?.avatar?.childImageSharp?.fixed} />
+
+      <div className="page-content">
+        <main className="wrapper">{children}</main>
+      </div>
+
+      <Footer
+        title={title}
+        social={social}
+        siteUrl={data?.site?.siteMetadata?.siteUrl}
+        description={data?.site?.siteMetadata?.description}
+      />
+    </>
   )
 }
+
+const query = graphql`
+  query {
+    avatar: file(absolutePath: { regex: "/perfil-small.jpg/" }) {
+      childImageSharp {
+        fixed(width: 40, height: 40, quality: 100) {
+          ...GatsbyImageSharpFixed
+        }
+      }
+    }
+
+    site {
+      siteMetadata {
+        title
+        siteUrl
+        description
+        social {
+          github
+          twitter
+          linkedin
+        }
+      }
+    }
+  }
+`
 
 export default Layout

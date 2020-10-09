@@ -1,14 +1,18 @@
 module.exports = {
   siteMetadata: {
-    title: `Gatsby Starter Blog`,
+    title: `Gabriel Prates`,
     author: {
-      name: `Kyle Mathews`,
-      summary: `who lives and works in San Francisco building useful things.`,
+      name: `Gabriel Prates`,
+      summary: `Front-End Engineer`,
     },
-    description: `A starter blog demonstrating what Gatsby can do.`,
-    siteUrl: `https://gatsby-starter-blog-demo.netlify.app/`,
+    description: `Desenvolvedor há mais de ${
+      new Date().getFullYear() - 2011
+    } anos e baterista nas horas vagas\n#js #frontend #opensource #busquemconhecimento`,
+    siteUrl: `http://gabrielprates.com`,
     social: {
-      twitter: `kylemathews`,
+      github: `gabsprates`,
+      twitter: `gabsprates`,
+      linkedin: `gabrielprates`,
     },
   },
   plugins: [
@@ -73,5 +77,12 @@ module.exports = {
     // this (optional) plugin enables Progressive Web App + Offline functionality
     // To learn more, visit: https://gatsby.dev/offline
     // `gatsby-plugin-offline`,
+    {
+      resolve: `gatsby-plugin-sass`,
+      options: {
+        implementation: require("sass"),
+        useResolveUrlLoader: true,
+      },
+    },
   ],
 }
