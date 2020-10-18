@@ -4,6 +4,7 @@ export const site: SiteConfig = {
   pages: {
     home: "/",
     about: "/about/",
+    podcast: "/podcast/",
     projects: "/projects/",
   },
 

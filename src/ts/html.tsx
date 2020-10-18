@@ -7,6 +7,7 @@ import { Home } from "./pages/home";
 import { About } from "./pages/about";
 import { HelmetData } from "react-helmet";
 import { SiteContext } from "./context/site";
+import { Podcast } from "./pages/podcast";
 
 type PropsType = {
   body: string;
@@ -68,6 +69,7 @@ export const Body = () => {
               <h1>Projetos</h1>
               <p>Em contrução 👷‍♂️</p>
             </Route>
+            <Route path={site.pages.podcast} exact={true} component={Podcast} />
 
             <Route path={POST_PATH} exact={true} component={Post} />
 

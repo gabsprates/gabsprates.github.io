@@ -14,6 +14,10 @@ export const Header = () => {
     //   label: "Projetos",
     // },
     {
+      url: site.pages.podcast,
+      label: "Podcast",
+    },
+    {
       url: "https://slides.com/gabsprates",
       label: "Talks",
       external: true,
