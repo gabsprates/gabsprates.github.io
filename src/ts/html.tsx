@@ -7,6 +7,7 @@ import { Home } from "./pages/home";
 import { About } from "./pages/about";
 import { HelmetData } from "react-helmet";
 import { SiteContext } from "./context/site";
+import { Projects } from "./pages/projects";
 
 type PropsType = {
   body: string;
@@ -64,10 +65,11 @@ export const Body = () => {
           <Switch>
             <Route path={site.pages.home} exact={true} component={Home} />
             <Route path={site.pages.about} exact={true} component={About} />
-            <Route path={site.pages.projects} exact={true}>
-              <h1>Projetos</h1>
-              <p>Em contrução 👷‍♂️</p>
-            </Route>
+            <Route
+              path={site.pages.projects}
+              exact={true}
+              component={Projects}
+            />
 
             <Route path={POST_PATH} exact={true} component={Post} />
 
