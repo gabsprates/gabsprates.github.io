@@ -1,22 +1,15 @@
-.post-list {
-  margin-left: 0;
-  list-style: none;
-
-  > li {
-    margin-bottom: $spacing-unit;
-    border-bottom: 1px solid $grey-color-light;
-    padding-bottom: $spacing-unit;
-  }
-}
-
 .post-meta {
   font-size: $small-font-size;
   color: $grey-color;
 }
 
 .post-link {
-  display: block;
+  display: inline-block;
   font-size: 24px;
+
+  &:hover {
+    color: darken($brand-color, 10);
+  }
 }
 
 .post-header {

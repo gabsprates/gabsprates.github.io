@@ -13,7 +13,7 @@ export const Home = () => {
 
       <h1 className="page-heading">Posts</h1>
 
-      <ul className="post-list">
+      <ul className="list">
         {getPosts(site.posts).map((post) => (
           <li key={post.link}>
             <span className="post-meta">{getFormatedDate(post.date)}</span>
@@ -31,7 +31,11 @@ export const Home = () => {
               }}
             />
 
-            <a href={post.link} title={`Ler "${post.title}" por completo`}>
+            <a
+              href={post.link}
+              title={`Ler "${post.title}" por completo`}
+              className="list-more"
+            >
               Leia mais
             </a>
           </li>
