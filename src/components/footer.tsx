@@ -41,7 +41,7 @@ export const Footer = ({ title, social, siteUrl, description }) => {
 
               <li>
                 <a href={siteUrl} title="Meu site" target="_blank">
-                  {siteUrl}
+                  {siteUrl.replace(/^https?\:\/\//, "")}
                 </a>
               </li>
             </ul>

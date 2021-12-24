@@ -1,26 +1,28 @@
-import React from "react"
+import React, { PropsWithChildren } from "react"
 import Header from "./header"
 import { useStaticQuery, graphql } from "gatsby"
 import Footer from "./footer"
 
-const Layout = ({ children }) => {
+type LayoutProps = PropsWithChildren<{}>
+
+const Layout = ({ children }: LayoutProps) => {
   const data = useStaticQuery(query)
 
   console.log({ data })
 
-  const title = data?.site?.siteMetadata?.title
+  const siteTitle = data?.site?.siteMetadata?.title
   const social = data?.site?.siteMetadata?.social
 
   return (
     <>
-      <Header title={title} avatar={data?.avatar?.childImageSharp?.fixed} />
+      <Header title={siteTitle} avatar={data?.avatar?.childImageSharp?.fixed} />
 
       <div className="page-content">
         <main className="wrapper">{children}</main>
       </div>
 
       <Footer
-        title={title}
+        title={siteTitle}
         social={social}
         siteUrl={data?.site?.siteMetadata?.siteUrl}
         description={data?.site?.siteMetadata?.description}

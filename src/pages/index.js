@@ -5,44 +5,51 @@ import Layout from "../components/layout"
 import SEO from "../components/seo"
 
 const BlogIndex = ({ data }) => {
-  const posts = data.allMarkdownRemark.nodes
+  const posts = data?.allMarkdownRemark?.nodes || []
 
   return (
     <Layout>
       <SEO title="All posts" />
 
-      <ol style={{ listStyle: `none` }}>
+      <h1 class="page-heading">Posts</h1>
+
+      <ul className="post-list">
         {posts.map(post => {
           const title = post.frontmatter.title || post.fields.slug
 
           return (
             <li key={post.fields.slug}>
-              <article
-                className="post-list-item"
-                itemScope
-                itemType="http://schema.org/Article"
-              >
-                <header>
-                  <h2>
-                    <Link to={post.fields.slug} itemProp="url">
-                      <span itemProp="headline">{title}</span>
-                    </Link>
-                  </h2>
-                  <small>{post.frontmatter.date}</small>
-                </header>
-                <section>
-                  <p
-                    dangerouslySetInnerHTML={{
-                      __html: post.frontmatter.description || post.excerpt,
-                    }}
-                    itemProp="description"
-                  />
-                </section>
-              </article>
+              <span className="post-meta">{post.frontmatter.date}</span>
+
+              <h2>
+                <Link to={post.fields.slug} title={title} className="post-link">
+                  {title}
+                </Link>
+              </h2>
+
+              <div
+                itemProp="description"
+                className="post-content"
+                dangerouslySetInnerHTML={{
+                  __html: post.frontmatter.description || post.excerpt,
+                }}
+              />
+
+              <Link to={post.fields.slug} title={`Ler "${title}" por completo`}>
+                Leia mais
+              </Link>
             </li>
           )
         })}
-      </ol>
+      </ul>
+
+      {/* TODO */}
+      <p className="rss-subscribe">
+        subscribe{" "}
+        <Link href="/feed.xml" title="subscribe via RSS">
+          via RSS
+        </Link>
+      </p>
     </Layout>
   )
 }
@@ -56,7 +63,10 @@ export const pageQuery = graphql`
         title
       }
     }
-    allMarkdownRemark(sort: { fields: [frontmatter___date], order: DESC }) {
+    allMarkdownRemark(
+      sort: { fields: [frontmatter___date], order: DESC }
+      filter: { fileAbsolutePath: { regex: "//content/_posts_//" } }
+    ) {
       nodes {
         excerpt
         fields {
