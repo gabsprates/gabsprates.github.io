@@ -1,0 +1,81 @@
+<!DOCTYPE html><html lang="pt-br"><head><meta charSet="UTF-8"/><title data-react-helmet="true">Bulma: framework CSS baseado em flexbox | Gabriel Prates</title><meta data-react-helmet="true" property="og:title" content="Bulma: framework CSS baseado em flexbox"/><meta data-react-helmet="true" name="author" content="Gabriel Prates"/><meta data-react-helmet="true" property="og:locale" content="pt_BR"/><meta data-react-helmet="true" name="description" content="Inspirado pelo Bootstrap, o Bulma visa oferecer a todos a alegria de fazer o design do site, com a simplicidade do flexbox e a elegância de Sass."/><meta data-react-helmet="true" property="og:description" content="Inspirado pelo Bootstrap, o Bulma visa oferecer a todos a alegria de fazer o design do site, com a simplicidade do flexbox e a elegância de Sass."/><meta data-react-helmet="true" property="og:url" content="https://gabrielprates.com/2016/06/30/bulma-framework-css-baseado-em-flexbox.html"/><meta data-react-helmet="true" property="og:site_name" content="Gabriel Prates"/><meta data-react-helmet="true" property="og:image" content="https://gabrielprates.com/assets/perfil-small.jpg"/><meta data-react-helmet="true" property="og:type" content="article"/><meta data-react-helmet="true" property="article:published_time" content="2016-06-30T00:00:00.000Z"/><link data-react-helmet="true" rel="canonical" href="https://gabrielprates.com/2016/06/30/bulma-framework-css-baseado-em-flexbox.html"/><script data-react-helmet="true" type="application/ld+json">{"@type":"BlogPosting","url":"https://gabrielprates.com/2016/06/30/bulma-framework-css-baseado-em-flexbox.html","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"https://gabrielprates.com/assets/perfil-small.jpg"},"name":"Gabriel Prates"},"author":{"@type":"Person","name":"Gabriel Prates"},"headline":"Bulma: framework CSS baseado em flexbox","description":"Inspirado pelo Bootstrap, o Bulma visa oferecer a todos a alegria de fazer o design do site, com a simplicidade do flexbox e a elegância de Sass.","@context":"https://schema.org","dateModified":"2016-06-30T00:00:00.000Z","datePublished":"2016-06-30T00:00:00.000Z","mainEntityOfPage":{"@type":"WebPage","@id":"https://gabrielprates.com/2016/06/30/bulma-framework-css-baseado-em-flexbox.html"}}</script><meta http-equiv="X-UA-Compatible" content="IE=edge"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="theme-color" content="#406b63"/><link rel="stylesheet" href="/style.css"/><link type="image/x-icon" rel="shortcut icon" href="/favicon.ico"/><link rel="alternate" type="application/rss+xml" title="Gabriel Prates" href="https://gabrielprates.com/feed.xml"/><link href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700" rel="stylesheet"/></head><body><header class="site-header"><div class="wrapper"><a class="site-title" href="/" title="Gabriel Prates"><img alt="Gabriel Prates" src="/assets/perfil-small.jpg" class="site-title__image"/>Gabriel Prates</a><nav class="site-nav"><button class="menu-icon"><span></span><span></span><span></span></button><div class="trigger"><a href="/about/" title="Sobre mim" class="page-link">Sobre mim</a><a href="/projects/" title="Projetos" class="page-link">Projetos</a><a href="https://slides.com/gabsprates" title="Talks" target="_blank" class="page-link">Talks</a></div></nav></div></header><div class="page-content"><main class="wrapper"><article class="post" itemscope="" itemType="http://schema.org/BlogPosting"><header class="post-header"><h1 class="post-title" itemProp="name headline">Bulma: framework CSS baseado em flexbox</h1><p class="post-meta"><time dateTime="2016-06-30T00:00:00.000Z" itemProp="datePublished">Jun 30, 2016</time></p></header><div class="post-content"><p>Este artigo foi originalmente postado no <a href="//tableless.com.br/bulma-framework-css-baseado-em-flexbox/">Tableless</a> no dia 28 de junho de 2016.</p>
+<hr/>
+<blockquote>
+<p>&quot;Inspirado pelo Bootstrap, o Bulma visa oferecer a todos a alegria de fazer o design do site, com a simplicidade do flexbox e a elegância de Sass.&quot; - <a href="http://jgthms.com/">Jeremy Thomas</a>, criador do projeto Bulma.io.</p>
+</blockquote>
+<p>Como o título diz, o <a href="http://bulma.io/">Bulma</a> é um framework CSS baseado na tecnologia flexbox, que já tem uma grande <a href="http://caniuse.com/#search=flexbox">compatibilidade</a> entre os navegadores. O pacote contém todos os elementos mais comuns como botões, formulários, menus, tabelas, títulos, notificações, barras de progresso e um simples sistema de grid (basta adicionar uma coluna, o resize das colunas é automático).</p>
+<p>Vou mostrar alguns exemplos para que você possa entender o poder do Bulma.</p>
+<p>Primeiramente, faremos a instalação que não precisa de nada mais que um link para o arquivo de estilos do Bulma:</p>
+<pre><code class="language-html"><span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">"stylesheet"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"https://cdnjs.cloudflare.com/ajax/libs/bulma/0.0.26/css/bulma.css"</span>&gt;</span></code></pre>
+<p>Claro que você pode baixar e deixar no seu diretório local, e também baixar com o NPM: <code>npm install bulma</code>; mas o que quero mostrar é que tudo que você precisa é apenas de um arquivo de CSS.</p>
+<p>Baixando com o NPM você terá como personalizar facilmente com SASS.</p>
+<p>O Bulma não vem com nenhum pacote de icon-fonts acoplado, então, caso você pretenda usar algum, como o Font Awesome, você deve inserí-lo também.</p>
+<h2 id="o-grid">O Grid</h2>
+<p>Lembrando: como o Bulma foi baseado no Bootstrap, uma das semelhanças é o sistema de grid com 12 colunas.</p>
+<p>Como falei, o grid funciona de forma muito simples. Tudo que você precisa é ter uma <code>div</code> com a classe <code>.columns</code> e suas filhas <code>.column</code>, como no exemplo abaixo:</p>
+<pre><code class="language-html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"columns"</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"column"</span>&gt;</span>.column<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"column"</span>&gt;</span>.column<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"column"</span>&gt;</span>.column<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"column"</span>&gt;</span>.column<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
+<p>Você pode entender melhor como funciona com <a href="http://codepen.io/gabsprates/full/PNVJrP/">esse exemplo</a>.</p>
+<p>Mas e se você quiser que uma coluna ocupe o espaço de duas? Ou três? Ou quatro? Simples!!!</p>
+<p>Podemos utilizar as classes <code>is-2</code>, <code>is-3</code>, <code>is-4</code>, <code>is-5</code>, <code>is-6</code>, <code>is-7</code>, <code>is-8</code>, <code>is-9</code>, <code>is-10</code> e <code>is-11</code> para especificar qual a área ocupada pela <code>.column</code>.</p>
+<p>Para entender melhor, aconselho a dar uma olhada <a href="http://bulma.io/documentation/grid/columns/">neste</a> e <a href="http://bulma.io/documentation/grid/tiles/">neste</a> links.</p>
+<h2 id="hero">Hero</h2>
+<p>Você já teve problemas com alinhar elementos verticalmente ao centro? O Bulma é um verdadeiro herói para essas situações! Veja este exemplo:</p>
+<pre><code class="language-html"><span class="hljs-tag">&lt;<span class="hljs-name">section</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"hero is-large"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"hero-body"</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"container"</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">h1</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"title"</span>&gt;</span>
+          Título
+        <span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">h2</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"subtitle"</span>&gt;</span>
+          Exemplo do uso do hero
+        <span class="hljs-tag">&lt;/<span class="hljs-name">h2</span>&gt;</span>
+      <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">section</span>&gt;</span></code></pre>
+<p>Aqui o Bulma centraliza os títulos na vertical, qualquer conteúdo seria alinhado também. <a href="http://bulma.io/documentation/layout/hero/">Clique aqui</a> mais exemplos.</p>
+<h2 id="level">Level</h2>
+<p>Por último, quero falar um pouco sobre as navbars. Veja esse código:</p>
+<pre><code class="language-html"><span class="hljs-tag">&lt;<span class="hljs-name">nav</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"level"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"level-item has-text-centered"</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"link is-info"</span>&gt;</span>Home<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"level-item has-text-centered"</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"link is-info"</span>&gt;</span>Menu<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"level-item has-text-centered"</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">img</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"http://bulma.io/images/bulma.png"</span> <span class="hljs-attr">alt</span>=<span class="hljs-string">""</span> <span class="hljs-attr">style</span>=<span class="hljs-string">"height: 33px;"</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"level-item has-text-centered"</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"link is-info"</span>&gt;</span>Reservations<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"level-item has-text-centered"</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"link is-info"</span>&gt;</span>Contact<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">nav</span>&gt;</span></code></pre>
+<p>Ele gera uma navbar em que os elementos são divididos com a largura igual e com alinhamento vertical no centro, mesmo com imagem ou até mesmo um <code>form</code>, ele manteria esse alinhamento.</p>
+<p>Veja mais <a href="http://bulma.io/documentation/components/level/">aqui</a>.</p>
+<h2 id="enfim">Enfim...</h2>
+<p>Estes foram alguns exemplos do poder do Bulma mas há muito mais que você pode conferir na própria <a href="http://bulma.io/documentation/overview/start/">documentação do projeto</a>.</p>
+<p>Existem vários componentes legais, como cards, menus, paginação, mensagens, e várias outras coisas fáceis de usar e simples de compreender.</p>
+<p>Isso é tudo pessoal (:</p>
+</div></article><hr/><div id="disqus_thread"></div><script>var disqus_config = function () {
+  this.page.url = "https://gabrielprates.com/2016/06/30/bulma-framework-css-baseado-em-flexbox.html";
+  this.page.identifier = "/2016/06/30/bulma-framework-css-baseado-em-flexbox";
+};
+(function() {  // DON'T EDIT BELOW THIS LINE
+  var d = document, s = d.createElement('script');
+  s.src = '//gabsprates.disqus.com/embed.js';
+  s.setAttribute('data-timestamp', +new Date());
+  (d.head || d.body).appendChild(s);
+})();</script><noscript>Please enable JavaScript to view the<!-- --> <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript></main></div><footer class="site-footer"><div class="wrapper"><h2 class="footer-heading">Gabriel Prates</h2><div class="footer-col-wrapper"><div class="footer-col footer-col-1"><ul class="contact-list"><li><a href="https://github.com/gabsprates" title="Gabriel Prates no GitHub" target="_blank">github@<!-- -->gabsprates</a></li><li><a href="https://twitter.com/gabsprates" title="Gabriel Prates no Twitter" target="_blank">twitter@<!-- -->gabsprates</a></li><li><a href="https://br.linkedin.com/in/gabrielprates" title="Gabriel Prates no LinkedIn" target="_blank">linkedin@<!-- -->gabrielprates</a></li><li><a href="https://gabrielprates.com" title="Meu site" target="_blank">gabrielprates.com</a></li></ul></div><div class="footer-col footer-col-3"><p>Desenvolvedor há mais de 13 anos e baterista nas horas vagas
+#js #frontend #opensource #busquemconhecimento</p></div></div></div></footer><script id="dsq-count-scr" src="//gabsprates.disqus.com/count.js" async=""></script><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-92988633-1', 'auto');
+ga('send', 'pageview');</script></body></html>

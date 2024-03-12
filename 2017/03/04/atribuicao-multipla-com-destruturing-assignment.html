@@ -1,0 +1,138 @@
+<!DOCTYPE html><html lang="pt-br"><head><meta charSet="UTF-8"/><title data-react-helmet="true">Atribuição múltipla com Destruturing Assignment | Gabriel Prates</title><meta data-react-helmet="true" property="og:title" content="Atribuição múltipla com Destruturing Assignment"/><meta data-react-helmet="true" name="author" content="Gabriel Prates"/><meta data-react-helmet="true" property="og:locale" content="pt_BR"/><meta data-react-helmet="true" name="description" content="Uma coisa que me chamou muita a atenção na linguagem Go foi a possibilidade de retornos múltiplos e, até mesmo, de tipos diferentes. Recentemente, vi que agora, na era pós ES6, podemos fazer algo parecido com JavaScript."/><meta data-react-helmet="true" property="og:description" content="Uma coisa que me chamou muita a atenção na linguagem Go foi a possibilidade de retornos múltiplos e, até mesmo, de tipos diferentes. Recentemente, vi que agora, na era pós ES6, podemos fazer algo parecido com JavaScript."/><meta data-react-helmet="true" property="og:url" content="https://gabrielprates.com/2017/03/04/atribuicao-multipla-com-destruturing-assignment.html"/><meta data-react-helmet="true" property="og:site_name" content="Gabriel Prates"/><meta data-react-helmet="true" property="og:image" content="https://gabrielprates.com/assets/perfil-small.jpg"/><meta data-react-helmet="true" property="og:type" content="article"/><meta data-react-helmet="true" property="article:published_time" content="2017-03-04T00:00:00.000Z"/><link data-react-helmet="true" rel="canonical" href="https://gabrielprates.com/2017/03/04/atribuicao-multipla-com-destruturing-assignment.html"/><script data-react-helmet="true" type="application/ld+json">{"@type":"BlogPosting","url":"https://gabrielprates.com/2017/03/04/atribuicao-multipla-com-destruturing-assignment.html","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"https://gabrielprates.com/assets/perfil-small.jpg"},"name":"Gabriel Prates"},"author":{"@type":"Person","name":"Gabriel Prates"},"headline":"Atribuição múltipla com Destruturing Assignment","description":"Uma coisa que me chamou muita a atenção na linguagem Go foi a possibilidade de retornos múltiplos e, até mesmo, de tipos diferentes. Recentemente, vi que agora, na era pós ES6, podemos fazer algo parecido com JavaScript.","@context":"https://schema.org","dateModified":"2017-03-04T00:00:00.000Z","datePublished":"2017-03-04T00:00:00.000Z","mainEntityOfPage":{"@type":"WebPage","@id":"https://gabrielprates.com/2017/03/04/atribuicao-multipla-com-destruturing-assignment.html"}}</script><meta http-equiv="X-UA-Compatible" content="IE=edge"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="theme-color" content="#406b63"/><link rel="stylesheet" href="/style.css"/><link type="image/x-icon" rel="shortcut icon" href="/favicon.ico"/><link rel="alternate" type="application/rss+xml" title="Gabriel Prates" href="https://gabrielprates.com/feed.xml"/><link href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700" rel="stylesheet"/></head><body><header class="site-header"><div class="wrapper"><a class="site-title" href="/" title="Gabriel Prates"><img alt="Gabriel Prates" src="/assets/perfil-small.jpg" class="site-title__image"/>Gabriel Prates</a><nav class="site-nav"><button class="menu-icon"><span></span><span></span><span></span></button><div class="trigger"><a href="/about/" title="Sobre mim" class="page-link">Sobre mim</a><a href="/projects/" title="Projetos" class="page-link">Projetos</a><a href="https://slides.com/gabsprates" title="Talks" target="_blank" class="page-link">Talks</a></div></nav></div></header><div class="page-content"><main class="wrapper"><article class="post" itemscope="" itemType="http://schema.org/BlogPosting"><header class="post-header"><h1 class="post-title" itemProp="name headline">Atribuição múltipla com Destruturing Assignment</h1><p class="post-meta"><time dateTime="2017-03-04T00:00:00.000Z" itemProp="datePublished">Mar 4, 2017</time></p></header><div class="post-content"><p>Uma coisa que me chamou muita a atenção na linguagem <a href="https://golang.org/">Go</a> foi a possibilidade de retornos múltiplos e, até mesmo, de tipos diferentes. Recentemente, vi que agora, na era pós ES6, podemos fazer algo parecido com <strong>JavaScript</strong>.</p>
+<p>Vamos supor que precisamos tratar um nome, e exibi-lo como referência do determinado autor. Poderíamos fazer assim:</p>
+<pre><code class="language-js"><span class="hljs-keyword">const</span> ucFirst = <span class="hljs-function">(<span class="hljs-params">str</span>) =&gt;</span> str.charAt(<span class="hljs-number">0</span>).toUpperCase() + str.substr(<span class="hljs-number">1</span>);
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">nomeAutor</span>(<span class="hljs-params">nome</span>) </span>{
+  <span class="hljs-keyword">let</span> nomes = nome.split(<span class="hljs-string">' '</span>);
+  <span class="hljs-keyword">let</span> ultimoNome  = nomes.pop().toUpperCase();
+  <span class="hljs-keyword">let</span> outrosNomes = nomes.map(ucFirst).join(<span class="hljs-string">' '</span>);
+  <span class="hljs-keyword">return</span> <span class="hljs-string">`<span class="hljs-subst">${ultimoNome}</span>, <span class="hljs-subst">${outrosNomes}</span>`</span>;
+}
+
+nomeAutor(<span class="hljs-string">'gabriel oliveira prates'</span>);
+<span class="hljs-comment">// PRATES, Gabriel Oliveira</span></code></pre>
+<p>Mas e se precisarmos de ambos os nomes separados? Poderíamos criar uma função para cada uma das ações, uma para pegar o <code>ultimoNome</code>, outra para pegar os <code>outrosNomes</code>· Isso resolve, certo? Veja só:</p>
+<pre><code class="language-js"><span class="hljs-keyword">const</span> ucFirst = <span class="hljs-function">(<span class="hljs-params">str</span>) =&gt;</span> str.charAt(<span class="hljs-number">0</span>).toUpperCase() + str.substr(<span class="hljs-number">1</span>);
+
+<span class="hljs-keyword">const</span> separaNome  = <span class="hljs-function">(<span class="hljs-params">nome</span>) =&gt;</span> nome.split(<span class="hljs-string">' '</span>);
+<span class="hljs-keyword">const</span> ultimoNome  = <span class="hljs-function">(<span class="hljs-params">nome</span>) =&gt;</span> separaNome(nome).pop().toUpperCase();
+<span class="hljs-keyword">const</span> outrosNomes = <span class="hljs-function">(<span class="hljs-params">nome</span>) =&gt;</span> {
+  <span class="hljs-keyword">let</span> nomes = separaNome(nome);
+  nomes.pop();
+  <span class="hljs-keyword">return</span> nomes.map(ucFirst).join(<span class="hljs-string">' '</span>);
+}
+
+<span class="hljs-keyword">let</span> nome = <span class="hljs-string">'gabriel oliveira prates'</span>;
+
+<span class="hljs-comment">// Observe esta atribuição</span>
+<span class="hljs-keyword">let</span> ultimo = ultimoNome(nome);    <span class="hljs-comment">// PRATES</span>
+<span class="hljs-keyword">let</span> outros = outrosNomes(nome); <span class="hljs-comment">// Gabriel Oliveira</span></code></pre>
+<p>Apesar de modularizado e com funções que cumprem apenas uma tarefa, precisamos atribuir cada uma das variáveis ao seu respectivo valor de uma forma não tão interessante. Podemos ter um código final melhor, de leitura e entendimento, e menor. E é aqui que entramos no ponto chave deste artigo.</p>
+<h2 id="o-que-é-destructuring-assignment">O que é &quot;Destructuring Assignment&quot;</h2>
+<p><strong><em>Destructuring Assignment</em></strong> (ou <em>atribuição por desestruturação</em>) é uma sintaxe de expressão que permite extrair valores de <strong>arrays</strong> e <strong>objetos</strong>, usando o lado esquerdo da atribuição (<em>left-hand side of assignment</em>) para definir quais valores serão extraídos. Exemplos básicos:</p>
+<pre><code class="language-js"><span class="hljs-comment">// Array:</span>
+<span class="hljs-keyword">let</span> [ a, b ] = [ <span class="hljs-string">'ES6'</span>, <span class="hljs-number">2015</span> ];
+<span class="hljs-built_in">console</span>.log(a);    <span class="hljs-comment">// ES6</span>
+<span class="hljs-built_in">console</span>.log(b); <span class="hljs-comment">// 2015</span>
+
+<span class="hljs-comment">// Objetos:</span>
+<span class="hljs-keyword">let</span> { x, y } = { <span class="hljs-attr">x</span>: <span class="hljs-string">'ES6'</span>, <span class="hljs-attr">y</span>: <span class="hljs-number">2015</span> };
+<span class="hljs-built_in">console</span>.log(x); <span class="hljs-comment">// ES6</span>
+<span class="hljs-built_in">console</span>.log(y); <span class="hljs-comment">// 2015</span></code></pre>
+<p>Mas é claro que isso não é tudo. Então vamos lá, vamos ver alguns detalhes de cada um dos casos.</p>
+<h3 id="array">Array</h3>
+<p>Para fazer as atribuições com um array, devemos considerar a extração de valores através das posições do array. Vamos olhar de novo o exemplo do array:</p>
+<pre><code class="language-js"><span class="hljs-comment">// Aqui já criamos as variáveis e atribuímos valores:</span>
+<span class="hljs-keyword">let</span> [ a, b ] = [ <span class="hljs-string">'ES6'</span>, <span class="hljs-number">2015</span> ];
+
+
+<span class="hljs-comment">// Mas poderíamos fazer o processo separado também:</span>
+<span class="hljs-keyword">let</span> a, b;
+<span class="hljs-keyword">let</span> array = [ <span class="hljs-string">'ES6'</span>, <span class="hljs-number">2015</span> ];
+[ a, b ] = array;</code></pre>
+<p>É um pouco óbvio, mas no próximo tópico você vai entender o porquê de eu ressaltar isso.</p>
+<p>Vamos supor que temos uma função que nos retorna um array com os valores da cotação do dólar nos últimos 30 dias. Vamos supor também, que precisamos dos 5 primeiros valores. Podemos usar o <code>Array.prototype.slice()</code>, mas isso nos retornaria um novo array. Então se precisarmos das variáveis separadas, seria necessário atribuir uma a uma para as 5 primeiras posições do array.</p>
+<pre><code class="language-js"><span class="hljs-keyword">let</span> valores = cotacaoUltimoMes();
+
+<span class="hljs-comment">// Antigamente</span>
+<span class="hljs-keyword">let</span> d1 = valores[<span class="hljs-number">0</span>]
+<span class="hljs-keyword">let</span> d2 = valores[<span class="hljs-number">1</span>]
+<span class="hljs-keyword">let</span> d3 = valores[<span class="hljs-number">2</span>]
+<span class="hljs-keyword">let</span> d4 = valores[<span class="hljs-number">3</span>]
+<span class="hljs-keyword">let</span> d5 = valores[<span class="hljs-number">4</span>]
+
+<span class="hljs-comment">// Como podemos fazer agora:</span>
+<span class="hljs-keyword">let</span> [ d1, d2, d3, d4, d5 ] = cotacaoUltimoMes();</code></pre>
+<p>A atribuição fica muito mais enxuta, consegue perceber? Percebeu que os outros 25 elementos não fazem diferença para a atribuição? Caso esses elementos sejam necessários, e for permitido colocá-los num array mesmo, podemos utilizar o <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/rest_parameters">operador rest <code>...</code></a>:</p>
+<pre><code class="language-js"><span class="hljs-keyword">let</span> [ d1, d2, d3, d4, d5, ...outros ] = cotacaoUltimoMes();
+<span class="hljs-comment">// `outros` será o array com o resto dos valores.</span></code></pre>
+<p>E se precisarmos, por exemplos, dos 7 primeiros elementos, com exceção do 4º e 6º elementos, isso quebraria a lógica, certo? <strong>ERRADO!!!</strong> É ainda mais simples. Para cada posição que for necessária saltar, só precisamos especificá-la com os espaços em branco separados por vírgula ( <code>,</code> ). Veja:</p>
+<pre><code class="language-js"><span class="hljs-comment">// Espaços em branco que representam o 4º e 6º elementos</span>
+<span class="hljs-keyword">let</span> [ d1, d2, d3, , d5, , d7 ] = cotacaoUltimoMes();</code></pre>
+<p>Em algum outro caso, se tivermos um array de retorno, com o tamanho instável e for necessário garantir determinada quantidade de valores, podemos deixar valores pré-definidos na atribuição:</p>
+<pre><code class="language-js"><span class="hljs-comment">// v3 e v4 pré-definidos</span>
+<span class="hljs-keyword">let</span> [ v1, v2, v3 = <span class="hljs-number">1</span>, v4 = <span class="hljs-number">0</span> ] = retornaArray();</code></pre>
+<p>Tudo certo? Ok, então vamos passar para o próximo caso.</p>
+<h3 id="objetos">Objetos</h3>
+<p>Para fazer as atribuições com um objeto, devemos associar as chaves, ou nomes dos atributos (propriedades) do objeto. Observe novamente o exemplo:</p>
+<pre><code class="language-js"><span class="hljs-comment">// Atribuição direta associando as chaves</span>
+<span class="hljs-keyword">let</span> { x, y } = { <span class="hljs-attr">x</span>: <span class="hljs-string">'ES6'</span>, <span class="hljs-attr">y</span>: <span class="hljs-number">2015</span> };</code></pre>
+<p>Podemos também fazer a atribuição indireta, como no exemplo do array, mas aqui há uma particularidade (a que eu falei *&quot;você vai entender o porquê de eu ressaltar isso&quot;*). Se você tentar executar o código abaixo, terá um erro de sintaxe:</p>
+<pre><code class="language-js"><span class="hljs-keyword">let</span> a, b;
+<span class="hljs-keyword">let</span> obj = { <span class="hljs-attr">a</span>: <span class="hljs-string">'ES6'</span>, <span class="hljs-attr">b</span>: <span class="hljs-number">2015</span> };
+{ a, b } = obj;</code></pre>
+<p>Isso porque <code>{ a, b }</code> é considerado um bloco, então realmente há um erro de sintaxe aí. Para consertar isso, devemos colocar essa operação de atribuição dentro de uma expressão, entre parênteses:</p>
+<pre><code class="language-js"><span class="hljs-keyword">let</span> a, b;
+<span class="hljs-keyword">let</span> obj = { <span class="hljs-attr">a</span>: <span class="hljs-string">'ES6'</span>, <span class="hljs-attr">b</span>: <span class="hljs-number">2015</span> };
+({ a, b } = obj);</code></pre>
+<p>Assim como na operação para array, podemos ter valores pré-definidos também:</p>
+<pre><code class="language-js"><span class="hljs-keyword">let</span> { a = <span class="hljs-string">'JavaScript'</span>, c = <span class="hljs-number">2017</span> } = { <span class="hljs-attr">a</span>: <span class="hljs-string">'ES6'</span>, <span class="hljs-attr">b</span>: <span class="hljs-number">2015</span> };
+<span class="hljs-built_in">console</span>.log(a); <span class="hljs-comment">// 'ES6'</span>
+<span class="hljs-built_in">console</span>.log(c); <span class="hljs-comment">// 2017</span></code></pre>
+<p>E outra coisa legal também, é que podemos jogar os valores para uma variável com um novo nome:</p>
+<pre><code class="language-js"><span class="hljs-keyword">let</span> { <span class="hljs-attr">a</span>: lang, <span class="hljs-attr">b</span>: ano } = { <span class="hljs-attr">a</span>: <span class="hljs-string">'ES6'</span>, <span class="hljs-attr">b</span>: <span class="hljs-number">2015</span> };
+<span class="hljs-built_in">console</span>.log(lang);  <span class="hljs-comment">// 'ES6'</span>
+<span class="hljs-built_in">console</span>.log(ano);   <span class="hljs-comment">// 2015</span>
+<span class="hljs-comment">// Nesse caso, `a` e `b` não fazem parte deste escopo</span></code></pre>
+<p>Voltando ao primeiro exemplo deste artigo, aquele do nome do autor, podemos reescrevê-lo assim:</p>
+<pre><code class="language-js"><span class="hljs-keyword">const</span> ucFirst = <span class="hljs-function">(<span class="hljs-params">str</span>) =&gt;</span> str.charAt(<span class="hljs-number">0</span>).toUpperCase() + str.substr(<span class="hljs-number">1</span>);
+
+<span class="hljs-comment">// Vamos modificar a função do primeiro snnipet</span>
+<span class="hljs-comment">// para retornar múltiplos resultados</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">nomeAutor</span>(<span class="hljs-params">nome</span>) </span>{
+  <span class="hljs-keyword">let</span> nomes = nome.split(<span class="hljs-string">' '</span>);
+  <span class="hljs-keyword">return</span> {
+    <span class="hljs-attr">ultimoNome</span>: nomes.pop().toUpperCase(),
+    <span class="hljs-attr">outrosNomes</span>: nomes.map(ucFirst).join(<span class="hljs-string">' '</span>)
+  };
+}
+
+<span class="hljs-keyword">let</span> { ultimoNome, outrosNomes } = nomeAutor(<span class="hljs-string">'gabriel oliveira prates'</span>);</code></pre>
+<p>Pronto! Já temos os dois valores que queríamos e podemos trabalhar com eles da forma que for necessária.</p>
+<h2 id="conclusão">Conclusão</h2>
+<p>Essas novas características de <em>destructuring assignment</em> funcionam mais como um <em>syntax sugar</em>, mas realmente chegam a ser úteis. O mais legal é que você pode usá-las em conjunto, daí adotar a solução que seu problema pedir.</p>
+<p>Espero ter ajudado. Caso não tenha entendido alguma parte deste artigo, e dos códigos, comente abaixo, ou me mande um tweet. É sempre um prazer.</p>
+<p>Até a próxima</p>
+<p>(:</p>
+<hr/>
+<h2 id="referências">Referências</h2>
+<ul>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment">https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment</a></li>
+<li><a href="http://www.ecma-international.org/ecma-262/6.0/#sec-destructuring-assignment">http://www.ecma-international.org/ecma-262/6.0/#sec-destructuring-assignment</a></li>
+</ul>
+</div></article><hr/><div id="disqus_thread"></div><script>var disqus_config = function () {
+  this.page.url = "https://gabrielprates.com/2017/03/04/atribuicao-multipla-com-destruturing-assignment.html";
+  this.page.identifier = "/2017/03/04/atribuicao-multipla-com-destruturing-assignment";
+};
+(function() {  // DON'T EDIT BELOW THIS LINE
+  var d = document, s = d.createElement('script');
+  s.src = '//gabsprates.disqus.com/embed.js';
+  s.setAttribute('data-timestamp', +new Date());
+  (d.head || d.body).appendChild(s);
+})();</script><noscript>Please enable JavaScript to view the<!-- --> <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript></main></div><footer class="site-footer"><div class="wrapper"><h2 class="footer-heading">Gabriel Prates</h2><div class="footer-col-wrapper"><div class="footer-col footer-col-1"><ul class="contact-list"><li><a href="https://github.com/gabsprates" title="Gabriel Prates no GitHub" target="_blank">github@<!-- -->gabsprates</a></li><li><a href="https://twitter.com/gabsprates" title="Gabriel Prates no Twitter" target="_blank">twitter@<!-- -->gabsprates</a></li><li><a href="https://br.linkedin.com/in/gabrielprates" title="Gabriel Prates no LinkedIn" target="_blank">linkedin@<!-- -->gabrielprates</a></li><li><a href="https://gabrielprates.com" title="Meu site" target="_blank">gabrielprates.com</a></li></ul></div><div class="footer-col footer-col-3"><p>Desenvolvedor há mais de 13 anos e baterista nas horas vagas
+#js #frontend #opensource #busquemconhecimento</p></div></div></div></footer><script id="dsq-count-scr" src="//gabsprates.disqus.com/count.js" async=""></script><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-92988633-1', 'auto');
+ga('send', 'pageview');</script></body></html>

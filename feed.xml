@@ -1,0 +1,1214 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Gabriel Prates</title>
+    <description>Desenvolvedor há mais de 13 anos e baterista nas horas vagas
+#js #frontend #opensource #busquemconhecimento</description>
+    <link>https://gabrielprates.com/</link>
+    <atom:link href="https://gabrielprates.com/feed.xml" rel="self" type="application/rss+xml"/>
+    <pubDate>Tue, 12 Mar 2024 00:53:31 +0000</pubDate>
+    <lastBuildDate>Tue, 12 Mar 2024 00:53:31 +0000</lastBuildDate>
+    <generator>Gabriel Prates Blog Generator v1</generator>
+    
+      <item>
+        <title>Fazendo um bom Code Review</title>
+        <description>&lt;p&gt;&lt;strong&gt;Como fazer um bom code review?&lt;/strong&gt; Me faço essa pergunta periodicamente, para sempre fazer melhor. Recentemente vi uma &lt;a href=&quot;https://www.youtube.com/watch?v=PJjmw9TRB7s&quot;&gt;talk&lt;/a&gt;, do &lt;a href=&quot;https://www.linkedin.com/in/derek-prior-1145a2/&quot;&gt;Derek Prior&lt;/a&gt;, sobre o assunto e acredito que ele levantou uma ótima referência de como seria um bom code review e sua cultura. Neste post, vamos explorar um pouco os pontos levantados na talk.&lt;/p&gt;
+&lt;p&gt;Antes de começarmos, faça uma reflexão respondendo essas 3 perguntas:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Você faz code review como parte do teu trabalho?&lt;/li&gt;
+&lt;li&gt;Você gosta de fazer code review?&lt;/li&gt;
+&lt;li&gt;Se você faz, faz porque &lt;strong&gt;TEM&lt;/strong&gt; que fazer (como obrigação)?&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Pronto? Vamos lá.&lt;/p&gt;
+&lt;h2 id=&quot;por-que-nós-fazemos-reviews&quot;&gt;Por que nós fazemos reviews?&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;Para achar bugs&lt;/em&gt;&lt;/strong&gt;, você pode ter pensado. Isso realmente acaba fazendo parte do processo, analisando o &lt;em&gt;diff&lt;/em&gt; do Git.&lt;/p&gt;
+&lt;p&gt;Segundo o estudo &lt;em&gt;&lt;a href=&quot;https://www.microsoft.com/en-us/research/publication/expectations-outcomes-and-challenges-of-modern-code-review/&quot;&gt;Expectations, Outcomes, and Challenges of Modern Code Review&lt;/a&gt;&lt;/em&gt;, realizado pela Microsoft em parceria com a Universidade de Lugano (Suíça), a grande maioria dos desenvolvedores entrevistados também acreditavam que &lt;strong&gt;encontrar defeitos&lt;/strong&gt; era o maior motivo de se fazer code review. Dentre os motivos citados, temos:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;Encontrando defeitos&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Melhoria de código&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Soluções alternativas&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Transferência de conhecimento&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Conscientização da equipe&lt;/strong&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Acredito, em concordância com a talk do Derek Prior, que podemos tirar um proveito muito grande desses outros motivos e usar o code review como uma ferramenta para nos ajudar a &lt;strong&gt;fazer um trabalho cada dia melhor&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;Um das entrevistadas nesse estudo disse que code review é a&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;discipline of explaining your code to your peers [that] drives a higher standard of coding. I think &lt;strong&gt;the process is even more important than the result.&lt;/strong&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Gosto dessa definição, mas se mudarmos a palavra &lt;strong&gt;explicar&lt;/strong&gt; para &lt;strong&gt;discutir&lt;/strong&gt;, percebemos que é uma questão de comunicação, saber comunicar melhor e ter uma comunicação melhor com o time. Um bom code review é consequência disso.&lt;/p&gt;
+&lt;h2 id=&quot;criando-uma-forte-cultura-de-code-review&quot;&gt;Criando uma forte cultura de code review&lt;/h2&gt;
+&lt;p&gt;Uma das coisas que precisamos pensar é &lt;strong&gt;como devemos agir durante o code review?&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Nesse caso, precisamos identificar qual o nosso papel:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;como autor&lt;/strong&gt;; e&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;como reviewer&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&quot;como-autor-dê-contexto-suficiente&quot;&gt;Como autor, dê contexto suficiente&lt;/h3&gt;
+&lt;p&gt;Quem faz review precisa saber &lt;strong&gt;o que foi alterado e por quê?&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;É muito importante que, ao criar um &lt;em&gt;pull/merge request&lt;/em&gt;, você dê o máximo de contexto possível sobre o que está fazendo.&lt;/p&gt;
+&lt;p&gt;Se a pessoa que fará review for autora do código que você alterou, será mais fácil pra ela entender as tuas alterações. Caso ela nunca tenha visto aquele código, o que acontece muito, seja porque é uma pessoa nova no time, ou porque é alguém que não conhece mesmo aquele código, essa pessoa precisa saber o qual o objetivo daquele código e porquê aquela alteração foi feita.&lt;/p&gt;
+&lt;p&gt;Segundo a pesquisa citada:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;when the &lt;strong&gt;context is clear and understanding is very high&lt;/strong&gt;, as in the case when the reviewer is the owner of changed files, &lt;strong&gt;code review authors receive comments that explore &amp;quot;deeper details,&amp;quot; are &amp;quot;more directed&amp;quot; and &amp;quot;more actionable and pertinent,&amp;quot; and find &amp;quot;more subtle issues.&amp;quot;&lt;/strong&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;É &lt;strong&gt;importante que você dê contexto&lt;/strong&gt; para quem for fazer review. &lt;strong&gt;Contexto&lt;/strong&gt; é a palavra chave!&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Se é uma alteração que propõe uma nova forma de fazer algo, explique e dê exemplos;&lt;/li&gt;
+&lt;li&gt;Se é uma alteração que corrige um bug, dê contexto, diga como reproduzir, explique qual era o erro e como corrigiu;&lt;/li&gt;
+&lt;li&gt;Se é uma nova feature, explique o requisito e passos para reprodução.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Coloque issues de referência também, se possível.&lt;/p&gt;
+&lt;p&gt;Segundo &lt;a href=&quot;https://www.garyvaynerchuk.com/content-is-king-but-context-is-god/&quot;&gt;Gary Vaynerchuk&lt;/a&gt;:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Content is king, but &lt;strong&gt;context&lt;/strong&gt; is God&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Dica: &lt;a href=&quot;https://help.github.com/en/github/building-a-strong-community/creating-a-pull-request-template-for-your-repository&quot;&gt;templates de pull requests&lt;/a&gt; podem ajudar nesse ponto.&lt;/p&gt;
+&lt;h3 id=&quot;como-reviewer-faça-perguntas-no-lugar-de-dar-ordens&quot;&gt;Como reviewer, faça perguntas no lugar de dar ordens&lt;/h3&gt;
+&lt;p&gt;Já ouviu falar no &lt;a href=&quot;https://pt.wikipedia.org/wiki/M%C3%A9todo_socr%C3%A1tico&quot;&gt;Método Socrático&lt;/a&gt;? &lt;del&gt;Lembrei de algumas pessoas falando que não entendem o motivo de ter filosofia em cursos de computação.&lt;/del&gt; Podemos aprender algo com ele:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;...é uma técnica de investigação filosófica feita em &lt;strong&gt;diálogo&lt;/strong&gt;, que consiste em o professor &lt;strong&gt;conduzir&lt;/strong&gt; o aluno &lt;strong&gt;a um processo de reflexão e descoberta&lt;/strong&gt; [...] Para isso o professor &lt;strong&gt;faz uso de perguntas simples e quase ingênuas&lt;/strong&gt; que têm por &lt;strong&gt;objetivo&lt;/strong&gt;, em primeiro lugar, &lt;strong&gt;revelar&lt;/strong&gt; as contradições presentes na &lt;strong&gt;atual forma de pensar&lt;/strong&gt; do aluno...&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Considere o seguinte comentário (que eu provavelmente já fiz em algum review):&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Essa lógica tá repetida em vários lugares. Transforma numa função e chama a função quando precisar.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Consigo perceber alguns problemas com esse comentário:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;não incentivo a pesquisa da outra pessoa;&lt;/li&gt;
+&lt;li&gt;de certa forma, tiro o crédito dela sobre o código que está escrevendo;&lt;/li&gt;
+&lt;li&gt;não há discussão.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Talvez seja um pouco daquela história de &lt;em&gt;&amp;quot;dar o peixe ou ensinar a pescar&amp;quot;&lt;/em&gt;. O que queremos é ter uma ótima discussão técnica, para o crescimento de todo mundo no time. Ser imperativo dessa forma não parece ajudar muito. Quando criamos, ou incentivamos a discussão, temos a oportunidade de que todo mundo tire proveito disso. Podemos aprender uns com os outros! Já parou pra pensar em quantas oportunidades podem ser perdidas por esse motivo?&lt;/p&gt;
+&lt;p&gt;Que tal transformar esse comentário em algo mais &lt;strong&gt;positivo&lt;/strong&gt; e &lt;strong&gt;instigador&lt;/strong&gt;?&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;O que você acha de extrair essa lógica em uma função para evitar repetição?&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Parece bobo, mas sim, faz uma grande diferença. A forma como se fala faz muita diferença. Lembre-se: &lt;strong&gt;é uma questão de comunicação&lt;/strong&gt;. Pode doer um pouco no início, mas garanto que fará um grande bem ao time e a você.&lt;/p&gt;
+&lt;p&gt;Dica: algumas formas de começar uma discussão:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;O que você acha de&lt;/strong&gt;... ?&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Você já considerou&lt;/strong&gt;... ?&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Você pode explicar melhor&lt;/strong&gt;... ?&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Seja &lt;strong&gt;positivo!!!&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Ok, conseguimos gerar uma discussão. E como resolvemos conflitos?&lt;/p&gt;
+&lt;h2 id=&quot;resolvendo-conflitos&quot;&gt;Resolvendo conflitos&lt;/h2&gt;
+&lt;p&gt;Bom, isso pode ser um pouco complicado. Pense o seguinte:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;É uma questão de &lt;strong&gt;não estar bom&lt;/strong&gt;, &lt;strong&gt;OU&lt;/strong&gt; é uma questão de que &lt;strong&gt;eu faria diferente&lt;/strong&gt;?&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Se é uma questão de &lt;strong&gt;não estar bom&lt;/strong&gt;, explique os motivos, dê referências, tente não deixar dúvidas dos motivos que você discorda daquela solução, ou o porquê dela não ser boa. Existe algum &lt;a href=&quot;https://pt.wikipedia.org/wiki/Trade-off&quot;&gt;&lt;em&gt;trade-off&lt;/em&gt;&lt;/a&gt; envolvido? Seja claro, positivo e instigue a pesquisa.&lt;/p&gt;
+&lt;p&gt;Se é uma questão de &lt;strong&gt;eu faria diferente&lt;/strong&gt;, está tudo bem! Não é um problema, você só tem uma solução diferente e tão boa quanto! Lembre-se, é uma oportunidade de aprender (:&lt;/p&gt;
+&lt;h2 id=&quot;o-que-revisar&quot;&gt;O que revisar?&lt;/h2&gt;
+&lt;p&gt;Na hora de revisar código, mantenha o foco em coisas como:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;nomenclatura&lt;/strong&gt;: funções, variáveis, classes, métodos, etc., isso faz parte de um código limpo e saudável;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;complexidade&lt;/strong&gt;: está difícil de entender o código em questão, ou tem uma forma melhor de fazer?&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;responsabilidade e requisito&lt;/strong&gt;: esse trecho de código faz o que deveria?&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Por favor, se você está comentando coisas como &lt;strong&gt;&amp;quot;use aspas simples no lugar de aspas duplas&amp;quot;&lt;/strong&gt;, ou &lt;strong&gt;&amp;quot;use espaço no lugar de tab&amp;quot;&lt;/strong&gt;, ou &lt;strong&gt;&amp;quot;tem que ter quebra de linha antes do &lt;code&gt;{&lt;/code&gt;&amp;quot;&lt;/strong&gt;, por favor:&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;PARE COM ISSO AGORA!&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Isso deve ser um trabalho para linters e formatadores de código. Essas ferramentas existem e salvam muito tempo útil. O padrão de estilo de código definido pelo teu time deve ser documentado e automatizado. Isso é algo que uma máquina pode fazer, deixe ela fazer e foque em coisas que só você pode fazer!&lt;/p&gt;
+&lt;p&gt;Dica: &lt;a href=&quot;/2016/08/07/que-nao-vai-padronizar-o-que.html&quot;&gt;tem um outro post meu&lt;/a&gt; com dicas de guias de estilo de código para C, CSS, JavaScript, PHP, Python e Ruby. Dê uma olhada e pesquise alguma ferramenta de automação e guia de estilo para as linguagens que você utiliza. Aceito sugestões nos comentários 😉&lt;/p&gt;
+&lt;hr/&gt;
+&lt;h2 id=&quot;o-que-ganhamos-com-code-review&quot;&gt;O que ganhamos com code review?&lt;/h2&gt;
+&lt;p&gt;Sem dúvidas, com um bom processo de code review, nós teremos:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Um código melhor;&lt;/li&gt;
+&lt;li&gt;Desenvolvedores melhores;&lt;/li&gt;
+&lt;li&gt;Debates saudáveis;&lt;/li&gt;
+&lt;li&gt;Um compartilhamento da propriedade do código.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Um dos motivos listados na pesquisa, sobre porquê fazer code review, é o &lt;strong&gt;compartilhamento da propriedade do código&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;Acredito que isso significa que, vendo o código de outras pessoas e mostrando a elas o nosso, dando e recebendo feedbacks, nós compartilhamos o sentimento de que é um código do &lt;strong&gt;time&lt;/strong&gt;, do &lt;strong&gt;produto&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;Esse é um ponto que eu e meu time, front-ends do &lt;a href=&quot;https://palcomp3.com.br&quot;&gt;Palco MP3&lt;/a&gt; tentamos lembrar sempre que necessário. Durante o code review, nós fazemos o que podemos para entregar um resultado ótimo, tanto de código quanto de funcionalidade e usabilidade e ter em mente que é um resultado nosso. Mesmo que determinada feature foi escrita por uma pessoa em particular, o código acaba sendo do time, do produto; damos feedbacks, discutimos soluções e trazemos melhorias fazendo do code review uma ferramenta de desenvolvimento pessoal e da equipe.&lt;/p&gt;
+&lt;p&gt;Assim temos um código melhor, desenvolvedores mais maduros e, consequentemente, times e produtos melhores.&lt;/p&gt;
+</description>
+        <pubDate>Thu, 16 Apr 2020 00:00:00 +0000</pubDate>
+        <link>https://gabrielprates.com/2020/04/16/fazendo-um-bom-code-review.html</link>
+        <guid isPermaLink="true">https://gabrielprates.com/2020/04/16/fazendo-um-bom-code-review.html</guid>
+        
+      </item>
+      <item>
+        <title>Desmistificando o webpack: entry points e loaders</title>
+        <description>&lt;p&gt;É muito comum se ver perdido em um arquivo de configuração do webpack, principalmente se não tiver muita experiência com &lt;em&gt;bundlers&lt;/em&gt; ou &lt;em&gt;task runners&lt;/em&gt;. Acredito que quanto mais se entende do funcionamento de alguma coisa, mais fácil fica de lidar com ela. Esta série de artigos vai focar nos &lt;em&gt;core concepts&lt;/em&gt; do webpack e tentar clarear como as coisas funcionam.&lt;/p&gt;
+&lt;h2 id=&quot;a-long-time-ago&quot;&gt;A long time ago...&lt;/h2&gt;
+&lt;p&gt;Antes de mais nada, ainda estamos em 2019 e sim, acho que contar um pouco sobre como chegamos aqui. Caso você se sinta confortável com essa parte &amp;quot;histórica&amp;quot;, pode pular para a próxima seção.&lt;/p&gt;
+&lt;p&gt;Se voltarmos um pouco no tempo, chegaremos numa época em que se criava um grande arquivo &lt;code&gt;.js&lt;/code&gt;, com todo o código da aplicação, e se colocava a respectiva tag &lt;code&gt;&amp;lt;script&amp;gt;&lt;/code&gt; na página. Muitas vezes, acompanhado do jQuery. Ok, e se fossemos usar um plugin do jQuery, uma &lt;em&gt;lib&lt;/em&gt; de &lt;em&gt;date picker&lt;/em&gt;? Aí seria preciso colocar mais uma &lt;code&gt;&amp;lt;script&amp;gt;&lt;/code&gt; na página com essa tal &lt;em&gt;lib&lt;/em&gt;. Até parece um pouco de &lt;em&gt;code splitting&lt;/em&gt; mas calma, chegaremos lá.&lt;/p&gt;
+&lt;p&gt;Avançando um pouco no tempo, veio o Node.js e conseguimos o poder de criar arquivos JS separados, ou módulos (o que ajudou muito na organização e reutilização de código), pra juntar tudo depois em um único &lt;strong&gt;bundle&lt;/strong&gt; final. Também surgiram os pré-processadores de CSS, que juntavam vários arquivos de estilo em um bundle final. Surgiram também ferramentas para automatizar essas tarefas de &lt;em&gt;build&lt;/em&gt;, como gulp e grunt. Até que surgiram ferramentas que poderiam centralizar todas as tarefas e, talvez o mais importante, juntar todas as peças. É aí que entra o &lt;a href=&quot;https://webpack.js.org/concepts/&quot;&gt;webpack&lt;/a&gt;.&lt;/p&gt;
+&lt;h2 id=&quot;o-webpack&quot;&gt;O webpack&lt;/h2&gt;
+&lt;p&gt;O webpack é um empacotador de módulos (ou &lt;em&gt;module bundle&lt;/em&gt;), que se baseia em pontos de entrada (&lt;strong&gt;&lt;em&gt;entry points&lt;/em&gt;&lt;/strong&gt;) e, a partir deles, cria um &lt;strong&gt;grafo&lt;/strong&gt; de suas respectivas &lt;strong&gt;dependências&lt;/strong&gt;. Aqui começa a graça.&lt;/p&gt;
+&lt;p&gt;Para o webpack, um &lt;strong&gt;módulo é qualquer coisa que seja importada&lt;/strong&gt;, por exemplo: uma URL em uma regra de CSS, o atributo &lt;code&gt;src&lt;/code&gt; de uma imagem, uma chamada da função &lt;code&gt;require()&lt;/code&gt;, ou um &lt;code&gt;import&lt;/code&gt; explícito. O problema é que, nativamente, o webpack só interpreta conteúdo JavaScript e JSON. Por este motivo existem os &lt;strong&gt;&lt;em&gt;loaders&lt;/em&gt;&lt;/strong&gt; nas configurações. Um &lt;em&gt;loader&lt;/em&gt; vai dizer como aquele determinado tipo de arquivo deve ser processado e assim, passado para frente, seja para um próximo &lt;em&gt;loader&lt;/em&gt;, ou para o próprio webpack continuar o processo de &lt;em&gt;build&lt;/em&gt;. Durante este processo, o webpack emite alguns &lt;em&gt;hooks&lt;/em&gt; de eventos, que são utilizados pelos &lt;strong&gt;&lt;em&gt;plugins&lt;/em&gt;&lt;/strong&gt; para a execução de várias outras tarefas durante o processo. Isso tudo irá gerar os &lt;strong&gt;&lt;em&gt;outputs&lt;/em&gt;&lt;/strong&gt;, que é o que queremos.&lt;/p&gt;
+&lt;p&gt;Esta é uma visão bem geral de como o webpack funciona. Falamos de algumas coisas muito importantes aqui e podemos aprofundar um pouco para entender mais de alguns detalhes. No momento, vamos focar em: &lt;em&gt;entry points&lt;/em&gt; e &lt;em&gt;loaders&lt;/em&gt;.&lt;/p&gt;
+&lt;h3 id=&quot;entry-points&quot;&gt;entry points&lt;/h3&gt;
+&lt;p&gt;O webpack se propõe a ser um &lt;em&gt;module bundle&lt;/em&gt; que não precisa de configurações e, para isso, adota várias configurações &lt;em&gt;default&lt;/em&gt;. O &lt;em&gt;entry point&lt;/em&gt; padrão é &lt;code&gt;./src/index.js&lt;/code&gt; e isso significa que todas as dependências do projeto serão mapeadas a partir desse arquivo. Adiantando um pouco a história, no final do processo de &lt;em&gt;build&lt;/em&gt;, será gerado o arquivo &lt;code&gt;./dist/main.js&lt;/code&gt; (outra configuração padrão) como &lt;em&gt;output&lt;/em&gt;, com todo o código do projeto. O legal é que o &lt;em&gt;entry point&lt;/em&gt; pode ser composto por um ou mais arquivos, assim como o &lt;em&gt;output&lt;/em&gt;. É possível:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-js&quot;&gt;&lt;span class=&quot;hljs-comment&quot;&gt;// webpack.config.js&lt;/span&gt;
+&lt;span class=&quot;hljs-keyword&quot;&gt;const&lt;/span&gt; config = {
+    &lt;span class=&quot;hljs-comment&quot;&gt;// definir um novo arquivo como entry point:&lt;/span&gt;
+    &lt;span class=&quot;hljs-attr&quot;&gt;entry&lt;/span&gt;: &lt;span class=&quot;hljs-string&quot;&gt;&quot;./caminho/do/arquivo.js&quot;&lt;/span&gt;
+
+    &lt;span class=&quot;hljs-comment&quot;&gt;// ou definir alguns arquivos como entry points:&lt;/span&gt;
+    &lt;span class=&quot;hljs-attr&quot;&gt;entry&lt;/span&gt;: [
+        &lt;span class=&quot;hljs-string&quot;&gt;&quot;./caminho/do/arquivo_01.js&quot;&lt;/span&gt;,
+        &lt;span class=&quot;hljs-string&quot;&gt;&quot;./caminho/do/arquivo_02.js&quot;&lt;/span&gt;,
+        &lt;span class=&quot;hljs-string&quot;&gt;&quot;./caminho/do/arquivo_03.js&quot;&lt;/span&gt;
+    ]
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Definindo o &lt;em&gt;entry point&lt;/em&gt; dessa forma, automaticamente também se define o &lt;strong&gt;&lt;em&gt;chunk&lt;/em&gt;&lt;/strong&gt; &lt;code&gt;main&lt;/code&gt;, por isso o &lt;em&gt;output&lt;/em&gt; gerado se chama &lt;code&gt;main.js&lt;/code&gt;. Por hora, basta saber que &lt;em&gt;chunk&lt;/em&gt; é um termo usado internamente para gerenciar o processo de build. Uma outra configuração possível de &lt;em&gt;entry points&lt;/em&gt; é definir um objeto com os &lt;em&gt;chunks&lt;/em&gt; e seus respectivos pontos de entrada:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-js&quot;&gt;&lt;span class=&quot;hljs-comment&quot;&gt;// webpack.config.js&lt;/span&gt;
+&lt;span class=&quot;hljs-keyword&quot;&gt;const&lt;/span&gt; config = {
+    &lt;span class=&quot;hljs-attr&quot;&gt;entry&lt;/span&gt;: {
+        &lt;span class=&quot;hljs-comment&quot;&gt;// definir o chunk home&lt;/span&gt;
+        &lt;span class=&quot;hljs-attr&quot;&gt;home&lt;/span&gt;: &lt;span class=&quot;hljs-string&quot;&gt;&quot;./caminho/do/arquivo/home.js&quot;&lt;/span&gt;
+
+        &lt;span class=&quot;hljs-comment&quot;&gt;// definir o chunk contato&lt;/span&gt;
+        &lt;span class=&quot;hljs-attr&quot;&gt;contato&lt;/span&gt;: &lt;span class=&quot;hljs-string&quot;&gt;&quot;./caminho/do/arquivo/contato.js&quot;&lt;/span&gt;
+
+        &lt;span class=&quot;hljs-comment&quot;&gt;// definir o chunk produtos&lt;/span&gt;
+        &lt;span class=&quot;hljs-attr&quot;&gt;produtos&lt;/span&gt;: [
+            &lt;span class=&quot;hljs-string&quot;&gt;&quot;./caminho/do/arquivo/produto_01.js&quot;&lt;/span&gt;,
+            &lt;span class=&quot;hljs-string&quot;&gt;&quot;./caminho/do/arquivo/produto_02.js&quot;&lt;/span&gt;,
+            &lt;span class=&quot;hljs-string&quot;&gt;&quot;./caminho/do/arquivo/produto_03.js&quot;&lt;/span&gt;
+        ]
+    }
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Com a configuração acima, os três &lt;em&gt;chunks&lt;/em&gt; (&lt;code&gt;home&lt;/code&gt;, &lt;code&gt;contato&lt;/code&gt; e &lt;code&gt;produtos&lt;/code&gt;) resultam em três arquivos de &lt;em&gt;output&lt;/em&gt;: &lt;code&gt;dist/home.js&lt;/code&gt;, &lt;code&gt;dist/contato.js&lt;/code&gt; e &lt;code&gt;dist/produtos.js&lt;/code&gt;. É bom ressaltar que estes são os pontos de entrada dos &lt;em&gt;chunks&lt;/em&gt; e que cada um deles terão suas respectivas dependências, compartilhadas ou não. &lt;em&gt;Chunks&lt;/em&gt; são um assunto muito extenso e não tão simples, prefiro deixar mais detalhes para um post posterior.&lt;/p&gt;
+&lt;p&gt;Pensando em uma aplicação web, em algum momento teremos um arquivo de estilo (CSS, SASS/SCSS, LESS, etc.) que pode ser importado em algum módulo, ou definido como um outro &lt;em&gt;entry point&lt;/em&gt;. É aqui que precisamos falar sobre &lt;em&gt;loaders&lt;/em&gt;.&lt;/p&gt;
+&lt;h3 id=&quot;loaders&quot;&gt;loaders&lt;/h3&gt;
+&lt;p&gt;Como foi dito acima, o webpack só &amp;quot;entende&amp;quot;, por padrão, arquivos JavaScript ou JSON e, apesar de se propor a funcionar sem configurações, caso o projeto tenha qualquer &lt;em&gt;source&lt;/em&gt; além de JS, precisamos colocar a mão na massa. Por esse motivo, ao encontrar algum arquivo com um conteúdo diferente (como TypeScript, SASS, JSX, etc.), o webpack emite um erro semelhante a este:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt;Module parse failed: Unexpected token (1:0)
+You may need an appropriate loader to handle this file &lt;span class=&quot;hljs-built_in&quot;&gt;type&lt;/span&gt;.&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;You may need an appropriate loader to handle this file type.&lt;/strong&gt; A primeira coisa a se observar é &amp;quot;&lt;em&gt;this file type&lt;/em&gt;&amp;quot;. Vamos tomar como exemplo um arquivo SASS. Se o webpack só entende JS e JSON, como transformar um módulo SASS em um módulo JS? Bom, nesse ponto já tivemos &lt;em&gt;spoilers&lt;/em&gt;... A resposta é: &lt;em&gt;loaders&lt;/em&gt;!&lt;/p&gt;
+&lt;p&gt;Para o tipo de arquivo em questão, SASS, precisamos do chamado &lt;a href=&quot;https://github.com/webpack-contrib/sass-loader&quot;&gt;&lt;code&gt;sass-loader&lt;/code&gt;&lt;/a&gt;. Preparando um pequeno ambiente, para entender cada passo, temos a seguinte configuração, que diz para o webpack como processar esses arquivos:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-js&quot;&gt;&lt;span class=&quot;hljs-comment&quot;&gt;// webpack.config.js&lt;/span&gt;
+&lt;span class=&quot;hljs-built_in&quot;&gt;module&lt;/span&gt;.exports = {
+  &lt;span class=&quot;hljs-comment&quot;&gt;// definimos um arquivo SCSS como entrypoint&lt;/span&gt;
+  &lt;span class=&quot;hljs-attr&quot;&gt;entry&lt;/span&gt;: &lt;span class=&quot;hljs-string&quot;&gt;&quot;./style.scss&quot;&lt;/span&gt;,
+
+  &lt;span class=&quot;hljs-comment&quot;&gt;// definimos as regras de configuração dos módulos&lt;/span&gt;
+  &lt;span class=&quot;hljs-attr&quot;&gt;module&lt;/span&gt;: {
+    &lt;span class=&quot;hljs-attr&quot;&gt;rules&lt;/span&gt;: [
+      {
+        &lt;span class=&quot;hljs-attr&quot;&gt;test&lt;/span&gt;: &lt;span class=&quot;hljs-regexp&quot;&gt;/\.s[ac]ss$/i&lt;/span&gt;,
+        &lt;span class=&quot;hljs-attr&quot;&gt;use&lt;/span&gt;: [&lt;span class=&quot;hljs-string&quot;&gt;&quot;./debug&quot;&lt;/span&gt;, &lt;span class=&quot;hljs-string&quot;&gt;&quot;sass-loader&quot;&lt;/span&gt;]
+      }
+    ]
+  }
+};
+
+&lt;span class=&quot;hljs-comment&quot;&gt;// debug.js&lt;/span&gt;
+&lt;span class=&quot;hljs-built_in&quot;&gt;module&lt;/span&gt;.exports = &lt;span class=&quot;hljs-function&quot;&gt;&lt;span class=&quot;hljs-params&quot;&gt;source&lt;/span&gt; =&amp;gt;&lt;/span&gt; {
+  &lt;span class=&quot;hljs-built_in&quot;&gt;console&lt;/span&gt;.log(source);
+  &lt;span class=&quot;hljs-keyword&quot;&gt;return&lt;/span&gt; source;
+};&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&quot;language-scss&quot;&gt;&lt;span class=&quot;hljs-comment&quot;&gt;// style.scss&lt;/span&gt;
+&lt;span class=&quot;hljs-variable&quot;&gt;$color&lt;/span&gt;: &lt;span class=&quot;hljs-number&quot;&gt;#f00&lt;/span&gt;;
+&lt;span class=&quot;hljs-selector-tag&quot;&gt;body&lt;/span&gt; {
+  &lt;span class=&quot;hljs-attribute&quot;&gt;background&lt;/span&gt;: &lt;span class=&quot;hljs-variable&quot;&gt;$color&lt;/span&gt;;
+}
+&lt;span class=&quot;hljs-selector-class&quot;&gt;.bold&lt;/span&gt; {
+  &lt;span class=&quot;hljs-attribute&quot;&gt;font-weight&lt;/span&gt;: bold;
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;code&gt;debug.js&lt;/code&gt; é um &lt;em&gt;loader&lt;/em&gt; que nos mostra o conteúdo processado e passa ele para frente. E só.&lt;/p&gt;
+&lt;p&gt;A mensagem &lt;code&gt;Module parse failed: ...&lt;/code&gt; seria exibida caso não houvesse o &lt;em&gt;loader&lt;/em&gt; para SASS. Já que ele está configurado, o conteúdo do módulo exibido pelo &lt;code&gt;debug.js&lt;/code&gt; é:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-css&quot;&gt;&lt;span class=&quot;hljs-selector-tag&quot;&gt;body&lt;/span&gt; {
+  &lt;span class=&quot;hljs-attribute&quot;&gt;background&lt;/span&gt;: &lt;span class=&quot;hljs-number&quot;&gt;#f00&lt;/span&gt;; }
+
+&lt;span class=&quot;hljs-selector-class&quot;&gt;.bold&lt;/span&gt; {
+  &lt;span class=&quot;hljs-attribute&quot;&gt;font-weight&lt;/span&gt;: bold; }&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;É um módulo processado, mas ainda não é JavaScript e o webpack ainda não pode seguir com o &lt;em&gt;build&lt;/em&gt;. O próximo passo é encadeiar mais um &lt;em&gt;loader&lt;/em&gt;, da mesma forma que o &lt;code&gt;debug.js&lt;/code&gt;, o &lt;a href=&quot;https://github.com/webpack-contrib/css-loader&quot;&gt;&lt;code&gt;css-loader&lt;/code&gt;&lt;/a&gt;:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-js&quot;&gt;use: [&lt;span class=&quot;hljs-string&quot;&gt;&quot;./debug&quot;&lt;/span&gt;, &lt;span class=&quot;hljs-string&quot;&gt;&quot;css-loader&quot;&lt;/span&gt;, &lt;span class=&quot;hljs-string&quot;&gt;&quot;sass-loader&quot;&lt;/span&gt;];&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Este é um bom momento para ressaltar a importância da ordem dos &lt;em&gt;loaders&lt;/em&gt;. Eles são resolvidos do último para o primeiro, em cadeia. Assim:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;                                                   o módulo
+                                                 é encontrado:
+                                                &quot;./style.scss&quot;
+                                                      |
+                                                      ↓
+&quot;./debug&quot;      &amp;lt;-      &quot;css-loader&quot;      &amp;lt;-      &quot;sass-loader&quot;
+ |         o conteúdo                o conteúdo
+ |        processado é              processado é
+ |         passado pra               passado pra
+ |           frente                    frente
+ |
+ ↓
+o último loader manda o
+conteúdo para o webpack&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;O resultado da atual cadeia de &lt;em&gt;loaders&lt;/em&gt; é:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;exports = module.exports = require(&amp;quot;../node_modules/css-loader/dist/runtime/api.js&amp;quot;)(false);
+// Module
+exports.push([module.id, &amp;quot;body {\n  background: #f00; }\n\n.bold {\n  font-weight: bold; }\n&amp;quot;, &amp;quot;&amp;quot;]);&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Os &lt;em&gt;loaders&lt;/em&gt; podem ter opções de configuração, como os que usamos, que podem ser descritas em um objeto da seguinte forma:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-js&quot;&gt;use: [
+  &lt;span class=&quot;hljs-string&quot;&gt;&quot;./debug&quot;&lt;/span&gt;,
+  {
+    &lt;span class=&quot;hljs-attr&quot;&gt;loader&lt;/span&gt;: &lt;span class=&quot;hljs-string&quot;&gt;&quot;css-loader&quot;&lt;/span&gt;,
+    &lt;span class=&quot;hljs-attr&quot;&gt;options&lt;/span&gt;: {
+      &lt;span class=&quot;hljs-attr&quot;&gt;modules&lt;/span&gt;: &lt;span class=&quot;hljs-literal&quot;&gt;true&lt;/span&gt;
+    },
+  }
+  &lt;span class=&quot;hljs-string&quot;&gt;&quot;sass-loader&quot;&lt;/span&gt;
+];&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Agora temos um módulo JS que pode ser usado pelo webpack, ou algum outro &lt;em&gt;loader&lt;/em&gt;, como &lt;a href=&quot;https://github.com/webpack-contrib/style-loader&quot;&gt;&lt;code&gt;style-loader&lt;/code&gt;&lt;/a&gt;, ou &lt;a href=&quot;https://github.com/webpack-contrib/mini-css-extract-plugin&quot;&gt;&lt;code&gt;mini-css-extract-plugin&lt;/code&gt;&lt;/a&gt;, se necessário.&lt;/p&gt;
+&lt;p&gt;Sabendo desse funcionamento dos &lt;em&gt;loaders&lt;/em&gt;, temos o poder de personalizar o processamento de qualquer tipo de arquivo. Caso o projeto só tenha JavaScript e JSON, compatíveis com a versão do Node.js que serão executados, não é preciso configurar nenhum &lt;em&gt;loader&lt;/em&gt;, pois é só JS e já será suportado pelo Node.js. Caso utilize uma versão do JS incompatível com a versão do Node.js, será necessário um &lt;em&gt;loader&lt;/em&gt; para transpilar o JS (&lt;a href=&quot;https://github.com/babel/babel-loader&quot;&gt;&lt;code&gt;babel-loader&lt;/code&gt;&lt;/a&gt;, por exemplo) para uma versão compatíveis.&lt;/p&gt;
+&lt;p&gt;Um outro exemplo muito importante e comum, é um arquivo JSX de uma aplicação React. As tags HTML, e outros detalhes de sintaxe precisam ser processados. Nesse caso, este também é um trabalho para o &lt;code&gt;babel-loader&lt;/code&gt;, no qual podemos configurar &lt;em&gt;presets&lt;/em&gt; e &lt;em&gt;plugins&lt;/em&gt; para interpretar o código e gerar uma versão do JS específica. Vale fazer o teste do Babel com nosso &lt;em&gt;loader&lt;/em&gt; personalizado de &lt;em&gt;debug&lt;/em&gt;, uma forma simples de ver o conteúdo que está sendo gerado.&lt;/p&gt;
+&lt;h2 id=&quot;a-estrada-é-longa&quot;&gt;A estrada é longa&lt;/h2&gt;
+&lt;p&gt;Ainda existem várias outras coisas que fazem parte do processo de &lt;em&gt;build&lt;/em&gt; do webpack, mas é melhor deixar para outro post. Adianto que vamos falar sobre &lt;em&gt;plugins&lt;/em&gt;, &lt;em&gt;output&lt;/em&gt;, &lt;em&gt;code splitting&lt;/em&gt;, &lt;em&gt;chunks&lt;/em&gt; e outras coisas. No momento, concentre-se em entender os &lt;em&gt;entry points&lt;/em&gt; e &lt;em&gt;loaders&lt;/em&gt;. Faça testes e releia se precisar.&lt;/p&gt;
+&lt;p&gt;Qualquer dúvida, deixe nos comentários, será um prazer ajudar.&lt;/p&gt;
+&lt;p&gt;Até a próxima!&lt;/p&gt;
+&lt;p&gt;(:&lt;/p&gt;
+&lt;hr/&gt;
+&lt;h3 id=&quot;referências&quot;&gt;Referências&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https://webpack.js.org/concepts/&quot;&gt;https://webpack.js.org/concepts/&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        <pubDate>Sat, 30 Nov 2019 00:00:00 +0000</pubDate>
+        <link>https://gabrielprates.com/2019/11/30/desmistificando-o-webpack-entry-points-e-loaders.html</link>
+        <guid isPermaLink="true">https://gabrielprates.com/2019/11/30/desmistificando-o-webpack-entry-points-e-loaders.html</guid>
+        
+      </item>
+      <item>
+        <title>Preparando um projeto React para utilizar CSS Modules</title>
+        <description>&lt;p&gt;Com toda a evolução das tecnologias front-end, os processos de arquiteturar, criar e manter projetos saudáveis pode ser muito complicado. Um problema bem comum é manter o CSS de uma maneira escalável e sem efeitos colateráis, o que se torna um desafio a medida que o projeto cresce. Pensando nisso, e tomando proveito da ideia de componentes e modularização, surgiram algumas ideias para manter o CSS dentro de um escopo. Escopo dos componentes em questão.&lt;/p&gt;
+&lt;p&gt;O objetivo deste post é clarear o entendimento e uso de CSS Modules e sua implementação num projeto JavaScript com Webpack de forma geral. De quebra, com o estudo teremos o básico para um projeto React e CSS Modules, com suporte para SASS, que pode ser &lt;a href=&quot;https://github.com/gabsprates/react-css-modules&quot;&gt;clonado aqui&lt;/a&gt;.&lt;/p&gt;
+&lt;h3 id=&quot;css-modules&quot;&gt;CSS Modules&lt;/h3&gt;
+&lt;p&gt;Talvez você já tenha visto falar em CSS-in-JS, styled-components, ou em CSS Modules, e vamos falar um pouco disso aqui. As ideias são basicamente para o mesmo resultado, mas não vou falar de bibliotecas JS que te fazem escrever CSS como objetos JS, nem que te fazem escrever uma string com &lt;em&gt;template literal&lt;/em&gt; para ser parseada depois (styled-components), o que faremos é configurar nosso projeto para escrever um CSS puro e bem escopado.&lt;/p&gt;
+&lt;p&gt;Como a própria documentação do &lt;a href=&quot;https://github.com/css-modules/css-modules&quot;&gt;CSS Modules&lt;/a&gt; diz, &lt;em&gt;um CSS Module é um arquivo de CSS no qual todas os nomes de classes e nomes de animações estão no escopo local, por default.&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;Isso é possível graças a especificação do &lt;a href=&quot;https://github.com/css-modules/icss&quot;&gt;ICSS (Interoperable CSS)&lt;/a&gt;, que diz para o &lt;em&gt;loader&lt;/em&gt; como ele deve tratar os arquivos e o que retornará como módulo. Olhando de um nível mais alto, no fim das contas escrevemos o arquivo CSS e o &lt;em&gt;loader&lt;/em&gt; gera um objeto com os seletores mapeados em propriedades. Exemplo:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-scss&quot;&gt;&lt;span class=&quot;hljs-comment&quot;&gt;/* style.css */&lt;/span&gt;
+
+&lt;span class=&quot;hljs-selector-class&quot;&gt;.button&lt;/span&gt; {
+  &lt;span class=&quot;hljs-attribute&quot;&gt;background&lt;/span&gt;: &lt;span class=&quot;hljs-number&quot;&gt;#333&lt;/span&gt;;
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&quot;language-javascript&quot;&gt;&lt;span class=&quot;hljs-comment&quot;&gt;// button.js&lt;/span&gt;
+
+&lt;span class=&quot;hljs-keyword&quot;&gt;import&lt;/span&gt; styles &lt;span class=&quot;hljs-keyword&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;hljs-string&quot;&gt;&apos;./style.css&apos;&lt;/span&gt;;
+
+&lt;span class=&quot;hljs-built_in&quot;&gt;console&lt;/span&gt;.log(styles);
+&lt;span class=&quot;hljs-comment&quot;&gt;// { button: &quot;button&quot; }&lt;/span&gt;
+
+&lt;span class=&quot;hljs-keyword&quot;&gt;const&lt;/span&gt; Button = &lt;span class=&quot;hljs-function&quot;&gt;&lt;span class=&quot;hljs-params&quot;&gt;()&lt;/span&gt; =&amp;gt;&lt;/span&gt; (
+  &lt;span class=&quot;hljs-string&quot;&gt;`&amp;lt;button class=&apos;&lt;span class=&quot;hljs-subst&quot;&gt;${ styles.button }&lt;/span&gt;&apos;&amp;gt;Click!&amp;lt;/button&amp;gt;`&lt;/span&gt;
+);&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Isso nos permite ter um objeto de estilo específico para cada componente, com um escopo definido para ele. Se precisarmos utilizar o estilo de um componente em outro lugar, ou aproveitar um CSS global (ex.: grid, cores), o objeto de referência ainda será único e isso também faz com que não haja duplicidade.&lt;/p&gt;
+&lt;p&gt;Além de ter um módulo com escopo fechado e sem ambiguidades, podemos otimizar os nomes das classes, IDs e animaçes, e gerar um bundle de CSS ainda menor. Após configurar tudo e colocar para rodar, em desenvolvimento ou produção, o CSS gerado pode ser:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;injetado em tags &lt;code&gt;&amp;lt;style&amp;gt;&lt;/code&gt;;&lt;/li&gt;
+&lt;li&gt;extraído e servido em um arquivo &lt;code&gt;.css&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Nesse ponto, o DOM gerado no HTML terá o identificador de CSS correto, porque foi referenciado pelo objeto mapeado do respectivo módulo.&lt;/p&gt;
+&lt;p&gt;Para entender melhor, é necessário configurar algumas regras no bundler em questão, aqui vamos usar o &lt;a href=&quot;https://webpack.js.org/&quot;&gt;Webpack&lt;/a&gt;.&lt;/p&gt;
+&lt;h3 id=&quot;configuração-do-webpack&quot;&gt;Configuração do Webpack&lt;/h3&gt;
+&lt;p&gt;Devemos inserir uma regra na configuração do Webpack para ler os arquivos CSS e deixar os &lt;em&gt;loaders&lt;/em&gt; realizarem seu trabalho:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-javascript&quot;&gt;&lt;span class=&quot;hljs-comment&quot;&gt;// webpack.config.js&lt;/span&gt;
+
+&lt;span class=&quot;hljs-built_in&quot;&gt;module&lt;/span&gt;.exports = {
+  &lt;span class=&quot;hljs-attr&quot;&gt;entry&lt;/span&gt;: [ ... ],
+  &lt;span class=&quot;hljs-attr&quot;&gt;output&lt;/span&gt;: { ... },
+  &lt;span class=&quot;hljs-attr&quot;&gt;module&lt;/span&gt;: {
+    &lt;span class=&quot;hljs-attr&quot;&gt;rules&lt;/span&gt;: [
+      {
+        &lt;span class=&quot;hljs-attr&quot;&gt;test&lt;/span&gt;: &lt;span class=&quot;hljs-regexp&quot;&gt;/\.css$/&lt;/span&gt;,
+        &lt;span class=&quot;hljs-attr&quot;&gt;use&lt;/span&gt;: [ ... ]
+      }
+    ]
+  }
+};&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Os &lt;em&gt;loaders&lt;/em&gt; necessários são:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https://github.com/webpack-contrib/css-loader&quot;&gt;&lt;code&gt;css-loader&lt;/code&gt;&lt;/a&gt;: para habilitar o uso dos CSS Modules;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://github.com/webpack-contrib/style-loader&quot;&gt;&lt;code&gt;style-loader&lt;/code&gt;&lt;/a&gt;: para injetar o CSS na página.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Ambos tem opções necessárias e interessantes, veja a seguir.&lt;/p&gt;
+&lt;h4 id=&quot;css-loader&quot;&gt;&lt;code&gt;css-loader&lt;/code&gt;&lt;/h4&gt;
+&lt;p&gt;Instalação:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt;npm install --save-dev css-loader&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Regra:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-javascript&quot;&gt;{
+  &lt;span class=&quot;hljs-attr&quot;&gt;loader&lt;/span&gt;: &lt;span class=&quot;hljs-string&quot;&gt;&quot;css-loader&quot;&lt;/span&gt;,
+  &lt;span class=&quot;hljs-attr&quot;&gt;options&lt;/span&gt;: {
+    &lt;span class=&quot;hljs-attr&quot;&gt;modules&lt;/span&gt;: &lt;span class=&quot;hljs-literal&quot;&gt;true&lt;/span&gt;,
+    &lt;span class=&quot;hljs-attr&quot;&gt;localIdentName&lt;/span&gt;: &lt;span class=&quot;hljs-string&quot;&gt;&quot;[sha1:hash:7]&quot;&lt;/span&gt;
+  }
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;modules&lt;/code&gt;: habilita/desabilita os CSS Modules;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;localIdentName&lt;/code&gt;: configura a identidade (classe, ID, &lt;em&gt;animation name&lt;/em&gt;) gerada pelo &lt;em&gt;loader&lt;/em&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;O &lt;code&gt;localIdentName&lt;/code&gt; pode ser configurado de algumas formas, que estão &lt;a href=&quot;https://github.com/webpack/loader-utils#interpolatename&quot;&gt;disponíveis aqui&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Com a configuração acima, o exemplo anterior do &lt;code&gt;.button&lt;/code&gt; irá gerar o objeto &lt;code&gt;{ button: &amp;quot;_38782ef&amp;quot; }&lt;/code&gt;. Assim, o seletor CSS da classe &lt;code&gt;.button&lt;/code&gt; será, no output, &lt;code&gt;._38782ef&lt;/code&gt;. Isso otimiza bastante o tráfego de informações quando temos um nome muito grande como, por exemplo, a proposta do BEM.&lt;/p&gt;
+&lt;p&gt;Para mais configurações, &lt;a href=&quot;https://github.com/webpack-contrib/css-loader#options&quot;&gt;veja a documentação&lt;/a&gt;.&lt;/p&gt;
+&lt;h4 id=&quot;style-loader&quot;&gt;&lt;code&gt;style-loader&lt;/code&gt;&lt;/h4&gt;
+&lt;p&gt;Instalação:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt;npm install style-loader --save-dev&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Regra:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-javascript&quot;&gt;{
+  &lt;span class=&quot;hljs-attr&quot;&gt;loader&lt;/span&gt;: &lt;span class=&quot;hljs-string&quot;&gt;&quot;style-loader&quot;&lt;/span&gt;,
+  &lt;span class=&quot;hljs-attr&quot;&gt;options&lt;/span&gt;: {
+    &lt;span class=&quot;hljs-attr&quot;&gt;singleton&lt;/span&gt;: &lt;span class=&quot;hljs-literal&quot;&gt;true&lt;/span&gt;
+  }
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Nesta configuração, todo o CSS gerado será injetado por apenas uma tag &lt;code&gt;&amp;lt;style&amp;gt;&lt;/code&gt;. Na configuração &lt;em&gt;default&lt;/em&gt; do &lt;code&gt;style-loader&lt;/code&gt;, ele cria uma tag &lt;code&gt;&amp;lt;style&amp;gt;&lt;/code&gt; para cada módulo CSS. &lt;/p&gt;
+&lt;p&gt;Para mais configurações, &lt;a href=&quot;https://github.com/webpack-contrib/style-loader#options&quot;&gt;veja a documentação&lt;/a&gt;.&lt;/p&gt;
+&lt;h4 id=&quot;configuração-final-para-css-injetado-na-página&quot;&gt;Configuração final para CSS injetado na página&lt;/h4&gt;
+&lt;p&gt;Com as devidas configurações, o &lt;code&gt;webpack.config.js&lt;/code&gt; ficará assim:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-javascript&quot;&gt;&lt;span class=&quot;hljs-built_in&quot;&gt;module&lt;/span&gt;.exports = {
+  &lt;span class=&quot;hljs-attr&quot;&gt;entry&lt;/span&gt;: [ ... ],
+  &lt;span class=&quot;hljs-attr&quot;&gt;output&lt;/span&gt;: { ... },
+  &lt;span class=&quot;hljs-attr&quot;&gt;module&lt;/span&gt;: {
+    &lt;span class=&quot;hljs-attr&quot;&gt;rules&lt;/span&gt;: [
+      {
+        &lt;span class=&quot;hljs-attr&quot;&gt;test&lt;/span&gt;: &lt;span class=&quot;hljs-regexp&quot;&gt;/\.css$/&lt;/span&gt;,
+        &lt;span class=&quot;hljs-attr&quot;&gt;use&lt;/span&gt;: [
+          { &lt;span class=&quot;hljs-attr&quot;&gt;loader&lt;/span&gt;: &lt;span class=&quot;hljs-string&quot;&gt;&quot;style-loader&quot;&lt;/span&gt;, ... },
+          { &lt;span class=&quot;hljs-attr&quot;&gt;loader&lt;/span&gt;: &lt;span class=&quot;hljs-string&quot;&gt;&quot;css-loader&quot;&lt;/span&gt;, ... }
+        ]
+      }
+    ]
+  }
+};&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Segundo a documentação do Webpack sobre a &lt;a href=&quot;https://webpack.js.org/configuration/module/#rule-use&quot;&gt;cadeia de múltiplos loaders&lt;/a&gt; (apesar de não ser o assunto em questão, fica a dica), o resultado do &lt;code&gt;css-loader&lt;/code&gt; deve ser processado pelo &lt;code&gt;style-loader&lt;/code&gt;, por isso vem depois. &lt;em&gt;&amp;quot;Last to first configured&amp;quot;&lt;/em&gt;.&lt;/p&gt;
+&lt;h4 id=&quot;configuração-final-para-css-extraído-em-arquivo&quot;&gt;Configuração final para CSS extraído em arquivo&lt;/h4&gt;
+&lt;p&gt;Para extrair o CSS gerado, é preciso utilizar um plugin que extrai texto de um ou mais &lt;em&gt;bundles&lt;/em&gt;. O &lt;a href=&quot;https://github.com/webpack-contrib/extract-text-webpack-plugin&quot;&gt;Extract Text Plugin&lt;/a&gt; é bastante usado, mas recomendam o &lt;a href=&quot;https://github.com/webpack-contrib/mini-css-extract-plugin&quot;&gt;mini-css-extract-plugin&lt;/a&gt; para extrair arquivos CSS e, por isso, será usado aqui.&lt;/p&gt;
+&lt;p&gt;Instalação:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt;npm install --save-dev mini-css-extract-plugin&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;E a configuração do webpack ficará assim:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-javascript&quot;&gt;&lt;span class=&quot;hljs-keyword&quot;&gt;const&lt;/span&gt; MiniCssExtractPlugin = &lt;span class=&quot;hljs-built_in&quot;&gt;require&lt;/span&gt;(&lt;span class=&quot;hljs-string&quot;&gt;&quot;mini-css-extract-plugin&quot;&lt;/span&gt;);
+
+&lt;span class=&quot;hljs-built_in&quot;&gt;module&lt;/span&gt;.exports = {
+  &lt;span class=&quot;hljs-attr&quot;&gt;entry&lt;/span&gt;: [ ... ],
+  &lt;span class=&quot;hljs-attr&quot;&gt;output&lt;/span&gt;: { ... },
+  &lt;span class=&quot;hljs-attr&quot;&gt;plugins&lt;/span&gt;: [
+    &lt;span class=&quot;hljs-keyword&quot;&gt;new&lt;/span&gt; MiniCssExtractPlugin({
+      &lt;span class=&quot;hljs-attr&quot;&gt;filename&lt;/span&gt;: &lt;span class=&quot;hljs-string&quot;&gt;&quot;style.css&quot;&lt;/span&gt;
+    })
+  ],
+  &lt;span class=&quot;hljs-attr&quot;&gt;module&lt;/span&gt;: {
+    &lt;span class=&quot;hljs-attr&quot;&gt;rules&lt;/span&gt;: [
+      {
+        &lt;span class=&quot;hljs-attr&quot;&gt;test&lt;/span&gt;: &lt;span class=&quot;hljs-regexp&quot;&gt;/\.css$/&lt;/span&gt;,
+        &lt;span class=&quot;hljs-attr&quot;&gt;use&lt;/span&gt;: [
+          { &lt;span class=&quot;hljs-attr&quot;&gt;loader&lt;/span&gt;: MiniCssExtractPlugin.loader },
+          { &lt;span class=&quot;hljs-attr&quot;&gt;loader&lt;/span&gt;: &lt;span class=&quot;hljs-string&quot;&gt;&quot;css-loader&quot;&lt;/span&gt;, ... }
+        ]
+      }
+    ]
+  }
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;E nesse caso, o &lt;code&gt;style-loader&lt;/code&gt; não é necessário. Ele deve ser utilizado como &lt;em&gt;fallback&lt;/em&gt; caso utilize o Extract Text Plugin.&lt;/p&gt;
+&lt;p&gt;Agora basta colocar um &lt;code&gt;&amp;lt;link /&amp;gt;&lt;/code&gt; no &lt;code&gt;index.html&lt;/code&gt; com o caminho para o &lt;code&gt;style.css&lt;/code&gt;, considerando o &lt;a href=&quot;https://webpack.js.org/configuration/output/#output-publicpath&quot;&gt;&lt;code&gt;publicPath&lt;/code&gt;&lt;/a&gt;.&lt;/p&gt;
+&lt;h4 id=&quot;utilizando-sass&quot;&gt;Utilizando SASS&lt;/h4&gt;
+&lt;p&gt;Para projetos que utilizam SASS, basta alterar a regra do &lt;code&gt;/\.css$/&lt;/code&gt; para &lt;code&gt;\.s[ca]ss$/&lt;/code&gt; e adicionar o &lt;code&gt;sass-loader&lt;/code&gt; depois do &lt;code&gt;css-loader&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;Instalação:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt;npm install sass-loader node-sass webpack --save-dev&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;E a configuração ficará assim:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-javascript&quot;&gt;{
+  &lt;span class=&quot;hljs-attr&quot;&gt;test&lt;/span&gt;: &lt;span class=&quot;hljs-regexp&quot;&gt;/\.s[ca]ss$/&lt;/span&gt;,
+  &lt;span class=&quot;hljs-attr&quot;&gt;use&lt;/span&gt;: [
+    { &lt;span class=&quot;hljs-attr&quot;&gt;loader&lt;/span&gt;: MiniCssExtractPlugin.loader },
+    { &lt;span class=&quot;hljs-attr&quot;&gt;loader&lt;/span&gt;: &lt;span class=&quot;hljs-string&quot;&gt;&quot;css-loader&quot;&lt;/span&gt;, ... }
+    { &lt;span class=&quot;hljs-attr&quot;&gt;loader&lt;/span&gt;: &lt;span class=&quot;hljs-string&quot;&gt;&quot;sass-loader&quot;&lt;/span&gt;, ... }
+  ]
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Para opções de configuração, veja a &lt;a href=&quot;https://github.com/sass/node-sass#options&quot;&gt;documentação do &lt;code&gt;node-sass&lt;/code&gt;&lt;/a&gt;.&lt;/p&gt;
+&lt;h2 id=&quot;dicas&quot;&gt;Dicas&lt;/h2&gt;
+&lt;h3 id=&quot;integrando-com-react&quot;&gt;Integrando com React&lt;/h3&gt;
+&lt;p&gt;O conceito de CSS Modules não é restrito ao uso com React, mas combina muito bem. Tudo que você precisa fazer, após finalizar o setup do projeto, é importar o módulo de CSS e utilizar no &lt;code&gt;className&lt;/code&gt; do componente, bem parecido com o primeiro exemplo deste artigo.&lt;/p&gt;
+&lt;p&gt;Para configurar um projeto React do zero, siga este tutorial: &lt;a href=&quot;https://blog.usejournal.com/creating-a-react-app-from-scratch-f3c693b84658&quot;&gt;Creating a React App... From Scratch.
+&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&quot;typescript--css-modules&quot;&gt;TypeScript + CSS Modules&lt;/h3&gt;
+&lt;p&gt;Caso tenha um projeto que utilize TypeScript e deseja utilizar CSS Modules, será necessário um conjunto de tipos das respectivas classes de CSS. O &lt;em&gt;loader&lt;/em&gt; &lt;a href=&quot;https://github.com/Jimdo/typings-for-css-modules-loader&quot;&gt;typings-for-css-modules-loader&lt;/a&gt; faz esse trabalho. Ela deve ser utilizada no lugar do &lt;code&gt;css-loader&lt;/code&gt; e irá gerar um arquivo &lt;code&gt;.d.ts&lt;/code&gt; para os arquivos CSS do projeto.&lt;/p&gt;
+&lt;h2 id=&quot;conclusão&quot;&gt;Conclusão&lt;/h2&gt;
+&lt;p&gt;Tudo o que foi feito aqui será usado para um outro post, com mais detalhes sobre a utilização de CSS Modules com React. Se liga no &lt;em&gt;feed&lt;/em&gt;!&lt;/p&gt;
+&lt;p&gt;Deixe um comentário, ou vá no repositório desse projeto no GitHub e abra uma issue. Vamos discutir o problema ;)&lt;/p&gt;
+</description>
+        <pubDate>Fri, 27 Jul 2018 00:00:00 +0000</pubDate>
+        <link>https://gabrielprates.com/2018/07/27/preparando-um-projeto-react-para-utilizar-css-modules.html</link>
+        <guid isPermaLink="true">https://gabrielprates.com/2018/07/27/preparando-um-projeto-react-para-utilizar-css-modules.html</guid>
+        
+      </item>
+      <item>
+        <title>React + Tipos + Testes = Qualidade</title>
+        <description>&lt;p&gt;Quando o assunto é qualidade em desenvolvimento, podemos falar sobre legibilidade, performance, custos, produtividade e algumas outras coisas. Vamos falar um pouco sobre algumas ferramentas e práticas que podem ajudar muito na hora de escrever e manter códigos front-end de qualidade.&lt;/p&gt;
+&lt;p&gt;Algum tempo antes do meu &lt;a href=&quot;https://gabrielprates.com/2017/10/21/shell-script-02-io-e-mais.html&quot;&gt;último post&lt;/a&gt;, comecei a estudar bastante sobre testes e queria escrever algo sobre o assunto. Um outro assunto sobre o qual eu já havia lido e então comecei a brincar um pouco, foi o &lt;a href=&quot;https://www.typescriptlang.org/&quot;&gt;TypeScript&lt;/a&gt;. Como nos últimos meses tudo isso (e muito mais) se tornou parte da minha stack como front-end na &lt;a href=&quot;https://www.studiosol.com.br/&quot;&gt;Studio Sol&lt;/a&gt;, decidi escrever um post mais completo, com uma visão mais prática sobre tudo isso.&lt;/p&gt;
+&lt;p&gt;Agora vamos ao que interessa. Para melhor entendimento, vamos dividir este post em algumas partes básicas:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;JavaScript e tipagem&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Tipagem em React&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Cultura de Teste&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;So, let&amp;#39;s go there!&lt;/p&gt;
+&lt;h2 id=&quot;javascript-e-tipagem&quot;&gt;JavaScript e tipagem&lt;/h2&gt;
+&lt;p&gt;Gostaria de começar falando que, se você ainda acha que JavaScript é uma linguagem sem tipagem, tá na hora de mudar esse conceito.&lt;/p&gt;
+&lt;p&gt;JavaScript tem tipos bem definidos sim, e tem valores primitivos dos seguintes tipos:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Undefined&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Null&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Boolean&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Number&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;String&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Symbol&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Objetos partem do escopo do tipo &lt;strong&gt;Object&lt;/strong&gt;, e aqui estamos falando de &lt;strong&gt;&lt;em&gt;Function&lt;/em&gt;&lt;/strong&gt;, &lt;strong&gt;&lt;em&gt;Date&lt;/em&gt;&lt;/strong&gt;, &lt;strong&gt;&lt;em&gt;RegExp&lt;/em&gt;&lt;/strong&gt;, os &lt;em&gt;wrappers&lt;/em&gt; de &lt;strong&gt;&lt;em&gt;String&lt;/em&gt;&lt;/strong&gt;, &lt;strong&gt;&lt;em&gt;Number&lt;/em&gt;&lt;/strong&gt; e &lt;strong&gt;&lt;em&gt;Boolean&lt;/em&gt;&lt;/strong&gt;, vários outros e qualquer um que você crie.&lt;/p&gt;
+&lt;p&gt;Okay, podemos prosseguir.&lt;/p&gt;
+&lt;p&gt;Linguagens fortemente tipadas garantem certo nível de qualidade de código, porque você tem um ambiente, de certa forma, controlado e pode prevenir vários errinhos inesperados. Linguagens fracamente tipadas e de tipagem dinâmica, como JavaScript, apesar da flexibilidade, podem trazer alguns efeitos colaterais para o controle e tratamento dos dados.&lt;/p&gt;
+&lt;p&gt;Nesse ponto, eu gostaria de ressaltar que quando você e seu time entendem bem o comportamento dos tipos e suas coerções dentro da linguagem, vocês podem manipular muita coisa a seu favor. A tipagem dinâmica não é, em si, um problema mortal. No meu caso, quando comecei a desenvolver, eu evitei linguagens fortemente tipadas, ou qualquer coisa que tornasse meu processo de aprendizado mais burocrático, por isso foquei tanto em PHP e depois em JS.&lt;/p&gt;
+&lt;p&gt;Com o passar do tempo, senti a necessidade de algumas garantias a nível de código e tive uma experiência interessante na faculdade, &lt;a href=&quot;https://github.com/gabsprates/JavaPOO&quot;&gt;com Java&lt;/a&gt;. Pude perceber mais clareza e produtividade em alguns trechos de código que escrevia e acredito que muito por causa de tipagem.&lt;/p&gt;
+&lt;p&gt;Ah! &lt;a href=&quot;https://secure.php.net/manual/en/migration70.new-features.php&quot;&gt;A partir da versão 7 do PHP&lt;/a&gt; também temos a possibilidade de deixar o código mais estrito. &lt;strong&gt;;)&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;A evolução do JavaScript, principalmente em 2015, favoreceu muito o desenvolvimento de software, e é perfeitamente possível escrever software robusto com JS puro, o &lt;a href=&quot;https://rocket.chat/&quot;&gt;Rocket.Chat&lt;/a&gt; que o diga. Mas antes disso, a Microsoft já vinha com uma &lt;a href=&quot;https://github.com/Microsoft/TypeScript/blob/master/doc/spec.md&quot;&gt;iniciativa ousada&lt;/a&gt; de criar uma ferramenta robusta para o desenvolvimento de código, o &lt;a href=&quot;https://www.typescriptlang.org/&quot;&gt;TypeScript&lt;/a&gt;, que se destacava pelo seguinte ponto:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;TypeScript starts from the same syntax and semantics that millions of JavaScript developers know today.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Outras linguagens tentaram fazer &amp;quot;o mesmo&amp;quot; que o TypeScript faz (compilar para JS), como por exemplo o &lt;a href=&quot;http://coffeescript.org/&quot;&gt;Coffee Script&lt;/a&gt;, a diferença primordial é o fato da sintaxe e semântica já serem conhecidas. Com a evolução do JS, os adicionais colocados pelo TS parecem mais uma evolução natural da linguagem. Tudo isso favoreceu muito a utilização de TypeScript e claro que não podemos deixar de falar da Google utilizando a linguagem no &lt;a href=&quot;https://angular.io/docs#assumptions&quot;&gt;Angular&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Sim, com TypeScript precisamos escrever um código mais verboso, mas é um custo que vale a pena durante manutenção e reusabilidade, e o resultado final é JavaScript, então é bom demais! Você pode testar um pouco no &lt;a href=&quot;https://www.typescriptlang.org/play/index.html&quot;&gt;&lt;em&gt;playground&lt;/em&gt;&lt;/a&gt; da linguagem.&lt;/p&gt;
+&lt;p&gt;Acho que deu pra entender como o TS se encaixa na história, né? Qualquer dúvida, comenta aí, a gente conversa mais e esclarece tudo.&lt;/p&gt;
+&lt;h2 id=&quot;tipagem-em-react&quot;&gt;Tipagem em React&lt;/h2&gt;
+&lt;p&gt;Como falei, o Angular &lt;code&gt;^2&lt;/code&gt; é escrito com TypeScript e, graças à era Open Source da Microsoft, também podemos usar TS em aplicações Node.js, ou com jQuery, Vue.js, React, etc. Isso acontece porque existe  &lt;code&gt;@types&lt;/code&gt; &lt;a href=&quot;https://www.npmjs.com/~types&quot;&gt;pra quase tudo&lt;/a&gt;!!! Faça o teste, procure por alguma biblioteca que você usa: &lt;a href=&quot;http://microsoft.github.io/TypeSearch/&quot;&gt;TypeSearch&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Eu não vou ensinar instalar e configurar um projeto React pra usar TypeScript, a própria documentação do TS já tem guias pra isso e são bem explicados, dá uma olhadinha nesses links:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https://github.com/Microsoft/TypeScript-React-Starter#typescript-react-starter&quot;&gt;TypeScript React Starter&lt;/a&gt; &amp;lt;- para quem for usar o &lt;code&gt;create-react-app&lt;/code&gt;;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://www.typescriptlang.org/docs/handbook/react-&amp;amp;-webpack.html&quot;&gt;React &amp;amp; Webpack&lt;/a&gt; &amp;lt;- para quem quer instalar na mão, ou começar a usar num projeto já existente;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://www.typescriptlang.org/docs/handbook/jsx.html&quot;&gt;JSX&lt;/a&gt; &amp;lt;- para saber mais.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;O que quero focar aqui, é em pequenos exemplos de como a tipagem ajuda no desenvolvimento &lt;del&gt;e como um editor/IDE pode facilitar as coisas&lt;/del&gt;. Vamos para a prática!&lt;/p&gt;
+&lt;p&gt;Considerando a instalação e configuração manual, disponível no link &lt;strong&gt;React &amp;amp; Webpack&lt;/strong&gt; acima, vou apenas mudar a utilização do &lt;a href=&quot;https://webpack.js.org/&quot;&gt;webpack&lt;/a&gt; e &lt;a href=&quot;https://webpack.js.org/guides/development/#using-webpack-dev-server&quot;&gt;webpack-dev-server&lt;/a&gt;, pra não precisar instalar nada globalmente e não precisar ficar fazendo &lt;em&gt;build&lt;/em&gt; toda hora. Vamos fazer um componente &lt;code&gt;&amp;lt;TodoApp /&amp;gt;&lt;/code&gt;, o mesmo disponível na página do React e o código escrito para este post está disponível &lt;a href=&quot;https://github.com/gabsprates/todo-react-typescript&quot;&gt;neste repositório&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Recomendo o uso do &lt;a href=&quot;https://code.visualstudio.com/&quot;&gt;VS Code&lt;/a&gt;. Ele tem um ótimo suporte, quase que nativo, pro TypeScript, então facilita muita coisa.&lt;/p&gt;
+&lt;p&gt;Ok, o código original do componente é o seguinte:&lt;/p&gt;
+&lt;script src=&quot;https://gist.github.com/gabsprates/f10c28281edc500e54518890c0df09da.js?file=React_TodoApp.js&quot;&gt;&lt;/script&gt;
+
+&lt;p&gt;Vamos dividir esses componentes em arquivos diferentes e ajustar os &lt;code&gt;import&lt;/code&gt;s dos componentes, vai ficar assim:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;src/components/TodoApp.tsx&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;script src=&quot;https://gist.github.com/gabsprates/f10c28281edc500e54518890c0df09da.js?file=Modulos_TodoApp.tsx&quot;&gt;&lt;/script&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;src/components/TodoList.tsx&lt;/code&gt;:&lt;/li&gt;
+&lt;/ul&gt;
+&lt;script src=&quot;https://gist.github.com/gabsprates/f10c28281edc500e54518890c0df09da.js?file=Modulos_TodoList.tsx&quot;&gt;&lt;/script&gt;
+
+&lt;p&gt;E nosso &lt;code&gt;src/index.tsx&lt;/code&gt; fica assim:&lt;/p&gt;
+&lt;script src=&quot;https://gist.github.com/gabsprates/f10c28281edc500e54518890c0df09da.js?file=Modulos_index.tsx&quot;&gt;&lt;/script&gt;
+
+&lt;p&gt;Você pode conferir como o código deve ficar &lt;a href=&quot;https://github.com/gabsprates/todo-react-typescript/tree/modulos&quot;&gt;nesta tag&lt;/a&gt;. Agora, vamos executar o build do webpack com o &lt;code&gt;--watch&lt;/code&gt; e ver o que vai acontecer:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt;$ ./node_modules/.bin/webpack --watch&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;O build vai mostrar vários erros. Isso era realmente o esperado, agora vamos ajustar tudo.&lt;/p&gt;
+&lt;h3 id=&quot;todolist-&quot;&gt;&lt;code&gt;&amp;lt;TodoList /&amp;gt;&lt;/code&gt;&lt;/h3&gt;
+&lt;p&gt;Em primeiro lugar, esse é um componente &lt;em&gt;stateless&lt;/em&gt;, então vamos transformá-lo numa função, pra ficar mais enxuto e performático, assim:&lt;/p&gt;
+&lt;script src=&quot;https://gist.github.com/gabsprates/f10c28281edc500e54518890c0df09da.js?file=Tipos_Pre_TodoList.tsx&quot;&gt;&lt;/script&gt;
+
+&lt;p&gt;Nesse ponto, os erros apontados para este arquivo já foram solucionados, isso porque o compilador estava dizendo que alguns tipos de um componente React não tinham sido especificados.&lt;/p&gt;
+&lt;p&gt;Agora imagine que você e sua equipe devam utilizar este componente em outras partes da aplicação, não apenas do &lt;code&gt;&amp;lt;TodoApp /&amp;gt;&lt;/code&gt;. Pode ser que queiram usar só para renderizar um conjunto de tarefas, ou algo do tipo. Como garantir que sempre vão receber os dados corretos para isso? Podem combinar e escrever isso em algum lugar, mas se o caso é documentar isso e deixar claro pra quem for utilizar o código, é melhor que esses tipos sejam especificados. Então vamos especificar que esse componente deve receber uma &lt;code&gt;prop&lt;/code&gt; chamada &lt;code&gt;items&lt;/code&gt;, que deve ser um array de elementos com uma descrição e um id.&lt;/p&gt;
+&lt;p&gt;Podemos definir esses &amp;quot;modelos&amp;quot; com &lt;code&gt;type&lt;/code&gt; ou &lt;code&gt;interface&lt;/code&gt;, mas acredito que interfaces são mais úteis quando definimos &amp;quot;modelos&amp;quot; (&lt;a href=&quot;https://www.caelum.com.br/apostila-java-orientacao-objetos/interfaces/#interfaces&quot;&gt;ou &amp;quot;contratos&amp;quot;, como algumas pessoas dizem&lt;/a&gt;) para classes/métodos, então vamos criar um tipos mesmo:&lt;/p&gt;
+&lt;script src=&quot;https://gist.github.com/gabsprates/f10c28281edc500e54518890c0df09da.js?file=Tipos_Done_TodoList.tsx&quot;&gt;&lt;/script&gt;
+
+&lt;p&gt;Um pouco mais verboso, né? Vale a pena, você vai ver. O &lt;code&gt;export&lt;/code&gt; do &lt;code&gt;ItemType&lt;/code&gt; também  será útil no próximo componente.&lt;/p&gt;
+&lt;h3 id=&quot;todoapp-&quot;&gt;&lt;code&gt;&amp;lt;TodoApp /&amp;gt;&lt;/code&gt;&lt;/h3&gt;
+&lt;p&gt;Este componente não precisa de uma definição de &lt;code&gt;props&lt;/code&gt;, já que não recebe nada, mas ele contém &lt;code&gt;state&lt;/code&gt;, então é bom definir esses estados. Vamos importar tudo o que precisamos do outro componente e definir o tipo do nosso &lt;code&gt;state&lt;/code&gt;:&lt;/p&gt;
+&lt;script src=&quot;https://gist.github.com/gabsprates/f10c28281edc500e54518890c0df09da.js?file=Tipos_PT1_TodoApp.tsx&quot;&gt;&lt;/script&gt;
+
+&lt;p&gt;Reparou no &lt;code&gt;&amp;lt;{}, StateType&amp;gt;&lt;/code&gt;? Como não precisamos de um modelo de &lt;code&gt;props&lt;/code&gt;, declaramos apenas o modelo dos estados, daí nosso construtor espera que &lt;code&gt;props&lt;/code&gt; seja um objeto vazio, ou seja, não precisa declarar nenhuma prop. Podemos até definir um estado &lt;em&gt;default&lt;/em&gt;, o que ajudaria no caso de querermos reaproveitar esses dados. Veja só:&lt;/p&gt;
+&lt;script src=&quot;https://gist.github.com/gabsprates/f10c28281edc500e54518890c0df09da.js?file=Tipos_PT2_TodoApp.tsx&quot;&gt;&lt;/script&gt;
+
+&lt;p&gt;Isso também poderia ser feito para &lt;code&gt;props&lt;/code&gt;, e se definir um &lt;code&gt;static defaultProps&lt;/code&gt;, o próprio compilador já entende o que deve fazer e inicializa nossas props.&lt;/p&gt;
+&lt;p&gt;Agora os únicos avisos de erro que temos são os tipos dos parâmetros do das funções de &lt;em&gt;handle&lt;/em&gt;. Vamos ajeitar isso antes de inserir uma nova &lt;em&gt;feature&lt;/em&gt; em nosso componente.&lt;/p&gt;
+&lt;script src=&quot;https://gist.github.com/gabsprates/f10c28281edc500e54518890c0df09da.js?file=Tipos_PT3_TodoApp.tsx&quot;&gt;&lt;/script&gt;
+
+&lt;p&gt;O que fizemos até aqui foi definir que nossos componentes devem seguir certo comportamento, mesmo que outra pessoa mexa nesse código, ou reutilize em alguma outra parte da aplicação. Temos &lt;code&gt;state&lt;/code&gt;, &lt;code&gt;props&lt;/code&gt; e métodos com consistência. Mesmo que o resultado final seja JavaScript puro, estamos garantindo integridade e qualidade durante o desenvolvimento.&lt;/p&gt;
+&lt;h3 id=&quot;nova-funcionalidade&quot;&gt;Nova funcionalidade&lt;/h3&gt;
+&lt;p&gt;Agora que tudo já está certinho, e está &lt;a href=&quot;https://github.com/gabsprates/todo-react-typescript/tree/tipos/&quot;&gt;tudo aqui nesta tag&lt;/a&gt;, vamos mexer em algumas coisinhas e criar um método para dar um &lt;em&gt;reset&lt;/em&gt; no nosso componente.&lt;/p&gt;
+&lt;p&gt;Vamos definir o método, fazer o bind no &lt;code&gt;constructor&lt;/code&gt; e criar um &lt;code&gt;&amp;lt;button&amp;gt;&lt;/code&gt; que irá chamá-lo. Vou cortar alguns trechos de código aqui para economizar espaço:&lt;/p&gt;
+&lt;script src=&quot;https://gist.github.com/gabsprates/f10c28281edc500e54518890c0df09da.js?file=Reset_TodoApp.tsx&quot;&gt;&lt;/script&gt;
+
+&lt;p&gt;Viu que reutilizamos o &lt;code&gt;defaultState&lt;/code&gt;? E que nosso novo método não precisa receber nenhum parâmetro e nem precisa especificar?&lt;/p&gt;
+&lt;p&gt;Conseguiu perceber como o código fica mais consistente? Se você estiver usando um editor/IDE bem configurado, vai conseguir ser muito mais produtivo. Faça o teste do VS Code, mas se quiser, pode configurar o Atom, ou Vim também.&lt;/p&gt;
+&lt;p&gt;Agora vamos entrar na parte que eu acho mais interessante: testes!&lt;/p&gt;
+&lt;h2 id=&quot;cultura-de-testes&quot;&gt;Cultura de testes&lt;/h2&gt;
+&lt;p&gt;Aaah, testes...&lt;/p&gt;
+&lt;p&gt;Quantas vezes você tentou trabalhar com uma biblioteca e, mesmo que encontrava algo documentado, não encontrava exemplos e isso dificultava um pouco pra trabalhar com ela? Ou, quantas vezes você mexeu em alguma parte do código e demorou um tempinho até perceber que alguma outra coisa parou de funcionar? Já aconteceu de ter que testar manualmente várias telas, inputs e outputs na aplicação pra garantir que está tudo funcionando depois de uma modificação grande? Pois é, garantir a estabilidade e documentação do seu código, e aplicação de forma geral, pode se tornar mais simples pelo fato de adotar uma cultura de testes de forma automatizada.&lt;/p&gt;
+&lt;p&gt;Vamos focar em testar as partes mais básicas do teu código e as comunicações entre um módulo e outro. O assunto de testes é muito vasto, e eu particularmente gosto bastante, mas vou me conter aqui porque existem várias fontes sobre isso, aqui estão algumas:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Pra quem gosta de ouvir:&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https://www.lambda3.com.br/2016/11/podcast-18-testes/&quot;&gt;https://www.lambda3.com.br/2016/11/podcast-18-testes/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://hipsters.tech/testes-automatizados-hipsters-51/&quot;&gt;https://hipsters.tech/testes-automatizados-hipsters-51/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://zofe.com.br/posts/voce-testa-se-o-teste-do-codigo-testado-testavel/&quot;&gt;http://zofe.com.br/posts/voce-testa-se-o-teste-do-codigo-testado-testavel/&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;ul&gt;
+&lt;li&gt;Pra quem gosta de ler:&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https://willianjusten.com.br/entendendo-testes-de-software/&quot;&gt;https://willianjusten.com.br/entendendo-testes-de-software/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://blog.umbler.com/br/qualidade-de-software-1-7-motivos-para-considerar-o-teste-de-software-indispensavel/&quot;&gt;https://blog.umbler.com/br/qualidade-de-software-1-7-motivos-para-considerar-o-teste-de-software-indispensavel/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://jcemer.com/voce-e-irresponsavel-por-nao-escrever-testes-de-front-end.html&quot;&gt;https://jcemer.com/voce-e-irresponsavel-por-nao-escrever-testes-de-front-end.html&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Aqui eu vou focar mais nos testes unitários da nossa aplicação. Existem várias ferramentas diferentes para testar código JavaScript, e TypeScript no nosso caso. Eu escolhi falar sobre Jest por alguns motivos e dentre eles, &lt;del&gt;porque é o que eu uso no meu dia-a-dia&lt;/del&gt; porque é simples de configurar. Ambientes de teste podem dar dor de cabeça para configurar, principalmente no ecossistema JS atuais (vede data da publicação). O maior complicador aqui é a configuração para testar nosso código TypeScript, mas mesmo assim é simples.&lt;/p&gt;
+&lt;h3 id=&quot;preparando-ambiente&quot;&gt;Preparando ambiente&lt;/h3&gt;
+&lt;p&gt;No ponto que nossa aplicação está, precisamos configurar tudo para fazer com que nosso código TypeScript seja testado pelo Jest. Para isso, vamos seguir alguns passos:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Terminar a instalação do ambiente React com webpack e Babel (no link abaixo tem outros links pro Babel e como configurar tudinho, mas na prática é pouca coisa):&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https://reactjs.org/docs/add-react-to-an-existing-app.html&quot;&gt;https://reactjs.org/docs/add-react-to-an-existing-app.html&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Devemos     inserir o &lt;code&gt;babel-loader&lt;/code&gt; na mesma &lt;em&gt;&lt;strong&gt;rule&lt;/strong&gt;&lt;/em&gt; do &lt;code&gt;awesome-typescript-loader&lt;/code&gt;, assim:&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;use: [ { loader: &amp;quot;babel-loader&amp;quot; }, { loader: &amp;quot;awesome-typescript-loader&amp;quot; } ]&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;ol start=&quot;2&quot;&gt;
+&lt;li&gt;Instalar o Jest e &lt;strong&gt;ts-jest&lt;/strong&gt;:&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https://facebook.github.io/jest/docs/en/tutorial-react.html#setup-without-create-react-app&quot;&gt;https://facebook.github.io/jest/docs/en/tutorial-react.html#setup-without-create-react-app&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://github.com/kulshekhar/ts-jest#usage&quot;&gt;https://github.com/kulshekhar/ts-jest#usage&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;ol start=&quot;3&quot;&gt;
+&lt;li&gt;Instalar o &lt;strong&gt;Enzyme&lt;/strong&gt;, o seu adaptador para a versão do React que estamos utilizando (v. 16) e os tipos:&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;http://airbnb.io/enzyme/docs/installation/#working-with-react-16&quot;&gt;http://airbnb.io/enzyme/docs/installation/#working-with-react-16&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;@types/enzyme&lt;/code&gt; e &lt;code&gt;@types/enzyme-adapter-react-16&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Como estamos trabalhando com TypeScript, crie o arquivo &lt;code&gt;enzyme.adapter.tsx&lt;/code&gt; com o conteúdo referenciado abaixo e coloque ele no &lt;code&gt;setupFiles&lt;/code&gt; da configuração do Jest no &lt;code&gt;package.json&lt;/code&gt; (deve ter sido criado no passo 2):&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;script src=&quot;https://gist.github.com/gabsprates/f10c28281edc500e54518890c0df09da.js?file=enzyme_config.js&quot;&gt;&lt;/script&gt;
+
+&lt;p&gt;Agora é só criar uma tarefa de testes no npm:&lt;/p&gt;
+&lt;script src=&quot;https://gist.github.com/gabsprates/f10c28281edc500e54518890c0df09da.js?file=package_test.json&quot;&gt;&lt;/script&gt;
+
+&lt;p&gt;O resultado final dessas alterações pode ser visto &lt;a href=&quot;https://github.com/gabsprates/todo-react-typescript/commit/48f8f87bf6bb28f633d971dfa5c258c46cbc5ae1&quot;&gt;neste commit&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Esclarecendo as coisas, o Jest é uma biblioteca para testar código JavaScript, já o Enzyme vai nos proporcionar toda dinâmica de renderização e manipulação de DOM que o browser faz. Agora vamos escrever nossos testes.&lt;/p&gt;
+&lt;h3 id=&quot;começando-a-testar&quot;&gt;Começando a testar&lt;/h3&gt;
+&lt;p&gt;Para escrever nossos testes e fazer com que o Jest faça seu trabalho, só precisamos seguir a definição da própria biblioteca:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Place your tests in a &lt;code&gt;__tests__&lt;/code&gt; folder, or name your test files with a &lt;code&gt;.spec.js&lt;/code&gt; or &lt;code&gt;.test.js&lt;/code&gt; extension.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;No nosso caso, vamos criar um diretório &lt;code&gt;__tests__&lt;/code&gt;, que irá seguir a mesma estrutura do nosso diretório &lt;code&gt;src&lt;/code&gt;, então vamos criar nosso primeiro teste, o do nosso componente &lt;code&gt;&amp;lt;TodoList /&amp;gt;&lt;/code&gt;, que é &lt;em&gt;stateless&lt;/em&gt;:&lt;/p&gt;
+&lt;script src=&quot;https://gist.github.com/gabsprates/f10c28281edc500e54518890c0df09da.js?file=Teste_TodoList.tsx&quot;&gt;&lt;/script&gt;
+
+&lt;p&gt;Muita informação de uma vez, mas vou explicar tudo. Seguinte:&lt;/p&gt;
+&lt;p&gt;Primeiro nós importamos as coisas necessárias para nosso teste: o React, a função &lt;code&gt;render&lt;/code&gt; do Enzyme (vou mais sobre isso) e o nosso componente; depois criamos um &lt;em&gt;mock&lt;/em&gt;, que é um conjunto de dados que será usado para testes; descrevemos o nosso contexto de teste e começamos especificar os casos. O primeiro caso deve renderizar a &lt;code&gt;&amp;lt;ul&amp;gt;&lt;/code&gt; com uma &lt;code&gt;&amp;lt;li&amp;gt;&lt;/code&gt;, daí mandamos o &lt;code&gt;render()&lt;/code&gt; fazer o trabalho dele e então fizemos uma busca dentro do que foi renderizado para então verificar se a quantidade de itens estava certa e o texto também, com o &lt;code&gt;expect()&lt;/code&gt;. O segundo caso é praticamente a mesma coisa, mas com mais itens, e pra não ficar repetitivo, usamos o &lt;code&gt;forEach()&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;Como falei, utilizamos o &lt;a href=&quot;http://airbnb.io/enzyme/docs/api/render.html&quot;&gt;&lt;code&gt;render()&lt;/code&gt;&lt;/a&gt; do Enzyme e ele a melhor escolha para testar componentes estáticos, sem estado, como esse nosso componente do teste. Também temos as funções &lt;a href=&quot;http://airbnb.io/enzyme/docs/api/shallow.html&quot;&gt;&lt;code&gt;shallow()&lt;/code&gt;&lt;/a&gt; e &lt;a href=&quot;http://airbnb.io/enzyme/docs/api/mount.html&quot;&gt;&lt;code&gt;mount()&lt;/code&gt;&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;O &lt;code&gt;shallow&lt;/code&gt; faz a montagem e renderização no nível do componente e testa o componente como uma unidade, ou seja, se você tiver componentes filhos, eles não serão montados e não vão afetar o teste do componente em questão.&lt;/p&gt;
+&lt;p&gt;Já o &lt;code&gt;mount&lt;/code&gt; vai montar toda a árvore de componentes, &lt;em&gt;&amp;quot;da raiz até as folhas&amp;quot;&lt;/em&gt;, e toda a respectiva estrutura do DOM. Isso é muito bom pra testar integração entre componentes.&lt;/p&gt;
+&lt;p&gt;Vamos testar nosso próximo componente, o &lt;code&gt;&amp;lt;TodoApp /&amp;gt;&lt;/code&gt;. Primeiro vamos testar a renderização e depois o disparo dos métodos de &lt;em&gt;handle&lt;/em&gt;. Aqui está:&lt;/p&gt;
+&lt;script src=&quot;https://gist.github.com/gabsprates/f10c28281edc500e54518890c0df09da.js?file=Teste_TodoApp.tsx&quot;&gt;&lt;/script&gt;
+
+&lt;p&gt;Como falei, esses testes tem muito conteúdo, então vou citar algumas particularidades deles aqui:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https://facebook.github.io/jest/docs/en/jest-object.html#jestspyonobject-methodname&quot;&gt;&lt;code&gt;jest.spyOn&lt;/code&gt;&lt;/a&gt; nos permite observar uma função, que no caso foi um método do prototype do componente. Poderíamos até substituir essa função por outra com o &lt;code&gt;jest.spyOn(...).mockImplementation(novaFuncao)&lt;/code&gt;;&lt;/li&gt;
+&lt;li&gt;Podemos simular eventos com o &lt;a href=&quot;http://airbnb.io/enzyme/docs/api/ShallowWrapper/simulate.html&quot;&gt;&lt;code&gt;.simulate()&lt;/code&gt; do Enzyme&lt;/a&gt; e, dependendo do caso, precisamos passar um objeto como para definir o escopo do evento que precisamos;&lt;/li&gt;
+&lt;li&gt;Podemos acessar a instância do componente montado. O Enzyme nos dá um &amp;quot;container&amp;quot; de manipulação do componente, mas podemos acessar o próprio componente alocado na memória e acessar métodos, &lt;code&gt;state&lt;/code&gt;, &lt;code&gt;props&lt;/code&gt;, etc.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&quot;integrando-os-testes&quot;&gt;Integrando os testes&lt;/h3&gt;
+&lt;p&gt;Testamos nossos componentes como unidades, os famosos testes unitários, mas também podemos fazer o que chamamos de testes de integração: montar tudo e testar o funcionamento da coisa como um todo. Podemos fazer isso com o &lt;code&gt;mount&lt;/code&gt; do Enzyme. Aí seria mais ou menos assim:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Montar o componente (&lt;code&gt;mount(&amp;lt;TodoApp /&amp;gt;)&lt;/code&gt;);&lt;/li&gt;
+&lt;li&gt;Testar o funcionamento do formulário (com o &lt;code&gt;handleChange&lt;/code&gt; e &lt;code&gt;handleSubmit&lt;/code&gt;);&lt;/li&gt;
+&lt;li&gt;E então testar se a inserção de novos itens fazem o &lt;code&gt;&amp;lt;TodoList /&amp;gt;&lt;/code&gt; renderizar mais &lt;code&gt;&amp;lt;li&amp;gt;&lt;/code&gt; dentro d a&lt;code&gt;&amp;lt;ul&amp;gt;&lt;/code&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;conclusão&quot;&gt;Conclusão&lt;/h2&gt;
+&lt;p&gt;Trabalhar com uma linguagem tipada pode ajudar muito a garantir um bom código, pode deixá-lo mais claro, estrito e menos sujeito ao uso incorreto de alguma função.&lt;/p&gt;
+&lt;p&gt;Testar esse código ajuda muito na manutenção e para saber se tudo está funcionando em conjunto (testes de integração). Mas não se engane, como diria &lt;a href=&quot;https://twitter.com/leobalter&quot;&gt;Leo Balter&lt;/a&gt; (&lt;a href=&quot;http://zofe.com.br/posts/voce-testa-se-o-teste-do-codigo-testado-testavel/&quot;&gt;no ZOFE #8&lt;/a&gt;):&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Teste não diz que sua aplicação está funcionando, ou que ela está fazendo o que ela deveria fazer. Só diz que está testado.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Por isso é preciso definir bem o que será testado. Só testes unitários não resolvem tudo. Você pode até usar algumas técnicas como TDD para tentar guiar a escrita do seu código e se testar bem suas integrações, sempre terá um feedback do que não estiver funcionando corretamente após alguma alteração.&lt;/p&gt;
+&lt;p&gt;Isso dá espaço para falar de &lt;em&gt;code coverage&lt;/em&gt;, mas isso é assunto para outro post.&lt;/p&gt;
+&lt;p&gt;Bom... isso é tudo, por agora.&lt;/p&gt;
+&lt;p&gt;Até a próxima.&lt;/p&gt;
+&lt;p&gt;(:&lt;/p&gt;
+&lt;hr/&gt;
+&lt;h3 id=&quot;referências&quot;&gt;Referências&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;http://www.ecma-international.org/ecma-262/#sec-ecmascript-language-types&quot;&gt;http://www.ecma-international.org/ecma-262/#sec-ecmascript-language-types&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://jcemer.com/types-in-javascript-what-you-should-care.html&quot;&gt;https://jcemer.com/types-in-javascript-what-you-should-care.html&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://tableless.com.br/guia-completo-react-ecossistema/&quot;&gt;https://tableless.com.br/guia-completo-react-ecossistema/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://tableless.com.br/diga-ola-ao-typescript-e-adeus-ao-javascript/&quot;&gt;https://tableless.com.br/diga-ola-ao-typescript-e-adeus-ao-javascript/&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        <pubDate>Mon, 19 Mar 2018 00:00:00 +0000</pubDate>
+        <link>https://gabrielprates.com/2018/03/19/react-tipos-testes-qualidade.html</link>
+        <guid isPermaLink="true">https://gabrielprates.com/2018/03/19/react-tipos-testes-qualidade.html</guid>
+        
+      </item>
+      <item>
+        <title>Shell Script -n2 --io-e-mais</title>
+        <description>&lt;p&gt;Já viu a expressão &lt;strong&gt;I/O&lt;/strong&gt;? I/O não é só o nome de um evento do Google, nem só uma extensão de sites hospedados no GitHub Pages. I/O é uma expressão que significa &lt;em&gt;Input&lt;/em&gt; (entrada) e &lt;em&gt;Output&lt;/em&gt; (saída), que são duas peças fundamentais para a computação. Vamos falar de como isso funciona no Bash.&lt;/p&gt;
+&lt;p&gt;Lembrando que este artigo faz parte de uma série de artigos que estou escrevendo sobre Shell Script. Não sei quantos serão, nem qual será a periodicidade, mas aqui estão os links:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;/2017/01/08/shell-script-01-introducao.html&quot;&gt;Shell Script -n1 --intro&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;/2017/10/21/shell-script-02-io-e-mais.html&quot;&gt;Shell Script -n2 --io-e-mais&lt;/a&gt; &amp;lt;-- você está aqui&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;conceitos&quot;&gt;Conceitos&lt;/h2&gt;
+&lt;p&gt;Bom, o processo de I/O pode ser considerado a comunicação entre sistemas, ou a troca de informações entre sistemas (e aqui dá até pra abstrair o conceito de sistemas). Podemos interagir com os dispositivos por meio de periféricos de entrada e saída (&lt;del&gt;lembra disso em alguma aula?&lt;/del&gt;), ou com algum serviço por meio de suas respectivas APIs.&lt;/p&gt;
+&lt;p&gt;Quando falamos de entradas e saídas no ambiente do Bash, também temos formas de fazer os programas se comunicarem e para isso, precisamos entender os 3 tipos do que chamamos de &lt;strong&gt;&lt;em&gt;File Descriptors&lt;/em&gt;&lt;/strong&gt;, que nada mais são que a forma como os programas se referem aos recursos (arquivos, sockets, dispositivos, etc).&lt;/p&gt;
+&lt;p&gt;São eles:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Standard Input&lt;/strong&gt; (&lt;code&gt;stdin&lt;/code&gt;): File Descriptor &lt;strong&gt;0&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Standard Output&lt;/strong&gt; (&lt;code&gt;stdout&lt;/code&gt;): File Descriptor &lt;strong&gt;1&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Standard Error&lt;/strong&gt; (&lt;code&gt;stderr&lt;/code&gt;): File Descriptor &lt;strong&gt;2&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Não quero entrar em muitos detalhes dos &lt;em&gt;File Descriptors&lt;/em&gt;, mas tenha em mente os &lt;code&gt;std*&lt;/code&gt;s e seus respectivos números, vamos precisar para os próximos tópicos.&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;So let&amp;#39;s go there!&lt;/em&gt;&lt;/p&gt;
+&lt;h2 id=&quot;input--stdin&quot;&gt;Input / &lt;code&gt;stdin&lt;/code&gt;&lt;/h2&gt;
+&lt;p&gt;Ok, vamos falar agora sobre os inputs. Temos estes três tipos:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Redirecionamento&lt;/strong&gt;: &lt;code&gt;&amp;lt;&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Heredoc&lt;/strong&gt;: &lt;code&gt;&amp;lt;&amp;lt;&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Herestring&lt;/strong&gt;: &lt;code&gt;&amp;lt;&amp;lt;&amp;lt;&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&quot;redirecionamento&quot;&gt;Redirecionamento: &lt;code&gt;&amp;lt;&lt;/code&gt;&lt;/h3&gt;
+&lt;p&gt;Confesso que pode parecer um pouco inútil redirecionar uma entrada, já que a maioria dos comandos aceita um arquivo ou string de entrada. Quem me fez enxergar que não é inútil foi o &lt;a href=&quot;https://twitter.com/juliobash&quot;&gt;Julio Neves&lt;/a&gt;, quando troquei uma ideia com ele na Latinoware 2017. Tenha em mente que se existe uma possibilidade no Bash, ela não está lá por acaso. Vamos ver o comando &lt;code&gt;tr&lt;/code&gt; como exemplo, já que ele espera uma input padrão:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt;&lt;span class=&quot;hljs-comment&quot;&gt;# Podemos redirecionar o output com o `|`, que ainda vamos ver aqui.&lt;/span&gt;
+$ cat index.html | tr [:lower:] [:upper:]
+
+&lt;span class=&quot;hljs-comment&quot;&gt;# Ou dispensar a execução do `cat`, fazendo o redirecionamento com `&amp;lt;`:&lt;/span&gt;
+$ tr [:lower:] [:upper:] &amp;lt; index.html&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Então, existem comandos que necessitam, e só funcionam, com o input padrão. Nesses casos o &lt;code&gt;&amp;lt;&lt;/code&gt; é muito útil.&lt;/p&gt;
+&lt;p&gt;Agora vamos pro próximo.&lt;/p&gt;
+&lt;h3 id=&quot;heredoc&quot;&gt;Heredoc: &lt;code&gt;&amp;lt;&amp;lt;&lt;/code&gt;&lt;/h3&gt;
+&lt;p&gt;Pra mim, este é a mais interessante e útil forma de manipular input no Bash. O &lt;strong&gt;Heredoc&lt;/strong&gt; te permite entrar com um bloco de conteúdo, como se fosse um documento.&lt;/p&gt;
+&lt;p&gt;Já aconteceu várias vezes de eu ter um texto no &lt;em&gt;clipboard&lt;/em&gt; e precisar fazer alguma manipulação específica com ele. O problema de jogar um texto com quebras de linha no terminal é que, ao encontrar o &lt;em&gt;EOL&lt;/em&gt; (End Of Line), o Bash tenta executar aquela input, daí não adiantava eu colar lá. Uma opção era abrir o Vim e salvar o arquivo de texto pra fazer o que fosse necessário, mas aí eu ainda teria de manipular tudo depois.&lt;/p&gt;
+&lt;p&gt;Daí eu conheci o &lt;strong&gt;Heredoc&lt;/strong&gt; e percebi como isso se resolve fácil. Ao invés de precisar abrir o Vim, Nano, ou qualquer outro editor para salvar o texto em questão, podemos utilizar a seguinte sintaxe:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt;&lt;span class=&quot;hljs-comment&quot;&gt;# Não se preocupe com o `&amp;gt;`, é um redirecionamento de output.&lt;/span&gt;
+&lt;span class=&quot;hljs-comment&quot;&gt;# Falo mais sobre isso depois.&lt;/span&gt;
+&lt;span class=&quot;hljs-comment&quot;&gt;# Agora preste atenção na sintaxe do heredoc:&lt;/span&gt;
+$ cat &amp;lt;&amp;lt;TEXTO &amp;gt; lorem_ipsum.txt
+Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed &lt;span class=&quot;hljs-keyword&quot;&gt;do&lt;/span&gt;
+eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
+ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+aliquip ex ea commodo consequat.
+
+Duis aute irure dolor &lt;span class=&quot;hljs-keyword&quot;&gt;in&lt;/span&gt; reprehenderit &lt;span class=&quot;hljs-keyword&quot;&gt;in&lt;/span&gt; voluptate velit esse
+cillum dolore eu fugiat nulla pariatur.
+
+Excepteur sint occaecat cupidatat non proident, sunt &lt;span class=&quot;hljs-keyword&quot;&gt;in&lt;/span&gt; culpa qui
+officia deserunt mollit anim id est laborum.
+TEXTO&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;O delimitador &lt;code&gt;TEXTO&lt;/code&gt; não é um padrão. Você pode utilizar qualquer string com caracteres alfanuméricos, então poderia ser &lt;code&gt;ARQUIVO&lt;/code&gt;, &lt;code&gt;INPUT&lt;/code&gt;, ou &lt;code&gt;EOL&lt;/code&gt; como em vários exemplos por aí. O importante mesmo é &lt;strong&gt;sempre abrir e fechar&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;Ok, next.&lt;/p&gt;
+&lt;h3 id=&quot;herestring&quot;&gt;Herestring: &lt;code&gt;&amp;lt;&amp;lt;&amp;lt;&lt;/code&gt;&lt;/h3&gt;
+&lt;p&gt;Seguindo a mesma ideia do Heredoc, o &lt;strong&gt;Herestring&lt;/strong&gt; te permite a input de uma string. Com o &lt;strong&gt;Herestring&lt;/strong&gt; você pode, por exemplo, fazer uma busca numa string grande que você tem, nada que não pudesse fazer com o Heredoc, mas aqui não precisamos do delimitador. Exemplo:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt;$ grep quis &amp;lt;&amp;lt;&amp;lt; &lt;span class=&quot;hljs-string&quot;&gt;&quot;Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.&quot;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Daí você pode usar esta solução para o problema que se encaixar melhor, só não se esqueça de colocar a string &lt;strong&gt;sempre entre aspas&lt;/strong&gt;!&lt;/p&gt;
+&lt;p&gt;Pronto, agora que falamos das inputs, &lt;em&gt;let&amp;#39;s to talk about outputs&lt;/em&gt;.&lt;/p&gt;
+&lt;h2 id=&quot;output--stdout&quot;&gt;Output / &lt;code&gt;stdout&lt;/code&gt;&lt;/h2&gt;
+&lt;p&gt;Sobre outputs, precisamos falar sobre estes dois tipos:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Redirecionamento&lt;/strong&gt;: &lt;code&gt;&amp;gt;&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Append&lt;/strong&gt; (&lt;em&gt;Acrescentar&lt;/em&gt;): &lt;code&gt;&amp;gt;&amp;gt;&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&quot;redirecionamento-1&quot;&gt;Redirecionamento: &lt;code&gt;&amp;gt;&lt;/code&gt;&lt;/h3&gt;
+&lt;p&gt;Como você pôde ver no exemplo do Heredoc (&lt;code&gt;cat &amp;lt;&amp;lt;TEXTO &amp;gt; lorem_ipsum.txt&lt;/code&gt;), o caractere &lt;code&gt;&amp;gt;&lt;/code&gt; direcionou a saída do comando para um arquivo chamado &lt;code&gt;lorem_ipsum.txt&lt;/code&gt;. É só isso que ele faz mesmo, mas aí você pode aplicar à várias situações. Exemplo:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt;&lt;span class=&quot;hljs-comment&quot;&gt;# Salvar o nome de todos os arquivos em `/tmp`.&lt;/span&gt;
+$ ls /tmp &amp;gt; files.txt
+
+&lt;span class=&quot;hljs-comment&quot;&gt;# E com o `cat` você pode ver o que foi escrito:&lt;/span&gt;
+$ cat files.txt&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Quando se está escrevendo um script Bash para executar várias ações, isso é uma mão na roda, porque dá pra salvar um conteúdo prévio e utilizar quando necessário.&lt;/p&gt;
+&lt;p&gt;Aí você pergunta:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Mas e se eu quiser ACRESCENTAR conteúdo no fim desse mesmo arquivo, posso utilizar o &lt;code&gt;&amp;gt;&lt;/code&gt;?&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Poder pode, mas saiba de uma coisa:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Ao utilizar o &lt;code&gt;&amp;gt;&lt;/code&gt; para um arquivo, se este arquivo não existir, ele será criado; se &lt;strong&gt;já existir, ele tem seu conteúdo reescrito&lt;/strong&gt;.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Pode até ser útil em alguns casos, mas para resolver este problema, permita-me apresentar o próximo item.&lt;/p&gt;
+&lt;h3 id=&quot;append&quot;&gt;Append: &lt;code&gt;&amp;gt;&amp;gt;&lt;/code&gt;&lt;/h3&gt;
+&lt;p&gt;Respondendo a pergunta anterior, para acrescentar conteúdo no fim de um arquivo, você pode usar o operador de &lt;em&gt;append&lt;/em&gt;: &lt;code&gt;&amp;gt;&amp;gt;&lt;/code&gt;. Pronto, só isso mesmo. Um exemplo de situação real seria o direcionamento da saída de um &lt;code&gt;ls&lt;/code&gt;. Exemplo:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt;&lt;span class=&quot;hljs-comment&quot;&gt;# O comando a seguir vai salvar todos os arquivos e diretórios visíveis&lt;/span&gt;
+&lt;span class=&quot;hljs-comment&quot;&gt;# do teu diretório `$HOME`, dentro de `conteudo_user.txt`:&lt;/span&gt;
+$ ls ~ &amp;gt; conteudo_user.txt&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Agora me diga, você já tentou executar algum processo específico e até mandou salvar a saída em algum lugar, mas acabou mostrando mensagens de erro? Então, é agora que passamos para o próximo tópico deste artigo.&lt;/p&gt;
+&lt;h2 id=&quot;erros--stderr&quot;&gt;Erros / &lt;code&gt;stderr&lt;/code&gt;&lt;/h2&gt;
+&lt;p&gt;Sim, os erros continuam aparecendo mesmo que você redirecione o output do comando. Isso acontece porque nós também temos o &lt;code&gt;stderr&lt;/code&gt;, aquele &lt;em&gt;File Descriptor&lt;/em&gt; para os erros. Podemos brincar com ele das seguintes formas:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Redirecionamento&lt;/strong&gt;: &lt;code&gt;2&amp;gt;&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Redirecionamento duplo&lt;/strong&gt;: &lt;code&gt;&amp;amp;&amp;gt;&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&quot;redirecionamento-de-erro-2&quot;&gt;Redirecionamento de erro: &lt;code&gt;2&amp;gt;&lt;/code&gt;&lt;/h3&gt;
+&lt;p&gt;Basicamente, é a mesma coisa do redirecionamento de output normal, a única diferença é que você identifica o &lt;em&gt;File Descriptor&lt;/em&gt; com que está trabalhando. De resto, funciona da mesma forma.&lt;/p&gt;
+&lt;p&gt;Aqui eu devo falar uma coisa importante:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;A identificação do &lt;em&gt;FD&lt;/em&gt; é opcional para os outros casos, menos para o redirecionamento de erros.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Isso significa que:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;&amp;lt;&lt;/code&gt; é o mesmo que &lt;code&gt;0&amp;lt;&lt;/code&gt;;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;&amp;lt;&amp;lt;&lt;/code&gt; é o mesmo que &lt;code&gt;0&amp;lt;&amp;lt;&lt;/code&gt;;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;&amp;lt;&amp;lt;&amp;lt;&lt;/code&gt; é o mesmo que &lt;code&gt;0&amp;lt;&amp;lt;&amp;lt;&lt;/code&gt;;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;&amp;gt;&lt;/code&gt; é o mesmo que &lt;code&gt;1&amp;gt;&lt;/code&gt;;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;&amp;gt;&amp;gt;&lt;/code&gt; é o mesmo que &lt;code&gt;1&amp;gt;&amp;gt;&lt;/code&gt;;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Mas o &lt;code&gt;2&amp;gt;&lt;/code&gt; sempre precisa do &lt;code&gt;2&lt;/code&gt;, para dizer que é realmente o &lt;em&gt;FD&lt;/em&gt; de erro. Caso contrário ele é tratado como output normal.&lt;/p&gt;
+&lt;p&gt;Uma outra coisa aqui é que você também pode usar o &lt;em&gt;append&lt;/em&gt; para esse caso:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt;&lt;span class=&quot;hljs-comment&quot;&gt;# Salvar o log de uma app em Node:&lt;/span&gt;
+$ node server.js 2&amp;gt;&amp;gt; /tmp/node-app.log&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Até aqui tudo bem? Todas as responsabilidades separadas e tudo bonitinho. Maaas e se quisermos salvar tanto output quanto erros no mesmo arquivo?&lt;/p&gt;
+&lt;h3 id=&quot;redirecionamento-de-output-e-erro&quot;&gt;Redirecionamento de output e erro: &lt;code&gt;&amp;amp;&amp;gt;&lt;/code&gt;&lt;/h3&gt;
+&lt;p&gt;Não poderia ser mais simples! É só direcionar a saída de ambos com o &lt;code&gt;&amp;amp;&amp;gt;&lt;/code&gt;. Não sei o nome desse operador, mas ele resolve esse problema. Então:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt;&lt;span class=&quot;hljs-comment&quot;&gt;# Salvar qualquer saída de uma app em Node:&lt;/span&gt;
+$ node server.js &amp;amp;&amp;gt; /tmp/node-app.log&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Alguma dúvida até aqui? Vamos prosseguir?&lt;/p&gt;
+&lt;h2 id=&quot;e-o-pipe-&quot;&gt;E o pipe: &lt;code&gt;|&lt;/code&gt;&lt;/h2&gt;
+&lt;p&gt;Até aqui já vimos sobre os redirecionamentos e como podemos trabalhar com eles. Apesar de que os exemplos que mostrei foram todos em linha de comando, também podemos usar tudo que foi estudado aqui em nossos scripts. Nosso próximo item não fica de fora.&lt;/p&gt;
+&lt;p&gt;Provavelmente você já viu o &lt;strong&gt;pipe&lt;/strong&gt; por aí. Por definição, temos o seguinte:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;A &lt;strong&gt;pipeline&lt;/strong&gt; is a sequence of one or more commands separated by one of the control operators ‘&lt;code&gt;|&lt;/code&gt;’ or ‘&lt;code&gt;|&amp;amp;&lt;/code&gt;’.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Mas essa definição, apesar de oficial, não deixa as coisas muito claras. Então, veja esta:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;O pipe é uma sequência de um ou mais comando conectados, onde o &lt;code&gt;stdout&lt;/code&gt; do anterior é conectado ao &lt;code&gt;stdin&lt;/code&gt; do próximo.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Vamos olhar aquele exemplo que eu mostrei novamente:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt;&lt;span class=&quot;hljs-comment&quot;&gt;# O output do `cat` é conectado ao input do `tr`&lt;/span&gt;
+$ cat index.html | tr [:lower:] [:upper:]&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Então, o &lt;code&gt;|&lt;/code&gt; funciona como um conector de input e output. Sempre o comando anterior passando dados para próximo comando. Veja este outro exemplo:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt;&lt;span class=&quot;hljs-comment&quot;&gt;# Isto vai listar todo o conteúdo do diretório&lt;/span&gt;
+&lt;span class=&quot;hljs-comment&quot;&gt;# e conectar esse output com o input do `grep`;&lt;/span&gt;
+&lt;span class=&quot;hljs-comment&quot;&gt;#&lt;/span&gt;
+&lt;span class=&quot;hljs-comment&quot;&gt;# O `grep` vai filtrar os nomes que contém espaço&lt;/span&gt;
+&lt;span class=&quot;hljs-comment&quot;&gt;# e conectar esse output com o input do `tr`;&lt;/span&gt;
+&lt;span class=&quot;hljs-comment&quot;&gt;#&lt;/span&gt;
+&lt;span class=&quot;hljs-comment&quot;&gt;# O `tr` substitui os espaços por underlines e&lt;/span&gt;
+&lt;span class=&quot;hljs-comment&quot;&gt;# salva a saída para o arquivo `names.txt`&lt;/span&gt;
+$ ls | grep &lt;span class=&quot;hljs-string&quot;&gt;&apos; &apos;&lt;/span&gt; | tr &lt;span class=&quot;hljs-string&quot;&gt;&apos; &apos;&lt;/span&gt; &lt;span class=&quot;hljs-string&quot;&gt;&apos;_&apos;&lt;/span&gt; &amp;gt; names.txt&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Conseguiu perceber o poder do &lt;code&gt;|&lt;/code&gt;? Conseguimos realizar várias ações de uma vez e, como isso é tudo do &lt;em&gt;built in&lt;/em&gt; do Bash, é super rápido.&lt;/p&gt;
+&lt;p&gt;Viu que legal? Consegue perceber o quão poderoso é manipular I/O?&lt;/p&gt;
+&lt;h2 id=&quot;conclusão&quot;&gt;Conclusão&lt;/h2&gt;
+&lt;p&gt;Trabalhar com esses redirecionamentos de informações é muito útil. Você pode criar seus scripts pessoais, ou automatizar alguma coisa no trabalho, como envio de e-mails, logs, rotinas, etc.&lt;/p&gt;
+&lt;p&gt;Conhecer e estudar I/O no Bash me ajudou muito no meu dia-a-dia, espero que eu tenha te ajudado também. Caso tenha alguma dúvida, deixe um comentário ou me chame no Twitter, será um prazer falar contigo.&lt;/p&gt;
+&lt;p&gt;Isso é tudo pessoal, até a próxima.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;(:&lt;/strong&gt;&lt;/p&gt;
+&lt;hr/&gt;
+&lt;h3 id=&quot;referências&quot;&gt;Referências&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;http://mywiki.wooledge.org/BashGuide/InputAndOutput&quot;&gt;http://mywiki.wooledge.org/BashGuide/InputAndOutput&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://bash.cyberciti.biz/guide/Main_Page&quot;&gt;https://bash.cyberciti.biz/guide/Main_Page&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://www.gnu.org/software/bash/manual/bashref.html#Redirections&quot;&gt;http://www.gnu.org/software/bash/manual/bashref.html#Redirections&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        <pubDate>Sat, 21 Oct 2017 00:00:00 +0000</pubDate>
+        <link>https://gabrielprates.com/2017/10/21/shell-script-02-io-e-mais.html</link>
+        <guid isPermaLink="true">https://gabrielprates.com/2017/10/21/shell-script-02-io-e-mais.html</guid>
+        
+      </item>
+      <item>
+        <title>Bem-vindos ao Sapucaia.Tech</title>
+        <description>&lt;blockquote&gt;
+&lt;p&gt;I have a dream...&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Não existem palavras mais oportunas que as de Martin Luther King Jr., em seu &lt;a href=&quot;http://americanrhetoric.com/speeches/mlkihaveadream.htm&quot;&gt;famoso discurso&lt;/a&gt;. Entretanto, já posso dizer que o meu sonho têm se tornado realidade. Então vamos logo falar sobre o &lt;a href=&quot;http://sapucaia.tech&quot;&gt;Sapucaia.Tech&lt;/a&gt;!&lt;/p&gt;
+&lt;h2 id=&quot;como-tudo-começou&quot;&gt;Como tudo começou&lt;/h2&gt;
+&lt;p&gt;Há uns anos atrás, comecei acompanhar mais de perto as comunidades e eventos de tecnologia. Me lembro de quando assisti as palestras da &lt;a href=&quot;https://www.eventials.com/tableless/groups/3-tableless-conference-2014/&quot;&gt;Tableless Conferece 2014&lt;/a&gt; e pensei &lt;em&gt;&amp;quot;Preciso ir nesses eventos!!!&amp;quot;&lt;/em&gt;.&lt;/p&gt;
+&lt;p&gt;Infelizmente, sair do Norte de Minas Gerais e ir para São Paulo pra passar um dia e voltar não é tão fácil, mas é pra isso que temos Belo Horizonte &lt;del&gt;hehe&lt;/del&gt;! Tive a grande sorte de trabalhar com um amigo, o &lt;a href=&quot;https://twitter.com/Marcos_SF_Filho&quot;&gt;Marcos SF Filho&lt;/a&gt;, com quem aprendi muita coisa, e nós fomos em alguns eventos em BH, dentre eles o 18º Encontro Locaweb e o Front In BH 2k16, e encontramos uma galerinha do &lt;a href=&quot;http://phpmg.com/&quot;&gt;PHPMG&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Eu e o Marcos ouvíamos alguns dos mesmos podcasts, como o &lt;a href=&quot;http://devnaestrada.com.br/&quot;&gt;DNE&lt;/a&gt; e o &lt;a href=&quot;http://www.podebug.com/&quot;&gt;PODebug&lt;/a&gt;, daí falávamos de fazer um também, qualquer coisa que tivesse &amp;quot;&lt;a href=&quot;https://pt.wikipedia.org/wiki/Pequi&quot;&gt;pequi&lt;/a&gt;&amp;quot; no nome, mas acabou que não deu certo. De qualquer forma, já tínhamos a vontade de fazer algo que pudesse ser diferente e útil para nossa região.&lt;/p&gt;
+&lt;p&gt;Depois de um tempo, fui para outro emprego, onde conheci um cara que virou um grande amigo também, o &lt;a href=&quot;http://eduardorodrigues.me/&quot;&gt;Eduardo Rodrigues&lt;/a&gt;, um cara tão vidrado nas novidades quanto eu, mas que mantinha o pé no chão e sabia que não podia sair alterando o produto toda vez que um framework JavaScript fosse lançado. Aprendi muito com o Edu e, das nossas conversas sobre tecnologia durante o café, começamos a pensar em fazer uns meetups aqui em Montes Claros, mas ficamos só na ideia &lt;del&gt;rsrs&lt;/del&gt;. Também tivemos a oportunidade de participar de eventos em BH, o DevFestBH 2016 e o 19º Encontro Locaweb, mas o mais marcante foi o DevFestBH, então eu gostaria de dedicar uma seção deste post só pra isso.&lt;/p&gt;
+&lt;h2 id=&quot;o-devfestbh-2016&quot;&gt;O DevFestBH 2016&lt;/h2&gt;
+&lt;p&gt;Antes de mais nada, pense num evento arretado de bom! O DevFestBH de 2016 foi, e você pode conferir as &lt;a href=&quot;https://goo.gl/photos/9HDNH1K3Prxb3dVv9&quot;&gt;fotos aqui&lt;/a&gt;. Apesar de ter recebido um bom patrocínio de algumas empresas, o evento foi todo realizado pela comunidade do &lt;a href=&quot;https://minasdev.org/&quot;&gt;Minas Dev&lt;/a&gt;. O &lt;a href=&quot;http://yanmagalhaes.com.br/&quot;&gt;Yan Magalhães&lt;/a&gt;, que conheci pelo PHPMG, foi um dos que estavam na organização. Tive a oportunidade de conversar bastante com o Yan e conhecer muita gente nova.&lt;/p&gt;
+&lt;p&gt;O que presenciamos lá foi a força que uma comunidade tem. Não era só um bando de &lt;em&gt;nerds&lt;/em&gt; viciados em tecnologia no mesmo lugar. Era uma galera, apaixonada pelo que faz e estuda, querendo aprender e ensinar o máximo possível. Após as palestras, tanta gente queria perguntar, e até continuavam as discussões depois, porque tinha gente que podia e queria sanar as dúvidas. Muita gente foi incentivada ali e alguns puderam até dar  passos mais ousados na carreira depois daquele evento.&lt;/p&gt;
+&lt;p&gt;Essa vontade de compartilhar e absorver experiências e conhecimento me animou ainda mais para fazer algo em Montes Claros. Voltamos animados e loucos para fazer alguma coisa.&lt;/p&gt;
+&lt;p&gt;Mas infelizmente, nem tudo saiu como planejado.&lt;/p&gt;
+&lt;h2 id=&quot;quase-lá&quot;&gt;Quase lá...&lt;/h2&gt;
+&lt;p&gt;Depois do evento, eu, o Eduardo e o Marcos estávamos realmente animados, mas a correria de faculdade, formatura e serviço acabaram com nossas forças. Acabou que o Eduardo foi embora para Curitiba, eu arrisquei adiantar matérias na faculdade e o Marcos estava atolado de coisas pra fazer.&lt;/p&gt;
+&lt;p&gt;Uma coisa boa nas disciplinas que fiz, foi que &lt;a href=&quot;http://www.prominasmoc.com.br/noticia/academicos-promovem-o-9-workshop-de-empreendedorismo-e-21-seminario-de-engenharia-de-software&quot;&gt;aconteceu um evento interdisciplinar&lt;/a&gt; e a minha equipe ficou responsável pela organização. O mais legal foi que várias pessoas da turma ajudaram a montar a estrutura e arrumar tudo. Daí eu pensei &lt;em&gt;&amp;quot;assim que deve ser uma comunidade, união com um objetivo&amp;quot;&lt;/em&gt;.&lt;/p&gt;
+&lt;p&gt;Então vieram as férias. Os nervos se acalmaram, deu pra organizar tudo e então...&lt;/p&gt;
+&lt;h2 id=&quot;surge-o-sapucaiatech&quot;&gt;Surge o Sapucaia.Tech&lt;/h2&gt;
+&lt;p&gt;Eu e o Marcos estávamos querendo fazer um portal de tecnologia do Norte de Minas. Fizemos esboço, discutimos como seria o projeto, mas não parecia ainda com uma comunidade. Aí um dia, pensamos:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Vamos fazer algo para juntar a galera mesmo. Como vai chamar?&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Aqui na cidade, temos um parque muito querido, chamado Parque da Sapucaia, devido à vegetação. Como é um ponto de referência e turístico, achamos que seria uma boa arranjar um nome como &amp;quot;&lt;em&gt;sapucaia dev&lt;/em&gt;&amp;quot;, mas ficaria mais restrito. Quando fui buscar pelo domínio para registrar vi a opção do &lt;code&gt;.tech&lt;/code&gt; disponível, falei com o Marcos e pronto. Nasceu o Sapucaia.Tech.&lt;/p&gt;
+&lt;p&gt;Agilizamos tudo e fizemos logo um site, um grupo no Telegram e o perfil do GitHub.&lt;/p&gt;
+&lt;p&gt;Graças ao poder de comunicação à distância, o Eduardo nos ajudou com a &lt;a href=&quot;https://github.com/sapucaiatech/eventos-api/&quot;&gt;API que fizemos para os eventos&lt;/a&gt;, e no dia 26 de Agosto de 2017, fizemos o nosso primeiro encontro e ele (Eduardo) assistiu tudo pelo Hangout. &lt;em&gt;XD&lt;/em&gt;&lt;/p&gt;
+&lt;h2 id=&quot;e-agora&quot;&gt;E agora?&lt;/h2&gt;
+&lt;p&gt;Bom, demos o primeiro passo. Acredito que este é sempre o mais difícil, mas já começamos andar. Isso que importa.&lt;/p&gt;
+&lt;p&gt;Pretendemos manter uma frequência de encontros e descobrimos uma coisa muito boa: &lt;strong&gt;não estamos sozinhos!!&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Antes do Sapucaia.Tech, já tínhamos pelo menos 3 grupos de tecnologia:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;IT Beer&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;voidNULL&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;GDG Montes Claros&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Nosso objetivo é agregar gente de todos esses grupos, pessoas, instituições de ensino e empresas que tem paixão por tecnologia. Não é uma tarefa fácil, mas já tivemos a oportunidade de conhecer novas pessoas e trocar ideias, então, estamos indo.&lt;/p&gt;
+&lt;h2 id=&quot;conclusão&quot;&gt;Conclusão&lt;/h2&gt;
+&lt;p&gt;Pra finalizar, gostaria de deixar bem claro os objetivos do Sapucaia.Tech:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Promover o &lt;strong&gt;crescimento&lt;/strong&gt; e o &lt;strong&gt;conhecimento&lt;/strong&gt; dos vários assuntos relacionados à &lt;strong&gt;tecnologia&lt;/strong&gt; e melhorar o cenário local, tanto &lt;strong&gt;profissional&lt;/strong&gt;, quanto &lt;strong&gt;acadêmico&lt;/strong&gt;.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Dizem que a tecnologia pode mudar a realidade de um lugar, então quem sabe a gente não deixa uma marquinha aqui?&lt;/p&gt;
+&lt;hr/&gt;
+&lt;p&gt;Bom, isso é tudo pessoal. Até mais!&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;(:&lt;/strong&gt;&lt;/p&gt;
+</description>
+        <pubDate>Wed, 30 Aug 2017 00:00:00 +0000</pubDate>
+        <link>https://gabrielprates.com/2017/08/30/bem-vindos-ao-Sapucaia-Tech.html</link>
+        <guid isPermaLink="true">https://gabrielprates.com/2017/08/30/bem-vindos-ao-Sapucaia-Tech.html</guid>
+        
+      </item>
+      <item>
+        <title>Exceções e Erros em JavaScript</title>
+        <description>&lt;p&gt;Com o objetivo de tratar exceções e controlar erros, em tempo de execução, algumas linguagens implementam alguns mecanismos interessantes, como por exemplo &lt;a href=&quot;https://golang.org/&quot;&gt;Go&lt;/a&gt;, que você pode trabalhar com funções de retornos múltiplos para passar erro e dados em caso de sucesso; e &lt;a href=&quot;https://www.gnu.org/software/bash/&quot;&gt;Bash&lt;/a&gt; que se trata erros quando o &lt;code&gt;exit&lt;/code&gt; do programa é maior que zero &lt;code&gt;0&lt;/code&gt;, já que zero significa sucesso, sem falar no &amp;quot;&lt;em&gt;exception&lt;/em&gt;&amp;quot; de comandos encadeados com &lt;code&gt;&amp;amp;&amp;amp;&lt;/code&gt;. Agora vamos falar sobre como JavaScript faz isso.&lt;/p&gt;
+&lt;p&gt;Bom, pra começar, as exceções são utilizadas como uma forma de &lt;em&gt;feedback&lt;/em&gt;, para cógido saber o que fazer quando cair numa situação de erro. Agora você precisa entender que os &lt;a href=&quot;https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements&quot;&gt;&lt;em&gt;statements&lt;/em&gt;&lt;/a&gt; (declarações, ou &amp;quot;comandos&amp;quot;) e os objetos citados aqui são coisas &lt;strong&gt;separadas&lt;/strong&gt;, apesar de &lt;strong&gt;funcionar em conjunto&lt;/strong&gt;. Mais precisamente, vamos falar sobre 3 coisas:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;Objetos do tipo &lt;code&gt;Error&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;o &lt;code&gt;throw&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;e o bloco &lt;code&gt;try...catch&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;em&gt;So, let&amp;#39;s go there!&lt;/em&gt;&lt;/p&gt;
+&lt;h2 id=&quot;objetos-do-tipo-error&quot;&gt;Objetos do tipo &lt;em&gt;Error&lt;/em&gt;&lt;/h2&gt;
+&lt;p&gt;Sabe quando o console te mostra algum erro de sintaxe, ou um erro de referência, falando que uma variável ou função não existe? Aquelas mensagens esquisitas são dos objetos de &lt;code&gt;Error&lt;/code&gt;. Basicamente, esses objetos tem seu prototype composto pelos seguintes itens:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;&lt;code&gt;.constructor&lt;/code&gt;: que inicializa os objetos, é chamado quando se instancia com o &lt;code&gt;new&lt;/code&gt;, ou apenas chamando como função &lt;code&gt;Error()&lt;/code&gt;;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;code&gt;.message&lt;/code&gt;: a mensagem de erro, que é passada como primeiro argumento do construtor;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;code&gt;.name&lt;/code&gt;: o tipo do erro. Ex.: &amp;quot;&lt;em&gt;Error&lt;/em&gt;&amp;quot;, &amp;quot;&lt;em&gt;ReferenceError&lt;/em&gt;&amp;quot;;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;code&gt;.toString()&lt;/code&gt;: herdado do &lt;code&gt;Object.prototype.toString()&lt;/code&gt; e retorna o valor de &lt;code&gt;.message&lt;/code&gt;.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Ok, como eu disse, a propriedade &lt;code&gt;.name&lt;/code&gt; especifica o tipo do Erro. Vamos dar uma olhada nos erros &lt;strong&gt;nativos&lt;/strong&gt; e quando aparecem:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;&lt;em&gt;EvalError&lt;/em&gt;&lt;/strong&gt;: lançado quando a função &lt;code&gt;eval()&lt;/code&gt; lança algum erro;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;&lt;em&gt;RangeError&lt;/em&gt;&lt;/strong&gt;: lançado quando encontra algum valor não está dentro do intervalo permitido;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;&lt;em&gt;ReferenceError&lt;/em&gt;&lt;/strong&gt;: lançado quando uma referência inválida é detectada;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;&lt;em&gt;SyntaxError&lt;/em&gt;&lt;/strong&gt;: lançado quando existe algum erro no &lt;em&gt;parse&lt;/em&gt;, no momento que a &lt;em&gt;engine&lt;/em&gt; lê o código para interpretá-lo;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;&lt;em&gt;TypeError&lt;/em&gt;&lt;/strong&gt;: lançado quando um parâmetro de uma função não é do tipo desejado;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;&lt;em&gt;URIError&lt;/em&gt;&lt;/strong&gt;: lançado quando alguma operação de URI, &lt;code&gt;encodeURI()&lt;/code&gt; ou &lt;code&gt;decodeURI()&lt;/code&gt;, recebem parâmetros inválidos.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Bom, este são os erros nativos. Já que são extensões do objeto &lt;code&gt;Error&lt;/code&gt;, nós também podemos criar nossos erros, para poder tratá-los da melhor forma possível. Exemplo:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-js&quot;&gt;&lt;span class=&quot;hljs-comment&quot;&gt;// Erro para regras de negócio&lt;/span&gt;
+&lt;span class=&quot;hljs-class&quot;&gt;&lt;span class=&quot;hljs-keyword&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;hljs-title&quot;&gt;BusinessError&lt;/span&gt; &lt;span class=&quot;hljs-keyword&quot;&gt;extends&lt;/span&gt; &lt;span class=&quot;hljs-title&quot;&gt;Error&lt;/span&gt; &lt;/span&gt;{
+  &lt;span class=&quot;hljs-keyword&quot;&gt;constructor&lt;/span&gt;(msg) {
+    &lt;span class=&quot;hljs-keyword&quot;&gt;super&lt;/span&gt;(msg);
+  }
+
+  &lt;span class=&quot;hljs-comment&quot;&gt;// e podemos adicionar algum método específico&lt;/span&gt;
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Ok, &lt;em&gt;next&lt;/em&gt;!&lt;/p&gt;
+&lt;h2 id=&quot;o-lançamento-throw&quot;&gt;O &amp;quot;lançamento&amp;quot;: &lt;em&gt;throw&lt;/em&gt;&lt;/h2&gt;
+&lt;p&gt;Okay. Reparou que falei dos erros serem lançados? É exatamente isso que acontece.&lt;/p&gt;
+&lt;p&gt;Durante a execução do programa, se houver algum tipo de inconsistência, dos tipos nativos de erro, ou se houver alguma situação que devemos avisar sobre erros, utiliza-se o &lt;code&gt;throw&lt;/code&gt; para lançar &amp;quot;coisas&amp;quot; para que &amp;quot;alguém&amp;quot; faça algo com essa coisa.&lt;/p&gt;
+&lt;p&gt;Eu disse lançar &amp;quot;coisas&amp;quot; porque você pode lançar qualquer coisa, dentre elas, objetos de erro. Por exemplo:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-js&quot;&gt;&lt;span class=&quot;hljs-comment&quot;&gt;// lançar um erro de negócio, com nossa classe `BusinessError`&lt;/span&gt;
+&lt;span class=&quot;hljs-keyword&quot;&gt;throw&lt;/span&gt; &lt;span class=&quot;hljs-keyword&quot;&gt;new&lt;/span&gt; BusinessError(&lt;span class=&quot;hljs-string&quot;&gt;&apos;CPF inválido&apos;&lt;/span&gt;);
+
+
+&lt;span class=&quot;hljs-comment&quot;&gt;// lançar uma string de erro&lt;/span&gt;
+&lt;span class=&quot;hljs-keyword&quot;&gt;throw&lt;/span&gt; &lt;span class=&quot;hljs-string&quot;&gt;&quot;Erro: foo&quot;&lt;/span&gt;;
+
+
+&lt;span class=&quot;hljs-comment&quot;&gt;// lançar o status de erro HTTP&lt;/span&gt;
+&lt;span class=&quot;hljs-keyword&quot;&gt;throw&lt;/span&gt; &lt;span class=&quot;hljs-number&quot;&gt;404&lt;/span&gt;;
+
+
+&lt;span class=&quot;hljs-comment&quot;&gt;// lançar objetos literais&lt;/span&gt;
+&lt;span class=&quot;hljs-keyword&quot;&gt;throw&lt;/span&gt; {
+  &lt;span class=&quot;hljs-attr&quot;&gt;message&lt;/span&gt;: &lt;span class=&quot;hljs-string&quot;&gt;&quot;Erro: bar&quot;&lt;/span&gt;,
+  &lt;span class=&quot;hljs-attr&quot;&gt;toString&lt;/span&gt;: &lt;span class=&quot;hljs-function&quot;&gt;&lt;span class=&quot;hljs-keyword&quot;&gt;function&lt;/span&gt;(&lt;span class=&quot;hljs-params&quot;&gt;&lt;/span&gt;) &lt;/span&gt;{
+    &lt;span class=&quot;hljs-keyword&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;hljs-keyword&quot;&gt;this&lt;/span&gt;.message;
+  }
+};
+
+
+&lt;span class=&quot;hljs-comment&quot;&gt;// lançar funções&lt;/span&gt;
+&lt;span class=&quot;hljs-keyword&quot;&gt;throw&lt;/span&gt; &lt;span class=&quot;hljs-function&quot;&gt;&lt;span class=&quot;hljs-keyword&quot;&gt;function&lt;/span&gt;(&lt;span class=&quot;hljs-params&quot;&gt;&lt;/span&gt;) &lt;/span&gt;{ &lt;span class=&quot;hljs-comment&quot;&gt;/* ¯\_(ツ)_/¯ */&lt;/span&gt; }&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Não digo que lançar coisas que não sejam objetos de erro seja algo comum, nem que é uma boa prática, mas existe a possibilidade de fazer isso e é bom saber.&lt;/p&gt;
+&lt;p&gt;Beleza, deu pra entender a função do &lt;code&gt;throw&lt;/code&gt;? Em poucas palavras, ele lança (ou &amp;quot;joga&amp;quot;) o erro para a estrutura de controle, e é dela que vamos falar agora.&lt;/p&gt;
+&lt;h2 id=&quot;o-bloco-trycatch&quot;&gt;O bloco &lt;em&gt;try..catch&lt;/em&gt;&lt;/h2&gt;
+&lt;p&gt;Enquanto se &lt;em&gt;tenta&lt;/em&gt; executar determinado trecho de código, pode ser que tenhamos erros que quebram o fluxo e todo o programa, não é mesmo? Para resolver esse problema, podemos tratar alguns erros no caso de &lt;strong&gt;&lt;em&gt;falha&lt;/em&gt;&lt;/strong&gt; durante a &lt;strong&gt;&lt;em&gt;tentativa&lt;/em&gt;&lt;/strong&gt;. Por isso, utilizamos o &lt;code&gt;try..catch&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;A responsabilidade desta estrutura é &lt;strong&gt;tentar executar algo&lt;/strong&gt; e, caso dê algum problema durante a execução, &lt;strong&gt;pegar os erros&lt;/strong&gt; e tratá-los da forma mais adequada possível.&lt;/p&gt;
+&lt;p&gt;Então:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;O &lt;code&gt;catch&lt;/code&gt; é quem pega as coisas lançadas pelo &lt;code&gt;throw&lt;/code&gt; dentro do bloco &lt;code&gt;try&lt;/code&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Para entender melhor:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-js&quot;&gt;
+&lt;span class=&quot;hljs-comment&quot;&gt;// &quot;Tentamos&quot; executar algo&lt;/span&gt;
+&lt;span class=&quot;hljs-keyword&quot;&gt;try&lt;/span&gt; {
+
+  &lt;span class=&quot;hljs-comment&quot;&gt;/* ... */&lt;/span&gt;
+
+  &lt;span class=&quot;hljs-comment&quot;&gt;// Caso haja algum erro que precise de tratamento (ex.: de negócio)&lt;/span&gt;
+  &lt;span class=&quot;hljs-keyword&quot;&gt;if&lt;/span&gt; ( !usuario.permissao ) {
+
+    &lt;span class=&quot;hljs-comment&quot;&gt;// &quot;Lançamos&quot; um objeto de erro para o `catch`&lt;/span&gt;
+    &lt;span class=&quot;hljs-keyword&quot;&gt;throw&lt;/span&gt; &lt;span class=&quot;hljs-keyword&quot;&gt;new&lt;/span&gt; BusinessError(&lt;span class=&quot;hljs-string&quot;&gt;&quot;Acesso não autorizado&quot;&lt;/span&gt;);
+
+  }
+
+  &lt;span class=&quot;hljs-comment&quot;&gt;/* ... */&lt;/span&gt;
+
+&lt;span class=&quot;hljs-comment&quot;&gt;// O `catch` &quot;pega&quot; qualquer coisa lançada no `try`, através do `throw`&lt;/span&gt;
+} &lt;span class=&quot;hljs-keyword&quot;&gt;catch&lt;/span&gt; (err) {
+
+  &lt;span class=&quot;hljs-comment&quot;&gt;// e fazemos o que precisar com isso&lt;/span&gt;
+  alert(err.message);
+
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Lembre o seguinte: qualquer erro nativo também é lançado e cairá no &lt;code&gt;catch&lt;/code&gt;.&lt;/p&gt;
+&lt;h3 id=&quot;finally&quot;&gt;&lt;em&gt;finally&lt;/em&gt;!!!&lt;/h3&gt;
+&lt;p&gt;O bloco &lt;code&gt;try..catch&lt;/code&gt; também permite a execução de coisas no fim da execução do bloco, tendo sucesso ou caindo no &lt;code&gt;catch&lt;/code&gt;. Para isso, utilizamos o bloco &lt;code&gt;finally&lt;/code&gt;. Exemplo:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-js&quot;&gt;
+&lt;span class=&quot;hljs-keyword&quot;&gt;try&lt;/span&gt; {
+
+  &lt;span class=&quot;hljs-comment&quot;&gt;// throw:&lt;/span&gt;
+  &lt;span class=&quot;hljs-comment&quot;&gt;// ┻━┻ ヘ╰( •̀ε•́ ╰)&lt;/span&gt;
+
+} &lt;span class=&quot;hljs-keyword&quot;&gt;catch&lt;/span&gt; (e) {
+
+  &lt;span class=&quot;hljs-comment&quot;&gt;// ╰( ⁰ ਊ ⁰ )━☆ﾟ.*･｡ﾟ&lt;/span&gt;
+
+} &lt;span class=&quot;hljs-keyword&quot;&gt;finally&lt;/span&gt; {
+
+  &lt;span class=&quot;hljs-comment&quot;&gt;// Sempre executa ao finalizar o `try` ou o `catch`&lt;/span&gt;
+  &lt;span class=&quot;hljs-comment&quot;&gt;// É um bom lugar pra executar coisas como:&lt;/span&gt;
+  &lt;span class=&quot;hljs-comment&quot;&gt;//  * fechar uma transação com o DB;&lt;/span&gt;
+  &lt;span class=&quot;hljs-comment&quot;&gt;//  * fechar arquivos que foram abertos para leitura;&lt;/span&gt;
+  &lt;span class=&quot;hljs-comment&quot;&gt;//  * atualizar o estado da view;&lt;/span&gt;
+
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&quot;observação&quot;&gt;Observação&lt;/h3&gt;
+&lt;p&gt;Este mecanismo de tratamento de erros em tempo de execução (com &lt;code&gt;try..catch..finally&lt;/code&gt; e &lt;code&gt;throw&lt;/code&gt;) também é adotado por outras linguagens. Podemos citar PHP e Java como exemplo e cada uma delas tem seus objetos de erro específicos. JavaScript utiliza os objetos do tipo &lt;code&gt;Error&lt;/code&gt;, PHP e Java tem seus objetos de &lt;code&gt;Exception&lt;/code&gt;, que servem pra mesma coisa.&lt;/p&gt;
+&lt;h2 id=&quot;por-fim&quot;&gt;Por fim&lt;/h2&gt;
+&lt;p&gt;Bom, resolvi escrever este post porque eu achei sempre achava um post falando sobre o &lt;code&gt;try..catch&lt;/code&gt;, outro falando sobre o &lt;code&gt;throw&lt;/code&gt;, mas não tinha visto algum que explicava a coisa como um todo.&lt;/p&gt;
+&lt;p&gt;Então, fui claro? Deu pra entender a interação desses elementos?&lt;/p&gt;
+&lt;p&gt;Se tive alguma dúvida, ou se algo não ficou claro, ou se algo do que falei está errado, deixe um comentário ou me chame no twitter, será um prazer.&lt;/p&gt;
+&lt;p&gt;Até a próxima&lt;/p&gt;
+&lt;p&gt;(:&lt;/p&gt;
+&lt;hr/&gt;
+&lt;h2 id=&quot;referências&quot;&gt;Referências&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Error Objects - &lt;a href=&quot;http://www.ecma-international.org/ecma-262/7.0/index.html#sec-error-objects&quot;&gt;http://www.ecma-international.org/ecma-262/7.0/index.html#sec-error-objects&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;ECMAScript Language: Statements and Declarations - &lt;a href=&quot;http://www.ecma-international.org/ecma-262/7.0/index.html#sec-ecmascript-language-statements-and-declarations&quot;&gt;http://www.ecma-international.org/ecma-262/7.0/index.html#sec-ecmascript-language-statements-and-declarations&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Error - &lt;a href=&quot;https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error&quot;&gt;https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;throw - &lt;a href=&quot;https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/throw&quot;&gt;https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/throw&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;try...catch - &lt;a href=&quot;https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/try...catch&quot;&gt;https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/try...catch&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;try...catch...finally Statement (JavaScript) - &lt;a href=&quot;https://docs.microsoft.com/en-us/scripting/javascript/reference/try-dot-dot-dot-catch-dot-dot-dot-finally-statement-javascript&quot;&gt;https://docs.microsoft.com/en-us/scripting/javascript/reference/try-dot-dot-dot-catch-dot-dot-dot-finally-statement-javascript&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;throw Statement (JavaScript) - &lt;a href=&quot;https://docs.microsoft.com/en-us/scripting/javascript/reference/throw-statement-javascript&quot;&gt;https://docs.microsoft.com/en-us/scripting/javascript/reference/throw-statement-javascript&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Error Object (JavaScript) - &lt;a href=&quot;https://docs.microsoft.com/en-us/scripting/javascript/reference/error-object-javascript&quot;&gt;https://docs.microsoft.com/en-us/scripting/javascript/reference/error-object-javascript&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        <pubDate>Fri, 02 Jun 2017 00:00:00 +0000</pubDate>
+        <link>https://gabrielprates.com/2017/06/02/excecoes-e-erros-em-js.html</link>
+        <guid isPermaLink="true">https://gabrielprates.com/2017/06/02/excecoes-e-erros-em-js.html</guid>
+        
+      </item>
+      <item>
+        <title>Prioridades e Conforto</title>
+        <description>&lt;p&gt;Depois de quase 6 anos no mercado de tecnologia e 4 anos na faculdade, pude perceber que tudo é uma questão de prioridade e, quando não se tem isso, é fácil de perder tempo na vida. Gostaria de sair um pouco do contexto mais técnico que eu geralmente posto e compartilhar um pouco dessas reflexões.&lt;/p&gt;
+&lt;p&gt;Nem sempre fui dedicado e estudioso. Na verdade, eu passei muito tempo acomodado com o que fazia:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;O HTML/CSS que precisava pra deixar a página bonitinha, sem muito efeito ou firula (pra não dar trabalho), e se precisasse, usava um jQuery &lt;code&gt;.animate(...)&lt;/code&gt;;&lt;/li&gt;
+&lt;li&gt;Fazer os trabalhos da faculdade pra ganhar uns pontos e garantir a média, o que conseguisse à mais seria lucro;&lt;/li&gt;
+&lt;li&gt;Escutar as músicas pra tocar, mas &amp;quot;pra que ficar estudando tempo e compasso?&amp;quot;;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;E por aí vai. Naquele tempo eu não cresci quase nada em termos de conhecimento. Acho que deu pra perceber que eu não conseguia fazer nada disso bem feito, né? A questão não era que eu não queria fazer as coisas da maneira correta, eu queria! Só que eu não dava importância pras coisas que eu não achava úteis e isso afetava o todo. Talvez eu não gostasse de ter que me esforçar, e esse &lt;strong&gt;é o maior perigo&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;Por exemplo, você acha uma boa gastar tempo lendo documentações? Você acha que a disciplina Filosofia é importante a para um curso de TI, ou computação? E Português? E Direito?! Se você respondeu não para alguma delas, por favor, reconsidere. Eu sei que às vezes é difícil animar com algo que não pareça tão atrativo, ou que pareça não encaixar com o nosso contexto de gosto. Mas veja como os exemplos deste parágrafo são importantes:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Nossa comunicação é muito escrita (e-mail, Slack, Twitter);&lt;/li&gt;
+&lt;li&gt;Nossas leis são baseadas em coisas escritas por Platão e Aristóteles;&lt;/li&gt;
+&lt;li&gt;Entender a necessidade de outras áreas nos faz perceber oportunidades;&lt;/li&gt;
+&lt;li&gt;Para trabalhar em equipe você precisa saber referenciar conteúdos;&lt;/li&gt;
+&lt;li&gt;Documentações te ensinam a tecnologia com detalhes, uma seção geralmente tem vários links para outras partes que complementam o conhecimento.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Essas são apenas algumas coisas. Acho que aqui dá até pra falar sobre um assunto polêmico... Aposto que você já ouviu algo parecido com:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Não preciso fazer faculdade para atuar no mercado de tecnologia, então preciso menos ainda estudar algo que não gosto!&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;É VERDADE, em partes! Eu também acho que não é necessário ter um diploma de curso superior para trabalhar com tecnologia. No entanto, em vários momentos da vida profissional você terá que fazer algo que não gosta e, acredite, pode ser uma ótima oportunidade de aprendizado. O que a faculdade me ensinou, e me ensina, é correr atrás das coisas, ou como é bonitinho de falar &amp;quot;sair da zona de conforto&amp;quot;. Sei que não faria isso sozinho. Aprendi a pesquisar e produzir conhecimento, vi a relação direta da matemática com a computação, também aprendi lidar melhor com trabalho em equipe e descobri a Engenharia de Software, que me fez acordar para o caminho das boas práticas. Por isso eu acho que é bom avaliar antes de falar que &amp;quot;faculdade não serve pra nada&amp;quot;.&lt;/p&gt;
+&lt;p&gt;Lembro quando comecei a me incomodar em sempre &lt;em&gt;catar pedaços&lt;/em&gt; de CSS de projetos anteriores, e vi falar sobre frameworks. Daí eu conheci o Bootstrap e também sobre layout responsivo. O Bootstrap era escrito em LESS, mas também tinha opção em SASS (aí já foram duas novas tecnologias). Por causa do SASS, instalei o Ruby e acabei conhecendo o Jekyll. Sem falar nas APIs novas &lt;del&gt;(na época eram novas rsrs)&lt;/del&gt; do HTML5 e animações com CSS3, nem precisava de JavaScript!!! Lembro de ter pensado &amp;quot;&lt;em&gt;então por quê as pessoas usam JS pra animações, isso é pra validar formulários e fazer requisições AJAX?&lt;/em&gt;&amp;quot; e depois &amp;quot;&lt;em&gt;Canvas?!?!&lt;/em&gt;&amp;quot;, daí percebi que &lt;a href=&quot;https://github.com/cezaraugusto/You-Dont-Know-JS&quot;&gt;eu não sabia JS&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Realmente não é fácil começar estudar algo novo, principalmente se não há muito interesse naquilo. Mas descobri que tudo é uma questão de prioridade, foco e propósito.&lt;/p&gt;
+&lt;p&gt;Quando você estabelece um propósito e mantém o foco nele, você enfrenta qualquer desafio para alcançá-lo. Se for para uma formação superior, você estuda as disciplinas que não são da área e aprende muito com elas. Se for para trabalhar com determinada tecnologia, você aprende ler a documentação dela e acha praticamente todas as respostas que procura. Se for de carreira, você enfrenta alguns momentos turbulentos e complicados para alcançar o sonho.&lt;/p&gt;
+&lt;p&gt;Talvez esse post seja mais motivacional (igual alguns dos episódios do &lt;a href=&quot;http://devnaestrada.com.br/&quot;&gt;DevNaEstrada&lt;/a&gt;), ou de desabafo. Mas isso realmente é verdade. Então se você parar pra pensar um dia e falar *&amp;quot;Eu tenho um sonho...&amp;quot;*, corra atrás. Se planeje, e vai. A mensagem que eu gostaria que ficasse com esse post é:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;h3 id=&quot;tenha-sonhos-estabeleça-suas-metas-foque-nos-seus-propósitos-e-saia-da-sua-zona-de-conforto&quot;&gt;Tenha sonhos, estabeleça suas metas, foque nos seus propósitos e saia da sua zona de conforto!&lt;/h3&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Bom... isso é tudo pessoal.&lt;/p&gt;
+&lt;p&gt;Até a próxima.
+(:&lt;/p&gt;
+</description>
+        <pubDate>Fri, 21 Apr 2017 00:00:00 +0000</pubDate>
+        <link>https://gabrielprates.com/2017/04/21/prioridades-e-conforto.html</link>
+        <guid isPermaLink="true">https://gabrielprates.com/2017/04/21/prioridades-e-conforto.html</guid>
+        
+      </item>
+      <item>
+        <title>Atribuição múltipla com Destruturing Assignment</title>
+        <description>&lt;p&gt;Uma coisa que me chamou muita a atenção na linguagem &lt;a href=&quot;https://golang.org/&quot;&gt;Go&lt;/a&gt; foi a possibilidade de retornos múltiplos e, até mesmo, de tipos diferentes. Recentemente, vi que agora, na era pós ES6, podemos fazer algo parecido com &lt;strong&gt;JavaScript&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;Vamos supor que precisamos tratar um nome, e exibi-lo como referência do determinado autor. Poderíamos fazer assim:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-js&quot;&gt;&lt;span class=&quot;hljs-keyword&quot;&gt;const&lt;/span&gt; ucFirst = &lt;span class=&quot;hljs-function&quot;&gt;(&lt;span class=&quot;hljs-params&quot;&gt;str&lt;/span&gt;) =&amp;gt;&lt;/span&gt; str.charAt(&lt;span class=&quot;hljs-number&quot;&gt;0&lt;/span&gt;).toUpperCase() + str.substr(&lt;span class=&quot;hljs-number&quot;&gt;1&lt;/span&gt;);
+
+&lt;span class=&quot;hljs-function&quot;&gt;&lt;span class=&quot;hljs-keyword&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;hljs-title&quot;&gt;nomeAutor&lt;/span&gt;(&lt;span class=&quot;hljs-params&quot;&gt;nome&lt;/span&gt;) &lt;/span&gt;{
+  &lt;span class=&quot;hljs-keyword&quot;&gt;let&lt;/span&gt; nomes = nome.split(&lt;span class=&quot;hljs-string&quot;&gt;&apos; &apos;&lt;/span&gt;);
+  &lt;span class=&quot;hljs-keyword&quot;&gt;let&lt;/span&gt; ultimoNome  = nomes.pop().toUpperCase();
+  &lt;span class=&quot;hljs-keyword&quot;&gt;let&lt;/span&gt; outrosNomes = nomes.map(ucFirst).join(&lt;span class=&quot;hljs-string&quot;&gt;&apos; &apos;&lt;/span&gt;);
+  &lt;span class=&quot;hljs-keyword&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;hljs-string&quot;&gt;`&lt;span class=&quot;hljs-subst&quot;&gt;${ultimoNome}&lt;/span&gt;, &lt;span class=&quot;hljs-subst&quot;&gt;${outrosNomes}&lt;/span&gt;`&lt;/span&gt;;
+}
+
+nomeAutor(&lt;span class=&quot;hljs-string&quot;&gt;&apos;gabriel oliveira prates&apos;&lt;/span&gt;);
+&lt;span class=&quot;hljs-comment&quot;&gt;// PRATES, Gabriel Oliveira&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Mas e se precisarmos de ambos os nomes separados? Poderíamos criar uma função para cada uma das ações, uma para pegar o &lt;code&gt;ultimoNome&lt;/code&gt;, outra para pegar os &lt;code&gt;outrosNomes&lt;/code&gt;· Isso resolve, certo? Veja só:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-js&quot;&gt;&lt;span class=&quot;hljs-keyword&quot;&gt;const&lt;/span&gt; ucFirst = &lt;span class=&quot;hljs-function&quot;&gt;(&lt;span class=&quot;hljs-params&quot;&gt;str&lt;/span&gt;) =&amp;gt;&lt;/span&gt; str.charAt(&lt;span class=&quot;hljs-number&quot;&gt;0&lt;/span&gt;).toUpperCase() + str.substr(&lt;span class=&quot;hljs-number&quot;&gt;1&lt;/span&gt;);
+
+&lt;span class=&quot;hljs-keyword&quot;&gt;const&lt;/span&gt; separaNome  = &lt;span class=&quot;hljs-function&quot;&gt;(&lt;span class=&quot;hljs-params&quot;&gt;nome&lt;/span&gt;) =&amp;gt;&lt;/span&gt; nome.split(&lt;span class=&quot;hljs-string&quot;&gt;&apos; &apos;&lt;/span&gt;);
+&lt;span class=&quot;hljs-keyword&quot;&gt;const&lt;/span&gt; ultimoNome  = &lt;span class=&quot;hljs-function&quot;&gt;(&lt;span class=&quot;hljs-params&quot;&gt;nome&lt;/span&gt;) =&amp;gt;&lt;/span&gt; separaNome(nome).pop().toUpperCase();
+&lt;span class=&quot;hljs-keyword&quot;&gt;const&lt;/span&gt; outrosNomes = &lt;span class=&quot;hljs-function&quot;&gt;(&lt;span class=&quot;hljs-params&quot;&gt;nome&lt;/span&gt;) =&amp;gt;&lt;/span&gt; {
+  &lt;span class=&quot;hljs-keyword&quot;&gt;let&lt;/span&gt; nomes = separaNome(nome);
+  nomes.pop();
+  &lt;span class=&quot;hljs-keyword&quot;&gt;return&lt;/span&gt; nomes.map(ucFirst).join(&lt;span class=&quot;hljs-string&quot;&gt;&apos; &apos;&lt;/span&gt;);
+}
+
+&lt;span class=&quot;hljs-keyword&quot;&gt;let&lt;/span&gt; nome = &lt;span class=&quot;hljs-string&quot;&gt;&apos;gabriel oliveira prates&apos;&lt;/span&gt;;
+
+&lt;span class=&quot;hljs-comment&quot;&gt;// Observe esta atribuição&lt;/span&gt;
+&lt;span class=&quot;hljs-keyword&quot;&gt;let&lt;/span&gt; ultimo = ultimoNome(nome);    &lt;span class=&quot;hljs-comment&quot;&gt;// PRATES&lt;/span&gt;
+&lt;span class=&quot;hljs-keyword&quot;&gt;let&lt;/span&gt; outros = outrosNomes(nome); &lt;span class=&quot;hljs-comment&quot;&gt;// Gabriel Oliveira&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Apesar de modularizado e com funções que cumprem apenas uma tarefa, precisamos atribuir cada uma das variáveis ao seu respectivo valor de uma forma não tão interessante. Podemos ter um código final melhor, de leitura e entendimento, e menor. E é aqui que entramos no ponto chave deste artigo.&lt;/p&gt;
+&lt;h2 id=&quot;o-que-é-destructuring-assignment&quot;&gt;O que é &amp;quot;Destructuring Assignment&amp;quot;&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;Destructuring Assignment&lt;/em&gt;&lt;/strong&gt; (ou &lt;em&gt;atribuição por desestruturação&lt;/em&gt;) é uma sintaxe de expressão que permite extrair valores de &lt;strong&gt;arrays&lt;/strong&gt; e &lt;strong&gt;objetos&lt;/strong&gt;, usando o lado esquerdo da atribuição (&lt;em&gt;left-hand side of assignment&lt;/em&gt;) para definir quais valores serão extraídos. Exemplos básicos:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-js&quot;&gt;&lt;span class=&quot;hljs-comment&quot;&gt;// Array:&lt;/span&gt;
+&lt;span class=&quot;hljs-keyword&quot;&gt;let&lt;/span&gt; [ a, b ] = [ &lt;span class=&quot;hljs-string&quot;&gt;&apos;ES6&apos;&lt;/span&gt;, &lt;span class=&quot;hljs-number&quot;&gt;2015&lt;/span&gt; ];
+&lt;span class=&quot;hljs-built_in&quot;&gt;console&lt;/span&gt;.log(a);    &lt;span class=&quot;hljs-comment&quot;&gt;// ES6&lt;/span&gt;
+&lt;span class=&quot;hljs-built_in&quot;&gt;console&lt;/span&gt;.log(b); &lt;span class=&quot;hljs-comment&quot;&gt;// 2015&lt;/span&gt;
+
+&lt;span class=&quot;hljs-comment&quot;&gt;// Objetos:&lt;/span&gt;
+&lt;span class=&quot;hljs-keyword&quot;&gt;let&lt;/span&gt; { x, y } = { &lt;span class=&quot;hljs-attr&quot;&gt;x&lt;/span&gt;: &lt;span class=&quot;hljs-string&quot;&gt;&apos;ES6&apos;&lt;/span&gt;, &lt;span class=&quot;hljs-attr&quot;&gt;y&lt;/span&gt;: &lt;span class=&quot;hljs-number&quot;&gt;2015&lt;/span&gt; };
+&lt;span class=&quot;hljs-built_in&quot;&gt;console&lt;/span&gt;.log(x); &lt;span class=&quot;hljs-comment&quot;&gt;// ES6&lt;/span&gt;
+&lt;span class=&quot;hljs-built_in&quot;&gt;console&lt;/span&gt;.log(y); &lt;span class=&quot;hljs-comment&quot;&gt;// 2015&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Mas é claro que isso não é tudo. Então vamos lá, vamos ver alguns detalhes de cada um dos casos.&lt;/p&gt;
+&lt;h3 id=&quot;array&quot;&gt;Array&lt;/h3&gt;
+&lt;p&gt;Para fazer as atribuições com um array, devemos considerar a extração de valores através das posições do array. Vamos olhar de novo o exemplo do array:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-js&quot;&gt;&lt;span class=&quot;hljs-comment&quot;&gt;// Aqui já criamos as variáveis e atribuímos valores:&lt;/span&gt;
+&lt;span class=&quot;hljs-keyword&quot;&gt;let&lt;/span&gt; [ a, b ] = [ &lt;span class=&quot;hljs-string&quot;&gt;&apos;ES6&apos;&lt;/span&gt;, &lt;span class=&quot;hljs-number&quot;&gt;2015&lt;/span&gt; ];
+
+
+&lt;span class=&quot;hljs-comment&quot;&gt;// Mas poderíamos fazer o processo separado também:&lt;/span&gt;
+&lt;span class=&quot;hljs-keyword&quot;&gt;let&lt;/span&gt; a, b;
+&lt;span class=&quot;hljs-keyword&quot;&gt;let&lt;/span&gt; array = [ &lt;span class=&quot;hljs-string&quot;&gt;&apos;ES6&apos;&lt;/span&gt;, &lt;span class=&quot;hljs-number&quot;&gt;2015&lt;/span&gt; ];
+[ a, b ] = array;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;É um pouco óbvio, mas no próximo tópico você vai entender o porquê de eu ressaltar isso.&lt;/p&gt;
+&lt;p&gt;Vamos supor que temos uma função que nos retorna um array com os valores da cotação do dólar nos últimos 30 dias. Vamos supor também, que precisamos dos 5 primeiros valores. Podemos usar o &lt;code&gt;Array.prototype.slice()&lt;/code&gt;, mas isso nos retornaria um novo array. Então se precisarmos das variáveis separadas, seria necessário atribuir uma a uma para as 5 primeiras posições do array.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-js&quot;&gt;&lt;span class=&quot;hljs-keyword&quot;&gt;let&lt;/span&gt; valores = cotacaoUltimoMes();
+
+&lt;span class=&quot;hljs-comment&quot;&gt;// Antigamente&lt;/span&gt;
+&lt;span class=&quot;hljs-keyword&quot;&gt;let&lt;/span&gt; d1 = valores[&lt;span class=&quot;hljs-number&quot;&gt;0&lt;/span&gt;]
+&lt;span class=&quot;hljs-keyword&quot;&gt;let&lt;/span&gt; d2 = valores[&lt;span class=&quot;hljs-number&quot;&gt;1&lt;/span&gt;]
+&lt;span class=&quot;hljs-keyword&quot;&gt;let&lt;/span&gt; d3 = valores[&lt;span class=&quot;hljs-number&quot;&gt;2&lt;/span&gt;]
+&lt;span class=&quot;hljs-keyword&quot;&gt;let&lt;/span&gt; d4 = valores[&lt;span class=&quot;hljs-number&quot;&gt;3&lt;/span&gt;]
+&lt;span class=&quot;hljs-keyword&quot;&gt;let&lt;/span&gt; d5 = valores[&lt;span class=&quot;hljs-number&quot;&gt;4&lt;/span&gt;]
+
+&lt;span class=&quot;hljs-comment&quot;&gt;// Como podemos fazer agora:&lt;/span&gt;
+&lt;span class=&quot;hljs-keyword&quot;&gt;let&lt;/span&gt; [ d1, d2, d3, d4, d5 ] = cotacaoUltimoMes();&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;A atribuição fica muito mais enxuta, consegue perceber? Percebeu que os outros 25 elementos não fazem diferença para a atribuição? Caso esses elementos sejam necessários, e for permitido colocá-los num array mesmo, podemos utilizar o &lt;a href=&quot;https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/rest_parameters&quot;&gt;operador rest &lt;code&gt;...&lt;/code&gt;&lt;/a&gt;:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-js&quot;&gt;&lt;span class=&quot;hljs-keyword&quot;&gt;let&lt;/span&gt; [ d1, d2, d3, d4, d5, ...outros ] = cotacaoUltimoMes();
+&lt;span class=&quot;hljs-comment&quot;&gt;// `outros` será o array com o resto dos valores.&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;E se precisarmos, por exemplos, dos 7 primeiros elementos, com exceção do 4º e 6º elementos, isso quebraria a lógica, certo? &lt;strong&gt;ERRADO!!!&lt;/strong&gt; É ainda mais simples. Para cada posição que for necessária saltar, só precisamos especificá-la com os espaços em branco separados por vírgula ( &lt;code&gt;,&lt;/code&gt; ). Veja:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-js&quot;&gt;&lt;span class=&quot;hljs-comment&quot;&gt;// Espaços em branco que representam o 4º e 6º elementos&lt;/span&gt;
+&lt;span class=&quot;hljs-keyword&quot;&gt;let&lt;/span&gt; [ d1, d2, d3, , d5, , d7 ] = cotacaoUltimoMes();&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Em algum outro caso, se tivermos um array de retorno, com o tamanho instável e for necessário garantir determinada quantidade de valores, podemos deixar valores pré-definidos na atribuição:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-js&quot;&gt;&lt;span class=&quot;hljs-comment&quot;&gt;// v3 e v4 pré-definidos&lt;/span&gt;
+&lt;span class=&quot;hljs-keyword&quot;&gt;let&lt;/span&gt; [ v1, v2, v3 = &lt;span class=&quot;hljs-number&quot;&gt;1&lt;/span&gt;, v4 = &lt;span class=&quot;hljs-number&quot;&gt;0&lt;/span&gt; ] = retornaArray();&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Tudo certo? Ok, então vamos passar para o próximo caso.&lt;/p&gt;
+&lt;h3 id=&quot;objetos&quot;&gt;Objetos&lt;/h3&gt;
+&lt;p&gt;Para fazer as atribuições com um objeto, devemos associar as chaves, ou nomes dos atributos (propriedades) do objeto. Observe novamente o exemplo:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-js&quot;&gt;&lt;span class=&quot;hljs-comment&quot;&gt;// Atribuição direta associando as chaves&lt;/span&gt;
+&lt;span class=&quot;hljs-keyword&quot;&gt;let&lt;/span&gt; { x, y } = { &lt;span class=&quot;hljs-attr&quot;&gt;x&lt;/span&gt;: &lt;span class=&quot;hljs-string&quot;&gt;&apos;ES6&apos;&lt;/span&gt;, &lt;span class=&quot;hljs-attr&quot;&gt;y&lt;/span&gt;: &lt;span class=&quot;hljs-number&quot;&gt;2015&lt;/span&gt; };&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Podemos também fazer a atribuição indireta, como no exemplo do array, mas aqui há uma particularidade (a que eu falei *&amp;quot;você vai entender o porquê de eu ressaltar isso&amp;quot;*). Se você tentar executar o código abaixo, terá um erro de sintaxe:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-js&quot;&gt;&lt;span class=&quot;hljs-keyword&quot;&gt;let&lt;/span&gt; a, b;
+&lt;span class=&quot;hljs-keyword&quot;&gt;let&lt;/span&gt; obj = { &lt;span class=&quot;hljs-attr&quot;&gt;a&lt;/span&gt;: &lt;span class=&quot;hljs-string&quot;&gt;&apos;ES6&apos;&lt;/span&gt;, &lt;span class=&quot;hljs-attr&quot;&gt;b&lt;/span&gt;: &lt;span class=&quot;hljs-number&quot;&gt;2015&lt;/span&gt; };
+{ a, b } = obj;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Isso porque &lt;code&gt;{ a, b }&lt;/code&gt; é considerado um bloco, então realmente há um erro de sintaxe aí. Para consertar isso, devemos colocar essa operação de atribuição dentro de uma expressão, entre parênteses:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-js&quot;&gt;&lt;span class=&quot;hljs-keyword&quot;&gt;let&lt;/span&gt; a, b;
+&lt;span class=&quot;hljs-keyword&quot;&gt;let&lt;/span&gt; obj = { &lt;span class=&quot;hljs-attr&quot;&gt;a&lt;/span&gt;: &lt;span class=&quot;hljs-string&quot;&gt;&apos;ES6&apos;&lt;/span&gt;, &lt;span class=&quot;hljs-attr&quot;&gt;b&lt;/span&gt;: &lt;span class=&quot;hljs-number&quot;&gt;2015&lt;/span&gt; };
+({ a, b } = obj);&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Assim como na operação para array, podemos ter valores pré-definidos também:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-js&quot;&gt;&lt;span class=&quot;hljs-keyword&quot;&gt;let&lt;/span&gt; { a = &lt;span class=&quot;hljs-string&quot;&gt;&apos;JavaScript&apos;&lt;/span&gt;, c = &lt;span class=&quot;hljs-number&quot;&gt;2017&lt;/span&gt; } = { &lt;span class=&quot;hljs-attr&quot;&gt;a&lt;/span&gt;: &lt;span class=&quot;hljs-string&quot;&gt;&apos;ES6&apos;&lt;/span&gt;, &lt;span class=&quot;hljs-attr&quot;&gt;b&lt;/span&gt;: &lt;span class=&quot;hljs-number&quot;&gt;2015&lt;/span&gt; };
+&lt;span class=&quot;hljs-built_in&quot;&gt;console&lt;/span&gt;.log(a); &lt;span class=&quot;hljs-comment&quot;&gt;// &apos;ES6&apos;&lt;/span&gt;
+&lt;span class=&quot;hljs-built_in&quot;&gt;console&lt;/span&gt;.log(c); &lt;span class=&quot;hljs-comment&quot;&gt;// 2017&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;E outra coisa legal também, é que podemos jogar os valores para uma variável com um novo nome:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-js&quot;&gt;&lt;span class=&quot;hljs-keyword&quot;&gt;let&lt;/span&gt; { &lt;span class=&quot;hljs-attr&quot;&gt;a&lt;/span&gt;: lang, &lt;span class=&quot;hljs-attr&quot;&gt;b&lt;/span&gt;: ano } = { &lt;span class=&quot;hljs-attr&quot;&gt;a&lt;/span&gt;: &lt;span class=&quot;hljs-string&quot;&gt;&apos;ES6&apos;&lt;/span&gt;, &lt;span class=&quot;hljs-attr&quot;&gt;b&lt;/span&gt;: &lt;span class=&quot;hljs-number&quot;&gt;2015&lt;/span&gt; };
+&lt;span class=&quot;hljs-built_in&quot;&gt;console&lt;/span&gt;.log(lang);  &lt;span class=&quot;hljs-comment&quot;&gt;// &apos;ES6&apos;&lt;/span&gt;
+&lt;span class=&quot;hljs-built_in&quot;&gt;console&lt;/span&gt;.log(ano);   &lt;span class=&quot;hljs-comment&quot;&gt;// 2015&lt;/span&gt;
+&lt;span class=&quot;hljs-comment&quot;&gt;// Nesse caso, `a` e `b` não fazem parte deste escopo&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Voltando ao primeiro exemplo deste artigo, aquele do nome do autor, podemos reescrevê-lo assim:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-js&quot;&gt;&lt;span class=&quot;hljs-keyword&quot;&gt;const&lt;/span&gt; ucFirst = &lt;span class=&quot;hljs-function&quot;&gt;(&lt;span class=&quot;hljs-params&quot;&gt;str&lt;/span&gt;) =&amp;gt;&lt;/span&gt; str.charAt(&lt;span class=&quot;hljs-number&quot;&gt;0&lt;/span&gt;).toUpperCase() + str.substr(&lt;span class=&quot;hljs-number&quot;&gt;1&lt;/span&gt;);
+
+&lt;span class=&quot;hljs-comment&quot;&gt;// Vamos modificar a função do primeiro snnipet&lt;/span&gt;
+&lt;span class=&quot;hljs-comment&quot;&gt;// para retornar múltiplos resultados&lt;/span&gt;
+&lt;span class=&quot;hljs-function&quot;&gt;&lt;span class=&quot;hljs-keyword&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;hljs-title&quot;&gt;nomeAutor&lt;/span&gt;(&lt;span class=&quot;hljs-params&quot;&gt;nome&lt;/span&gt;) &lt;/span&gt;{
+  &lt;span class=&quot;hljs-keyword&quot;&gt;let&lt;/span&gt; nomes = nome.split(&lt;span class=&quot;hljs-string&quot;&gt;&apos; &apos;&lt;/span&gt;);
+  &lt;span class=&quot;hljs-keyword&quot;&gt;return&lt;/span&gt; {
+    &lt;span class=&quot;hljs-attr&quot;&gt;ultimoNome&lt;/span&gt;: nomes.pop().toUpperCase(),
+    &lt;span class=&quot;hljs-attr&quot;&gt;outrosNomes&lt;/span&gt;: nomes.map(ucFirst).join(&lt;span class=&quot;hljs-string&quot;&gt;&apos; &apos;&lt;/span&gt;)
+  };
+}
+
+&lt;span class=&quot;hljs-keyword&quot;&gt;let&lt;/span&gt; { ultimoNome, outrosNomes } = nomeAutor(&lt;span class=&quot;hljs-string&quot;&gt;&apos;gabriel oliveira prates&apos;&lt;/span&gt;);&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Pronto! Já temos os dois valores que queríamos e podemos trabalhar com eles da forma que for necessária.&lt;/p&gt;
+&lt;h2 id=&quot;conclusão&quot;&gt;Conclusão&lt;/h2&gt;
+&lt;p&gt;Essas novas características de &lt;em&gt;destructuring assignment&lt;/em&gt; funcionam mais como um &lt;em&gt;syntax sugar&lt;/em&gt;, mas realmente chegam a ser úteis. O mais legal é que você pode usá-las em conjunto, daí adotar a solução que seu problema pedir.&lt;/p&gt;
+&lt;p&gt;Espero ter ajudado. Caso não tenha entendido alguma parte deste artigo, e dos códigos, comente abaixo, ou me mande um tweet. É sempre um prazer.&lt;/p&gt;
+&lt;p&gt;Até a próxima&lt;/p&gt;
+&lt;p&gt;(:&lt;/p&gt;
+&lt;hr/&gt;
+&lt;h2 id=&quot;referências&quot;&gt;Referências&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment&quot;&gt;https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://www.ecma-international.org/ecma-262/6.0/#sec-destructuring-assignment&quot;&gt;http://www.ecma-international.org/ecma-262/6.0/#sec-destructuring-assignment&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        <pubDate>Sat, 04 Mar 2017 00:00:00 +0000</pubDate>
+        <link>https://gabrielprates.com/2017/03/04/atribuicao-multipla-com-destruturing-assignment.html</link>
+        <guid isPermaLink="true">https://gabrielprates.com/2017/03/04/atribuicao-multipla-com-destruturing-assignment.html</guid>
+        
+      </item>
+      <item>
+        <title>O dia que eu aprendi React</title>
+        <description>&lt;p&gt;Apesar de ter ouvido falar tanto de &lt;a href=&quot;https://facebook.github.io/react/&quot;&gt;React&lt;/a&gt; (&lt;a href=&quot;http://zofe.com.br/posts/react-componentes-e-a-web/&quot;&gt;no ZOFE&lt;/a&gt;, &lt;a href=&quot;http://devnaestrada.com.br/2016/09/23/angular-vs-react.html&quot;&gt;no DNE&lt;/a&gt;, num evento da Locaweb, no FrontInBH2016 e no resto da vida), eu, de fato, não havia parado pra ver como era essa &lt;em&gt;lib&lt;/em&gt;. Até que um dia, um professor passou um trabalho que seria basicamente um &lt;em&gt;game show&lt;/em&gt; de perguntas sobre a matéria. Na hora, tive a ideia do que fazer.&lt;/p&gt;
+&lt;p&gt;Na verdade, só tive a ideia, mas fiquei sem saber o que utilizar. Comecei com Bootstrap e jQuery, porque pensei *&amp;quot;não vou arriscar e fazer algo rápido logo.&amp;quot;&lt;em&gt;, mas aí eu pensei *&amp;quot;olha, na verdade é uma boa oportunidade para testar algo novo...&amp;quot;&lt;/em&gt;, e instalei o &lt;a href=&quot;https://www.angularjs.org/&quot;&gt;AngularJS&lt;/a&gt;. Nos mesmos dias que comecei, eu estava lendo o post do Diego Eis no Medium do Tableless sobre &lt;a href=&quot;https://medium.com/tableless/hello-world-com-react-desde-o-rascunho-7629bd801d3e#.s6ibs85pt&quot;&gt;&amp;#39;hello world com React&amp;#39;&lt;/a&gt;, e adivinha? Resolvi testar o React. Tá bom, agora é sério, parei aqui.&lt;/p&gt;
+&lt;p&gt;No post, Diego Eis fala sobre umas vídeo-aulas que ele viu, do Matheus Lima, no &lt;a href=&quot;http://jscasts.teachable.com/p/comecando-com-react-js&quot;&gt;jscasts&lt;/a&gt; e aí eu resolvi dar uma olhada e seguir nesse projetinho me baseando nesse curso. Daí surgiu a &lt;a href=&quot;https://github.com/gabsprates/english-quiz/releases/tag/v1.0&quot;&gt;v1.0 do English Quiz&lt;/a&gt;, que no fim das contas funcionou bem e meu trabalho foi um sucesso &lt;del&gt;apesar de eu não ter aplicado as melhores práticas no desenvolvimento&lt;/del&gt;. Confesso que pude perceber muito mais, ou talvez, realmente entendi &lt;em&gt;closures&lt;/em&gt; fazendo esse trabalho.&lt;/p&gt;
+&lt;p&gt;Apesar do título desse post, eu não aprendi React em um dia. Na verdade, ainda não parei de aprender. Já li boa parte da documentação e implementei várias coisinhas de testes, mas cada vez que converso sobre, eu tenho uns momentos &lt;em&gt;mind blown&lt;/em&gt;.&lt;/p&gt;
+&lt;p&gt;Exatamente por isso, estou reescrevendo esse projeto. Para isso, gastei uns dias das férias estudando, testando e tendo ótimos momentos de descoberta. Acho que alguns pontos são válidos de colocar aqui separadamente, então vamos lá.&lt;/p&gt;
+&lt;h2 id=&quot;es6-es2015-or-whatever&quot;&gt;ES6, ES2015 or &lt;em&gt;whatever&lt;/em&gt;&lt;/h2&gt;
+&lt;p&gt;O primeiro deles, e na verdade o mais importante: &lt;strong&gt;JavaScript e as novas &lt;em&gt;features&lt;/em&gt; do ES6!&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Pode parecer clichê dizer isso, mas na verdade é a parte mais importante de todo o resto. Participar da tradução do &lt;a href=&quot;https://github.com/cezaraugusto/You-Dont-Know-JS&quot;&gt;You Don&amp;#39;t Know JS&lt;/a&gt; tem me ajudado bastante, daí a base em JS eu até que já tinha, mas como falei, comecei pelas vídeo-aulas do Matheus Lima, e aquele curso era com &lt;strong&gt;ES5&lt;/strong&gt;. Daí a aplicação, apesar de funcionando, ficou com uma carinha de &amp;quot;esse código poderia ser mais bonito e mais legível&amp;quot;, daí parei pra olhar a documentação do React com mais carinho e mais tempo, vi os exemplos em &lt;strong&gt;ES6&lt;/strong&gt; e fui logo procurar saber sobre as coisas que eu ainda entendia muito, como por exemplo: sistema de módulos e o &lt;code&gt;class&lt;/code&gt; syntax sugar. Depois posso até fazer um post falando mais sobre o sistema de módulos, achei interessante, apesar de (até onde eu saiba) não ter nenhum navegador que implementou suporte (até a presente data).&lt;/p&gt;
+&lt;p&gt;Então, se você ainda não começou a usar, dá uma olhada na página do &lt;a href=&quot;http://babeljs.io/learn-es2015/&quot;&gt;Learn ES2015&lt;/a&gt;, do site do Babel. ES6 é um ótimo amigo e já está ficando velho.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;:p&lt;/strong&gt;&lt;/p&gt;
+&lt;h2 id=&quot;webpack&quot;&gt;webpack&lt;/h2&gt;
+&lt;p&gt;Já tentou usar o &lt;a href=&quot;http://webpack.github.io/docs/webpack-dev-server.html&quot;&gt;webpack-dev-server&lt;/a&gt; mas percebeu que ele não gerava um bundle no diretório de &lt;strong&gt;&lt;em&gt;output&lt;/em&gt;&lt;/strong&gt;? Eu percebi, achei que não prestava e achei que não tinha configurado direito, daí deixei pra lá... Até [{{ page.title }}]({{ post.url | prepend: site.baseurl }}) (#recursividade).&lt;/p&gt;
+&lt;p&gt;Sim, comunidades podem ajudar muito e exatamente por isso, leia as documentações e ajude. Aprendi a mexer com o &lt;a href=&quot;http://webpack.github.io/&quot;&gt;webpack&lt;/a&gt; assim, e entendi que o &lt;code&gt;webpack-dev-server&lt;/code&gt; gera o bundle em memória, enquanto roda o servidor. Valeu o estudo porque agora posso usá-lo pra qualquer outra coisa, graças aos vários loaders e plugins! Vivendo e aprendendo. Esses links do webpack vão te levar para a documentação da versão 1, que foi a que eu usei, mas como recentemente foi lançada a versão 2, aconselho você olhar a &lt;a href=&quot;https://webpack.js.org/&quot;&gt;nova documentação&lt;/a&gt;.&lt;/p&gt;
+&lt;h2 id=&quot;react-em-si&quot;&gt;React em si&lt;/h2&gt;
+&lt;p&gt;Mais uma vez: leia documentações.&lt;/p&gt;
+&lt;p&gt;A do React é muito boa e dá ótimos exemplos e explicações. Se você tiver um tempinho pra dedicar a isso, será muito produtivo. Vídeo-aulas são bacanas, principalmente quando você está um pouco cansado para ler, mas a documentação é onde você acha os verdadeiros porquês por trás das coisas.&lt;/p&gt;
+&lt;p&gt;Entender como e quando usar &lt;code&gt;state&lt;/code&gt; e &lt;code&gt;props&lt;/code&gt; é fundamental. Entender os métodos &lt;code&gt;componentDidMount()&lt;/code&gt; e &lt;code&gt;componentWillUnmount()&lt;/code&gt; também são muito importantes para o &lt;a href=&quot;https://facebook.github.io/react/docs/state-and-lifecycle.html&quot;&gt;ciclo de vida&lt;/a&gt; do componente. E a melhor parte (pra mim) &lt;a href=&quot;https://facebook.github.io/react/docs/thinking-in-react.html&quot;&gt;pensar React&lt;/a&gt; e &lt;a href=&quot;https://facebook.github.io/react/docs/composition-vs-inheritance.html&quot;&gt;pensar em composição&lt;/a&gt; ajuda muito.&lt;/p&gt;
+&lt;p&gt;Estou refatorando a aplicação e (no presente momento) estou no &lt;a href=&quot;https://facebook.github.io/react/docs/thinking-in-react.html#step-3-identify-the-minimal-but-complete-representation-of-ui-state&quot;&gt;passo 3&lt;/a&gt; do processo de pensar em React. Quando estiver OK eu aviso, ok?&lt;/p&gt;
+&lt;h2 id=&quot;outras-coisinhas&quot;&gt;Outras coisinhas&lt;/h2&gt;
+&lt;p&gt;Por um motivo bobo, resolvi colocar o &lt;code&gt;border-radius&lt;/code&gt; dos botões que estava criando com um número absurdo: &lt;code&gt;19941101px&lt;/code&gt;. O resultado foi que descobri um break point na versão 50 do Firefox. O &lt;code&gt;border-radius&lt;/code&gt; quebra em &lt;code&gt;17895698px&lt;/code&gt;. Agora, por qual motivo alguém faria isso?&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;¯\_(ツ)_/¯&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;E o que mais? NodeJS e Express.js! Mas isso fica pra outro post. Sendo breve, aproveitei pra escrever uma API simples, com MVC, um CRUD básico e MongoDB pra armazenar as perguntas do quiz. Tá funcionando &lt;del&gt;hehe&lt;/del&gt;, mas já sei o que dá pra melhorar. Tá na lista.&lt;/p&gt;
+&lt;h2 id=&quot;conclusão&quot;&gt;Conclusão&lt;/h2&gt;
+&lt;p&gt;As férias da faculdade foram bem corridas, apertadas de serviço, e ótimas pra estudar outras coisas que não se vê na sala de aula. Estou feliz com esse progresso, fui até desafiado estudar Ionic2 e Angular2, mas deixa pra algum feriado prolongado aí.&lt;/p&gt;
+&lt;p&gt;Alguma dúvida? Algum comentário? Deixa aí embaixo, será um prazer trocar uma ideia.&lt;/p&gt;
+&lt;p&gt;Isso é tudo pessoal, até a próxima.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;(:&lt;/strong&gt;&lt;/p&gt;
+</description>
+        <pubDate>Fri, 03 Feb 2017 00:00:00 +0000</pubDate>
+        <link>https://gabrielprates.com/2017/02/03/o-dia-eu-que-aprendi-react.html</link>
+        <guid isPermaLink="true">https://gabrielprates.com/2017/02/03/o-dia-eu-que-aprendi-react.html</guid>
+        
+      </item>
+  </channel>
+</rss>

@@ -1,0 +1,127 @@
+<!DOCTYPE html><html lang="pt-br"><head><meta charSet="UTF-8"/><title data-react-helmet="true">Fazendo um bom Code Review | Gabriel Prates</title><meta data-react-helmet="true" property="og:title" content="Fazendo um bom Code Review"/><meta data-react-helmet="true" name="author" content="Gabriel Prates"/><meta data-react-helmet="true" property="og:locale" content="pt_BR"/><meta data-react-helmet="true" name="description" content="Como fazer um bom code review? Me faço essa pergunta periodicamente, para sempre fazer melhor. Recentemente vi uma talk, do Derek Prior, sobre o assunto e acredito que ele levantou uma ótima referência de como seria um bom code review e sua cultura. Neste post, vamos explorar um pouco os pontos levantados na talk."/><meta data-react-helmet="true" property="og:description" content="Como fazer um bom code review? Me faço essa pergunta periodicamente, para sempre fazer melhor. Recentemente vi uma talk, do Derek Prior, sobre o assunto e acredito que ele levantou uma ótima referência de como seria um bom code review e sua cultura. Neste post, vamos explorar um pouco os pontos levantados na talk."/><meta data-react-helmet="true" property="og:url" content="https://gabrielprates.com/2020/04/16/fazendo-um-bom-code-review.html"/><meta data-react-helmet="true" property="og:site_name" content="Gabriel Prates"/><meta data-react-helmet="true" property="og:image" content="https://gabrielprates.com/assets/perfil-small.jpg"/><meta data-react-helmet="true" property="og:type" content="article"/><meta data-react-helmet="true" property="article:published_time" content="2020-04-16T00:00:00.000Z"/><link data-react-helmet="true" rel="canonical" href="https://gabrielprates.com/2020/04/16/fazendo-um-bom-code-review.html"/><script data-react-helmet="true" type="application/ld+json">{"@type":"BlogPosting","url":"https://gabrielprates.com/2020/04/16/fazendo-um-bom-code-review.html","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"https://gabrielprates.com/assets/perfil-small.jpg"},"name":"Gabriel Prates"},"author":{"@type":"Person","name":"Gabriel Prates"},"headline":"Fazendo um bom Code Review","description":"Como fazer um bom code review? Me faço essa pergunta periodicamente, para sempre fazer melhor. Recentemente vi uma talk, do Derek Prior, sobre o assunto e acredito que ele levantou uma ótima referência de como seria um bom code review e sua cultura. Neste post, vamos explorar um pouco os pontos levantados na talk.","@context":"https://schema.org","dateModified":"2020-04-16T00:00:00.000Z","datePublished":"2020-04-16T00:00:00.000Z","mainEntityOfPage":{"@type":"WebPage","@id":"https://gabrielprates.com/2020/04/16/fazendo-um-bom-code-review.html"}}</script><meta http-equiv="X-UA-Compatible" content="IE=edge"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="theme-color" content="#406b63"/><link rel="stylesheet" href="/style.css"/><link type="image/x-icon" rel="shortcut icon" href="/favicon.ico"/><link rel="alternate" type="application/rss+xml" title="Gabriel Prates" href="https://gabrielprates.com/feed.xml"/><link href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700" rel="stylesheet"/></head><body><header class="site-header"><div class="wrapper"><a class="site-title" href="/" title="Gabriel Prates"><img alt="Gabriel Prates" src="/assets/perfil-small.jpg" class="site-title__image"/>Gabriel Prates</a><nav class="site-nav"><button class="menu-icon"><span></span><span></span><span></span></button><div class="trigger"><a href="/about/" title="Sobre mim" class="page-link">Sobre mim</a><a href="/projects/" title="Projetos" class="page-link">Projetos</a><a href="https://slides.com/gabsprates" title="Talks" target="_blank" class="page-link">Talks</a></div></nav></div></header><div class="page-content"><main class="wrapper"><article class="post" itemscope="" itemType="http://schema.org/BlogPosting"><header class="post-header"><h1 class="post-title" itemProp="name headline">Fazendo um bom Code Review</h1><p class="post-meta"><time dateTime="2020-04-16T00:00:00.000Z" itemProp="datePublished">Apr 16, 2020</time></p></header><div class="post-content"><p><strong>Como fazer um bom code review?</strong> Me faço essa pergunta periodicamente, para sempre fazer melhor. Recentemente vi uma <a href="https://www.youtube.com/watch?v=PJjmw9TRB7s">talk</a>, do <a href="https://www.linkedin.com/in/derek-prior-1145a2/">Derek Prior</a>, sobre o assunto e acredito que ele levantou uma ótima referência de como seria um bom code review e sua cultura. Neste post, vamos explorar um pouco os pontos levantados na talk.</p>
+<p>Antes de começarmos, faça uma reflexão respondendo essas 3 perguntas:</p>
+<ul>
+<li>Você faz code review como parte do teu trabalho?</li>
+<li>Você gosta de fazer code review?</li>
+<li>Se você faz, faz porque <strong>TEM</strong> que fazer (como obrigação)?</li>
+</ul>
+<p>Pronto? Vamos lá.</p>
+<h2 id="por-que-nós-fazemos-reviews">Por que nós fazemos reviews?</h2>
+<p><strong><em>Para achar bugs</em></strong>, você pode ter pensado. Isso realmente acaba fazendo parte do processo, analisando o <em>diff</em> do Git.</p>
+<p>Segundo o estudo <em><a href="https://www.microsoft.com/en-us/research/publication/expectations-outcomes-and-challenges-of-modern-code-review/">Expectations, Outcomes, and Challenges of Modern Code Review</a></em>, realizado pela Microsoft em parceria com a Universidade de Lugano (Suíça), a grande maioria dos desenvolvedores entrevistados também acreditavam que <strong>encontrar defeitos</strong> era o maior motivo de se fazer code review. Dentre os motivos citados, temos:</p>
+<ol>
+<li><strong>Encontrando defeitos</strong></li>
+<li><strong>Melhoria de código</strong></li>
+<li><strong>Soluções alternativas</strong></li>
+<li><strong>Transferência de conhecimento</strong></li>
+<li><strong>Conscientização da equipe</strong></li>
+</ol>
+<p>Acredito, em concordância com a talk do Derek Prior, que podemos tirar um proveito muito grande desses outros motivos e usar o code review como uma ferramenta para nos ajudar a <strong>fazer um trabalho cada dia melhor</strong>.</p>
+<p>Um das entrevistadas nesse estudo disse que code review é a</p>
+<blockquote>
+<p>discipline of explaining your code to your peers [that] drives a higher standard of coding. I think <strong>the process is even more important than the result.</strong></p>
+</blockquote>
+<p>Gosto dessa definição, mas se mudarmos a palavra <strong>explicar</strong> para <strong>discutir</strong>, percebemos que é uma questão de comunicação, saber comunicar melhor e ter uma comunicação melhor com o time. Um bom code review é consequência disso.</p>
+<h2 id="criando-uma-forte-cultura-de-code-review">Criando uma forte cultura de code review</h2>
+<p>Uma das coisas que precisamos pensar é <strong>como devemos agir durante o code review?</strong></p>
+<p>Nesse caso, precisamos identificar qual o nosso papel:</p>
+<ul>
+<li><strong>como autor</strong>; e</li>
+<li><strong>como reviewer</strong></li>
+</ul>
+<h3 id="como-autor-dê-contexto-suficiente">Como autor, dê contexto suficiente</h3>
+<p>Quem faz review precisa saber <strong>o que foi alterado e por quê?</strong></p>
+<p>É muito importante que, ao criar um <em>pull/merge request</em>, você dê o máximo de contexto possível sobre o que está fazendo.</p>
+<p>Se a pessoa que fará review for autora do código que você alterou, será mais fácil pra ela entender as tuas alterações. Caso ela nunca tenha visto aquele código, o que acontece muito, seja porque é uma pessoa nova no time, ou porque é alguém que não conhece mesmo aquele código, essa pessoa precisa saber o qual o objetivo daquele código e porquê aquela alteração foi feita.</p>
+<p>Segundo a pesquisa citada:</p>
+<blockquote>
+<p>when the <strong>context is clear and understanding is very high</strong>, as in the case when the reviewer is the owner of changed files, <strong>code review authors receive comments that explore &quot;deeper details,&quot; are &quot;more directed&quot; and &quot;more actionable and pertinent,&quot; and find &quot;more subtle issues.&quot;</strong></p>
+</blockquote>
+<p>É <strong>importante que você dê contexto</strong> para quem for fazer review. <strong>Contexto</strong> é a palavra chave!</p>
+<ul>
+<li>Se é uma alteração que propõe uma nova forma de fazer algo, explique e dê exemplos;</li>
+<li>Se é uma alteração que corrige um bug, dê contexto, diga como reproduzir, explique qual era o erro e como corrigiu;</li>
+<li>Se é uma nova feature, explique o requisito e passos para reprodução.</li>
+</ul>
+<p>Coloque issues de referência também, se possível.</p>
+<p>Segundo <a href="https://www.garyvaynerchuk.com/content-is-king-but-context-is-god/">Gary Vaynerchuk</a>:</p>
+<blockquote>
+<p>Content is king, but <strong>context</strong> is God</p>
+</blockquote>
+<p>Dica: <a href="https://help.github.com/en/github/building-a-strong-community/creating-a-pull-request-template-for-your-repository">templates de pull requests</a> podem ajudar nesse ponto.</p>
+<h3 id="como-reviewer-faça-perguntas-no-lugar-de-dar-ordens">Como reviewer, faça perguntas no lugar de dar ordens</h3>
+<p>Já ouviu falar no <a href="https://pt.wikipedia.org/wiki/M%C3%A9todo_socr%C3%A1tico">Método Socrático</a>? <del>Lembrei de algumas pessoas falando que não entendem o motivo de ter filosofia em cursos de computação.</del> Podemos aprender algo com ele:</p>
+<blockquote>
+<p>...é uma técnica de investigação filosófica feita em <strong>diálogo</strong>, que consiste em o professor <strong>conduzir</strong> o aluno <strong>a um processo de reflexão e descoberta</strong> [...] Para isso o professor <strong>faz uso de perguntas simples e quase ingênuas</strong> que têm por <strong>objetivo</strong>, em primeiro lugar, <strong>revelar</strong> as contradições presentes na <strong>atual forma de pensar</strong> do aluno...</p>
+</blockquote>
+<p>Considere o seguinte comentário (que eu provavelmente já fiz em algum review):</p>
+<blockquote>
+<p>Essa lógica tá repetida em vários lugares. Transforma numa função e chama a função quando precisar.</p>
+</blockquote>
+<p>Consigo perceber alguns problemas com esse comentário:</p>
+<ul>
+<li>não incentivo a pesquisa da outra pessoa;</li>
+<li>de certa forma, tiro o crédito dela sobre o código que está escrevendo;</li>
+<li>não há discussão.</li>
+</ul>
+<p>Talvez seja um pouco daquela história de <em>&quot;dar o peixe ou ensinar a pescar&quot;</em>. O que queremos é ter uma ótima discussão técnica, para o crescimento de todo mundo no time. Ser imperativo dessa forma não parece ajudar muito. Quando criamos, ou incentivamos a discussão, temos a oportunidade de que todo mundo tire proveito disso. Podemos aprender uns com os outros! Já parou pra pensar em quantas oportunidades podem ser perdidas por esse motivo?</p>
+<p>Que tal transformar esse comentário em algo mais <strong>positivo</strong> e <strong>instigador</strong>?</p>
+<blockquote>
+<p>O que você acha de extrair essa lógica em uma função para evitar repetição?</p>
+</blockquote>
+<p>Parece bobo, mas sim, faz uma grande diferença. A forma como se fala faz muita diferença. Lembre-se: <strong>é uma questão de comunicação</strong>. Pode doer um pouco no início, mas garanto que fará um grande bem ao time e a você.</p>
+<p>Dica: algumas formas de começar uma discussão:</p>
+<ul>
+<li><strong>O que você acha de</strong>... ?</li>
+<li><strong>Você já considerou</strong>... ?</li>
+<li><strong>Você pode explicar melhor</strong>... ?</li>
+</ul>
+<p>Seja <strong>positivo!!!</strong></p>
+<p>Ok, conseguimos gerar uma discussão. E como resolvemos conflitos?</p>
+<h2 id="resolvendo-conflitos">Resolvendo conflitos</h2>
+<p>Bom, isso pode ser um pouco complicado. Pense o seguinte:</p>
+<blockquote>
+<p>É uma questão de <strong>não estar bom</strong>, <strong>OU</strong> é uma questão de que <strong>eu faria diferente</strong>?</p>
+</blockquote>
+<p>Se é uma questão de <strong>não estar bom</strong>, explique os motivos, dê referências, tente não deixar dúvidas dos motivos que você discorda daquela solução, ou o porquê dela não ser boa. Existe algum <a href="https://pt.wikipedia.org/wiki/Trade-off"><em>trade-off</em></a> envolvido? Seja claro, positivo e instigue a pesquisa.</p>
+<p>Se é uma questão de <strong>eu faria diferente</strong>, está tudo bem! Não é um problema, você só tem uma solução diferente e tão boa quanto! Lembre-se, é uma oportunidade de aprender (:</p>
+<h2 id="o-que-revisar">O que revisar?</h2>
+<p>Na hora de revisar código, mantenha o foco em coisas como:</p>
+<ul>
+<li><strong>nomenclatura</strong>: funções, variáveis, classes, métodos, etc., isso faz parte de um código limpo e saudável;</li>
+<li><strong>complexidade</strong>: está difícil de entender o código em questão, ou tem uma forma melhor de fazer?</li>
+<li><strong>responsabilidade e requisito</strong>: esse trecho de código faz o que deveria?</li>
+</ul>
+<p>Por favor, se você está comentando coisas como <strong>&quot;use aspas simples no lugar de aspas duplas&quot;</strong>, ou <strong>&quot;use espaço no lugar de tab&quot;</strong>, ou <strong>&quot;tem que ter quebra de linha antes do <code>{</code>&quot;</strong>, por favor:</p>
+<p><strong>PARE COM ISSO AGORA!</strong></p>
+<p>Isso deve ser um trabalho para linters e formatadores de código. Essas ferramentas existem e salvam muito tempo útil. O padrão de estilo de código definido pelo teu time deve ser documentado e automatizado. Isso é algo que uma máquina pode fazer, deixe ela fazer e foque em coisas que só você pode fazer!</p>
+<p>Dica: <a href="/2016/08/07/que-nao-vai-padronizar-o-que.html">tem um outro post meu</a> com dicas de guias de estilo de código para C, CSS, JavaScript, PHP, Python e Ruby. Dê uma olhada e pesquise alguma ferramenta de automação e guia de estilo para as linguagens que você utiliza. Aceito sugestões nos comentários 😉</p>
+<hr/>
+<h2 id="o-que-ganhamos-com-code-review">O que ganhamos com code review?</h2>
+<p>Sem dúvidas, com um bom processo de code review, nós teremos:</p>
+<ul>
+<li>Um código melhor;</li>
+<li>Desenvolvedores melhores;</li>
+<li>Debates saudáveis;</li>
+<li>Um compartilhamento da propriedade do código.</li>
+</ul>
+<p>Um dos motivos listados na pesquisa, sobre porquê fazer code review, é o <strong>compartilhamento da propriedade do código</strong>.</p>
+<p>Acredito que isso significa que, vendo o código de outras pessoas e mostrando a elas o nosso, dando e recebendo feedbacks, nós compartilhamos o sentimento de que é um código do <strong>time</strong>, do <strong>produto</strong>.</p>
+<p>Esse é um ponto que eu e meu time, front-ends do <a href="https://palcomp3.com.br">Palco MP3</a> tentamos lembrar sempre que necessário. Durante o code review, nós fazemos o que podemos para entregar um resultado ótimo, tanto de código quanto de funcionalidade e usabilidade e ter em mente que é um resultado nosso. Mesmo que determinada feature foi escrita por uma pessoa em particular, o código acaba sendo do time, do produto; damos feedbacks, discutimos soluções e trazemos melhorias fazendo do code review uma ferramenta de desenvolvimento pessoal e da equipe.</p>
+<p>Assim temos um código melhor, desenvolvedores mais maduros e, consequentemente, times e produtos melhores.</p>
+</div></article><hr/><div id="disqus_thread"></div><script>var disqus_config = function () {
+  this.page.url = "https://gabrielprates.com/2020/04/16/fazendo-um-bom-code-review.html";
+  this.page.identifier = "/2020/04/16/fazendo-um-bom-code-review";
+};
+(function() {  // DON'T EDIT BELOW THIS LINE
+  var d = document, s = d.createElement('script');
+  s.src = '//gabsprates.disqus.com/embed.js';
+  s.setAttribute('data-timestamp', +new Date());
+  (d.head || d.body).appendChild(s);
+})();</script><noscript>Please enable JavaScript to view the<!-- --> <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript></main></div><footer class="site-footer"><div class="wrapper"><h2 class="footer-heading">Gabriel Prates</h2><div class="footer-col-wrapper"><div class="footer-col footer-col-1"><ul class="contact-list"><li><a href="https://github.com/gabsprates" title="Gabriel Prates no GitHub" target="_blank">github@<!-- -->gabsprates</a></li><li><a href="https://twitter.com/gabsprates" title="Gabriel Prates no Twitter" target="_blank">twitter@<!-- -->gabsprates</a></li><li><a href="https://br.linkedin.com/in/gabrielprates" title="Gabriel Prates no LinkedIn" target="_blank">linkedin@<!-- -->gabrielprates</a></li><li><a href="https://gabrielprates.com" title="Meu site" target="_blank">gabrielprates.com</a></li></ul></div><div class="footer-col footer-col-3"><p>Desenvolvedor há mais de 13 anos e baterista nas horas vagas
+#js #frontend #opensource #busquemconhecimento</p></div></div></div></footer><script id="dsq-count-scr" src="//gabsprates.disqus.com/count.js" async=""></script><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-92988633-1', 'auto');
+ga('send', 'pageview');</script></body></html>

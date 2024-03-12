@@ -1,0 +1,168 @@
+<!DOCTYPE html><html lang="pt-br"><head><meta charSet="UTF-8"/><title data-react-helmet="true">Exceções e Erros em JavaScript | Gabriel Prates</title><meta data-react-helmet="true" property="og:title" content="Exceções e Erros em JavaScript"/><meta data-react-helmet="true" name="author" content="Gabriel Prates"/><meta data-react-helmet="true" property="og:locale" content="pt_BR"/><meta data-react-helmet="true" name="description" content="Com o objetivo de tratar exceções e controlar erros, em tempo de execução, algumas linguagens implementam alguns mecanismos interessantes, como por exemplo Go, que você pode trabalhar com funções de retornos múltiplos para passar erro e dados em caso de sucesso; e Bash que se trata erros quando o exit do programa é maior que zero 0, já que zero significa sucesso, sem falar no &amp;quot;exception&amp;quot; de comandos encadeados com &amp;amp;&amp;amp;. Agora vamos falar sobre como JavaScript faz isso."/><meta data-react-helmet="true" property="og:description" content="Com o objetivo de tratar exceções e controlar erros, em tempo de execução, algumas linguagens implementam alguns mecanismos interessantes, como por exemplo Go, que você pode trabalhar com funções de retornos múltiplos para passar erro e dados em caso de sucesso; e Bash que se trata erros quando o exit do programa é maior que zero 0, já que zero significa sucesso, sem falar no &amp;quot;exception&amp;quot; de comandos encadeados com &amp;amp;&amp;amp;. Agora vamos falar sobre como JavaScript faz isso."/><meta data-react-helmet="true" property="og:url" content="https://gabrielprates.com/2017/06/02/excecoes-e-erros-em-js.html"/><meta data-react-helmet="true" property="og:site_name" content="Gabriel Prates"/><meta data-react-helmet="true" property="og:image" content="https://gabrielprates.com/assets/perfil-small.jpg"/><meta data-react-helmet="true" property="og:type" content="article"/><meta data-react-helmet="true" property="article:published_time" content="2017-06-02T00:00:00.000Z"/><link data-react-helmet="true" rel="canonical" href="https://gabrielprates.com/2017/06/02/excecoes-e-erros-em-js.html"/><script data-react-helmet="true" type="application/ld+json">{"@type":"BlogPosting","url":"https://gabrielprates.com/2017/06/02/excecoes-e-erros-em-js.html","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"https://gabrielprates.com/assets/perfil-small.jpg"},"name":"Gabriel Prates"},"author":{"@type":"Person","name":"Gabriel Prates"},"headline":"Exceções e Erros em JavaScript","description":"Com o objetivo de tratar exceções e controlar erros, em tempo de execução, algumas linguagens implementam alguns mecanismos interessantes, como por exemplo Go, que você pode trabalhar com funções de retornos múltiplos para passar erro e dados em caso de sucesso; e Bash que se trata erros quando o exit do programa é maior que zero 0, já que zero significa sucesso, sem falar no &quot;exception&quot; de comandos encadeados com &amp;&amp;. Agora vamos falar sobre como JavaScript faz isso.","@context":"https://schema.org","dateModified":"2017-06-02T00:00:00.000Z","datePublished":"2017-06-02T00:00:00.000Z","mainEntityOfPage":{"@type":"WebPage","@id":"https://gabrielprates.com/2017/06/02/excecoes-e-erros-em-js.html"}}</script><meta http-equiv="X-UA-Compatible" content="IE=edge"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="theme-color" content="#406b63"/><link rel="stylesheet" href="/style.css"/><link type="image/x-icon" rel="shortcut icon" href="/favicon.ico"/><link rel="alternate" type="application/rss+xml" title="Gabriel Prates" href="https://gabrielprates.com/feed.xml"/><link href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700" rel="stylesheet"/></head><body><header class="site-header"><div class="wrapper"><a class="site-title" href="/" title="Gabriel Prates"><img alt="Gabriel Prates" src="/assets/perfil-small.jpg" class="site-title__image"/>Gabriel Prates</a><nav class="site-nav"><button class="menu-icon"><span></span><span></span><span></span></button><div class="trigger"><a href="/about/" title="Sobre mim" class="page-link">Sobre mim</a><a href="/projects/" title="Projetos" class="page-link">Projetos</a><a href="https://slides.com/gabsprates" title="Talks" target="_blank" class="page-link">Talks</a></div></nav></div></header><div class="page-content"><main class="wrapper"><article class="post" itemscope="" itemType="http://schema.org/BlogPosting"><header class="post-header"><h1 class="post-title" itemProp="name headline">Exceções e Erros em JavaScript</h1><p class="post-meta"><time dateTime="2017-06-02T00:00:00.000Z" itemProp="datePublished">Jun 2, 2017</time></p></header><div class="post-content"><p>Com o objetivo de tratar exceções e controlar erros, em tempo de execução, algumas linguagens implementam alguns mecanismos interessantes, como por exemplo <a href="https://golang.org/">Go</a>, que você pode trabalhar com funções de retornos múltiplos para passar erro e dados em caso de sucesso; e <a href="https://www.gnu.org/software/bash/">Bash</a> que se trata erros quando o <code>exit</code> do programa é maior que zero <code>0</code>, já que zero significa sucesso, sem falar no &quot;<em>exception</em>&quot; de comandos encadeados com <code>&amp;&amp;</code>. Agora vamos falar sobre como JavaScript faz isso.</p>
+<p>Bom, pra começar, as exceções são utilizadas como uma forma de <em>feedback</em>, para cógido saber o que fazer quando cair numa situação de erro. Agora você precisa entender que os <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements"><em>statements</em></a> (declarações, ou &quot;comandos&quot;) e os objetos citados aqui são coisas <strong>separadas</strong>, apesar de <strong>funcionar em conjunto</strong>. Mais precisamente, vamos falar sobre 3 coisas:</p>
+<ul>
+<li><p>Objetos do tipo <code>Error</code></p>
+</li>
+<li><p>o <code>throw</code></p>
+</li>
+<li><p>e o bloco <code>try...catch</code></p>
+</li>
+</ul>
+<p><em>So, let&#39;s go there!</em></p>
+<h2 id="objetos-do-tipo-error">Objetos do tipo <em>Error</em></h2>
+<p>Sabe quando o console te mostra algum erro de sintaxe, ou um erro de referência, falando que uma variável ou função não existe? Aquelas mensagens esquisitas são dos objetos de <code>Error</code>. Basicamente, esses objetos tem seu prototype composto pelos seguintes itens:</p>
+<ul>
+<li><p><code>.constructor</code>: que inicializa os objetos, é chamado quando se instancia com o <code>new</code>, ou apenas chamando como função <code>Error()</code>;</p>
+</li>
+<li><p><code>.message</code>: a mensagem de erro, que é passada como primeiro argumento do construtor;</p>
+</li>
+<li><p><code>.name</code>: o tipo do erro. Ex.: &quot;<em>Error</em>&quot;, &quot;<em>ReferenceError</em>&quot;;</p>
+</li>
+<li><p><code>.toString()</code>: herdado do <code>Object.prototype.toString()</code> e retorna o valor de <code>.message</code>.</p>
+</li>
+</ul>
+<p>Ok, como eu disse, a propriedade <code>.name</code> especifica o tipo do Erro. Vamos dar uma olhada nos erros <strong>nativos</strong> e quando aparecem:</p>
+<ul>
+<li><p><strong><em>EvalError</em></strong>: lançado quando a função <code>eval()</code> lança algum erro;</p>
+</li>
+<li><p><strong><em>RangeError</em></strong>: lançado quando encontra algum valor não está dentro do intervalo permitido;</p>
+</li>
+<li><p><strong><em>ReferenceError</em></strong>: lançado quando uma referência inválida é detectada;</p>
+</li>
+<li><p><strong><em>SyntaxError</em></strong>: lançado quando existe algum erro no <em>parse</em>, no momento que a <em>engine</em> lê o código para interpretá-lo;</p>
+</li>
+<li><p><strong><em>TypeError</em></strong>: lançado quando um parâmetro de uma função não é do tipo desejado;</p>
+</li>
+<li><p><strong><em>URIError</em></strong>: lançado quando alguma operação de URI, <code>encodeURI()</code> ou <code>decodeURI()</code>, recebem parâmetros inválidos.</p>
+</li>
+</ul>
+<p>Bom, este são os erros nativos. Já que são extensões do objeto <code>Error</code>, nós também podemos criar nossos erros, para poder tratá-los da melhor forma possível. Exemplo:</p>
+<pre><code class="language-js"><span class="hljs-comment">// Erro para regras de negócio</span>
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">BusinessError</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Error</span> </span>{
+  <span class="hljs-keyword">constructor</span>(msg) {
+    <span class="hljs-keyword">super</span>(msg);
+  }
+
+  <span class="hljs-comment">// e podemos adicionar algum método específico</span>
+}</code></pre>
+<p>Ok, <em>next</em>!</p>
+<h2 id="o-lançamento-throw">O &quot;lançamento&quot;: <em>throw</em></h2>
+<p>Okay. Reparou que falei dos erros serem lançados? É exatamente isso que acontece.</p>
+<p>Durante a execução do programa, se houver algum tipo de inconsistência, dos tipos nativos de erro, ou se houver alguma situação que devemos avisar sobre erros, utiliza-se o <code>throw</code> para lançar &quot;coisas&quot; para que &quot;alguém&quot; faça algo com essa coisa.</p>
+<p>Eu disse lançar &quot;coisas&quot; porque você pode lançar qualquer coisa, dentre elas, objetos de erro. Por exemplo:</p>
+<pre><code class="language-js"><span class="hljs-comment">// lançar um erro de negócio, com nossa classe `BusinessError`</span>
+<span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> BusinessError(<span class="hljs-string">'CPF inválido'</span>);
+
+
+<span class="hljs-comment">// lançar uma string de erro</span>
+<span class="hljs-keyword">throw</span> <span class="hljs-string">"Erro: foo"</span>;
+
+
+<span class="hljs-comment">// lançar o status de erro HTTP</span>
+<span class="hljs-keyword">throw</span> <span class="hljs-number">404</span>;
+
+
+<span class="hljs-comment">// lançar objetos literais</span>
+<span class="hljs-keyword">throw</span> {
+  <span class="hljs-attr">message</span>: <span class="hljs-string">"Erro: bar"</span>,
+  <span class="hljs-attr">toString</span>: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.message;
+  }
+};
+
+
+<span class="hljs-comment">// lançar funções</span>
+<span class="hljs-keyword">throw</span> <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{ <span class="hljs-comment">/* ¯\_(ツ)_/¯ */</span> }</code></pre>
+<p>Não digo que lançar coisas que não sejam objetos de erro seja algo comum, nem que é uma boa prática, mas existe a possibilidade de fazer isso e é bom saber.</p>
+<p>Beleza, deu pra entender a função do <code>throw</code>? Em poucas palavras, ele lança (ou &quot;joga&quot;) o erro para a estrutura de controle, e é dela que vamos falar agora.</p>
+<h2 id="o-bloco-trycatch">O bloco <em>try..catch</em></h2>
+<p>Enquanto se <em>tenta</em> executar determinado trecho de código, pode ser que tenhamos erros que quebram o fluxo e todo o programa, não é mesmo? Para resolver esse problema, podemos tratar alguns erros no caso de <strong><em>falha</em></strong> durante a <strong><em>tentativa</em></strong>. Por isso, utilizamos o <code>try..catch</code>.</p>
+<p>A responsabilidade desta estrutura é <strong>tentar executar algo</strong> e, caso dê algum problema durante a execução, <strong>pegar os erros</strong> e tratá-los da forma mais adequada possível.</p>
+<p>Então:</p>
+<blockquote>
+<p>O <code>catch</code> é quem pega as coisas lançadas pelo <code>throw</code> dentro do bloco <code>try</code></p>
+</blockquote>
+<p>Para entender melhor:</p>
+<pre><code class="language-js">
+<span class="hljs-comment">// "Tentamos" executar algo</span>
+<span class="hljs-keyword">try</span> {
+
+  <span class="hljs-comment">/* ... */</span>
+
+  <span class="hljs-comment">// Caso haja algum erro que precise de tratamento (ex.: de negócio)</span>
+  <span class="hljs-keyword">if</span> ( !usuario.permissao ) {
+
+    <span class="hljs-comment">// "Lançamos" um objeto de erro para o `catch`</span>
+    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> BusinessError(<span class="hljs-string">"Acesso não autorizado"</span>);
+
+  }
+
+  <span class="hljs-comment">/* ... */</span>
+
+<span class="hljs-comment">// O `catch` "pega" qualquer coisa lançada no `try`, através do `throw`</span>
+} <span class="hljs-keyword">catch</span> (err) {
+
+  <span class="hljs-comment">// e fazemos o que precisar com isso</span>
+  alert(err.message);
+
+}
+</code></pre>
+<p>Lembre o seguinte: qualquer erro nativo também é lançado e cairá no <code>catch</code>.</p>
+<h3 id="finally"><em>finally</em>!!!</h3>
+<p>O bloco <code>try..catch</code> também permite a execução de coisas no fim da execução do bloco, tendo sucesso ou caindo no <code>catch</code>. Para isso, utilizamos o bloco <code>finally</code>. Exemplo:</p>
+<pre><code class="language-js">
+<span class="hljs-keyword">try</span> {
+
+  <span class="hljs-comment">// throw:</span>
+  <span class="hljs-comment">// ┻━┻ ヘ╰( •̀ε•́ ╰)</span>
+
+} <span class="hljs-keyword">catch</span> (e) {
+
+  <span class="hljs-comment">// ╰( ⁰ ਊ ⁰ )━☆ﾟ.*･｡ﾟ</span>
+
+} <span class="hljs-keyword">finally</span> {
+
+  <span class="hljs-comment">// Sempre executa ao finalizar o `try` ou o `catch`</span>
+  <span class="hljs-comment">// É um bom lugar pra executar coisas como:</span>
+  <span class="hljs-comment">//  * fechar uma transação com o DB;</span>
+  <span class="hljs-comment">//  * fechar arquivos que foram abertos para leitura;</span>
+  <span class="hljs-comment">//  * atualizar o estado da view;</span>
+
+}
+</code></pre>
+<h3 id="observação">Observação</h3>
+<p>Este mecanismo de tratamento de erros em tempo de execução (com <code>try..catch..finally</code> e <code>throw</code>) também é adotado por outras linguagens. Podemos citar PHP e Java como exemplo e cada uma delas tem seus objetos de erro específicos. JavaScript utiliza os objetos do tipo <code>Error</code>, PHP e Java tem seus objetos de <code>Exception</code>, que servem pra mesma coisa.</p>
+<h2 id="por-fim">Por fim</h2>
+<p>Bom, resolvi escrever este post porque eu achei sempre achava um post falando sobre o <code>try..catch</code>, outro falando sobre o <code>throw</code>, mas não tinha visto algum que explicava a coisa como um todo.</p>
+<p>Então, fui claro? Deu pra entender a interação desses elementos?</p>
+<p>Se tive alguma dúvida, ou se algo não ficou claro, ou se algo do que falei está errado, deixe um comentário ou me chame no twitter, será um prazer.</p>
+<p>Até a próxima</p>
+<p>(:</p>
+<hr/>
+<h2 id="referências">Referências</h2>
+<ul>
+<li>Error Objects - <a href="http://www.ecma-international.org/ecma-262/7.0/index.html#sec-error-objects">http://www.ecma-international.org/ecma-262/7.0/index.html#sec-error-objects</a></li>
+<li>ECMAScript Language: Statements and Declarations - <a href="http://www.ecma-international.org/ecma-262/7.0/index.html#sec-ecmascript-language-statements-and-declarations">http://www.ecma-international.org/ecma-262/7.0/index.html#sec-ecmascript-language-statements-and-declarations</a></li>
+<li>Error - <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error">https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error</a></li>
+<li>throw - <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/throw">https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/throw</a></li>
+<li>try...catch - <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/try...catch">https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/try...catch</a></li>
+<li>try...catch...finally Statement (JavaScript) - <a href="https://docs.microsoft.com/en-us/scripting/javascript/reference/try-dot-dot-dot-catch-dot-dot-dot-finally-statement-javascript">https://docs.microsoft.com/en-us/scripting/javascript/reference/try-dot-dot-dot-catch-dot-dot-dot-finally-statement-javascript</a></li>
+<li>throw Statement (JavaScript) - <a href="https://docs.microsoft.com/en-us/scripting/javascript/reference/throw-statement-javascript">https://docs.microsoft.com/en-us/scripting/javascript/reference/throw-statement-javascript</a></li>
+<li>Error Object (JavaScript) - <a href="https://docs.microsoft.com/en-us/scripting/javascript/reference/error-object-javascript">https://docs.microsoft.com/en-us/scripting/javascript/reference/error-object-javascript</a></li>
+</ul>
+</div></article><hr/><div id="disqus_thread"></div><script>var disqus_config = function () {
+  this.page.url = "https://gabrielprates.com/2017/06/02/excecoes-e-erros-em-js.html";
+  this.page.identifier = "/2017/06/02/excecoes-e-erros-em-js";
+};
+(function() {  // DON'T EDIT BELOW THIS LINE
+  var d = document, s = d.createElement('script');
+  s.src = '//gabsprates.disqus.com/embed.js';
+  s.setAttribute('data-timestamp', +new Date());
+  (d.head || d.body).appendChild(s);
+})();</script><noscript>Please enable JavaScript to view the<!-- --> <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript></main></div><footer class="site-footer"><div class="wrapper"><h2 class="footer-heading">Gabriel Prates</h2><div class="footer-col-wrapper"><div class="footer-col footer-col-1"><ul class="contact-list"><li><a href="https://github.com/gabsprates" title="Gabriel Prates no GitHub" target="_blank">github@<!-- -->gabsprates</a></li><li><a href="https://twitter.com/gabsprates" title="Gabriel Prates no Twitter" target="_blank">twitter@<!-- -->gabsprates</a></li><li><a href="https://br.linkedin.com/in/gabrielprates" title="Gabriel Prates no LinkedIn" target="_blank">linkedin@<!-- -->gabrielprates</a></li><li><a href="https://gabrielprates.com" title="Meu site" target="_blank">gabrielprates.com</a></li></ul></div><div class="footer-col footer-col-3"><p>Desenvolvedor há mais de 13 anos e baterista nas horas vagas
+#js #frontend #opensource #busquemconhecimento</p></div></div></div></footer><script id="dsq-count-scr" src="//gabsprates.disqus.com/count.js" async=""></script><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-92988633-1', 'auto');
+ga('send', 'pageview');</script></body></html>

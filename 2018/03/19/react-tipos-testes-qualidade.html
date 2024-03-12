@@ -1,0 +1,213 @@
+<!DOCTYPE html><html lang="pt-br"><head><meta charSet="UTF-8"/><title data-react-helmet="true">React + Tipos + Testes = Qualidade | Gabriel Prates</title><meta data-react-helmet="true" property="og:title" content="React + Tipos + Testes = Qualidade"/><meta data-react-helmet="true" name="author" content="Gabriel Prates"/><meta data-react-helmet="true" property="og:locale" content="pt_BR"/><meta data-react-helmet="true" name="description" content="Quando o assunto é qualidade em desenvolvimento, podemos falar sobre legibilidade, performance, custos, produtividade e algumas outras coisas. Vamos falar um pouco sobre algumas ferramentas e práticas que podem ajudar muito na hora de escrever e manter códigos front-end de qualidade."/><meta data-react-helmet="true" property="og:description" content="Quando o assunto é qualidade em desenvolvimento, podemos falar sobre legibilidade, performance, custos, produtividade e algumas outras coisas. Vamos falar um pouco sobre algumas ferramentas e práticas que podem ajudar muito na hora de escrever e manter códigos front-end de qualidade."/><meta data-react-helmet="true" property="og:url" content="https://gabrielprates.com/2018/03/19/react-tipos-testes-qualidade.html"/><meta data-react-helmet="true" property="og:site_name" content="Gabriel Prates"/><meta data-react-helmet="true" property="og:image" content="https://gabrielprates.com/assets/perfil-small.jpg"/><meta data-react-helmet="true" property="og:type" content="article"/><meta data-react-helmet="true" property="article:published_time" content="2018-03-19T00:00:00.000Z"/><link data-react-helmet="true" rel="canonical" href="https://gabrielprates.com/2018/03/19/react-tipos-testes-qualidade.html"/><script data-react-helmet="true" type="application/ld+json">{"@type":"BlogPosting","url":"https://gabrielprates.com/2018/03/19/react-tipos-testes-qualidade.html","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"https://gabrielprates.com/assets/perfil-small.jpg"},"name":"Gabriel Prates"},"author":{"@type":"Person","name":"Gabriel Prates"},"headline":"React + Tipos + Testes = Qualidade","description":"Quando o assunto é qualidade em desenvolvimento, podemos falar sobre legibilidade, performance, custos, produtividade e algumas outras coisas. Vamos falar um pouco sobre algumas ferramentas e práticas que podem ajudar muito na hora de escrever e manter códigos front-end de qualidade.","@context":"https://schema.org","dateModified":"2018-03-19T00:00:00.000Z","datePublished":"2018-03-19T00:00:00.000Z","mainEntityOfPage":{"@type":"WebPage","@id":"https://gabrielprates.com/2018/03/19/react-tipos-testes-qualidade.html"}}</script><meta http-equiv="X-UA-Compatible" content="IE=edge"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="theme-color" content="#406b63"/><link rel="stylesheet" href="/style.css"/><link type="image/x-icon" rel="shortcut icon" href="/favicon.ico"/><link rel="alternate" type="application/rss+xml" title="Gabriel Prates" href="https://gabrielprates.com/feed.xml"/><link href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700" rel="stylesheet"/></head><body><header class="site-header"><div class="wrapper"><a class="site-title" href="/" title="Gabriel Prates"><img alt="Gabriel Prates" src="/assets/perfil-small.jpg" class="site-title__image"/>Gabriel Prates</a><nav class="site-nav"><button class="menu-icon"><span></span><span></span><span></span></button><div class="trigger"><a href="/about/" title="Sobre mim" class="page-link">Sobre mim</a><a href="/projects/" title="Projetos" class="page-link">Projetos</a><a href="https://slides.com/gabsprates" title="Talks" target="_blank" class="page-link">Talks</a></div></nav></div></header><div class="page-content"><main class="wrapper"><article class="post" itemscope="" itemType="http://schema.org/BlogPosting"><header class="post-header"><h1 class="post-title" itemProp="name headline">React + Tipos + Testes = Qualidade</h1><p class="post-meta"><time dateTime="2018-03-19T00:00:00.000Z" itemProp="datePublished">Mar 19, 2018</time></p></header><div class="post-content"><p>Quando o assunto é qualidade em desenvolvimento, podemos falar sobre legibilidade, performance, custos, produtividade e algumas outras coisas. Vamos falar um pouco sobre algumas ferramentas e práticas que podem ajudar muito na hora de escrever e manter códigos front-end de qualidade.</p>
+<p>Algum tempo antes do meu <a href="https://gabrielprates.com/2017/10/21/shell-script-02-io-e-mais.html">último post</a>, comecei a estudar bastante sobre testes e queria escrever algo sobre o assunto. Um outro assunto sobre o qual eu já havia lido e então comecei a brincar um pouco, foi o <a href="https://www.typescriptlang.org/">TypeScript</a>. Como nos últimos meses tudo isso (e muito mais) se tornou parte da minha stack como front-end na <a href="https://www.studiosol.com.br/">Studio Sol</a>, decidi escrever um post mais completo, com uma visão mais prática sobre tudo isso.</p>
+<p>Agora vamos ao que interessa. Para melhor entendimento, vamos dividir este post em algumas partes básicas:</p>
+<ul>
+<li><strong>JavaScript e tipagem</strong></li>
+<li><strong>Tipagem em React</strong></li>
+<li><strong>Cultura de Teste</strong></li>
+</ul>
+<p>So, let&#39;s go there!</p>
+<h2 id="javascript-e-tipagem">JavaScript e tipagem</h2>
+<p>Gostaria de começar falando que, se você ainda acha que JavaScript é uma linguagem sem tipagem, tá na hora de mudar esse conceito.</p>
+<p>JavaScript tem tipos bem definidos sim, e tem valores primitivos dos seguintes tipos:</p>
+<ul>
+<li><strong>Undefined</strong></li>
+<li><strong>Null</strong></li>
+<li><strong>Boolean</strong></li>
+<li><strong>Number</strong></li>
+<li><strong>String</strong></li>
+<li><strong>Symbol</strong></li>
+</ul>
+<p>Objetos partem do escopo do tipo <strong>Object</strong>, e aqui estamos falando de <strong><em>Function</em></strong>, <strong><em>Date</em></strong>, <strong><em>RegExp</em></strong>, os <em>wrappers</em> de <strong><em>String</em></strong>, <strong><em>Number</em></strong> e <strong><em>Boolean</em></strong>, vários outros e qualquer um que você crie.</p>
+<p>Okay, podemos prosseguir.</p>
+<p>Linguagens fortemente tipadas garantem certo nível de qualidade de código, porque você tem um ambiente, de certa forma, controlado e pode prevenir vários errinhos inesperados. Linguagens fracamente tipadas e de tipagem dinâmica, como JavaScript, apesar da flexibilidade, podem trazer alguns efeitos colaterais para o controle e tratamento dos dados.</p>
+<p>Nesse ponto, eu gostaria de ressaltar que quando você e seu time entendem bem o comportamento dos tipos e suas coerções dentro da linguagem, vocês podem manipular muita coisa a seu favor. A tipagem dinâmica não é, em si, um problema mortal. No meu caso, quando comecei a desenvolver, eu evitei linguagens fortemente tipadas, ou qualquer coisa que tornasse meu processo de aprendizado mais burocrático, por isso foquei tanto em PHP e depois em JS.</p>
+<p>Com o passar do tempo, senti a necessidade de algumas garantias a nível de código e tive uma experiência interessante na faculdade, <a href="https://github.com/gabsprates/JavaPOO">com Java</a>. Pude perceber mais clareza e produtividade em alguns trechos de código que escrevia e acredito que muito por causa de tipagem.</p>
+<p>Ah! <a href="https://secure.php.net/manual/en/migration70.new-features.php">A partir da versão 7 do PHP</a> também temos a possibilidade de deixar o código mais estrito. <strong>;)</strong></p>
+<p>A evolução do JavaScript, principalmente em 2015, favoreceu muito o desenvolvimento de software, e é perfeitamente possível escrever software robusto com JS puro, o <a href="https://rocket.chat/">Rocket.Chat</a> que o diga. Mas antes disso, a Microsoft já vinha com uma <a href="https://github.com/Microsoft/TypeScript/blob/master/doc/spec.md">iniciativa ousada</a> de criar uma ferramenta robusta para o desenvolvimento de código, o <a href="https://www.typescriptlang.org/">TypeScript</a>, que se destacava pelo seguinte ponto:</p>
+<blockquote>
+<p>TypeScript starts from the same syntax and semantics that millions of JavaScript developers know today.</p>
+</blockquote>
+<p>Outras linguagens tentaram fazer &quot;o mesmo&quot; que o TypeScript faz (compilar para JS), como por exemplo o <a href="http://coffeescript.org/">Coffee Script</a>, a diferença primordial é o fato da sintaxe e semântica já serem conhecidas. Com a evolução do JS, os adicionais colocados pelo TS parecem mais uma evolução natural da linguagem. Tudo isso favoreceu muito a utilização de TypeScript e claro que não podemos deixar de falar da Google utilizando a linguagem no <a href="https://angular.io/docs#assumptions">Angular</a>.</p>
+<p>Sim, com TypeScript precisamos escrever um código mais verboso, mas é um custo que vale a pena durante manutenção e reusabilidade, e o resultado final é JavaScript, então é bom demais! Você pode testar um pouco no <a href="https://www.typescriptlang.org/play/index.html"><em>playground</em></a> da linguagem.</p>
+<p>Acho que deu pra entender como o TS se encaixa na história, né? Qualquer dúvida, comenta aí, a gente conversa mais e esclarece tudo.</p>
+<h2 id="tipagem-em-react">Tipagem em React</h2>
+<p>Como falei, o Angular <code>^2</code> é escrito com TypeScript e, graças à era Open Source da Microsoft, também podemos usar TS em aplicações Node.js, ou com jQuery, Vue.js, React, etc. Isso acontece porque existe  <code>@types</code> <a href="https://www.npmjs.com/~types">pra quase tudo</a>!!! Faça o teste, procure por alguma biblioteca que você usa: <a href="http://microsoft.github.io/TypeSearch/">TypeSearch</a>.</p>
+<p>Eu não vou ensinar instalar e configurar um projeto React pra usar TypeScript, a própria documentação do TS já tem guias pra isso e são bem explicados, dá uma olhadinha nesses links:</p>
+<ul>
+<li><a href="https://github.com/Microsoft/TypeScript-React-Starter#typescript-react-starter">TypeScript React Starter</a> &lt;- para quem for usar o <code>create-react-app</code>;</li>
+<li><a href="https://www.typescriptlang.org/docs/handbook/react-&amp;-webpack.html">React &amp; Webpack</a> &lt;- para quem quer instalar na mão, ou começar a usar num projeto já existente;</li>
+<li><a href="https://www.typescriptlang.org/docs/handbook/jsx.html">JSX</a> &lt;- para saber mais.</li>
+</ul>
+<p>O que quero focar aqui, é em pequenos exemplos de como a tipagem ajuda no desenvolvimento <del>e como um editor/IDE pode facilitar as coisas</del>. Vamos para a prática!</p>
+<p>Considerando a instalação e configuração manual, disponível no link <strong>React &amp; Webpack</strong> acima, vou apenas mudar a utilização do <a href="https://webpack.js.org/">webpack</a> e <a href="https://webpack.js.org/guides/development/#using-webpack-dev-server">webpack-dev-server</a>, pra não precisar instalar nada globalmente e não precisar ficar fazendo <em>build</em> toda hora. Vamos fazer um componente <code>&lt;TodoApp /&gt;</code>, o mesmo disponível na página do React e o código escrito para este post está disponível <a href="https://github.com/gabsprates/todo-react-typescript">neste repositório</a>.</p>
+<p>Recomendo o uso do <a href="https://code.visualstudio.com/">VS Code</a>. Ele tem um ótimo suporte, quase que nativo, pro TypeScript, então facilita muita coisa.</p>
+<p>Ok, o código original do componente é o seguinte:</p>
+<script src="https://gist.github.com/gabsprates/f10c28281edc500e54518890c0df09da.js?file=React_TodoApp.js"></script>
+
+<p>Vamos dividir esses componentes em arquivos diferentes e ajustar os <code>import</code>s dos componentes, vai ficar assim:</p>
+<ul>
+<li><code>src/components/TodoApp.tsx</code></li>
+</ul>
+<script src="https://gist.github.com/gabsprates/f10c28281edc500e54518890c0df09da.js?file=Modulos_TodoApp.tsx"></script>
+
+<ul>
+<li><code>src/components/TodoList.tsx</code>:</li>
+</ul>
+<script src="https://gist.github.com/gabsprates/f10c28281edc500e54518890c0df09da.js?file=Modulos_TodoList.tsx"></script>
+
+<p>E nosso <code>src/index.tsx</code> fica assim:</p>
+<script src="https://gist.github.com/gabsprates/f10c28281edc500e54518890c0df09da.js?file=Modulos_index.tsx"></script>
+
+<p>Você pode conferir como o código deve ficar <a href="https://github.com/gabsprates/todo-react-typescript/tree/modulos">nesta tag</a>. Agora, vamos executar o build do webpack com o <code>--watch</code> e ver o que vai acontecer:</p>
+<pre><code class="language-bash">$ ./node_modules/.bin/webpack --watch</code></pre>
+<p>O build vai mostrar vários erros. Isso era realmente o esperado, agora vamos ajustar tudo.</p>
+<h3 id="todolist-"><code>&lt;TodoList /&gt;</code></h3>
+<p>Em primeiro lugar, esse é um componente <em>stateless</em>, então vamos transformá-lo numa função, pra ficar mais enxuto e performático, assim:</p>
+<script src="https://gist.github.com/gabsprates/f10c28281edc500e54518890c0df09da.js?file=Tipos_Pre_TodoList.tsx"></script>
+
+<p>Nesse ponto, os erros apontados para este arquivo já foram solucionados, isso porque o compilador estava dizendo que alguns tipos de um componente React não tinham sido especificados.</p>
+<p>Agora imagine que você e sua equipe devam utilizar este componente em outras partes da aplicação, não apenas do <code>&lt;TodoApp /&gt;</code>. Pode ser que queiram usar só para renderizar um conjunto de tarefas, ou algo do tipo. Como garantir que sempre vão receber os dados corretos para isso? Podem combinar e escrever isso em algum lugar, mas se o caso é documentar isso e deixar claro pra quem for utilizar o código, é melhor que esses tipos sejam especificados. Então vamos especificar que esse componente deve receber uma <code>prop</code> chamada <code>items</code>, que deve ser um array de elementos com uma descrição e um id.</p>
+<p>Podemos definir esses &quot;modelos&quot; com <code>type</code> ou <code>interface</code>, mas acredito que interfaces são mais úteis quando definimos &quot;modelos&quot; (<a href="https://www.caelum.com.br/apostila-java-orientacao-objetos/interfaces/#interfaces">ou &quot;contratos&quot;, como algumas pessoas dizem</a>) para classes/métodos, então vamos criar um tipos mesmo:</p>
+<script src="https://gist.github.com/gabsprates/f10c28281edc500e54518890c0df09da.js?file=Tipos_Done_TodoList.tsx"></script>
+
+<p>Um pouco mais verboso, né? Vale a pena, você vai ver. O <code>export</code> do <code>ItemType</code> também  será útil no próximo componente.</p>
+<h3 id="todoapp-"><code>&lt;TodoApp /&gt;</code></h3>
+<p>Este componente não precisa de uma definição de <code>props</code>, já que não recebe nada, mas ele contém <code>state</code>, então é bom definir esses estados. Vamos importar tudo o que precisamos do outro componente e definir o tipo do nosso <code>state</code>:</p>
+<script src="https://gist.github.com/gabsprates/f10c28281edc500e54518890c0df09da.js?file=Tipos_PT1_TodoApp.tsx"></script>
+
+<p>Reparou no <code>&lt;{}, StateType&gt;</code>? Como não precisamos de um modelo de <code>props</code>, declaramos apenas o modelo dos estados, daí nosso construtor espera que <code>props</code> seja um objeto vazio, ou seja, não precisa declarar nenhuma prop. Podemos até definir um estado <em>default</em>, o que ajudaria no caso de querermos reaproveitar esses dados. Veja só:</p>
+<script src="https://gist.github.com/gabsprates/f10c28281edc500e54518890c0df09da.js?file=Tipos_PT2_TodoApp.tsx"></script>
+
+<p>Isso também poderia ser feito para <code>props</code>, e se definir um <code>static defaultProps</code>, o próprio compilador já entende o que deve fazer e inicializa nossas props.</p>
+<p>Agora os únicos avisos de erro que temos são os tipos dos parâmetros do das funções de <em>handle</em>. Vamos ajeitar isso antes de inserir uma nova <em>feature</em> em nosso componente.</p>
+<script src="https://gist.github.com/gabsprates/f10c28281edc500e54518890c0df09da.js?file=Tipos_PT3_TodoApp.tsx"></script>
+
+<p>O que fizemos até aqui foi definir que nossos componentes devem seguir certo comportamento, mesmo que outra pessoa mexa nesse código, ou reutilize em alguma outra parte da aplicação. Temos <code>state</code>, <code>props</code> e métodos com consistência. Mesmo que o resultado final seja JavaScript puro, estamos garantindo integridade e qualidade durante o desenvolvimento.</p>
+<h3 id="nova-funcionalidade">Nova funcionalidade</h3>
+<p>Agora que tudo já está certinho, e está <a href="https://github.com/gabsprates/todo-react-typescript/tree/tipos/">tudo aqui nesta tag</a>, vamos mexer em algumas coisinhas e criar um método para dar um <em>reset</em> no nosso componente.</p>
+<p>Vamos definir o método, fazer o bind no <code>constructor</code> e criar um <code>&lt;button&gt;</code> que irá chamá-lo. Vou cortar alguns trechos de código aqui para economizar espaço:</p>
+<script src="https://gist.github.com/gabsprates/f10c28281edc500e54518890c0df09da.js?file=Reset_TodoApp.tsx"></script>
+
+<p>Viu que reutilizamos o <code>defaultState</code>? E que nosso novo método não precisa receber nenhum parâmetro e nem precisa especificar?</p>
+<p>Conseguiu perceber como o código fica mais consistente? Se você estiver usando um editor/IDE bem configurado, vai conseguir ser muito mais produtivo. Faça o teste do VS Code, mas se quiser, pode configurar o Atom, ou Vim também.</p>
+<p>Agora vamos entrar na parte que eu acho mais interessante: testes!</p>
+<h2 id="cultura-de-testes">Cultura de testes</h2>
+<p>Aaah, testes...</p>
+<p>Quantas vezes você tentou trabalhar com uma biblioteca e, mesmo que encontrava algo documentado, não encontrava exemplos e isso dificultava um pouco pra trabalhar com ela? Ou, quantas vezes você mexeu em alguma parte do código e demorou um tempinho até perceber que alguma outra coisa parou de funcionar? Já aconteceu de ter que testar manualmente várias telas, inputs e outputs na aplicação pra garantir que está tudo funcionando depois de uma modificação grande? Pois é, garantir a estabilidade e documentação do seu código, e aplicação de forma geral, pode se tornar mais simples pelo fato de adotar uma cultura de testes de forma automatizada.</p>
+<p>Vamos focar em testar as partes mais básicas do teu código e as comunicações entre um módulo e outro. O assunto de testes é muito vasto, e eu particularmente gosto bastante, mas vou me conter aqui porque existem várias fontes sobre isso, aqui estão algumas:</p>
+<ul>
+<li>Pra quem gosta de ouvir:<ul>
+<li><a href="https://www.lambda3.com.br/2016/11/podcast-18-testes/">https://www.lambda3.com.br/2016/11/podcast-18-testes/</a></li>
+<li><a href="https://hipsters.tech/testes-automatizados-hipsters-51/">https://hipsters.tech/testes-automatizados-hipsters-51/</a></li>
+<li><a href="http://zofe.com.br/posts/voce-testa-se-o-teste-do-codigo-testado-testavel/">http://zofe.com.br/posts/voce-testa-se-o-teste-do-codigo-testado-testavel/</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>Pra quem gosta de ler:<ul>
+<li><a href="https://willianjusten.com.br/entendendo-testes-de-software/">https://willianjusten.com.br/entendendo-testes-de-software/</a></li>
+<li><a href="https://blog.umbler.com/br/qualidade-de-software-1-7-motivos-para-considerar-o-teste-de-software-indispensavel/">https://blog.umbler.com/br/qualidade-de-software-1-7-motivos-para-considerar-o-teste-de-software-indispensavel/</a></li>
+<li><a href="https://jcemer.com/voce-e-irresponsavel-por-nao-escrever-testes-de-front-end.html">https://jcemer.com/voce-e-irresponsavel-por-nao-escrever-testes-de-front-end.html</a></li>
+</ul>
+</li>
+</ul>
+<p>Aqui eu vou focar mais nos testes unitários da nossa aplicação. Existem várias ferramentas diferentes para testar código JavaScript, e TypeScript no nosso caso. Eu escolhi falar sobre Jest por alguns motivos e dentre eles, <del>porque é o que eu uso no meu dia-a-dia</del> porque é simples de configurar. Ambientes de teste podem dar dor de cabeça para configurar, principalmente no ecossistema JS atuais (vede data da publicação). O maior complicador aqui é a configuração para testar nosso código TypeScript, mas mesmo assim é simples.</p>
+<h3 id="preparando-ambiente">Preparando ambiente</h3>
+<p>No ponto que nossa aplicação está, precisamos configurar tudo para fazer com que nosso código TypeScript seja testado pelo Jest. Para isso, vamos seguir alguns passos:</p>
+<ol>
+<li>Terminar a instalação do ambiente React com webpack e Babel (no link abaixo tem outros links pro Babel e como configurar tudinho, mas na prática é pouca coisa):<ul>
+<li><a href="https://reactjs.org/docs/add-react-to-an-existing-app.html">https://reactjs.org/docs/add-react-to-an-existing-app.html</a></li>
+<li>Devemos     inserir o <code>babel-loader</code> na mesma <em><strong>rule</strong></em> do <code>awesome-typescript-loader</code>, assim:<ul>
+<li><code>use: [ { loader: &quot;babel-loader&quot; }, { loader: &quot;awesome-typescript-loader&quot; } ]</code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<ol start="2">
+<li>Instalar o Jest e <strong>ts-jest</strong>:<ul>
+<li><a href="https://facebook.github.io/jest/docs/en/tutorial-react.html#setup-without-create-react-app">https://facebook.github.io/jest/docs/en/tutorial-react.html#setup-without-create-react-app</a></li>
+<li><a href="https://github.com/kulshekhar/ts-jest#usage">https://github.com/kulshekhar/ts-jest#usage</a></li>
+</ul>
+</li>
+</ol>
+<ol start="3">
+<li>Instalar o <strong>Enzyme</strong>, o seu adaptador para a versão do React que estamos utilizando (v. 16) e os tipos:<ul>
+<li><a href="http://airbnb.io/enzyme/docs/installation/#working-with-react-16">http://airbnb.io/enzyme/docs/installation/#working-with-react-16</a></li>
+<li><code>@types/enzyme</code> e <code>@types/enzyme-adapter-react-16</code></li>
+<li>Como estamos trabalhando com TypeScript, crie o arquivo <code>enzyme.adapter.tsx</code> com o conteúdo referenciado abaixo e coloque ele no <code>setupFiles</code> da configuração do Jest no <code>package.json</code> (deve ter sido criado no passo 2):</li>
+</ul>
+</li>
+</ol>
+<script src="https://gist.github.com/gabsprates/f10c28281edc500e54518890c0df09da.js?file=enzyme_config.js"></script>
+
+<p>Agora é só criar uma tarefa de testes no npm:</p>
+<script src="https://gist.github.com/gabsprates/f10c28281edc500e54518890c0df09da.js?file=package_test.json"></script>
+
+<p>O resultado final dessas alterações pode ser visto <a href="https://github.com/gabsprates/todo-react-typescript/commit/48f8f87bf6bb28f633d971dfa5c258c46cbc5ae1">neste commit</a>.</p>
+<p>Esclarecendo as coisas, o Jest é uma biblioteca para testar código JavaScript, já o Enzyme vai nos proporcionar toda dinâmica de renderização e manipulação de DOM que o browser faz. Agora vamos escrever nossos testes.</p>
+<h3 id="começando-a-testar">Começando a testar</h3>
+<p>Para escrever nossos testes e fazer com que o Jest faça seu trabalho, só precisamos seguir a definição da própria biblioteca:</p>
+<blockquote>
+<p>Place your tests in a <code>__tests__</code> folder, or name your test files with a <code>.spec.js</code> or <code>.test.js</code> extension.</p>
+</blockquote>
+<p>No nosso caso, vamos criar um diretório <code>__tests__</code>, que irá seguir a mesma estrutura do nosso diretório <code>src</code>, então vamos criar nosso primeiro teste, o do nosso componente <code>&lt;TodoList /&gt;</code>, que é <em>stateless</em>:</p>
+<script src="https://gist.github.com/gabsprates/f10c28281edc500e54518890c0df09da.js?file=Teste_TodoList.tsx"></script>
+
+<p>Muita informação de uma vez, mas vou explicar tudo. Seguinte:</p>
+<p>Primeiro nós importamos as coisas necessárias para nosso teste: o React, a função <code>render</code> do Enzyme (vou mais sobre isso) e o nosso componente; depois criamos um <em>mock</em>, que é um conjunto de dados que será usado para testes; descrevemos o nosso contexto de teste e começamos especificar os casos. O primeiro caso deve renderizar a <code>&lt;ul&gt;</code> com uma <code>&lt;li&gt;</code>, daí mandamos o <code>render()</code> fazer o trabalho dele e então fizemos uma busca dentro do que foi renderizado para então verificar se a quantidade de itens estava certa e o texto também, com o <code>expect()</code>. O segundo caso é praticamente a mesma coisa, mas com mais itens, e pra não ficar repetitivo, usamos o <code>forEach()</code>.</p>
+<p>Como falei, utilizamos o <a href="http://airbnb.io/enzyme/docs/api/render.html"><code>render()</code></a> do Enzyme e ele a melhor escolha para testar componentes estáticos, sem estado, como esse nosso componente do teste. Também temos as funções <a href="http://airbnb.io/enzyme/docs/api/shallow.html"><code>shallow()</code></a> e <a href="http://airbnb.io/enzyme/docs/api/mount.html"><code>mount()</code></a>.</p>
+<p>O <code>shallow</code> faz a montagem e renderização no nível do componente e testa o componente como uma unidade, ou seja, se você tiver componentes filhos, eles não serão montados e não vão afetar o teste do componente em questão.</p>
+<p>Já o <code>mount</code> vai montar toda a árvore de componentes, <em>&quot;da raiz até as folhas&quot;</em>, e toda a respectiva estrutura do DOM. Isso é muito bom pra testar integração entre componentes.</p>
+<p>Vamos testar nosso próximo componente, o <code>&lt;TodoApp /&gt;</code>. Primeiro vamos testar a renderização e depois o disparo dos métodos de <em>handle</em>. Aqui está:</p>
+<script src="https://gist.github.com/gabsprates/f10c28281edc500e54518890c0df09da.js?file=Teste_TodoApp.tsx"></script>
+
+<p>Como falei, esses testes tem muito conteúdo, então vou citar algumas particularidades deles aqui:</p>
+<ul>
+<li><a href="https://facebook.github.io/jest/docs/en/jest-object.html#jestspyonobject-methodname"><code>jest.spyOn</code></a> nos permite observar uma função, que no caso foi um método do prototype do componente. Poderíamos até substituir essa função por outra com o <code>jest.spyOn(...).mockImplementation(novaFuncao)</code>;</li>
+<li>Podemos simular eventos com o <a href="http://airbnb.io/enzyme/docs/api/ShallowWrapper/simulate.html"><code>.simulate()</code> do Enzyme</a> e, dependendo do caso, precisamos passar um objeto como para definir o escopo do evento que precisamos;</li>
+<li>Podemos acessar a instância do componente montado. O Enzyme nos dá um &quot;container&quot; de manipulação do componente, mas podemos acessar o próprio componente alocado na memória e acessar métodos, <code>state</code>, <code>props</code>, etc.</li>
+</ul>
+<h3 id="integrando-os-testes">Integrando os testes</h3>
+<p>Testamos nossos componentes como unidades, os famosos testes unitários, mas também podemos fazer o que chamamos de testes de integração: montar tudo e testar o funcionamento da coisa como um todo. Podemos fazer isso com o <code>mount</code> do Enzyme. Aí seria mais ou menos assim:</p>
+<ul>
+<li>Montar o componente (<code>mount(&lt;TodoApp /&gt;)</code>);</li>
+<li>Testar o funcionamento do formulário (com o <code>handleChange</code> e <code>handleSubmit</code>);</li>
+<li>E então testar se a inserção de novos itens fazem o <code>&lt;TodoList /&gt;</code> renderizar mais <code>&lt;li&gt;</code> dentro d a<code>&lt;ul&gt;</code>.</li>
+</ul>
+<h2 id="conclusão">Conclusão</h2>
+<p>Trabalhar com uma linguagem tipada pode ajudar muito a garantir um bom código, pode deixá-lo mais claro, estrito e menos sujeito ao uso incorreto de alguma função.</p>
+<p>Testar esse código ajuda muito na manutenção e para saber se tudo está funcionando em conjunto (testes de integração). Mas não se engane, como diria <a href="https://twitter.com/leobalter">Leo Balter</a> (<a href="http://zofe.com.br/posts/voce-testa-se-o-teste-do-codigo-testado-testavel/">no ZOFE #8</a>):</p>
+<blockquote>
+<p>Teste não diz que sua aplicação está funcionando, ou que ela está fazendo o que ela deveria fazer. Só diz que está testado.</p>
+</blockquote>
+<p>Por isso é preciso definir bem o que será testado. Só testes unitários não resolvem tudo. Você pode até usar algumas técnicas como TDD para tentar guiar a escrita do seu código e se testar bem suas integrações, sempre terá um feedback do que não estiver funcionando corretamente após alguma alteração.</p>
+<p>Isso dá espaço para falar de <em>code coverage</em>, mas isso é assunto para outro post.</p>
+<p>Bom... isso é tudo, por agora.</p>
+<p>Até a próxima.</p>
+<p>(:</p>
+<hr/>
+<h3 id="referências">Referências</h3>
+<ul>
+<li><a href="http://www.ecma-international.org/ecma-262/#sec-ecmascript-language-types">http://www.ecma-international.org/ecma-262/#sec-ecmascript-language-types</a></li>
+<li><a href="https://jcemer.com/types-in-javascript-what-you-should-care.html">https://jcemer.com/types-in-javascript-what-you-should-care.html</a></li>
+<li><a href="https://tableless.com.br/guia-completo-react-ecossistema/">https://tableless.com.br/guia-completo-react-ecossistema/</a></li>
+<li><a href="https://tableless.com.br/diga-ola-ao-typescript-e-adeus-ao-javascript/">https://tableless.com.br/diga-ola-ao-typescript-e-adeus-ao-javascript/</a></li>
+</ul>
+</div></article><hr/><div id="disqus_thread"></div><script>var disqus_config = function () {
+  this.page.url = "https://gabrielprates.com/2018/03/19/react-tipos-testes-qualidade.html";
+  this.page.identifier = "/2018/03/19/react-tipos-testes-qualidade";
+};
+(function() {  // DON'T EDIT BELOW THIS LINE
+  var d = document, s = d.createElement('script');
+  s.src = '//gabsprates.disqus.com/embed.js';
+  s.setAttribute('data-timestamp', +new Date());
+  (d.head || d.body).appendChild(s);
+})();</script><noscript>Please enable JavaScript to view the<!-- --> <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript></main></div><footer class="site-footer"><div class="wrapper"><h2 class="footer-heading">Gabriel Prates</h2><div class="footer-col-wrapper"><div class="footer-col footer-col-1"><ul class="contact-list"><li><a href="https://github.com/gabsprates" title="Gabriel Prates no GitHub" target="_blank">github@<!-- -->gabsprates</a></li><li><a href="https://twitter.com/gabsprates" title="Gabriel Prates no Twitter" target="_blank">twitter@<!-- -->gabsprates</a></li><li><a href="https://br.linkedin.com/in/gabrielprates" title="Gabriel Prates no LinkedIn" target="_blank">linkedin@<!-- -->gabrielprates</a></li><li><a href="https://gabrielprates.com" title="Meu site" target="_blank">gabrielprates.com</a></li></ul></div><div class="footer-col footer-col-3"><p>Desenvolvedor há mais de 13 anos e baterista nas horas vagas
+#js #frontend #opensource #busquemconhecimento</p></div></div></div></footer><script id="dsq-count-scr" src="//gabsprates.disqus.com/count.js" async=""></script><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-92988633-1', 'auto');
+ga('send', 'pageview');</script></body></html>

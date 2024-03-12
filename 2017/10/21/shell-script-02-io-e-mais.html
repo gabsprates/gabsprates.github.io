@@ -1,0 +1,171 @@
+<!DOCTYPE html><html lang="pt-br"><head><meta charSet="UTF-8"/><title data-react-helmet="true">Shell Script -n2 --io-e-mais | Gabriel Prates</title><meta data-react-helmet="true" property="og:title" content="Shell Script -n2 --io-e-mais"/><meta data-react-helmet="true" name="author" content="Gabriel Prates"/><meta data-react-helmet="true" property="og:locale" content="pt_BR"/><meta data-react-helmet="true" name="description" content="Já viu a expressão I/O? I/O não é só o nome de um evento do Google, nem só uma extensão de sites hospedados no GitHub Pages. I/O é uma expressão que significa Input (entrada) e Output (saída), que são duas peças fundamentais para a computação. Vamos falar de como isso funciona no Bash."/><meta data-react-helmet="true" property="og:description" content="Já viu a expressão I/O? I/O não é só o nome de um evento do Google, nem só uma extensão de sites hospedados no GitHub Pages. I/O é uma expressão que significa Input (entrada) e Output (saída), que são duas peças fundamentais para a computação. Vamos falar de como isso funciona no Bash."/><meta data-react-helmet="true" property="og:url" content="https://gabrielprates.com/2017/10/21/shell-script-02-io-e-mais.html"/><meta data-react-helmet="true" property="og:site_name" content="Gabriel Prates"/><meta data-react-helmet="true" property="og:image" content="https://gabrielprates.com/assets/perfil-small.jpg"/><meta data-react-helmet="true" property="og:type" content="article"/><meta data-react-helmet="true" property="article:published_time" content="2017-10-21T00:00:00.000Z"/><link data-react-helmet="true" rel="canonical" href="https://gabrielprates.com/2017/10/21/shell-script-02-io-e-mais.html"/><script data-react-helmet="true" type="application/ld+json">{"@type":"BlogPosting","url":"https://gabrielprates.com/2017/10/21/shell-script-02-io-e-mais.html","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"https://gabrielprates.com/assets/perfil-small.jpg"},"name":"Gabriel Prates"},"author":{"@type":"Person","name":"Gabriel Prates"},"headline":"Shell Script -n2 --io-e-mais","description":"Já viu a expressão I/O? I/O não é só o nome de um evento do Google, nem só uma extensão de sites hospedados no GitHub Pages. I/O é uma expressão que significa Input (entrada) e Output (saída), que são duas peças fundamentais para a computação. Vamos falar de como isso funciona no Bash.","@context":"https://schema.org","dateModified":"2017-10-21T00:00:00.000Z","datePublished":"2017-10-21T00:00:00.000Z","mainEntityOfPage":{"@type":"WebPage","@id":"https://gabrielprates.com/2017/10/21/shell-script-02-io-e-mais.html"}}</script><meta http-equiv="X-UA-Compatible" content="IE=edge"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="theme-color" content="#406b63"/><link rel="stylesheet" href="/style.css"/><link type="image/x-icon" rel="shortcut icon" href="/favicon.ico"/><link rel="alternate" type="application/rss+xml" title="Gabriel Prates" href="https://gabrielprates.com/feed.xml"/><link href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700" rel="stylesheet"/></head><body><header class="site-header"><div class="wrapper"><a class="site-title" href="/" title="Gabriel Prates"><img alt="Gabriel Prates" src="/assets/perfil-small.jpg" class="site-title__image"/>Gabriel Prates</a><nav class="site-nav"><button class="menu-icon"><span></span><span></span><span></span></button><div class="trigger"><a href="/about/" title="Sobre mim" class="page-link">Sobre mim</a><a href="/projects/" title="Projetos" class="page-link">Projetos</a><a href="https://slides.com/gabsprates" title="Talks" target="_blank" class="page-link">Talks</a></div></nav></div></header><div class="page-content"><main class="wrapper"><article class="post" itemscope="" itemType="http://schema.org/BlogPosting"><header class="post-header"><h1 class="post-title" itemProp="name headline">Shell Script -n2 --io-e-mais</h1><p class="post-meta"><time dateTime="2017-10-21T00:00:00.000Z" itemProp="datePublished">Oct 21, 2017</time></p></header><div class="post-content"><p>Já viu a expressão <strong>I/O</strong>? I/O não é só o nome de um evento do Google, nem só uma extensão de sites hospedados no GitHub Pages. I/O é uma expressão que significa <em>Input</em> (entrada) e <em>Output</em> (saída), que são duas peças fundamentais para a computação. Vamos falar de como isso funciona no Bash.</p>
+<p>Lembrando que este artigo faz parte de uma série de artigos que estou escrevendo sobre Shell Script. Não sei quantos serão, nem qual será a periodicidade, mas aqui estão os links:</p>
+<ul>
+<li><a href="/2017/01/08/shell-script-01-introducao.html">Shell Script -n1 --intro</a></li>
+<li><a href="/2017/10/21/shell-script-02-io-e-mais.html">Shell Script -n2 --io-e-mais</a> &lt;-- você está aqui</li>
+</ul>
+<h2 id="conceitos">Conceitos</h2>
+<p>Bom, o processo de I/O pode ser considerado a comunicação entre sistemas, ou a troca de informações entre sistemas (e aqui dá até pra abstrair o conceito de sistemas). Podemos interagir com os dispositivos por meio de periféricos de entrada e saída (<del>lembra disso em alguma aula?</del>), ou com algum serviço por meio de suas respectivas APIs.</p>
+<p>Quando falamos de entradas e saídas no ambiente do Bash, também temos formas de fazer os programas se comunicarem e para isso, precisamos entender os 3 tipos do que chamamos de <strong><em>File Descriptors</em></strong>, que nada mais são que a forma como os programas se referem aos recursos (arquivos, sockets, dispositivos, etc).</p>
+<p>São eles:</p>
+<ul>
+<li><strong>Standard Input</strong> (<code>stdin</code>): File Descriptor <strong>0</strong></li>
+<li><strong>Standard Output</strong> (<code>stdout</code>): File Descriptor <strong>1</strong></li>
+<li><strong>Standard Error</strong> (<code>stderr</code>): File Descriptor <strong>2</strong></li>
+</ul>
+<p>Não quero entrar em muitos detalhes dos <em>File Descriptors</em>, mas tenha em mente os <code>std*</code>s e seus respectivos números, vamos precisar para os próximos tópicos.</p>
+<p><em>So let&#39;s go there!</em></p>
+<h2 id="input--stdin">Input / <code>stdin</code></h2>
+<p>Ok, vamos falar agora sobre os inputs. Temos estes três tipos:</p>
+<ul>
+<li><strong>Redirecionamento</strong>: <code>&lt;</code></li>
+<li><strong>Heredoc</strong>: <code>&lt;&lt;</code></li>
+<li><strong>Herestring</strong>: <code>&lt;&lt;&lt;</code></li>
+</ul>
+<h3 id="redirecionamento">Redirecionamento: <code>&lt;</code></h3>
+<p>Confesso que pode parecer um pouco inútil redirecionar uma entrada, já que a maioria dos comandos aceita um arquivo ou string de entrada. Quem me fez enxergar que não é inútil foi o <a href="https://twitter.com/juliobash">Julio Neves</a>, quando troquei uma ideia com ele na Latinoware 2017. Tenha em mente que se existe uma possibilidade no Bash, ela não está lá por acaso. Vamos ver o comando <code>tr</code> como exemplo, já que ele espera uma input padrão:</p>
+<pre><code class="language-bash"><span class="hljs-comment"># Podemos redirecionar o output com o `|`, que ainda vamos ver aqui.</span>
+$ cat index.html | tr [:lower:] [:upper:]
+
+<span class="hljs-comment"># Ou dispensar a execução do `cat`, fazendo o redirecionamento com `&lt;`:</span>
+$ tr [:lower:] [:upper:] &lt; index.html</code></pre>
+<p>Então, existem comandos que necessitam, e só funcionam, com o input padrão. Nesses casos o <code>&lt;</code> é muito útil.</p>
+<p>Agora vamos pro próximo.</p>
+<h3 id="heredoc">Heredoc: <code>&lt;&lt;</code></h3>
+<p>Pra mim, este é a mais interessante e útil forma de manipular input no Bash. O <strong>Heredoc</strong> te permite entrar com um bloco de conteúdo, como se fosse um documento.</p>
+<p>Já aconteceu várias vezes de eu ter um texto no <em>clipboard</em> e precisar fazer alguma manipulação específica com ele. O problema de jogar um texto com quebras de linha no terminal é que, ao encontrar o <em>EOL</em> (End Of Line), o Bash tenta executar aquela input, daí não adiantava eu colar lá. Uma opção era abrir o Vim e salvar o arquivo de texto pra fazer o que fosse necessário, mas aí eu ainda teria de manipular tudo depois.</p>
+<p>Daí eu conheci o <strong>Heredoc</strong> e percebi como isso se resolve fácil. Ao invés de precisar abrir o Vim, Nano, ou qualquer outro editor para salvar o texto em questão, podemos utilizar a seguinte sintaxe:</p>
+<pre><code class="language-bash"><span class="hljs-comment"># Não se preocupe com o `&gt;`, é um redirecionamento de output.</span>
+<span class="hljs-comment"># Falo mais sobre isso depois.</span>
+<span class="hljs-comment"># Agora preste atenção na sintaxe do heredoc:</span>
+$ cat &lt;&lt;TEXTO &gt; lorem_ipsum.txt
+Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed <span class="hljs-keyword">do</span>
+eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
+ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+aliquip ex ea commodo consequat.
+
+Duis aute irure dolor <span class="hljs-keyword">in</span> reprehenderit <span class="hljs-keyword">in</span> voluptate velit esse
+cillum dolore eu fugiat nulla pariatur.
+
+Excepteur sint occaecat cupidatat non proident, sunt <span class="hljs-keyword">in</span> culpa qui
+officia deserunt mollit anim id est laborum.
+TEXTO</code></pre>
+<p>O delimitador <code>TEXTO</code> não é um padrão. Você pode utilizar qualquer string com caracteres alfanuméricos, então poderia ser <code>ARQUIVO</code>, <code>INPUT</code>, ou <code>EOL</code> como em vários exemplos por aí. O importante mesmo é <strong>sempre abrir e fechar</strong>.</p>
+<p>Ok, next.</p>
+<h3 id="herestring">Herestring: <code>&lt;&lt;&lt;</code></h3>
+<p>Seguindo a mesma ideia do Heredoc, o <strong>Herestring</strong> te permite a input de uma string. Com o <strong>Herestring</strong> você pode, por exemplo, fazer uma busca numa string grande que você tem, nada que não pudesse fazer com o Heredoc, mas aqui não precisamos do delimitador. Exemplo:</p>
+<pre><code class="language-bash">$ grep quis &lt;&lt;&lt; <span class="hljs-string">"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."</span></code></pre>
+<p>Daí você pode usar esta solução para o problema que se encaixar melhor, só não se esqueça de colocar a string <strong>sempre entre aspas</strong>!</p>
+<p>Pronto, agora que falamos das inputs, <em>let&#39;s to talk about outputs</em>.</p>
+<h2 id="output--stdout">Output / <code>stdout</code></h2>
+<p>Sobre outputs, precisamos falar sobre estes dois tipos:</p>
+<ul>
+<li><strong>Redirecionamento</strong>: <code>&gt;</code></li>
+<li><strong>Append</strong> (<em>Acrescentar</em>): <code>&gt;&gt;</code></li>
+</ul>
+<h3 id="redirecionamento-1">Redirecionamento: <code>&gt;</code></h3>
+<p>Como você pôde ver no exemplo do Heredoc (<code>cat &lt;&lt;TEXTO &gt; lorem_ipsum.txt</code>), o caractere <code>&gt;</code> direcionou a saída do comando para um arquivo chamado <code>lorem_ipsum.txt</code>. É só isso que ele faz mesmo, mas aí você pode aplicar à várias situações. Exemplo:</p>
+<pre><code class="language-bash"><span class="hljs-comment"># Salvar o nome de todos os arquivos em `/tmp`.</span>
+$ ls /tmp &gt; files.txt
+
+<span class="hljs-comment"># E com o `cat` você pode ver o que foi escrito:</span>
+$ cat files.txt</code></pre>
+<p>Quando se está escrevendo um script Bash para executar várias ações, isso é uma mão na roda, porque dá pra salvar um conteúdo prévio e utilizar quando necessário.</p>
+<p>Aí você pergunta:</p>
+<blockquote>
+<p>Mas e se eu quiser ACRESCENTAR conteúdo no fim desse mesmo arquivo, posso utilizar o <code>&gt;</code>?</p>
+</blockquote>
+<p>Poder pode, mas saiba de uma coisa:</p>
+<blockquote>
+<p>Ao utilizar o <code>&gt;</code> para um arquivo, se este arquivo não existir, ele será criado; se <strong>já existir, ele tem seu conteúdo reescrito</strong>.</p>
+</blockquote>
+<p>Pode até ser útil em alguns casos, mas para resolver este problema, permita-me apresentar o próximo item.</p>
+<h3 id="append">Append: <code>&gt;&gt;</code></h3>
+<p>Respondendo a pergunta anterior, para acrescentar conteúdo no fim de um arquivo, você pode usar o operador de <em>append</em>: <code>&gt;&gt;</code>. Pronto, só isso mesmo. Um exemplo de situação real seria o direcionamento da saída de um <code>ls</code>. Exemplo:</p>
+<pre><code class="language-bash"><span class="hljs-comment"># O comando a seguir vai salvar todos os arquivos e diretórios visíveis</span>
+<span class="hljs-comment"># do teu diretório `$HOME`, dentro de `conteudo_user.txt`:</span>
+$ ls ~ &gt; conteudo_user.txt</code></pre>
+<p>Agora me diga, você já tentou executar algum processo específico e até mandou salvar a saída em algum lugar, mas acabou mostrando mensagens de erro? Então, é agora que passamos para o próximo tópico deste artigo.</p>
+<h2 id="erros--stderr">Erros / <code>stderr</code></h2>
+<p>Sim, os erros continuam aparecendo mesmo que você redirecione o output do comando. Isso acontece porque nós também temos o <code>stderr</code>, aquele <em>File Descriptor</em> para os erros. Podemos brincar com ele das seguintes formas:</p>
+<ul>
+<li><strong>Redirecionamento</strong>: <code>2&gt;</code></li>
+<li><strong>Redirecionamento duplo</strong>: <code>&amp;&gt;</code></li>
+</ul>
+<h3 id="redirecionamento-de-erro-2">Redirecionamento de erro: <code>2&gt;</code></h3>
+<p>Basicamente, é a mesma coisa do redirecionamento de output normal, a única diferença é que você identifica o <em>File Descriptor</em> com que está trabalhando. De resto, funciona da mesma forma.</p>
+<p>Aqui eu devo falar uma coisa importante:</p>
+<blockquote>
+<p>A identificação do <em>FD</em> é opcional para os outros casos, menos para o redirecionamento de erros.</p>
+</blockquote>
+<p>Isso significa que:</p>
+<ul>
+<li><code>&lt;</code> é o mesmo que <code>0&lt;</code>;</li>
+<li><code>&lt;&lt;</code> é o mesmo que <code>0&lt;&lt;</code>;</li>
+<li><code>&lt;&lt;&lt;</code> é o mesmo que <code>0&lt;&lt;&lt;</code>;</li>
+<li><code>&gt;</code> é o mesmo que <code>1&gt;</code>;</li>
+<li><code>&gt;&gt;</code> é o mesmo que <code>1&gt;&gt;</code>;</li>
+</ul>
+<p>Mas o <code>2&gt;</code> sempre precisa do <code>2</code>, para dizer que é realmente o <em>FD</em> de erro. Caso contrário ele é tratado como output normal.</p>
+<p>Uma outra coisa aqui é que você também pode usar o <em>append</em> para esse caso:</p>
+<pre><code class="language-bash"><span class="hljs-comment"># Salvar o log de uma app em Node:</span>
+$ node server.js 2&gt;&gt; /tmp/node-app.log</code></pre>
+<p>Até aqui tudo bem? Todas as responsabilidades separadas e tudo bonitinho. Maaas e se quisermos salvar tanto output quanto erros no mesmo arquivo?</p>
+<h3 id="redirecionamento-de-output-e-erro">Redirecionamento de output e erro: <code>&amp;&gt;</code></h3>
+<p>Não poderia ser mais simples! É só direcionar a saída de ambos com o <code>&amp;&gt;</code>. Não sei o nome desse operador, mas ele resolve esse problema. Então:</p>
+<pre><code class="language-bash"><span class="hljs-comment"># Salvar qualquer saída de uma app em Node:</span>
+$ node server.js &amp;&gt; /tmp/node-app.log</code></pre>
+<p>Alguma dúvida até aqui? Vamos prosseguir?</p>
+<h2 id="e-o-pipe-">E o pipe: <code>|</code></h2>
+<p>Até aqui já vimos sobre os redirecionamentos e como podemos trabalhar com eles. Apesar de que os exemplos que mostrei foram todos em linha de comando, também podemos usar tudo que foi estudado aqui em nossos scripts. Nosso próximo item não fica de fora.</p>
+<p>Provavelmente você já viu o <strong>pipe</strong> por aí. Por definição, temos o seguinte:</p>
+<blockquote>
+<p>A <strong>pipeline</strong> is a sequence of one or more commands separated by one of the control operators ‘<code>|</code>’ or ‘<code>|&amp;</code>’.</p>
+</blockquote>
+<p>Mas essa definição, apesar de oficial, não deixa as coisas muito claras. Então, veja esta:</p>
+<blockquote>
+<p>O pipe é uma sequência de um ou mais comando conectados, onde o <code>stdout</code> do anterior é conectado ao <code>stdin</code> do próximo.</p>
+</blockquote>
+<p>Vamos olhar aquele exemplo que eu mostrei novamente:</p>
+<pre><code class="language-bash"><span class="hljs-comment"># O output do `cat` é conectado ao input do `tr`</span>
+$ cat index.html | tr [:lower:] [:upper:]</code></pre>
+<p>Então, o <code>|</code> funciona como um conector de input e output. Sempre o comando anterior passando dados para próximo comando. Veja este outro exemplo:</p>
+<pre><code class="language-bash"><span class="hljs-comment"># Isto vai listar todo o conteúdo do diretório</span>
+<span class="hljs-comment"># e conectar esse output com o input do `grep`;</span>
+<span class="hljs-comment">#</span>
+<span class="hljs-comment"># O `grep` vai filtrar os nomes que contém espaço</span>
+<span class="hljs-comment"># e conectar esse output com o input do `tr`;</span>
+<span class="hljs-comment">#</span>
+<span class="hljs-comment"># O `tr` substitui os espaços por underlines e</span>
+<span class="hljs-comment"># salva a saída para o arquivo `names.txt`</span>
+$ ls | grep <span class="hljs-string">' '</span> | tr <span class="hljs-string">' '</span> <span class="hljs-string">'_'</span> &gt; names.txt</code></pre>
+<p>Conseguiu perceber o poder do <code>|</code>? Conseguimos realizar várias ações de uma vez e, como isso é tudo do <em>built in</em> do Bash, é super rápido.</p>
+<p>Viu que legal? Consegue perceber o quão poderoso é manipular I/O?</p>
+<h2 id="conclusão">Conclusão</h2>
+<p>Trabalhar com esses redirecionamentos de informações é muito útil. Você pode criar seus scripts pessoais, ou automatizar alguma coisa no trabalho, como envio de e-mails, logs, rotinas, etc.</p>
+<p>Conhecer e estudar I/O no Bash me ajudou muito no meu dia-a-dia, espero que eu tenha te ajudado também. Caso tenha alguma dúvida, deixe um comentário ou me chame no Twitter, será um prazer falar contigo.</p>
+<p>Isso é tudo pessoal, até a próxima.</p>
+<p><strong>(:</strong></p>
+<hr/>
+<h3 id="referências">Referências</h3>
+<ul>
+<li><a href="http://mywiki.wooledge.org/BashGuide/InputAndOutput">http://mywiki.wooledge.org/BashGuide/InputAndOutput</a></li>
+<li><a href="https://bash.cyberciti.biz/guide/Main_Page">https://bash.cyberciti.biz/guide/Main_Page</a></li>
+<li><a href="http://www.gnu.org/software/bash/manual/bashref.html#Redirections">http://www.gnu.org/software/bash/manual/bashref.html#Redirections</a></li>
+</ul>
+</div></article><hr/><div id="disqus_thread"></div><script>var disqus_config = function () {
+  this.page.url = "https://gabrielprates.com/2017/10/21/shell-script-02-io-e-mais.html";
+  this.page.identifier = "/2017/10/21/shell-script-02-io-e-mais";
+};
+(function() {  // DON'T EDIT BELOW THIS LINE
+  var d = document, s = d.createElement('script');
+  s.src = '//gabsprates.disqus.com/embed.js';
+  s.setAttribute('data-timestamp', +new Date());
+  (d.head || d.body).appendChild(s);
+})();</script><noscript>Please enable JavaScript to view the<!-- --> <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript></main></div><footer class="site-footer"><div class="wrapper"><h2 class="footer-heading">Gabriel Prates</h2><div class="footer-col-wrapper"><div class="footer-col footer-col-1"><ul class="contact-list"><li><a href="https://github.com/gabsprates" title="Gabriel Prates no GitHub" target="_blank">github@<!-- -->gabsprates</a></li><li><a href="https://twitter.com/gabsprates" title="Gabriel Prates no Twitter" target="_blank">twitter@<!-- -->gabsprates</a></li><li><a href="https://br.linkedin.com/in/gabrielprates" title="Gabriel Prates no LinkedIn" target="_blank">linkedin@<!-- -->gabrielprates</a></li><li><a href="https://gabrielprates.com" title="Meu site" target="_blank">gabrielprates.com</a></li></ul></div><div class="footer-col footer-col-3"><p>Desenvolvedor há mais de 13 anos e baterista nas horas vagas
+#js #frontend #opensource #busquemconhecimento</p></div></div></div></footer><script id="dsq-count-scr" src="//gabsprates.disqus.com/count.js" async=""></script><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-92988633-1', 'auto');
+ga('send', 'pageview');</script></body></html>

@@ -1,0 +1,144 @@
+<!DOCTYPE html><html lang="pt-br"><head><meta charSet="UTF-8"/><title data-react-helmet="true">Desmistificando o webpack: entry points e loaders | Gabriel Prates</title><meta data-react-helmet="true" property="og:title" content="Desmistificando o webpack: entry points e loaders"/><meta data-react-helmet="true" name="author" content="Gabriel Prates"/><meta data-react-helmet="true" property="og:locale" content="pt_BR"/><meta data-react-helmet="true" name="description" content="É muito comum se ver perdido em um arquivo de configuração do webpack, principalmente se não tiver muita experiência com bundlers ou task runners. Acredito que quanto mais se entende do funcionamento de alguma coisa, mais fácil fica de lidar com ela. Esta série de artigos vai focar nos core concepts do webpack e tentar clarear como as coisas funcionam."/><meta data-react-helmet="true" property="og:description" content="É muito comum se ver perdido em um arquivo de configuração do webpack, principalmente se não tiver muita experiência com bundlers ou task runners. Acredito que quanto mais se entende do funcionamento de alguma coisa, mais fácil fica de lidar com ela. Esta série de artigos vai focar nos core concepts do webpack e tentar clarear como as coisas funcionam."/><meta data-react-helmet="true" property="og:url" content="https://gabrielprates.com/2019/11/30/desmistificando-o-webpack-entry-points-e-loaders.html"/><meta data-react-helmet="true" property="og:site_name" content="Gabriel Prates"/><meta data-react-helmet="true" property="og:image" content="https://gabrielprates.com/assets/perfil-small.jpg"/><meta data-react-helmet="true" property="og:type" content="article"/><meta data-react-helmet="true" property="article:published_time" content="2019-11-30T00:00:00.000Z"/><link data-react-helmet="true" rel="canonical" href="https://gabrielprates.com/2019/11/30/desmistificando-o-webpack-entry-points-e-loaders.html"/><script data-react-helmet="true" type="application/ld+json">{"@type":"BlogPosting","url":"https://gabrielprates.com/2019/11/30/desmistificando-o-webpack-entry-points-e-loaders.html","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"https://gabrielprates.com/assets/perfil-small.jpg"},"name":"Gabriel Prates"},"author":{"@type":"Person","name":"Gabriel Prates"},"headline":"Desmistificando o webpack: entry points e loaders","description":"É muito comum se ver perdido em um arquivo de configuração do webpack, principalmente se não tiver muita experiência com bundlers ou task runners. Acredito que quanto mais se entende do funcionamento de alguma coisa, mais fácil fica de lidar com ela. Esta série de artigos vai focar nos core concepts do webpack e tentar clarear como as coisas funcionam.","@context":"https://schema.org","dateModified":"2019-11-30T00:00:00.000Z","datePublished":"2019-11-30T00:00:00.000Z","mainEntityOfPage":{"@type":"WebPage","@id":"https://gabrielprates.com/2019/11/30/desmistificando-o-webpack-entry-points-e-loaders.html"}}</script><meta http-equiv="X-UA-Compatible" content="IE=edge"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="theme-color" content="#406b63"/><link rel="stylesheet" href="/style.css"/><link type="image/x-icon" rel="shortcut icon" href="/favicon.ico"/><link rel="alternate" type="application/rss+xml" title="Gabriel Prates" href="https://gabrielprates.com/feed.xml"/><link href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700" rel="stylesheet"/></head><body><header class="site-header"><div class="wrapper"><a class="site-title" href="/" title="Gabriel Prates"><img alt="Gabriel Prates" src="/assets/perfil-small.jpg" class="site-title__image"/>Gabriel Prates</a><nav class="site-nav"><button class="menu-icon"><span></span><span></span><span></span></button><div class="trigger"><a href="/about/" title="Sobre mim" class="page-link">Sobre mim</a><a href="/projects/" title="Projetos" class="page-link">Projetos</a><a href="https://slides.com/gabsprates" title="Talks" target="_blank" class="page-link">Talks</a></div></nav></div></header><div class="page-content"><main class="wrapper"><article class="post" itemscope="" itemType="http://schema.org/BlogPosting"><header class="post-header"><h1 class="post-title" itemProp="name headline">Desmistificando o webpack: entry points e loaders</h1><p class="post-meta"><time dateTime="2019-11-30T00:00:00.000Z" itemProp="datePublished">Nov 30, 2019</time></p></header><div class="post-content"><p>É muito comum se ver perdido em um arquivo de configuração do webpack, principalmente se não tiver muita experiência com <em>bundlers</em> ou <em>task runners</em>. Acredito que quanto mais se entende do funcionamento de alguma coisa, mais fácil fica de lidar com ela. Esta série de artigos vai focar nos <em>core concepts</em> do webpack e tentar clarear como as coisas funcionam.</p>
+<h2 id="a-long-time-ago">A long time ago...</h2>
+<p>Antes de mais nada, ainda estamos em 2019 e sim, acho que contar um pouco sobre como chegamos aqui. Caso você se sinta confortável com essa parte &quot;histórica&quot;, pode pular para a próxima seção.</p>
+<p>Se voltarmos um pouco no tempo, chegaremos numa época em que se criava um grande arquivo <code>.js</code>, com todo o código da aplicação, e se colocava a respectiva tag <code>&lt;script&gt;</code> na página. Muitas vezes, acompanhado do jQuery. Ok, e se fossemos usar um plugin do jQuery, uma <em>lib</em> de <em>date picker</em>? Aí seria preciso colocar mais uma <code>&lt;script&gt;</code> na página com essa tal <em>lib</em>. Até parece um pouco de <em>code splitting</em> mas calma, chegaremos lá.</p>
+<p>Avançando um pouco no tempo, veio o Node.js e conseguimos o poder de criar arquivos JS separados, ou módulos (o que ajudou muito na organização e reutilização de código), pra juntar tudo depois em um único <strong>bundle</strong> final. Também surgiram os pré-processadores de CSS, que juntavam vários arquivos de estilo em um bundle final. Surgiram também ferramentas para automatizar essas tarefas de <em>build</em>, como gulp e grunt. Até que surgiram ferramentas que poderiam centralizar todas as tarefas e, talvez o mais importante, juntar todas as peças. É aí que entra o <a href="https://webpack.js.org/concepts/">webpack</a>.</p>
+<h2 id="o-webpack">O webpack</h2>
+<p>O webpack é um empacotador de módulos (ou <em>module bundle</em>), que se baseia em pontos de entrada (<strong><em>entry points</em></strong>) e, a partir deles, cria um <strong>grafo</strong> de suas respectivas <strong>dependências</strong>. Aqui começa a graça.</p>
+<p>Para o webpack, um <strong>módulo é qualquer coisa que seja importada</strong>, por exemplo: uma URL em uma regra de CSS, o atributo <code>src</code> de uma imagem, uma chamada da função <code>require()</code>, ou um <code>import</code> explícito. O problema é que, nativamente, o webpack só interpreta conteúdo JavaScript e JSON. Por este motivo existem os <strong><em>loaders</em></strong> nas configurações. Um <em>loader</em> vai dizer como aquele determinado tipo de arquivo deve ser processado e assim, passado para frente, seja para um próximo <em>loader</em>, ou para o próprio webpack continuar o processo de <em>build</em>. Durante este processo, o webpack emite alguns <em>hooks</em> de eventos, que são utilizados pelos <strong><em>plugins</em></strong> para a execução de várias outras tarefas durante o processo. Isso tudo irá gerar os <strong><em>outputs</em></strong>, que é o que queremos.</p>
+<p>Esta é uma visão bem geral de como o webpack funciona. Falamos de algumas coisas muito importantes aqui e podemos aprofundar um pouco para entender mais de alguns detalhes. No momento, vamos focar em: <em>entry points</em> e <em>loaders</em>.</p>
+<h3 id="entry-points">entry points</h3>
+<p>O webpack se propõe a ser um <em>module bundle</em> que não precisa de configurações e, para isso, adota várias configurações <em>default</em>. O <em>entry point</em> padrão é <code>./src/index.js</code> e isso significa que todas as dependências do projeto serão mapeadas a partir desse arquivo. Adiantando um pouco a história, no final do processo de <em>build</em>, será gerado o arquivo <code>./dist/main.js</code> (outra configuração padrão) como <em>output</em>, com todo o código do projeto. O legal é que o <em>entry point</em> pode ser composto por um ou mais arquivos, assim como o <em>output</em>. É possível:</p>
+<pre><code class="language-js"><span class="hljs-comment">// webpack.config.js</span>
+<span class="hljs-keyword">const</span> config = {
+    <span class="hljs-comment">// definir um novo arquivo como entry point:</span>
+    <span class="hljs-attr">entry</span>: <span class="hljs-string">"./caminho/do/arquivo.js"</span>
+
+    <span class="hljs-comment">// ou definir alguns arquivos como entry points:</span>
+    <span class="hljs-attr">entry</span>: [
+        <span class="hljs-string">"./caminho/do/arquivo_01.js"</span>,
+        <span class="hljs-string">"./caminho/do/arquivo_02.js"</span>,
+        <span class="hljs-string">"./caminho/do/arquivo_03.js"</span>
+    ]
+}</code></pre>
+<p>Definindo o <em>entry point</em> dessa forma, automaticamente também se define o <strong><em>chunk</em></strong> <code>main</code>, por isso o <em>output</em> gerado se chama <code>main.js</code>. Por hora, basta saber que <em>chunk</em> é um termo usado internamente para gerenciar o processo de build. Uma outra configuração possível de <em>entry points</em> é definir um objeto com os <em>chunks</em> e seus respectivos pontos de entrada:</p>
+<pre><code class="language-js"><span class="hljs-comment">// webpack.config.js</span>
+<span class="hljs-keyword">const</span> config = {
+    <span class="hljs-attr">entry</span>: {
+        <span class="hljs-comment">// definir o chunk home</span>
+        <span class="hljs-attr">home</span>: <span class="hljs-string">"./caminho/do/arquivo/home.js"</span>
+
+        <span class="hljs-comment">// definir o chunk contato</span>
+        <span class="hljs-attr">contato</span>: <span class="hljs-string">"./caminho/do/arquivo/contato.js"</span>
+
+        <span class="hljs-comment">// definir o chunk produtos</span>
+        <span class="hljs-attr">produtos</span>: [
+            <span class="hljs-string">"./caminho/do/arquivo/produto_01.js"</span>,
+            <span class="hljs-string">"./caminho/do/arquivo/produto_02.js"</span>,
+            <span class="hljs-string">"./caminho/do/arquivo/produto_03.js"</span>
+        ]
+    }
+}</code></pre>
+<p>Com a configuração acima, os três <em>chunks</em> (<code>home</code>, <code>contato</code> e <code>produtos</code>) resultam em três arquivos de <em>output</em>: <code>dist/home.js</code>, <code>dist/contato.js</code> e <code>dist/produtos.js</code>. É bom ressaltar que estes são os pontos de entrada dos <em>chunks</em> e que cada um deles terão suas respectivas dependências, compartilhadas ou não. <em>Chunks</em> são um assunto muito extenso e não tão simples, prefiro deixar mais detalhes para um post posterior.</p>
+<p>Pensando em uma aplicação web, em algum momento teremos um arquivo de estilo (CSS, SASS/SCSS, LESS, etc.) que pode ser importado em algum módulo, ou definido como um outro <em>entry point</em>. É aqui que precisamos falar sobre <em>loaders</em>.</p>
+<h3 id="loaders">loaders</h3>
+<p>Como foi dito acima, o webpack só &quot;entende&quot;, por padrão, arquivos JavaScript ou JSON e, apesar de se propor a funcionar sem configurações, caso o projeto tenha qualquer <em>source</em> além de JS, precisamos colocar a mão na massa. Por esse motivo, ao encontrar algum arquivo com um conteúdo diferente (como TypeScript, SASS, JSX, etc.), o webpack emite um erro semelhante a este:</p>
+<pre><code class="language-bash">Module parse failed: Unexpected token (1:0)
+You may need an appropriate loader to handle this file <span class="hljs-built_in">type</span>.</code></pre>
+<p><strong>You may need an appropriate loader to handle this file type.</strong> A primeira coisa a se observar é &quot;<em>this file type</em>&quot;. Vamos tomar como exemplo um arquivo SASS. Se o webpack só entende JS e JSON, como transformar um módulo SASS em um módulo JS? Bom, nesse ponto já tivemos <em>spoilers</em>... A resposta é: <em>loaders</em>!</p>
+<p>Para o tipo de arquivo em questão, SASS, precisamos do chamado <a href="https://github.com/webpack-contrib/sass-loader"><code>sass-loader</code></a>. Preparando um pequeno ambiente, para entender cada passo, temos a seguinte configuração, que diz para o webpack como processar esses arquivos:</p>
+<pre><code class="language-js"><span class="hljs-comment">// webpack.config.js</span>
+<span class="hljs-built_in">module</span>.exports = {
+  <span class="hljs-comment">// definimos um arquivo SCSS como entrypoint</span>
+  <span class="hljs-attr">entry</span>: <span class="hljs-string">"./style.scss"</span>,
+
+  <span class="hljs-comment">// definimos as regras de configuração dos módulos</span>
+  <span class="hljs-attr">module</span>: {
+    <span class="hljs-attr">rules</span>: [
+      {
+        <span class="hljs-attr">test</span>: <span class="hljs-regexp">/\.s[ac]ss$/i</span>,
+        <span class="hljs-attr">use</span>: [<span class="hljs-string">"./debug"</span>, <span class="hljs-string">"sass-loader"</span>]
+      }
+    ]
+  }
+};
+
+<span class="hljs-comment">// debug.js</span>
+<span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-params">source</span> =&gt;</span> {
+  <span class="hljs-built_in">console</span>.log(source);
+  <span class="hljs-keyword">return</span> source;
+};</code></pre>
+<pre><code class="language-scss"><span class="hljs-comment">// style.scss</span>
+<span class="hljs-variable">$color</span>: <span class="hljs-number">#f00</span>;
+<span class="hljs-selector-tag">body</span> {
+  <span class="hljs-attribute">background</span>: <span class="hljs-variable">$color</span>;
+}
+<span class="hljs-selector-class">.bold</span> {
+  <span class="hljs-attribute">font-weight</span>: bold;
+}</code></pre>
+<p><code>debug.js</code> é um <em>loader</em> que nos mostra o conteúdo processado e passa ele para frente. E só.</p>
+<p>A mensagem <code>Module parse failed: ...</code> seria exibida caso não houvesse o <em>loader</em> para SASS. Já que ele está configurado, o conteúdo do módulo exibido pelo <code>debug.js</code> é:</p>
+<pre><code class="language-css"><span class="hljs-selector-tag">body</span> {
+  <span class="hljs-attribute">background</span>: <span class="hljs-number">#f00</span>; }
+
+<span class="hljs-selector-class">.bold</span> {
+  <span class="hljs-attribute">font-weight</span>: bold; }</code></pre>
+<p>É um módulo processado, mas ainda não é JavaScript e o webpack ainda não pode seguir com o <em>build</em>. O próximo passo é encadeiar mais um <em>loader</em>, da mesma forma que o <code>debug.js</code>, o <a href="https://github.com/webpack-contrib/css-loader"><code>css-loader</code></a>:</p>
+<pre><code class="language-js">use: [<span class="hljs-string">"./debug"</span>, <span class="hljs-string">"css-loader"</span>, <span class="hljs-string">"sass-loader"</span>];</code></pre>
+<p>Este é um bom momento para ressaltar a importância da ordem dos <em>loaders</em>. Eles são resolvidos do último para o primeiro, em cadeia. Assim:</p>
+<pre><code>                                                   o módulo
+                                                 é encontrado:
+                                                "./style.scss"
+                                                      |
+                                                      ↓
+"./debug"      &lt;-      "css-loader"      &lt;-      "sass-loader"
+ |         o conteúdo                o conteúdo
+ |        processado é              processado é
+ |         passado pra               passado pra
+ |           frente                    frente
+ |
+ ↓
+o último loader manda o
+conteúdo para o webpack</code></pre><p>O resultado da atual cadeia de <em>loaders</em> é:</p>
+<pre><code>exports = module.exports = require(&quot;../node_modules/css-loader/dist/runtime/api.js&quot;)(false);
+// Module
+exports.push([module.id, &quot;body {\n  background: #f00; }\n\n.bold {\n  font-weight: bold; }\n&quot;, &quot;&quot;]);</code></pre><p>Os <em>loaders</em> podem ter opções de configuração, como os que usamos, que podem ser descritas em um objeto da seguinte forma:</p>
+<pre><code class="language-js">use: [
+  <span class="hljs-string">"./debug"</span>,
+  {
+    <span class="hljs-attr">loader</span>: <span class="hljs-string">"css-loader"</span>,
+    <span class="hljs-attr">options</span>: {
+      <span class="hljs-attr">modules</span>: <span class="hljs-literal">true</span>
+    },
+  }
+  <span class="hljs-string">"sass-loader"</span>
+];</code></pre>
+<p>Agora temos um módulo JS que pode ser usado pelo webpack, ou algum outro <em>loader</em>, como <a href="https://github.com/webpack-contrib/style-loader"><code>style-loader</code></a>, ou <a href="https://github.com/webpack-contrib/mini-css-extract-plugin"><code>mini-css-extract-plugin</code></a>, se necessário.</p>
+<p>Sabendo desse funcionamento dos <em>loaders</em>, temos o poder de personalizar o processamento de qualquer tipo de arquivo. Caso o projeto só tenha JavaScript e JSON, compatíveis com a versão do Node.js que serão executados, não é preciso configurar nenhum <em>loader</em>, pois é só JS e já será suportado pelo Node.js. Caso utilize uma versão do JS incompatível com a versão do Node.js, será necessário um <em>loader</em> para transpilar o JS (<a href="https://github.com/babel/babel-loader"><code>babel-loader</code></a>, por exemplo) para uma versão compatíveis.</p>
+<p>Um outro exemplo muito importante e comum, é um arquivo JSX de uma aplicação React. As tags HTML, e outros detalhes de sintaxe precisam ser processados. Nesse caso, este também é um trabalho para o <code>babel-loader</code>, no qual podemos configurar <em>presets</em> e <em>plugins</em> para interpretar o código e gerar uma versão do JS específica. Vale fazer o teste do Babel com nosso <em>loader</em> personalizado de <em>debug</em>, uma forma simples de ver o conteúdo que está sendo gerado.</p>
+<h2 id="a-estrada-é-longa">A estrada é longa</h2>
+<p>Ainda existem várias outras coisas que fazem parte do processo de <em>build</em> do webpack, mas é melhor deixar para outro post. Adianto que vamos falar sobre <em>plugins</em>, <em>output</em>, <em>code splitting</em>, <em>chunks</em> e outras coisas. No momento, concentre-se em entender os <em>entry points</em> e <em>loaders</em>. Faça testes e releia se precisar.</p>
+<p>Qualquer dúvida, deixe nos comentários, será um prazer ajudar.</p>
+<p>Até a próxima!</p>
+<p>(:</p>
+<hr/>
+<h3 id="referências">Referências</h3>
+<ul>
+<li><a href="https://webpack.js.org/concepts/">https://webpack.js.org/concepts/</a></li>
+</ul>
+</div></article><hr/><div id="disqus_thread"></div><script>var disqus_config = function () {
+  this.page.url = "https://gabrielprates.com/2019/11/30/desmistificando-o-webpack-entry-points-e-loaders.html";
+  this.page.identifier = "/2019/11/30/desmistificando-o-webpack-entry-points-e-loaders";
+};
+(function() {  // DON'T EDIT BELOW THIS LINE
+  var d = document, s = d.createElement('script');
+  s.src = '//gabsprates.disqus.com/embed.js';
+  s.setAttribute('data-timestamp', +new Date());
+  (d.head || d.body).appendChild(s);
+})();</script><noscript>Please enable JavaScript to view the<!-- --> <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript></main></div><footer class="site-footer"><div class="wrapper"><h2 class="footer-heading">Gabriel Prates</h2><div class="footer-col-wrapper"><div class="footer-col footer-col-1"><ul class="contact-list"><li><a href="https://github.com/gabsprates" title="Gabriel Prates no GitHub" target="_blank">github@<!-- -->gabsprates</a></li><li><a href="https://twitter.com/gabsprates" title="Gabriel Prates no Twitter" target="_blank">twitter@<!-- -->gabsprates</a></li><li><a href="https://br.linkedin.com/in/gabrielprates" title="Gabriel Prates no LinkedIn" target="_blank">linkedin@<!-- -->gabrielprates</a></li><li><a href="https://gabrielprates.com" title="Meu site" target="_blank">gabrielprates.com</a></li></ul></div><div class="footer-col footer-col-3"><p>Desenvolvedor há mais de 13 anos e baterista nas horas vagas
+#js #frontend #opensource #busquemconhecimento</p></div></div></div></footer><script id="dsq-count-scr" src="//gabsprates.disqus.com/count.js" async=""></script><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-92988633-1', 'auto');
+ga('send', 'pageview');</script></body></html>

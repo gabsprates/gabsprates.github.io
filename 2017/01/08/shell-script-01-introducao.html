@@ -1,0 +1,122 @@
+<!DOCTYPE html><html lang="pt-br"><head><meta charSet="UTF-8"/><title data-react-helmet="true">Shell Script -n1 --intro | Gabriel Prates</title><meta data-react-helmet="true" property="og:title" content="Shell Script -n1 --intro"/><meta data-react-helmet="true" name="author" content="Gabriel Prates"/><meta data-react-helmet="true" property="og:locale" content="pt_BR"/><meta data-react-helmet="true" name="description" content="Resolver as coisas pelo terminal ou não precisar muito do mouse sempre foi uma coisa que me chamou a atenção. Depois de passar alguns dias estudando (e colocando em prática) um pouco de shell script, consegui experimentar um pouco mais disso. Pude experimentar recursos e aprender mais como as coisas funcionam. Tem sido um ótimo período!"/><meta data-react-helmet="true" property="og:description" content="Resolver as coisas pelo terminal ou não precisar muito do mouse sempre foi uma coisa que me chamou a atenção. Depois de passar alguns dias estudando (e colocando em prática) um pouco de shell script, consegui experimentar um pouco mais disso. Pude experimentar recursos e aprender mais como as coisas funcionam. Tem sido um ótimo período!"/><meta data-react-helmet="true" property="og:url" content="https://gabrielprates.com/2017/01/08/shell-script-01-introducao.html"/><meta data-react-helmet="true" property="og:site_name" content="Gabriel Prates"/><meta data-react-helmet="true" property="og:image" content="https://gabrielprates.com/assets/perfil-small.jpg"/><meta data-react-helmet="true" property="og:type" content="article"/><meta data-react-helmet="true" property="article:published_time" content="2017-01-08T00:00:00.000Z"/><link data-react-helmet="true" rel="canonical" href="https://gabrielprates.com/2017/01/08/shell-script-01-introducao.html"/><script data-react-helmet="true" type="application/ld+json">{"@type":"BlogPosting","url":"https://gabrielprates.com/2017/01/08/shell-script-01-introducao.html","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"https://gabrielprates.com/assets/perfil-small.jpg"},"name":"Gabriel Prates"},"author":{"@type":"Person","name":"Gabriel Prates"},"headline":"Shell Script -n1 --intro","description":"Resolver as coisas pelo terminal ou não precisar muito do mouse sempre foi uma coisa que me chamou a atenção. Depois de passar alguns dias estudando (e colocando em prática) um pouco de shell script, consegui experimentar um pouco mais disso. Pude experimentar recursos e aprender mais como as coisas funcionam. Tem sido um ótimo período!","@context":"https://schema.org","dateModified":"2017-01-08T00:00:00.000Z","datePublished":"2017-01-08T00:00:00.000Z","mainEntityOfPage":{"@type":"WebPage","@id":"https://gabrielprates.com/2017/01/08/shell-script-01-introducao.html"}}</script><meta http-equiv="X-UA-Compatible" content="IE=edge"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="theme-color" content="#406b63"/><link rel="stylesheet" href="/style.css"/><link type="image/x-icon" rel="shortcut icon" href="/favicon.ico"/><link rel="alternate" type="application/rss+xml" title="Gabriel Prates" href="https://gabrielprates.com/feed.xml"/><link href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700" rel="stylesheet"/></head><body><header class="site-header"><div class="wrapper"><a class="site-title" href="/" title="Gabriel Prates"><img alt="Gabriel Prates" src="/assets/perfil-small.jpg" class="site-title__image"/>Gabriel Prates</a><nav class="site-nav"><button class="menu-icon"><span></span><span></span><span></span></button><div class="trigger"><a href="/about/" title="Sobre mim" class="page-link">Sobre mim</a><a href="/projects/" title="Projetos" class="page-link">Projetos</a><a href="https://slides.com/gabsprates" title="Talks" target="_blank" class="page-link">Talks</a></div></nav></div></header><div class="page-content"><main class="wrapper"><article class="post" itemscope="" itemType="http://schema.org/BlogPosting"><header class="post-header"><h1 class="post-title" itemProp="name headline">Shell Script -n1 --intro</h1><p class="post-meta"><time dateTime="2017-01-08T00:00:00.000Z" itemProp="datePublished">Jan 8, 2017</time></p></header><div class="post-content"><p>Resolver as coisas pelo terminal ou não precisar muito do mouse sempre foi uma coisa que me chamou a atenção. Depois de passar alguns dias estudando (e colocando em prática) um pouco de shell script, consegui experimentar um pouco mais disso. Pude experimentar recursos e aprender mais como as coisas funcionam. Tem sido um ótimo período!</p>
+<p>Pretendo escrever uma série de artigos sobre shell script, já que é uma coisa que se tornou parte do meu dia-a-dia, e assim compartilhar dessa experiência. Esse talvez será o mais conceitual, já que devemos nos acostumar com uma série de conceitos e termos. Não sei quantos serão, nem qual será a periodicidade, mas aqui estão os links:</p>
+<ul>
+<li><a href="/2017/01/08/shell-script-01-introducao.html">Shell Script -n1 --intro</a> &lt;-- você está aqui</li>
+<li><a href="/2017/10/21/shell-script-02-io-e-mais.html">Shell Script -n2 --io-e-mais</a></li>
+</ul>
+<h2 id="primeiros-passos">Primeiros passos</h2>
+<p>Antes de prosseguirmos, precisamos responder algumas questões, e a primeira delas é:</p>
+<blockquote>
+<p>O que é <strong>shell</strong>???</p>
+</blockquote>
+<p>Podemos definir <strong>shell</strong> como uma interface de usuário, seja ela uma <em>Command-Line Interface</em> (CLI), ou uma <em>Graphical User Interface</em> (GUI). Shells são interativos, ou seja, aceitam comandos, sejam eles via mouse ou teclado. Alguma dúvida aqui?</p>
+<p>Segunda pergunta:</p>
+<blockquote>
+<p>Se <strong>shell</strong> é uma interface de usuário, o que é <strong>Shell Script</strong>?</p>
+</blockquote>
+<p>Ok. Interfaces de usuário aceitam comandos, certo? Sejam GUIs ou CLIs (onde é mais explícito), elas aceitam comandos. Falando em CLIs, escrevemos os comandos. Esse conjunto de comandos que escrevemos para interagir com o shell em questão, quando escritos em blocos, podem ser considerados shell script.</p>
+<blockquote>
+<p>O que é POSIX?</p>
+</blockquote>
+<p><em>POSIX</em> (<strong>P</strong>ortable <strong>O</strong>perating <strong>S</strong>ystem <strong>I</strong>nterface) é uma família de padrões de sistemas abertos baseados em Unix, definidos pela <a href="http://www.ieee.org/index.html">IEEE</a>, também conhecido como <strong>IEEE 1003</strong>. Ah, o <strong>X</strong> de POSIX, vem do Uni<strong>x</strong> e esse termo foi proposto por <a href="https://en.wikipedia.org/wiki/Richard_Stallman">Richard Stallman</a>.</p>
+<blockquote>
+<p><em>Tá</em>, mas qual é a relação de shell script e POSIX?</p>
+</blockquote>
+<p>Scripts shell são construídos de palavras-chave, comandos padrão, comandos do SO, funções e estruturas de controle. Parece uma linguagem de programação qualquer, certo? Esse é o padrão, é o conjunto de normas propostos pelo POSIX.</p>
+<p>Existem várias implementações de interpretadores baseados no POSIX: <a href="https://www.gnu.org/software/bash/">Bash</a>, <a href="https://en.wikipedia.org/wiki/C_shell">CSH</a>, <a href="https://en.wikipedia.org/wiki/KornShell">KSH</a>, <a href="https://en.wikipedia.org/wiki/Tcsh">TCSH</a>, <a href="https://en.wikipedia.org/wiki/Z_shell">ZSH</a> e outros. O Bash é o mais comum deles, muito usado nos descendentes da família Unix (aqui estou contando com o GNU/Linux e os sistemas MacOS). Por ser mais comum, e o que eu uso, vou adotar Bash para os exemplos desses artigos.</p>
+<h2 id="filosofia-unix">Filosofia Unix</h2>
+<p>Já ouviu falar sobre a Filosofia Unix? Ela propõe algumas ideias interessantes para o desenvolvimento de software, como por exemplo:</p>
+<ul>
+<li><p>Programas devem fazer uma coisa, e fazer aquilo bem feito.</p>
+</li>
+<li><p>Programas devem trabalhar juntos para atingir objetivos.</p>
+</li>
+<li><p><em>Keep it Simple, Stupid</em> (Mantenha isso simples, estúpido).</p>
+</li>
+</ul>
+<p>Esses pontos foram disseminados em praticamente todas as comunidades de desenvolvimento de software, porque realmente são boas práticas. Em Shell Script não é diferente, talvez é até mais perceptível. Futuramente vamos falar de redirecionamento de entradas e saídas, e algumas outras coisas que deixarão isso mais claro.</p>
+<h2 id="nosso-hello-world">Nosso &quot;Hello World&quot;!</h2>
+<p>Vamos escrever um pequeno programinha em Bash, para eu poder explicar algumas coisas durante o caminho.</p>
+<h3 id="tipos-de-comandos">Tipos de Comandos</h3>
+<p>Vamos lá. Podemos dizer que temos alguns tipos de comandos, são eles:</p>
+<ul>
+<li><p><strong>Alias</strong>: São atalhos definidos para algum outro programa. Ex.: <strong>ll</strong> é um alias para <strong>ls -lh</strong>;</p>
+</li>
+<li><p><strong>Palavras-chave</strong>: <code>if</code>, <code>then</code>, <code>for</code>, etc.;</p>
+</li>
+<li><p><strong>Funções</strong>: Funções definidas pelo usuários;</p>
+</li>
+<li><p><strong><em>Built in</em></strong> (Embutidos): Funções que fazem parte do próprio shell;</p>
+</li>
+<li><p><strong>Programas</strong>.</p>
+</li>
+</ul>
+<p>O último item, os <strong>Programas</strong> são localizados pelo sistema através da variável <code>$PATH</code>. Se você mexe com NPM, provavelmente já se deparou com essa variável de ambiente. Vamos dar uma olhada nela, abra seu terminal (ou seu Prompt Shell, para falar bonito), digite <code>echo $PATH</code> e observe o retorno. No meu caso:</p>
+<pre><code class="language-sh">$ <span class="hljs-built_in">echo</span> <span class="hljs-variable">$PATH</span>
+/usr/<span class="hljs-built_in">local</span>/bin:/usr/<span class="hljs-built_in">local</span>/sbin:/usr/bin:/home/gabriel/.npm-global/bin</code></pre>
+<p>Separados por <code>:</code> (dois pontos), esses são os caminhos que contém os programas rastreados pelo sistema, aqueles que você começa digitar e aperta <code>TAB</code> para autocompletar. Então, esses são os comandos que estão disponibilizados para trabalharmos.</p>
+<p>Ah, você pode usar o <code>type</code> para saber informações sobre o tipo do comando. Ex.: <code>type echo</code>.</p>
+<p>Vamos usar alguns desses comandos para exibir todos os programas rastreados pelo sistema. Crie o arquivo <code>listar-programas.sh</code> e dê permissão para que seu usuário execute esse programa com o comando <code>chmod u+x listar-programas.sh</code>, vamos trabalhar nele.</p>
+<p>Por enquanto, salve o arquivo com o comando que executamos antes, mas assim:</p>
+<pre><code class="language-sh"><span class="hljs-meta">#!/bin/bash</span>
+<span class="hljs-built_in">echo</span> <span class="hljs-variable">$PATH</span></code></pre>
+<p>A primeira linha desse código é o nosso <strong><em>Shebang</em></strong> (<code>#!</code>). Em sistemas <em>Unix-like</em>, ele é usado para indicar um executor para o determinado script. Talvez você já tenha visto algo parecido em algum projeto em Node.js (<code>#!/usr/bin/node</code>), ou Python (<code>#!/usr/bin/python</code>).</p>
+<p>Ok, você deu a permissão de execução que falei? Então vá no seu prompt shell e execute esse arquivo. Teve o mesmo retorno de quando executamos o código direto na linha de comando? Sim? Ótimo, vamos continuar.</p>
+<h3 id="read--ifs">read &amp; $IFS</h3>
+<p><code>$IFS</code> é uma variável especial em Bash. <strong>Internal Field Separator</strong> (IFS) é usada para separar expressões, ou linhas, dentro do comando <code>read</code>. Seu valor padrão é composto pelos caracteres de <strong>espaço</strong>, <strong>tabulação</strong>, e <strong>nova linha</strong>, mas pode ser alterado quando necessário.</p>
+<p>Como vimos, a saída do comando <code>echo $PATH</code> mostra os caminhos separados por dois pontos (<code>:</code>), portanto, vamos usar o <code>$IFS</code> para mostrar que setar nosso caractere de separação:</p>
+<pre><code class="language-sh"><span class="hljs-meta">#!/bin/bash
+</span>
+<span class="hljs-comment"># A atribuição de valores não deve conter espaços</span>
+<span class="hljs-comment"># entre o identificador da variável e o valor atribuído.</span>
+IFS=<span class="hljs-string">':'</span></code></pre>
+<p>Agora vamos usar o comando <code>read</code> para fazer a leitura da variável <code>$PATH</code>, quebrando seu conteúdo em todos os caracteres <code>:</code>. Acrescente o seguinte comando:</p>
+<pre><code class="language-sh"><span class="hljs-comment"># O parâmetro `-a` atribui o conteúdo lido a índices</span>
+<span class="hljs-comment"># sequenciais da variável `caminhos`, iniciando em zero</span>
+
+<span class="hljs-comment"># `&lt;&lt;&lt;` é uma maneira de direcionar entrada, que falarei em um post posterior</span>
+
+<span class="hljs-built_in">read</span> -a caminhos &lt;&lt;&lt; <span class="hljs-variable">$PATH</span></code></pre>
+<p>Pronto, temos um array de caminhos dos programas registrados pelo sistema. Como temos que iterar em um loop, já que vamos ler cada um dos valores do array, conheça a estrutura de repetição <code>for</code>, em Bash:</p>
+<pre><code class="language-sh"><span class="hljs-comment"># O índice `@` pega todos os valores de `caminhos`</span>
+<span class="hljs-keyword">for</span> caminho <span class="hljs-keyword">in</span> <span class="hljs-variable">${caminhos[@]}</span>
+<span class="hljs-keyword">do</span>
+  <span class="hljs-built_in">echo</span> <span class="hljs-variable">$caminho</span>
+<span class="hljs-keyword">done</span></code></pre>
+<p>Salve o script e teste. O retorno deve ser cada um dos caminhos do <code>$PATH</code>, um em cada linha. Como temos o <em>path</em> de onde estão os programas, vamos trocar o <code>echo</code> por <code>ls</code>, para que sejam exibidos todos os programas que estejam nesses diretórios. O código final (sem os comentários) ficará assim:</p>
+<pre><code class="language-sh"><span class="hljs-meta">#!/bin/bash
+</span>
+IFS=<span class="hljs-string">':'</span>
+<span class="hljs-built_in">read</span> -a caminhos &lt;&lt;&lt; <span class="hljs-variable">$PATH</span>
+
+<span class="hljs-keyword">for</span> caminho <span class="hljs-keyword">in</span> <span class="hljs-variable">${caminhos[@]}</span>
+<span class="hljs-keyword">do</span>
+  ls <span class="hljs-variable">$caminho</span>
+<span class="hljs-keyword">done</span></code></pre>
+<h2 id="conclusão">Conclusão</h2>
+<p>Este artigo foi para dar uma pequena introdução no assunto. Pretendo escrever mais coisas sobre Shell Script (lembrando que estou escrevendo os exemplos para o interpretador Bash), aí iremos explorar mais recursos e comandos básicos. Espero te ajudar de alguma forma.</p>
+<p>Isso é tudo pessoal, até a próxima.</p>
+<p><strong>(:</strong></p>
+<hr/>
+<h3 id="referências">Referências</h3>
+<ul>
+<li><a href="http://tiswww.case.edu/php/chet/bash/bash-intro.html">http://tiswww.case.edu/php/chet/bash/bash-intro.html</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Unix_shell">https://en.wikipedia.org/wiki/Unix_shell</a></li>
+<li><a href="https://bash.cyberciti.biz/guide/Main_Page">https://bash.cyberciti.biz/guide/Main_Page</a></li>
+</ul>
+</div></article><hr/><div id="disqus_thread"></div><script>var disqus_config = function () {
+  this.page.url = "https://gabrielprates.com/2017/01/08/shell-script-01-introducao.html";
+  this.page.identifier = "/2017/01/08/shell-script-01-introducao";
+};
+(function() {  // DON'T EDIT BELOW THIS LINE
+  var d = document, s = d.createElement('script');
+  s.src = '//gabsprates.disqus.com/embed.js';
+  s.setAttribute('data-timestamp', +new Date());
+  (d.head || d.body).appendChild(s);
+})();</script><noscript>Please enable JavaScript to view the<!-- --> <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript></main></div><footer class="site-footer"><div class="wrapper"><h2 class="footer-heading">Gabriel Prates</h2><div class="footer-col-wrapper"><div class="footer-col footer-col-1"><ul class="contact-list"><li><a href="https://github.com/gabsprates" title="Gabriel Prates no GitHub" target="_blank">github@<!-- -->gabsprates</a></li><li><a href="https://twitter.com/gabsprates" title="Gabriel Prates no Twitter" target="_blank">twitter@<!-- -->gabsprates</a></li><li><a href="https://br.linkedin.com/in/gabrielprates" title="Gabriel Prates no LinkedIn" target="_blank">linkedin@<!-- -->gabrielprates</a></li><li><a href="https://gabrielprates.com" title="Meu site" target="_blank">gabrielprates.com</a></li></ul></div><div class="footer-col footer-col-3"><p>Desenvolvedor há mais de 13 anos e baterista nas horas vagas
+#js #frontend #opensource #busquemconhecimento</p></div></div></div></footer><script id="dsq-count-scr" src="//gabsprates.disqus.com/count.js" async=""></script><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-92988633-1', 'auto');
+ga('send', 'pageview');</script></body></html>

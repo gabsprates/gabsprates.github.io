@@ -1,0 +1,157 @@
+<!DOCTYPE html><html lang="pt-br"><head><meta charSet="UTF-8"/><title data-react-helmet="true">WAT JS - Mergulhando nos Comportamentos do JavaScript | Gabriel Prates</title><meta data-react-helmet="true" property="og:title" content="WAT JS - Mergulhando nos Comportamentos do JavaScript"/><meta data-react-helmet="true" name="author" content="Gabriel Prates"/><meta data-react-helmet="true" property="og:locale" content="pt_BR"/><meta data-react-helmet="true" name="description" content="No post Conversão de tipos em JavaScript, que fiz há algum tempo, expliquei um pouco de como o motor do JS trata algumas conversões internamente, e recebi um desafio para explicar algumas bizarrices da linguagem,  que você pode ver no vídeo da talk WAT, por Gary Bernhardt - CodeMash 2012."/><meta data-react-helmet="true" property="og:description" content="No post Conversão de tipos em JavaScript, que fiz há algum tempo, expliquei um pouco de como o motor do JS trata algumas conversões internamente, e recebi um desafio para explicar algumas bizarrices da linguagem,  que você pode ver no vídeo da talk WAT, por Gary Bernhardt - CodeMash 2012."/><meta data-react-helmet="true" property="og:url" content="https://gabrielprates.com/2016/10/05/wat-js.html"/><meta data-react-helmet="true" property="og:site_name" content="Gabriel Prates"/><meta data-react-helmet="true" property="og:image" content="https://gabrielprates.com/assets/perfil-small.jpg"/><meta data-react-helmet="true" property="og:type" content="article"/><meta data-react-helmet="true" property="article:published_time" content="2016-10-05T00:00:00.000Z"/><link data-react-helmet="true" rel="canonical" href="https://gabrielprates.com/2016/10/05/wat-js.html"/><script data-react-helmet="true" type="application/ld+json">{"@type":"BlogPosting","url":"https://gabrielprates.com/2016/10/05/wat-js.html","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"https://gabrielprates.com/assets/perfil-small.jpg"},"name":"Gabriel Prates"},"author":{"@type":"Person","name":"Gabriel Prates"},"headline":"WAT JS - Mergulhando nos Comportamentos do JavaScript","description":"No post Conversão de tipos em JavaScript, que fiz há algum tempo, expliquei um pouco de como o motor do JS trata algumas conversões internamente, e recebi um desafio para explicar algumas bizarrices da linguagem,  que você pode ver no vídeo da talk WAT, por Gary Bernhardt - CodeMash 2012.","@context":"https://schema.org","dateModified":"2016-10-05T00:00:00.000Z","datePublished":"2016-10-05T00:00:00.000Z","mainEntityOfPage":{"@type":"WebPage","@id":"https://gabrielprates.com/2016/10/05/wat-js.html"}}</script><meta http-equiv="X-UA-Compatible" content="IE=edge"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="theme-color" content="#406b63"/><link rel="stylesheet" href="/style.css"/><link type="image/x-icon" rel="shortcut icon" href="/favicon.ico"/><link rel="alternate" type="application/rss+xml" title="Gabriel Prates" href="https://gabrielprates.com/feed.xml"/><link href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700" rel="stylesheet"/></head><body><header class="site-header"><div class="wrapper"><a class="site-title" href="/" title="Gabriel Prates"><img alt="Gabriel Prates" src="/assets/perfil-small.jpg" class="site-title__image"/>Gabriel Prates</a><nav class="site-nav"><button class="menu-icon"><span></span><span></span><span></span></button><div class="trigger"><a href="/about/" title="Sobre mim" class="page-link">Sobre mim</a><a href="/projects/" title="Projetos" class="page-link">Projetos</a><a href="https://slides.com/gabsprates" title="Talks" target="_blank" class="page-link">Talks</a></div></nav></div></header><div class="page-content"><main class="wrapper"><article class="post" itemscope="" itemType="http://schema.org/BlogPosting"><header class="post-header"><h1 class="post-title" itemProp="name headline">WAT JS - Mergulhando nos Comportamentos do JavaScript</h1><p class="post-meta"><time dateTime="2016-10-05T00:00:00.000Z" itemProp="datePublished">Oct 5, 2016</time></p></header><div class="post-content"><p>No post <a href="/2016/07/12/conversao-de-tipos-em-js.html">Conversão de tipos em JavaScript</a>, que fiz há algum tempo, expliquei um pouco de como o motor do JS trata algumas conversões internamente, e recebi um desafio para explicar algumas <em>bizarrices</em> da linguagem,  que você pode ver no vídeo da talk <a href="https://www.destroyallsoftware.com/talks/wat">WAT, por Gary Bernhardt - CodeMash 2012</a>.</p>
+<p>Ah, se você ainda não leu o post que falei, <a href="/2016/07/12/conversao-de-tipos-em-js.html">clique aqui pra ler</a>, ajudará a entender algumas partes deste post. <strong>;)</strong></p>
+<h3 id="esclarecimento">Esclarecimento</h3>
+<p>Gostaria de fazer uma observação aqui. Em um dos últimos parágrafos do post, eu disse que a operação <code>==</code> entre <strong>objetos</strong> compara se eles (os objetos) são iguais. Na verdade, esta operação avalia se o <strong>objeto</strong> é o mesmo. <strong><em>Como assim?</em></strong> Devemos saber que quando atribuímos um objeto à uma variável, estamos criando uma nova instância daquele objeto. Veja bem:</p>
+<pre><code class="language-js"><span class="hljs-comment">// Nesse caso os objetos realmente são iguais.</span>
+<span class="hljs-keyword">var</span> foo = { <span class="hljs-attr">lang</span>: <span class="hljs-string">'js'</span> };
+<span class="hljs-keyword">var</span> bar = { <span class="hljs-attr">lang</span>: <span class="hljs-string">'js'</span> };
+
+<span class="hljs-comment">// Mas a operação de comparação retorna `false`</span>
+<span class="hljs-comment">// Porque são duas instâncias diferentes</span>
+foo == bar; <span class="hljs-comment">// false</span>
+
+<span class="hljs-comment">// Entretanto, se fizermos o seguinte:</span>
+foo = bar = { <span class="hljs-attr">lang</span>: <span class="hljs-string">'js'</span> };
+
+<span class="hljs-comment">// Podemos comparar os objetos e teremos `true`</span>
+<span class="hljs-comment">// Já que é a mesma instância.</span>
+foo == bar; <span class="hljs-comment">// true</span></code></pre>
+<p><code>foo == bar</code> retorna <code>true</code> porque é a mesma instância do objeto, como se fosse um ponteiro. Nesse caso, podemos fazer até a atribuição de outras propriedades ou métodos, assim:</p>
+<pre><code class="language-js">foo.baz = <span class="hljs-number">94</span>;
+foo.fn = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{ <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.lang; }
+
+<span class="hljs-comment">// E ambos os objetos terão o mesmo conteúdo</span>
+foo; <span class="hljs-comment">// { lang: 'js', baz: 94, fn: [Function] }</span>
+bar; <span class="hljs-comment">// { lang: 'js', baz: 94, fn: [Function] }</span></code></pre>
+<p>Pronto, tudo certo. Podemos prosseguir.</p>
+<h2 id="operadores-aditivos">Operadores Aditivos</h2>
+<p>Para explicar os <em>WAT JS</em>, precisamos entender um pouco do funcionamento dos operadores aditivos, já que eles que causam o *&quot;problema&quot;<em>. Então, vou tentar explicar um pouco do que eles (*</em><code>+</code>** e <strong><code>-</code></strong>) fazem aqui.</p>
+<h3 id="o-operador-de-adição-">O Operador de Adição (+)</h3>
+<p>Segundo a <a href="http://www.ecma-international.org/ecma-262/6.0/index.html#sec-addition-operator-plus">seção 12.7.3 da especificação do ES6</a>:</p>
+<blockquote>
+<p>O operador de adição executa concatenação de strings, ou adição numérica.</p>
+</blockquote>
+<p><strong><em>Mas como ele sabe qual ação deve realizar?</em></strong> Simples: antes de trabalhar com os dados, o algoritmo da adição pega os valores primitivos dos termos e trabalha em cima desses valores. Considere a operação <code>a + b</code> para o algoritmo abaixo (não é uma linguagem de programação específica):</p>
+<pre><code>lval: recebe o valor de ToPrimitive(a)
+rval: recebe o valor de ToPrimitive(b)
+
+se (lval = String) OR (rval = String):
+  lstr: recebe o valor de ToString(lval)
+  rstr: recebe o valor de ToString(rval)
+  Retorna a String concatenada de lstr e rstr
+
+se não:
+  lnum: recebe o valor de ToNumber(lval)
+  rnum: recebe o valor de ToNumber(rval)
+  Retorna Operacao( lnum + rnum )</code></pre><p>Esse é o algoritmo da adição de forma simplificada. Aqui podemos ver que se o primeiro <strong>OU</strong> o segundo termo for uma <code>String</code>, a operação realizada será <strong>concatenação</strong> e todos os valores serão forçados para o tipo <code>String</code>; caso contrário, será <strong>soma</strong>, e todos os valores serão forçados para o tipo <code>Number</code>, como nos exemplos a seguir:</p>
+<pre><code class="language-js"><span class="hljs-string">'Java'</span> + <span class="hljs-string">'Script'</span>;  <span class="hljs-comment">// "JavaScript"</span>
+<span class="hljs-string">'JavaScript '</span> + <span class="hljs-number">6</span>;  <span class="hljs-comment">// "JavaScript 6"</span>
+<span class="hljs-number">6</span> + <span class="hljs-string">' JavaScript'</span>;  <span class="hljs-comment">// "6 JavaScript"</span>
+<span class="hljs-number">2015</span> + <span class="hljs-number">6</span>         ;  <span class="hljs-comment">// 2021</span></code></pre>
+<p>Beleza, estamos indo bem, no entanto, as operações do vídeo são feitas com objetos mais complexos: <code>Array</code> e <code>Object</code>. Vamos fazer o seguinte, assim que eu terminar de explicar a questão dos operadores, eu volto nesse assunto, OK?</p>
+<h3 id="o-operador-de-subtração--">O Operador de Subtração (-)</h3>
+<p>Segundo a <a href="http://www.ecma-international.org/ecma-262/6.0/index.html#sec-subtraction-operator-minus">seção 12.7.4 da especificação do ES6</a>, o operador de subtração (<code>-</code>) não tem muitos poderes como o de adição (<code>+</code>), ele apenas subtrai os valores <code>ToNumber()</code> dos termos. <br>Considere <code>a - b</code>:</p>
+<pre><code>lnum: recebe o valor de ToNumber(a)
+rnum: recebe o valor de ToNumber(b)
+Retorna Operacao( lnum - rnum )</code></pre><h3 id="regras-da-operação">Regras da Operação</h3>
+<p>A função <code>Operacao()</code>, invocada nos retornos das operações aditivas, seguirá algumas regras e as mais peculiares são:</p>
+<pre><code>se (um dos termos = NaN):
+  Retorna NaN
+
+se (ambos os termos = Infinity, mas de sinais opostos):
+  Retorna NaN</code></pre><p>Quando um termo é <a href="http://www.ecma-international.org/ecma-262/6.0/index.html#sec-terms-and-definitions-nan"><code>NaN</code></a>, significa que o resutado de <code>ToNumber()</code> de um dos termos não teve uma conversão <code>ToPrimitive()</code> normal, então, era um elemento do tipo <code>Object</code> que não tinha um tipo primitivo definido.</p>
+<p>As demais condições seguem a matemática que aprendemos mesmo:</p>
+<pre><code class="language-rb">+Infinity + (+Infinity) <span class="hljs-comment"># Infinity</span>
+-Infinity + (-Infinity) <span class="hljs-comment"># -Infinity</span>
+<span class="hljs-number">4</span> + <span class="hljs-number">0</span>                   <span class="hljs-comment"># 4</span>
+<span class="hljs-number">0</span> - <span class="hljs-number">4</span>                   <span class="hljs-comment"># -4</span>
+(-<span class="hljs-number">0</span>) + <span class="hljs-number">0</span>                <span class="hljs-comment"># 0</span>
+<span class="hljs-number">6</span> + <span class="hljs-number">4</span>                   <span class="hljs-comment"># 10</span>
+<span class="hljs-number">5</span> - <span class="hljs-number">6</span>                   <span class="hljs-comment"># -1</span></code></pre>
+<p>Pronto. Agora vamos mudar um pouco de assunto.</p>
+<h2 id="arrays-e-objects-toprimitive">Arrays e Objects ToPrimitive()</h2>
+<p>Como vimos, a operação de adição verifica o tipo primitivo do valor para decidir o que fazer. Nossa grande questão é:</p>
+<blockquote>
+<p>Qual o tipo primitivo de um <code>Array</code> ou de um <code>Object</code>???</p>
+</blockquote>
+<p>Antes de mais nada, um <code>Array</code> é um objeto, certo? Certo!</p>
+<p>Os objetos de <em>normais</em> (<code>Boolean</code>, <code>Number</code> e <code>String</code>), que vimos <a href="/2016/07/12/conversao-de-tipos-em-js.html">no outro post</a>, apenas pegam o valor primitivo do objeto. Já os objetos complexos, quando devem ter uma conversão <code>ToPrimitive()</code>, buscam um método <em>default</em> para a conversão <code>toString()</code>.</p>
+<p>No caso do <code>Array</code>, temos o que podemos chamar de <a href="http://www.ecma-international.org/ecma-262/6.0/index.html#sec-array.prototype.tostring"><code>Array.prototype.toString</code></a>, que basicamente retorna a <em>string</em> do <code>join()</code>. Observe:</p>
+<pre><code class="language-js"><span class="hljs-comment">// O `join()` de um Array vazio</span>
+<span class="hljs-comment">// sempre será uma string vazia</span>
+<span class="hljs-keyword">var</span> foo = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Array</span>();  <span class="hljs-comment">// []</span>
+foo.join();             <span class="hljs-comment">// ""</span>
+foo.toString();         <span class="hljs-comment">// ""</span>
+
+<span class="hljs-comment">// Se o Array tiver elementos,</span>
+<span class="hljs-comment">// teremos uma string bacana.</span>
+<span class="hljs-keyword">var</span> bar = [ <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span> ];
+bar.join();     <span class="hljs-comment">// "1,2,3,4,5"</span>
+bar.toString(); <span class="hljs-comment">// "1,2,3,4,5"</span></code></pre>
+<p>Poderíamos modificar o <code>join()</code> ou o <code>toString()</code> do <code>Array</code> caso necessário.</p>
+<p>Já um objeto do tipo <code>Object</code>, tem um <a href="http://www.ecma-international.org/ecma-262/6.0/index.html#sec-object.prototype.tostring"><code>Object.prototype.toString</code></a> um pouco diferente. Nesse caso, o algoritmo verifica o tipo do objeto e retorna o resultado da concatenação do seguinte: <br><code>&#39;[object &#39; + objectType + &#39;]&#39;</code>, gerando o resultado <code>&#39;[object Object]&#39;</code> na maioria dos casos. Observe o exemplo:</p>
+<pre><code class="language-js"><span class="hljs-keyword">var</span> foo = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Object</span>(); <span class="hljs-comment">// {}</span>
+foo.toString();         <span class="hljs-comment">// '[object Object]'</span>
+
+<span class="hljs-comment">// Até mesmo para objetos</span>
+<span class="hljs-comment">// que não estejam vazios</span>
+<span class="hljs-keyword">var</span> bar = { <span class="hljs-attr">lang</span>: <span class="hljs-string">'js'</span>, <span class="hljs-attr">y</span>: <span class="hljs-number">94</span> };
+foo.toString();     <span class="hljs-comment">// '[object Object]'</span></code></pre>
+<p>Enfim, agora que deu pra entender como as coisas funcionam, podemos começar a desmistificar a matemática maluca do WAT JS.</p>
+<h2 id="wat-js">WAT JS</h2>
+<ul>
+<li><code>[] + []</code> e <code>[] + {}</code></li>
+</ul>
+<p>Ao avaliar a primeira operação, lembre-se que ao converter um <code>Array</code> para seu tipo primitivo, teremos uma <em>string</em> do <code>join()</code> do seu conteúdo. Já que ambos estão vazios, teremos duas <em>strings</em> vazias, e como os termos da &quot;soma&quot; são strings, o operados <code>+</code> irá concatenar as duas <em>strings</em> vazias. Daí nosso retorno <code>&quot;&quot;</code>.</p>
+<p>Já na segunda, a única diferença é que uma das <em>strings</em> que são concatenadas, vem do <code>toString()</code> de um <code>Object</code>, o que nos leva ao resultado <code>&quot;[object Object]&quot;</code></p>
+<ul>
+<li><code>{} + []</code> e <code>{} + {}</code></li>
+</ul>
+<p>Antes de prosseguir, aconselho a leitura <a href="https://github.com/cezaraugusto/You-Dont-Know-JS/blob/portuguese-translation/scope%20%26%20closures/ch1.md#entendendo-escopo">deste capítulo</a>, para entender um pouco mais sobre escopo.</p>
+<p>Vamos analisar a primeira operação. Bom, primeiro entenda que o <em>motor</em> fará uma análise léxica da esquerda para a direita (isso para todas essas operações, na verdade), e ao examinar o <code>{}</code>, ele não o reconhece como um objeto vazio, mas sim como um <a href="http://www.ecma-international.org/ecma-262/6.0/index.html#sec-block">bloco vazio</a>. Ao tratar o <code>Array</code>, como <em>não há outro termo na operação</em> (devido ao bloco vazio ser desconsiderado), o <a href="http://www.ecma-international.org/ecma-262/6.0/index.html#sec-unary-plus-operator">operador unário</a> <code>+</code> converterá a <em>string</em> vazia (valor primitivo do <code>Array</code> vazio) em um tipo <code>Number</code>, e <code>Number(&quot;&quot;)</code> retorna <code>0</code>.</p>
+<p>Agora a segunda. No caso desse vídeo, temos a mesma explicação de &quot;bloco vazio&quot; e &quot;operador unário&quot; da operação anterior, mas na parte do operador unário temos <code>+{}</code>. Aqui há conversão <code>ToPrimitive()</code> de <code>{}</code>, que resulta em <code>&quot;[object Object]&quot;</code>. Por fim, <code>Number(&quot;[object Object]&quot;)</code> retorna <code>NaN</code>, que é o resultado obtido no vídeo.</p>
+<p>O resultado do vídeo é o resultado que tenho rodando no console do Firefox 49. Já o Chrome/Chromium +50 e o Node.js 4.5 (V8), que foram meus ambientes de teste, retornam a <em>string</em> <code>&quot;[object Object][object Object]&quot;</code>, <del>mas eu ainda estou tendando descobrir o motivo</del> e eu acho que posso explicar o motivo nos testes abaixo.</p>
+<p>No <strong>Node.js 4.5</strong> ou no <strong>Chrome/Chromium 53</strong> (os ambientes que eu testei), tenho os seguintes resultados:</p>
+<pre><code class="language-js">{} + {}   <span class="hljs-comment">// "[object Object][object Object]"</span>
+({} + {}) <span class="hljs-comment">// "[object Object][object Object]"</span>
+<span class="hljs-built_in">eval</span>(<span class="hljs-string">'{} + {}'</span>)   <span class="hljs-comment">// NaN</span>
+<span class="hljs-built_in">eval</span>(<span class="hljs-string">'({} + {})'</span>) <span class="hljs-comment">// "[object Object][object Object]"</span></code></pre>
+<p>Já no <strong>Firefox 49</strong> tenho o seguinte:</p>
+<pre><code class="language-js">{} + {}   <span class="hljs-comment">// NaN</span>
+({} + {}) <span class="hljs-comment">// "[object Object][object Object]"</span>
+<span class="hljs-built_in">eval</span>(<span class="hljs-string">'{} + {}'</span>)   <span class="hljs-comment">// NaN</span>
+<span class="hljs-built_in">eval</span>(<span class="hljs-string">'({} + {})'</span>) <span class="hljs-comment">// "[object Object][object Object]"</span></code></pre>
+<p>Como vimos, o resultado de <code>{} + {}</code> é <code>NaN</code> pelo fato do primeiro <code>{}</code> ser considerado um bloco vazio ao invés de um objeto, o que resulta em <code>+{}</code> ser <code>NaN</code>. No outro caso, como temos a operação entre parênteses, ambos os <code>{}</code> são considerados objetos, o que justifica <br> <code>&quot;[object Object][object Object]&quot;</code>.</p>
+<p>O que não faz sentido, é <code>{} + {}</code> retornar a string no Chrome/Chromium e no Node.js, quando está fora do <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/eval"><code>eval()</code></a>. Se você tentar rodar <code>{ foo: 1, bar: 2 }</code> nesses ambientes, eles retornam um objeto mesmo, já no Firefox, ele tenta executar esse código como um bloco, mas dá erro de sintaxe.</p>
+<p>A conclusão que cheguei foi que o <a href="https://github.com/v8/v8"><strong>V8</strong></a> deve permitir esses objetos <em>no contexto do console</em> (ou seja, não deve ser resultado de algum comportamento peculiar da linguagem), uma vez que um arquivo <strong>block.js</strong> com o conteúdo <code>{ foo: 1, bar: 2 }</code>, dá o erro esperado quando executado com <code>node block.js</code></p>
+<h2 id="e-o-batman">E o Batman?</h2>
+<p><strong>1)</strong> Bom, segundo o que já vimos aqui, o que acontece quando se tem um fator do tipo <code>String</code> numa subtração JS? <code>NaN</code>! O operador <code>-</code> não é tão poderoso, faz apenas subtrações, então não pode fazer nada com algo que não é um número. OK.</p>
+<p><strong>2)</strong> <code>new Array(16)</code> nos retorna um <code>Array</code> com 16 posições do tipo <code>undefined</code>. Então se executarmos um <code>join()</code>, teremos 16 vírgulas.</p>
+<p><strong>3)</strong> <code>new Array(16).join(&quot;wat&quot; - 1)</code> nos retorna 16 <code>NaN</code>s em sequência, agora é só concatenar um <code>&quot; Batman&quot;</code> nesse retorno e bater palmas <del>haha</del>.</p>
+<h2 id="conclusão">Conclusão</h2>
+<p>JavaScript não é uma linguagem bizarra, apenas incompreendida.</p>
+<p>Espero ter sido claro, mas se não fui, ou se restou alguma dúvida, deixe nos comentários, será um prazer falar sobre JavaScript.</p>
+<p>Isso é tudo pessoal, até a próxima.</p>
+<p><strong>(:</strong></p>
+<hr/>
+<h4 id="referências">Referências</h4>
+<ul>
+<li><a href="http://stackoverflow.com/questions/9032856/what-is-the-explanation-for-these-bizarre-javascript-behaviours-mentioned-in-the">http://stackoverflow.com/questions/9032856/what-is-the-explanation-for-these-bizarre-javascript-behaviours-mentioned-in-the</a></li>
+<li><a href="http://www.ecma-international.org/ecma-262/6.0/index.html">http://www.ecma-international.org/ecma-262/6.0/index.html</a></li>
+</ul>
+</div></article><hr/><div id="disqus_thread"></div><script>var disqus_config = function () {
+  this.page.url = "https://gabrielprates.com/2016/10/05/wat-js.html";
+  this.page.identifier = "/2016/10/05/wat-js";
+};
+(function() {  // DON'T EDIT BELOW THIS LINE
+  var d = document, s = d.createElement('script');
+  s.src = '//gabsprates.disqus.com/embed.js';
+  s.setAttribute('data-timestamp', +new Date());
+  (d.head || d.body).appendChild(s);
+})();</script><noscript>Please enable JavaScript to view the<!-- --> <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript></main></div><footer class="site-footer"><div class="wrapper"><h2 class="footer-heading">Gabriel Prates</h2><div class="footer-col-wrapper"><div class="footer-col footer-col-1"><ul class="contact-list"><li><a href="https://github.com/gabsprates" title="Gabriel Prates no GitHub" target="_blank">github@<!-- -->gabsprates</a></li><li><a href="https://twitter.com/gabsprates" title="Gabriel Prates no Twitter" target="_blank">twitter@<!-- -->gabsprates</a></li><li><a href="https://br.linkedin.com/in/gabrielprates" title="Gabriel Prates no LinkedIn" target="_blank">linkedin@<!-- -->gabrielprates</a></li><li><a href="https://gabrielprates.com" title="Meu site" target="_blank">gabrielprates.com</a></li></ul></div><div class="footer-col footer-col-3"><p>Desenvolvedor há mais de 13 anos e baterista nas horas vagas
+#js #frontend #opensource #busquemconhecimento</p></div></div></div></footer><script id="dsq-count-scr" src="//gabsprates.disqus.com/count.js" async=""></script><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-92988633-1', 'auto');
+ga('send', 'pageview');</script></body></html>

@@ -1,0 +1,142 @@
+<!DOCTYPE html><html lang="pt-br"><head><meta charSet="UTF-8"/><title data-react-helmet="true">Conversão de tipos em JavaScript | Gabriel Prates</title><meta data-react-helmet="true" property="og:title" content="Conversão de tipos em JavaScript"/><meta data-react-helmet="true" name="author" content="Gabriel Prates"/><meta data-react-helmet="true" property="og:locale" content="pt_BR"/><meta data-react-helmet="true" name="description" content="Acontece muita coisa por baixo dos panos do JavaScript. A conversão de tipo é uma delas, então vamos aprender sobre isso."/><meta data-react-helmet="true" property="og:description" content="Acontece muita coisa por baixo dos panos do JavaScript. A conversão de tipo é uma delas, então vamos aprender sobre isso."/><meta data-react-helmet="true" property="og:url" content="https://gabrielprates.com/2016/07/12/conversao-de-tipos-em-js.html"/><meta data-react-helmet="true" property="og:site_name" content="Gabriel Prates"/><meta data-react-helmet="true" property="og:image" content="https://gabrielprates.com/assets/perfil-small.jpg"/><meta data-react-helmet="true" property="og:type" content="article"/><meta data-react-helmet="true" property="article:published_time" content="2016-07-12T00:00:00.000Z"/><link data-react-helmet="true" rel="canonical" href="https://gabrielprates.com/2016/07/12/conversao-de-tipos-em-js.html"/><script data-react-helmet="true" type="application/ld+json">{"@type":"BlogPosting","url":"https://gabrielprates.com/2016/07/12/conversao-de-tipos-em-js.html","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"https://gabrielprates.com/assets/perfil-small.jpg"},"name":"Gabriel Prates"},"author":{"@type":"Person","name":"Gabriel Prates"},"headline":"Conversão de tipos em JavaScript","description":"Acontece muita coisa por baixo dos panos do JavaScript. A conversão de tipo é uma delas, então vamos aprender sobre isso.","@context":"https://schema.org","dateModified":"2016-07-12T00:00:00.000Z","datePublished":"2016-07-12T00:00:00.000Z","mainEntityOfPage":{"@type":"WebPage","@id":"https://gabrielprates.com/2016/07/12/conversao-de-tipos-em-js.html"}}</script><meta http-equiv="X-UA-Compatible" content="IE=edge"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="theme-color" content="#406b63"/><link rel="stylesheet" href="/style.css"/><link type="image/x-icon" rel="shortcut icon" href="/favicon.ico"/><link rel="alternate" type="application/rss+xml" title="Gabriel Prates" href="https://gabrielprates.com/feed.xml"/><link href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700" rel="stylesheet"/></head><body><header class="site-header"><div class="wrapper"><a class="site-title" href="/" title="Gabriel Prates"><img alt="Gabriel Prates" src="/assets/perfil-small.jpg" class="site-title__image"/>Gabriel Prates</a><nav class="site-nav"><button class="menu-icon"><span></span><span></span><span></span></button><div class="trigger"><a href="/about/" title="Sobre mim" class="page-link">Sobre mim</a><a href="/projects/" title="Projetos" class="page-link">Projetos</a><a href="https://slides.com/gabsprates" title="Talks" target="_blank" class="page-link">Talks</a></div></nav></div></header><div class="page-content"><main class="wrapper"><article class="post" itemscope="" itemType="http://schema.org/BlogPosting"><header class="post-header"><h1 class="post-title" itemProp="name headline">Conversão de tipos em JavaScript</h1><p class="post-meta"><time dateTime="2016-07-12T00:00:00.000Z" itemProp="datePublished">Jul 12, 2016</time></p></header><div class="post-content"><p>Um dia desses eu recebi um quebra-gelo no Telegram, com o seguinte:</p>
+<pre><code class="language-js"><span class="hljs-built_in">Number</span>(<span class="hljs-literal">null</span>);    <span class="hljs-comment">// 0</span>
+<span class="hljs-literal">null</span> == <span class="hljs-number">0</span>;    <span class="hljs-comment">// true né?</span></code></pre>
+<p>De cara eu pensei que seria <code>false</code>, mas fiz questão de rodar no console e ver no que dava. Claro que deu <code>false</code>. Mesmo assim, quis entender o motivo de <code>Number(null)</code> retornar <code>0</code> e fui procurar na <a href="http://www.ecma-international.org/ecma-262/6.0/index.html#sec-type-conversion">documentação</a> do ECMAScript 6, ou ECMAScript 2015.</p>
+<p>O JavaScript, ou ECMAScript, tem um conjunto de operações abastratas que ocorrem por baixo dos panos. Dentre estas operações, temos as conversões de tipos (<em>Types Conversions</em>), que é executada sempre que necessário - que é justamente o caso do <code>Number(null)</code>.</p>
+<p>Existem várias operações abstratas de conversão de tipos em JS, mas vou abordar apenas as mais comuns.</p>
+<h3 id="toprimitive">ToPrimitive</h3>
+<p>Praticamente tudo em JS é tratado como um objeto, então a conversão <em>ToPrimitive</em> transforma o <em>input</em> para o seu devido tipo primitivo, isto é, retorna o valor sem ser um objeto. Talvez seja um pouco óbvio e muito comum, mas é interessante ver no console. Primeiro vejamos os tipos primitivos:</p>
+<pre><code class="language-js"><span class="hljs-comment">// Tipos primitivos</span>
+<span class="hljs-built_in">String</span>(<span class="hljs-string">'foo'</span>);      <span class="hljs-comment">// 'foo'</span>
+<span class="hljs-built_in">Number</span>(<span class="hljs-number">2016</span>);       <span class="hljs-comment">// 2016</span>
+<span class="hljs-built_in">Boolean</span>(<span class="hljs-literal">true</span>);      <span class="hljs-comment">// true</span></code></pre>
+<p>Agora, já que temos objetos pra quase tudo em JS, veja o retorno ao rodar no console do Chromium/Chrome:</p>
+<pre><code class="language-js"><span class="hljs-comment">// Tratando como objetos</span>
+<span class="hljs-keyword">new</span> <span class="hljs-built_in">String</span>(<span class="hljs-string">'foo'</span>);
+<span class="hljs-comment">// String {0: "f", 1: "o", 2: "o", length: 3, [[PrimitiveValue]]: "foo"}</span>
+
+<span class="hljs-keyword">new</span> <span class="hljs-built_in">Number</span>(<span class="hljs-number">2016</span>);
+<span class="hljs-comment">// Number {[[PrimitiveValue]]: 2016}</span>
+
+<span class="hljs-keyword">new</span> <span class="hljs-built_in">Boolean</span>(<span class="hljs-literal">false</span>);
+<span class="hljs-comment">// Boolean {[[PrimitiveValue]]: false}</span></code></pre>
+<p>Veja que os objetos sempre guardam o valor primitivo, que é retornado por baixo dos panos quando precisamos utilizar o valor para alguma outra operação, como por exemplo:</p>
+<pre><code class="language-js"><span class="hljs-keyword">var</span> ano = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Number</span>(<span class="hljs-number">2016</span>);
+ano + <span class="hljs-number">1</span>; <span class="hljs-comment">// 2017</span>
+
+<span class="hljs-keyword">var</span> str = <span class="hljs-keyword">new</span> <span class="hljs-built_in">String</span>(<span class="hljs-string">'foo'</span>);
+str.concat(<span class="hljs-string">' bar'</span>); <span class="hljs-comment">// 'foo bar'</span></code></pre>
+<p>Para converter valores do tipo <code>Object</code>, é feita uma análise de qual o valor primitivo do objeto, por exemplo:</p>
+<pre><code class="language-js"><span class="hljs-comment">// `Object(2010)` retorna o valor primitivo do objeto `Number`,</span>
+<span class="hljs-comment">// nesse caso, 2010</span>
+<span class="hljs-built_in">Object</span>(<span class="hljs-number">2010</span>) + <span class="hljs-number">6</span>;   <span class="hljs-comment">// 2016</span>
+
+<span class="hljs-comment">// `Object('foo')` retorna o valor primitivo do objeto `String`,</span>
+<span class="hljs-comment">// nesse caso, 'foo'</span>
+<span class="hljs-built_in">Object</span>(<span class="hljs-string">"foo"</span>).concat(<span class="hljs-string">' bar'</span>);   <span class="hljs-comment">// 'foo bar'</span>
+
+<span class="hljs-comment">// `Object(true)` retorna o valor primitivo do objeto `Boolean`,</span>
+<span class="hljs-comment">// nesse caso, true</span>
+<span class="hljs-built_in">Object</span>(<span class="hljs-literal">true</span>) &amp;&amp; <span class="hljs-literal">false</span>;  <span class="hljs-comment">// false</span></code></pre>
+<h3 id="tonumber">ToNumber</h3>
+<p>A operação abstrata <em>ToNumber</em> transforma a entrada em um tipo numérico, e é aqui que entramos naquele exemplo do <code>Number(null)</code>.</p>
+<p>A conversão para valores numéricos funciona basicamente com as seguintes regras:</p>
+<pre><code class="language-js"><span class="hljs-comment">// Estas regras estão definidas no ECMAScript</span>
+<span class="hljs-built_in">Number</span>(<span class="hljs-literal">undefined</span>);  <span class="hljs-comment">// NaN</span>
+<span class="hljs-built_in">Number</span>(<span class="hljs-literal">null</span>);       <span class="hljs-comment">// +0</span>
+<span class="hljs-built_in">Number</span>(<span class="hljs-literal">true</span>);       <span class="hljs-comment">// 1</span>
+<span class="hljs-built_in">Number</span>(<span class="hljs-literal">false</span>);      <span class="hljs-comment">// +0</span></code></pre>
+<p>Então, por regra, é por isso que Number(null) retorna 0, e isso não siginifica que <code>null == 0</code>, já que são valores primitivos diferentes.</p>
+<p>Mas e quanto a conversão de <em>string</em> para <em>number</em>, <code>Number(&quot;2016&quot;)</code>?</p>
+<p>Para fazer a conversão de uma string, o <em>ToNumber</em> tenta interpretar a string na codificação <strong>UTF-16</strong> e caso não consiga, retorna <code>NaN</code>, assim:</p>
+<pre><code class="language-js"><span class="hljs-built_in">Number</span>(<span class="hljs-string">"2016"</span>);       <span class="hljs-comment">// 2016</span>
+<span class="hljs-built_in">Number</span>(<span class="hljs-string">"20.16"</span>);      <span class="hljs-comment">// 20.16</span>
+<span class="hljs-built_in">Number</span>(<span class="hljs-string">"-0"</span>);         <span class="hljs-comment">// -0</span>
+<span class="hljs-built_in">Number</span>(<span class="hljs-string">"+Infinity"</span>);  <span class="hljs-comment">// +Infinity</span>
+<span class="hljs-built_in">Number</span>(<span class="hljs-string">"++Infinity"</span>); <span class="hljs-comment">// NaN</span>
+<span class="hljs-built_in">Number</span>(<span class="hljs-string">"201 6"</span>);      <span class="hljs-comment">// NaN</span>
+<span class="hljs-built_in">Number</span>(<span class="hljs-string">"foo"</span>);        <span class="hljs-comment">// NaN</span>
+
+<span class="hljs-comment">// Para objetos, o retorno é correspondente ao</span>
+<span class="hljs-comment">// valor primitivo do tipo do objeto</span>
+<span class="hljs-built_in">Number</span>(<span class="hljs-built_in">Object</span>(<span class="hljs-number">2016</span>))  <span class="hljs-comment">// 2016</span>
+<span class="hljs-built_in">Number</span>(<span class="hljs-built_in">Object</span>(<span class="hljs-string">"21"</span>))  <span class="hljs-comment">// 21</span>
+<span class="hljs-built_in">Number</span>(<span class="hljs-built_in">Object</span>(<span class="hljs-string">"foo"</span>)) <span class="hljs-comment">// NaN</span></code></pre>
+<h3 id="toboolean">ToBoolean</h3>
+<p>A operação abstrata <em>ToBoolean</em> transforma a entrada em um tipo booleano, que assim como o <em>ToNumber</em>, segue algumas regras. Vamos lá:</p>
+<pre><code class="language-js">!!<span class="hljs-literal">undefined</span>;        <span class="hljs-comment">// false</span>
+!!<span class="hljs-literal">null</span>;             <span class="hljs-comment">// false</span>
+!!<span class="hljs-built_in">Number</span>(+<span class="hljs-number">0</span>);       <span class="hljs-comment">// false</span>
+!!<span class="hljs-built_in">Number</span>(<span class="hljs-number">-0</span>);       <span class="hljs-comment">// false</span>
+!!<span class="hljs-built_in">Number</span>(<span class="hljs-literal">NaN</span>);      <span class="hljs-comment">// false</span>
+
+<span class="hljs-comment">// Qualquer outro valor numérico retorna true</span>
+!!<span class="hljs-built_in">Number</span>(<span class="hljs-number">21</span>);       <span class="hljs-comment">// true</span>
+
+<span class="hljs-comment">// String retorna `false` se estiver vazia,</span>
+<span class="hljs-comment">// caso contrário, retorna `true`</span>
+!!<span class="hljs-built_in">String</span>(<span class="hljs-string">""</span>);       <span class="hljs-comment">// false</span>
+!!<span class="hljs-built_in">String</span>(<span class="hljs-string">"foo"</span>);    <span class="hljs-comment">// true</span>
+
+!!<span class="hljs-built_in">Object</span>();         <span class="hljs-comment">// true</span></code></pre>
+<h3 id="tostring">ToString</h3>
+<p>A operações abstratas <em>ToString</em> tem a função de transformar a entrada em uma <em>string</em>, e assim como as outras operações aqui descritas, também segue as suas regras de conversão, que são:</p>
+<pre><code class="language-js"><span class="hljs-built_in">String</span>(<span class="hljs-literal">undefined</span>);      <span class="hljs-comment">// "undefined"</span>
+<span class="hljs-built_in">String</span>(<span class="hljs-literal">null</span>);           <span class="hljs-comment">// "null"</span>
+<span class="hljs-built_in">String</span>(<span class="hljs-literal">true</span>);           <span class="hljs-comment">// "true"</span>
+<span class="hljs-built_in">String</span>(<span class="hljs-literal">false</span>);          <span class="hljs-comment">// "false"</span>
+
+<span class="hljs-comment">// Para objetos, o retorno é correspondente ao</span>
+<span class="hljs-comment">// valor primitivo do tipo do objeto</span>
+<span class="hljs-built_in">String</span>(<span class="hljs-built_in">Object</span>(<span class="hljs-number">2016</span>))  <span class="hljs-comment">// '2016'</span>
+<span class="hljs-built_in">String</span>(<span class="hljs-built_in">Object</span>(<span class="hljs-string">"21"</span>))  <span class="hljs-comment">// '21'</span>
+<span class="hljs-built_in">String</span>(<span class="hljs-built_in">Object</span>(<span class="hljs-literal">true</span>))  <span class="hljs-comment">// 'true'</span>
+<span class="hljs-built_in">String</span>(<span class="hljs-built_in">Object</span>(<span class="hljs-literal">true</span>))  <span class="hljs-comment">// 'true'</span>
+<span class="hljs-built_in">String</span>(<span class="hljs-built_in">Object</span>())      <span class="hljs-comment">// '[object Object]'</span></code></pre>
+<p>Para converter um <code>Number</code> para <em>string</em>, há uma série de considerações a se fazer, vou citar algumas. Tomando como base <code>String(Number(m))</code>:</p>
+<pre><code class="language-js"><span class="hljs-comment">// 1. Se m for NaN:</span>
+<span class="hljs-built_in">String</span>(<span class="hljs-built_in">Number</span>(<span class="hljs-literal">NaN</span>)); <span class="hljs-comment">// "NaN"</span>
+
+<span class="hljs-comment">// 2. Se m for +0 ou −0:</span>
+<span class="hljs-built_in">String</span>(<span class="hljs-built_in">Number</span>(<span class="hljs-number">-0</span>)); <span class="hljs-comment">// "0"</span>
+
+<span class="hljs-comment">// 3. Se m for menor que 0 (zero):</span>
+<span class="hljs-built_in">String</span>(<span class="hljs-built_in">Number</span>(<span class="hljs-number">-2016</span>)); <span class="hljs-comment">// "-2016"</span>
+
+<span class="hljs-comment">// 4. Se m for +Infinity:</span>
+<span class="hljs-built_in">String</span>(<span class="hljs-built_in">Number</span>(+<span class="hljs-literal">Infinity</span>)); <span class="hljs-comment">// "Infinity"</span>
+
+<span class="hljs-comment">// 5. Para números muito grandes, muito pequenos,</span>
+<span class="hljs-comment">// ou que tem alguma forma particular para serem</span>
+<span class="hljs-comment">// representados como Number:</span>
+    <span class="hljs-built_in">Number</span>(<span class="hljs-number">2345678987654321123456</span>);     <span class="hljs-comment">// 2.3456789876543211e+21</span>
+ <span class="hljs-built_in">String</span>(<span class="hljs-built_in">Number</span>(<span class="hljs-number">2345678987654321123456</span>)); <span class="hljs-comment">// "2.3456789876543211e+21"</span></code></pre>
+<h3 id="toobject">ToObject</h3>
+<p>Por último, temos a <em>ToObject</em>, que transforma a entrada em um objeto, quando possível. Até aqui já tivemos a oportinudade de perceber esse tipo de conversão, já que alguns dos exemplos mostraram como <em>ToObject</em> funciona. O que acontece basicamente é que <em>ToObject</em> avalia o tipo primitivo da entrada e retorna um novo objeto daquele tipo, com o valor da entrada. Veja bem:</p>
+<pre><code class="language-js"><span class="hljs-built_in">Object</span>(<span class="hljs-number">2016</span>);    <span class="hljs-comment">// Number {[[PrimitiveValue]]: 2016}</span>
+<span class="hljs-built_in">Object</span>(<span class="hljs-string">'foo'</span>);    <span class="hljs-comment">// String {0: "f", 1: "o", 2: "o", length: 3, [[PrimitiveValue]]: "foo"}</span>
+<span class="hljs-built_in">Object</span>(<span class="hljs-literal">true</span>);    <span class="hljs-comment">// Boolean {[[PrimitiveValue]]: true}</span></code></pre>
+<p>Enfim, achei a resposta para o <code>Number(null)</code> retornar <code>0</code> e deu pra aprender um bocado. Recomendo que você dê uma olhada na <a href="http://www.ecma-international.org/ecma-262/6.0/index.html">documentação do ECMAScript</a>, existem várias outras operações abstratas interessantes.</p>
+<p>Como curiosidade, olha só e tente adivinhar qual o resultado do último:</p>
+<pre><code class="language-js"><span class="hljs-built_in">Object</span>(<span class="hljs-literal">true</span>);                <span class="hljs-comment">// new Boolean(true)</span>
+<span class="hljs-built_in">Object</span>(<span class="hljs-literal">true</span>) == <span class="hljs-built_in">Boolean</span>(<span class="hljs-literal">true</span>);        <span class="hljs-comment">// true</span>
+<span class="hljs-built_in">Object</span>(<span class="hljs-literal">true</span>) == <span class="hljs-keyword">new</span> <span class="hljs-built_in">Boolean</span>(<span class="hljs-literal">true</span>);    <span class="hljs-comment">// ??</span></code></pre>
+<p>O próprio <code>Boolean(true)</code> retorna o valor primitivo <code>true</code>, que faz com que o objeto gerado em <code>Object(true)</code> sofra uma conversão para o valor primitivo e assim fazer a igualdade. Já <code>new Boolean(true)</code> retorna um novo objeto, que na comparação <code>==</code> retorna <code>false</code>. Isso porque ao comparar dois objetos em JS, a comparação é para saber se os dois objetos são iguais. Faça o teste: <code>{} == {}</code>.</p>
+<p>Bom... é isso. Espero que eu tenha sido claro, mas se você ficou com dúvidas, me mande um tweet, vamos trocar ideia (:</p>
+<p>Até a próxima.</p>
+</div></article><hr/><div id="disqus_thread"></div><script>var disqus_config = function () {
+  this.page.url = "https://gabrielprates.com/2016/07/12/conversao-de-tipos-em-js.html";
+  this.page.identifier = "/2016/07/12/conversao-de-tipos-em-js";
+};
+(function() {  // DON'T EDIT BELOW THIS LINE
+  var d = document, s = d.createElement('script');
+  s.src = '//gabsprates.disqus.com/embed.js';
+  s.setAttribute('data-timestamp', +new Date());
+  (d.head || d.body).appendChild(s);
+})();</script><noscript>Please enable JavaScript to view the<!-- --> <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript></main></div><footer class="site-footer"><div class="wrapper"><h2 class="footer-heading">Gabriel Prates</h2><div class="footer-col-wrapper"><div class="footer-col footer-col-1"><ul class="contact-list"><li><a href="https://github.com/gabsprates" title="Gabriel Prates no GitHub" target="_blank">github@<!-- -->gabsprates</a></li><li><a href="https://twitter.com/gabsprates" title="Gabriel Prates no Twitter" target="_blank">twitter@<!-- -->gabsprates</a></li><li><a href="https://br.linkedin.com/in/gabrielprates" title="Gabriel Prates no LinkedIn" target="_blank">linkedin@<!-- -->gabrielprates</a></li><li><a href="https://gabrielprates.com" title="Meu site" target="_blank">gabrielprates.com</a></li></ul></div><div class="footer-col footer-col-3"><p>Desenvolvedor há mais de 13 anos e baterista nas horas vagas
+#js #frontend #opensource #busquemconhecimento</p></div></div></div></footer><script id="dsq-count-scr" src="//gabsprates.disqus.com/count.js" async=""></script><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-92988633-1', 'auto');
+ga('send', 'pageview');</script></body></html>

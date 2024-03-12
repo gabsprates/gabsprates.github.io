@@ -1,0 +1,168 @@
+<!DOCTYPE html><html lang="pt-br"><head><meta charSet="UTF-8"/><title data-react-helmet="true">Preparando um projeto React para utilizar CSS Modules | Gabriel Prates</title><meta data-react-helmet="true" property="og:title" content="Preparando um projeto React para utilizar CSS Modules"/><meta data-react-helmet="true" name="author" content="Gabriel Prates"/><meta data-react-helmet="true" property="og:locale" content="pt_BR"/><meta data-react-helmet="true" name="description" content="Com toda a evolução das tecnologias front-end, os processos de arquiteturar, criar e manter projetos saudáveis pode ser muito complicado. Um problema bem comum é manter o CSS de uma maneira escalável e sem efeitos colateráis, o que se torna um desafio a medida que o projeto cresce. Pensando nisso, e tomando proveito da ideia de componentes e modularização, surgiram algumas ideias para manter o CSS dentro de um escopo. Escopo dos componentes em questão."/><meta data-react-helmet="true" property="og:description" content="Com toda a evolução das tecnologias front-end, os processos de arquiteturar, criar e manter projetos saudáveis pode ser muito complicado. Um problema bem comum é manter o CSS de uma maneira escalável e sem efeitos colateráis, o que se torna um desafio a medida que o projeto cresce. Pensando nisso, e tomando proveito da ideia de componentes e modularização, surgiram algumas ideias para manter o CSS dentro de um escopo. Escopo dos componentes em questão."/><meta data-react-helmet="true" property="og:url" content="https://gabrielprates.com/2018/07/27/preparando-um-projeto-react-para-utilizar-css-modules.html"/><meta data-react-helmet="true" property="og:site_name" content="Gabriel Prates"/><meta data-react-helmet="true" property="og:image" content="https://gabrielprates.com/assets/perfil-small.jpg"/><meta data-react-helmet="true" property="og:type" content="article"/><meta data-react-helmet="true" property="article:published_time" content="2018-07-27T00:00:00.000Z"/><link data-react-helmet="true" rel="canonical" href="https://gabrielprates.com/2018/07/27/preparando-um-projeto-react-para-utilizar-css-modules.html"/><script data-react-helmet="true" type="application/ld+json">{"@type":"BlogPosting","url":"https://gabrielprates.com/2018/07/27/preparando-um-projeto-react-para-utilizar-css-modules.html","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"https://gabrielprates.com/assets/perfil-small.jpg"},"name":"Gabriel Prates"},"author":{"@type":"Person","name":"Gabriel Prates"},"headline":"Preparando um projeto React para utilizar CSS Modules","description":"Com toda a evolução das tecnologias front-end, os processos de arquiteturar, criar e manter projetos saudáveis pode ser muito complicado. Um problema bem comum é manter o CSS de uma maneira escalável e sem efeitos colateráis, o que se torna um desafio a medida que o projeto cresce. Pensando nisso, e tomando proveito da ideia de componentes e modularização, surgiram algumas ideias para manter o CSS dentro de um escopo. Escopo dos componentes em questão.","@context":"https://schema.org","dateModified":"2018-07-27T00:00:00.000Z","datePublished":"2018-07-27T00:00:00.000Z","mainEntityOfPage":{"@type":"WebPage","@id":"https://gabrielprates.com/2018/07/27/preparando-um-projeto-react-para-utilizar-css-modules.html"}}</script><meta http-equiv="X-UA-Compatible" content="IE=edge"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="theme-color" content="#406b63"/><link rel="stylesheet" href="/style.css"/><link type="image/x-icon" rel="shortcut icon" href="/favicon.ico"/><link rel="alternate" type="application/rss+xml" title="Gabriel Prates" href="https://gabrielprates.com/feed.xml"/><link href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700" rel="stylesheet"/></head><body><header class="site-header"><div class="wrapper"><a class="site-title" href="/" title="Gabriel Prates"><img alt="Gabriel Prates" src="/assets/perfil-small.jpg" class="site-title__image"/>Gabriel Prates</a><nav class="site-nav"><button class="menu-icon"><span></span><span></span><span></span></button><div class="trigger"><a href="/about/" title="Sobre mim" class="page-link">Sobre mim</a><a href="/projects/" title="Projetos" class="page-link">Projetos</a><a href="https://slides.com/gabsprates" title="Talks" target="_blank" class="page-link">Talks</a></div></nav></div></header><div class="page-content"><main class="wrapper"><article class="post" itemscope="" itemType="http://schema.org/BlogPosting"><header class="post-header"><h1 class="post-title" itemProp="name headline">Preparando um projeto React para utilizar CSS Modules</h1><p class="post-meta"><time dateTime="2018-07-27T00:00:00.000Z" itemProp="datePublished">Jul 27, 2018</time></p></header><div class="post-content"><p>Com toda a evolução das tecnologias front-end, os processos de arquiteturar, criar e manter projetos saudáveis pode ser muito complicado. Um problema bem comum é manter o CSS de uma maneira escalável e sem efeitos colateráis, o que se torna um desafio a medida que o projeto cresce. Pensando nisso, e tomando proveito da ideia de componentes e modularização, surgiram algumas ideias para manter o CSS dentro de um escopo. Escopo dos componentes em questão.</p>
+<p>O objetivo deste post é clarear o entendimento e uso de CSS Modules e sua implementação num projeto JavaScript com Webpack de forma geral. De quebra, com o estudo teremos o básico para um projeto React e CSS Modules, com suporte para SASS, que pode ser <a href="https://github.com/gabsprates/react-css-modules">clonado aqui</a>.</p>
+<h3 id="css-modules">CSS Modules</h3>
+<p>Talvez você já tenha visto falar em CSS-in-JS, styled-components, ou em CSS Modules, e vamos falar um pouco disso aqui. As ideias são basicamente para o mesmo resultado, mas não vou falar de bibliotecas JS que te fazem escrever CSS como objetos JS, nem que te fazem escrever uma string com <em>template literal</em> para ser parseada depois (styled-components), o que faremos é configurar nosso projeto para escrever um CSS puro e bem escopado.</p>
+<p>Como a própria documentação do <a href="https://github.com/css-modules/css-modules">CSS Modules</a> diz, <em>um CSS Module é um arquivo de CSS no qual todas os nomes de classes e nomes de animações estão no escopo local, por default.</em></p>
+<p>Isso é possível graças a especificação do <a href="https://github.com/css-modules/icss">ICSS (Interoperable CSS)</a>, que diz para o <em>loader</em> como ele deve tratar os arquivos e o que retornará como módulo. Olhando de um nível mais alto, no fim das contas escrevemos o arquivo CSS e o <em>loader</em> gera um objeto com os seletores mapeados em propriedades. Exemplo:</p>
+<pre><code class="language-scss"><span class="hljs-comment">/* style.css */</span>
+
+<span class="hljs-selector-class">.button</span> {
+  <span class="hljs-attribute">background</span>: <span class="hljs-number">#333</span>;
+}</code></pre>
+<pre><code class="language-javascript"><span class="hljs-comment">// button.js</span>
+
+<span class="hljs-keyword">import</span> styles <span class="hljs-keyword">from</span> <span class="hljs-string">'./style.css'</span>;
+
+<span class="hljs-built_in">console</span>.log(styles);
+<span class="hljs-comment">// { button: "button" }</span>
+
+<span class="hljs-keyword">const</span> Button = <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> (
+  <span class="hljs-string">`&lt;button class='<span class="hljs-subst">${ styles.button }</span>'&gt;Click!&lt;/button&gt;`</span>
+);</code></pre>
+<p>Isso nos permite ter um objeto de estilo específico para cada componente, com um escopo definido para ele. Se precisarmos utilizar o estilo de um componente em outro lugar, ou aproveitar um CSS global (ex.: grid, cores), o objeto de referência ainda será único e isso também faz com que não haja duplicidade.</p>
+<p>Além de ter um módulo com escopo fechado e sem ambiguidades, podemos otimizar os nomes das classes, IDs e animaçes, e gerar um bundle de CSS ainda menor. Após configurar tudo e colocar para rodar, em desenvolvimento ou produção, o CSS gerado pode ser:</p>
+<ul>
+<li>injetado em tags <code>&lt;style&gt;</code>;</li>
+<li>extraído e servido em um arquivo <code>.css</code></li>
+</ul>
+<p>Nesse ponto, o DOM gerado no HTML terá o identificador de CSS correto, porque foi referenciado pelo objeto mapeado do respectivo módulo.</p>
+<p>Para entender melhor, é necessário configurar algumas regras no bundler em questão, aqui vamos usar o <a href="https://webpack.js.org/">Webpack</a>.</p>
+<h3 id="configuração-do-webpack">Configuração do Webpack</h3>
+<p>Devemos inserir uma regra na configuração do Webpack para ler os arquivos CSS e deixar os <em>loaders</em> realizarem seu trabalho:</p>
+<pre><code class="language-javascript"><span class="hljs-comment">// webpack.config.js</span>
+
+<span class="hljs-built_in">module</span>.exports = {
+  <span class="hljs-attr">entry</span>: [ ... ],
+  <span class="hljs-attr">output</span>: { ... },
+  <span class="hljs-attr">module</span>: {
+    <span class="hljs-attr">rules</span>: [
+      {
+        <span class="hljs-attr">test</span>: <span class="hljs-regexp">/\.css$/</span>,
+        <span class="hljs-attr">use</span>: [ ... ]
+      }
+    ]
+  }
+};</code></pre>
+<p>Os <em>loaders</em> necessários são:</p>
+<ul>
+<li><a href="https://github.com/webpack-contrib/css-loader"><code>css-loader</code></a>: para habilitar o uso dos CSS Modules;</li>
+<li><a href="https://github.com/webpack-contrib/style-loader"><code>style-loader</code></a>: para injetar o CSS na página.</li>
+</ul>
+<p>Ambos tem opções necessárias e interessantes, veja a seguir.</p>
+<h4 id="css-loader"><code>css-loader</code></h4>
+<p>Instalação:</p>
+<pre><code class="language-bash">npm install --save-dev css-loader</code></pre>
+<p>Regra:</p>
+<pre><code class="language-javascript">{
+  <span class="hljs-attr">loader</span>: <span class="hljs-string">"css-loader"</span>,
+  <span class="hljs-attr">options</span>: {
+    <span class="hljs-attr">modules</span>: <span class="hljs-literal">true</span>,
+    <span class="hljs-attr">localIdentName</span>: <span class="hljs-string">"[sha1:hash:7]"</span>
+  }
+}</code></pre>
+<ul>
+<li><code>modules</code>: habilita/desabilita os CSS Modules;</li>
+<li><code>localIdentName</code>: configura a identidade (classe, ID, <em>animation name</em>) gerada pelo <em>loader</em>.</li>
+</ul>
+<p>O <code>localIdentName</code> pode ser configurado de algumas formas, que estão <a href="https://github.com/webpack/loader-utils#interpolatename">disponíveis aqui</a>.</p>
+<p>Com a configuração acima, o exemplo anterior do <code>.button</code> irá gerar o objeto <code>{ button: &quot;_38782ef&quot; }</code>. Assim, o seletor CSS da classe <code>.button</code> será, no output, <code>._38782ef</code>. Isso otimiza bastante o tráfego de informações quando temos um nome muito grande como, por exemplo, a proposta do BEM.</p>
+<p>Para mais configurações, <a href="https://github.com/webpack-contrib/css-loader#options">veja a documentação</a>.</p>
+<h4 id="style-loader"><code>style-loader</code></h4>
+<p>Instalação:</p>
+<pre><code class="language-bash">npm install style-loader --save-dev</code></pre>
+<p>Regra:</p>
+<pre><code class="language-javascript">{
+  <span class="hljs-attr">loader</span>: <span class="hljs-string">"style-loader"</span>,
+  <span class="hljs-attr">options</span>: {
+    <span class="hljs-attr">singleton</span>: <span class="hljs-literal">true</span>
+  }
+}</code></pre>
+<p>Nesta configuração, todo o CSS gerado será injetado por apenas uma tag <code>&lt;style&gt;</code>. Na configuração <em>default</em> do <code>style-loader</code>, ele cria uma tag <code>&lt;style&gt;</code> para cada módulo CSS. </p>
+<p>Para mais configurações, <a href="https://github.com/webpack-contrib/style-loader#options">veja a documentação</a>.</p>
+<h4 id="configuração-final-para-css-injetado-na-página">Configuração final para CSS injetado na página</h4>
+<p>Com as devidas configurações, o <code>webpack.config.js</code> ficará assim:</p>
+<pre><code class="language-javascript"><span class="hljs-built_in">module</span>.exports = {
+  <span class="hljs-attr">entry</span>: [ ... ],
+  <span class="hljs-attr">output</span>: { ... },
+  <span class="hljs-attr">module</span>: {
+    <span class="hljs-attr">rules</span>: [
+      {
+        <span class="hljs-attr">test</span>: <span class="hljs-regexp">/\.css$/</span>,
+        <span class="hljs-attr">use</span>: [
+          { <span class="hljs-attr">loader</span>: <span class="hljs-string">"style-loader"</span>, ... },
+          { <span class="hljs-attr">loader</span>: <span class="hljs-string">"css-loader"</span>, ... }
+        ]
+      }
+    ]
+  }
+};</code></pre>
+<p>Segundo a documentação do Webpack sobre a <a href="https://webpack.js.org/configuration/module/#rule-use">cadeia de múltiplos loaders</a> (apesar de não ser o assunto em questão, fica a dica), o resultado do <code>css-loader</code> deve ser processado pelo <code>style-loader</code>, por isso vem depois. <em>&quot;Last to first configured&quot;</em>.</p>
+<h4 id="configuração-final-para-css-extraído-em-arquivo">Configuração final para CSS extraído em arquivo</h4>
+<p>Para extrair o CSS gerado, é preciso utilizar um plugin que extrai texto de um ou mais <em>bundles</em>. O <a href="https://github.com/webpack-contrib/extract-text-webpack-plugin">Extract Text Plugin</a> é bastante usado, mas recomendam o <a href="https://github.com/webpack-contrib/mini-css-extract-plugin">mini-css-extract-plugin</a> para extrair arquivos CSS e, por isso, será usado aqui.</p>
+<p>Instalação:</p>
+<pre><code class="language-bash">npm install --save-dev mini-css-extract-plugin</code></pre>
+<p>E a configuração do webpack ficará assim:</p>
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> MiniCssExtractPlugin = <span class="hljs-built_in">require</span>(<span class="hljs-string">"mini-css-extract-plugin"</span>);
+
+<span class="hljs-built_in">module</span>.exports = {
+  <span class="hljs-attr">entry</span>: [ ... ],
+  <span class="hljs-attr">output</span>: { ... },
+  <span class="hljs-attr">plugins</span>: [
+    <span class="hljs-keyword">new</span> MiniCssExtractPlugin({
+      <span class="hljs-attr">filename</span>: <span class="hljs-string">"style.css"</span>
+    })
+  ],
+  <span class="hljs-attr">module</span>: {
+    <span class="hljs-attr">rules</span>: [
+      {
+        <span class="hljs-attr">test</span>: <span class="hljs-regexp">/\.css$/</span>,
+        <span class="hljs-attr">use</span>: [
+          { <span class="hljs-attr">loader</span>: MiniCssExtractPlugin.loader },
+          { <span class="hljs-attr">loader</span>: <span class="hljs-string">"css-loader"</span>, ... }
+        ]
+      }
+    ]
+  }
+}</code></pre>
+<p>E nesse caso, o <code>style-loader</code> não é necessário. Ele deve ser utilizado como <em>fallback</em> caso utilize o Extract Text Plugin.</p>
+<p>Agora basta colocar um <code>&lt;link /&gt;</code> no <code>index.html</code> com o caminho para o <code>style.css</code>, considerando o <a href="https://webpack.js.org/configuration/output/#output-publicpath"><code>publicPath</code></a>.</p>
+<h4 id="utilizando-sass">Utilizando SASS</h4>
+<p>Para projetos que utilizam SASS, basta alterar a regra do <code>/\.css$/</code> para <code>\.s[ca]ss$/</code> e adicionar o <code>sass-loader</code> depois do <code>css-loader</code>.</p>
+<p>Instalação:</p>
+<pre><code class="language-bash">npm install sass-loader node-sass webpack --save-dev</code></pre>
+<p>E a configuração ficará assim:</p>
+<pre><code class="language-javascript">{
+  <span class="hljs-attr">test</span>: <span class="hljs-regexp">/\.s[ca]ss$/</span>,
+  <span class="hljs-attr">use</span>: [
+    { <span class="hljs-attr">loader</span>: MiniCssExtractPlugin.loader },
+    { <span class="hljs-attr">loader</span>: <span class="hljs-string">"css-loader"</span>, ... }
+    { <span class="hljs-attr">loader</span>: <span class="hljs-string">"sass-loader"</span>, ... }
+  ]
+}</code></pre>
+<p>Para opções de configuração, veja a <a href="https://github.com/sass/node-sass#options">documentação do <code>node-sass</code></a>.</p>
+<h2 id="dicas">Dicas</h2>
+<h3 id="integrando-com-react">Integrando com React</h3>
+<p>O conceito de CSS Modules não é restrito ao uso com React, mas combina muito bem. Tudo que você precisa fazer, após finalizar o setup do projeto, é importar o módulo de CSS e utilizar no <code>className</code> do componente, bem parecido com o primeiro exemplo deste artigo.</p>
+<p>Para configurar um projeto React do zero, siga este tutorial: <a href="https://blog.usejournal.com/creating-a-react-app-from-scratch-f3c693b84658">Creating a React App... From Scratch.
+</a></p>
+<h3 id="typescript--css-modules">TypeScript + CSS Modules</h3>
+<p>Caso tenha um projeto que utilize TypeScript e deseja utilizar CSS Modules, será necessário um conjunto de tipos das respectivas classes de CSS. O <em>loader</em> <a href="https://github.com/Jimdo/typings-for-css-modules-loader">typings-for-css-modules-loader</a> faz esse trabalho. Ela deve ser utilizada no lugar do <code>css-loader</code> e irá gerar um arquivo <code>.d.ts</code> para os arquivos CSS do projeto.</p>
+<h2 id="conclusão">Conclusão</h2>
+<p>Tudo o que foi feito aqui será usado para um outro post, com mais detalhes sobre a utilização de CSS Modules com React. Se liga no <em>feed</em>!</p>
+<p>Deixe um comentário, ou vá no repositório desse projeto no GitHub e abra uma issue. Vamos discutir o problema ;)</p>
+</div></article><hr/><div id="disqus_thread"></div><script>var disqus_config = function () {
+  this.page.url = "https://gabrielprates.com/2018/07/27/preparando-um-projeto-react-para-utilizar-css-modules.html";
+  this.page.identifier = "/2018/07/27/preparando-um-projeto-react-para-utilizar-css-modules";
+};
+(function() {  // DON'T EDIT BELOW THIS LINE
+  var d = document, s = d.createElement('script');
+  s.src = '//gabsprates.disqus.com/embed.js';
+  s.setAttribute('data-timestamp', +new Date());
+  (d.head || d.body).appendChild(s);
+})();</script><noscript>Please enable JavaScript to view the<!-- --> <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript></main></div><footer class="site-footer"><div class="wrapper"><h2 class="footer-heading">Gabriel Prates</h2><div class="footer-col-wrapper"><div class="footer-col footer-col-1"><ul class="contact-list"><li><a href="https://github.com/gabsprates" title="Gabriel Prates no GitHub" target="_blank">github@<!-- -->gabsprates</a></li><li><a href="https://twitter.com/gabsprates" title="Gabriel Prates no Twitter" target="_blank">twitter@<!-- -->gabsprates</a></li><li><a href="https://br.linkedin.com/in/gabrielprates" title="Gabriel Prates no LinkedIn" target="_blank">linkedin@<!-- -->gabrielprates</a></li><li><a href="https://gabrielprates.com" title="Meu site" target="_blank">gabrielprates.com</a></li></ul></div><div class="footer-col footer-col-3"><p>Desenvolvedor há mais de 13 anos e baterista nas horas vagas
+#js #frontend #opensource #busquemconhecimento</p></div></div></div></footer><script id="dsq-count-scr" src="//gabsprates.disqus.com/count.js" async=""></script><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-92988633-1', 'auto');
+ga('send', 'pageview');</script></body></html>
