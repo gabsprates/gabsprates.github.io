@@ -38,7 +38,7 @@ export const Html = (props: PropsType) => (
         rel="alternate"
         type="application/rss+xml"
         title="Gabriel Prates"
-        href="http://gabrielprates.com/feed.xml"
+        href="https://gabrielprates.com/feed.xml"
       />
       <link
         href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700"

@@ -1,5 +1,5 @@
 export const site: SiteConfig = {
-  url: "http://gabrielprates.com",
+  url: "https://gabrielprates.com",
 
   pages: {
     home: "/",

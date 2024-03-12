@@ -5,7 +5,7 @@ title: "React + Tipos + Testes = Qualidade"
 
 Quando o assunto é qualidade em desenvolvimento, podemos falar sobre legibilidade, performance, custos, produtividade e algumas outras coisas. Vamos falar um pouco sobre algumas ferramentas e práticas que podem ajudar muito na hora de escrever e manter códigos front-end de qualidade.
 
-Algum tempo antes do meu [último post](http://gabrielprates.com/2017/10/21/shell-script-02-io-e-mais.html), comecei a estudar bastante sobre testes e queria escrever algo sobre o assunto. Um outro assunto sobre o qual eu já havia lido e então comecei a brincar um pouco, foi o [TypeScript](https://www.typescriptlang.org/). Como nos últimos meses tudo isso (e muito mais) se tornou parte da minha stack como front-end na [Studio Sol](https://www.studiosol.com.br/), decidi escrever um post mais completo, com uma visão mais prática sobre tudo isso.
+Algum tempo antes do meu [último post](https://gabrielprates.com/2017/10/21/shell-script-02-io-e-mais.html), comecei a estudar bastante sobre testes e queria escrever algo sobre o assunto. Um outro assunto sobre o qual eu já havia lido e então comecei a brincar um pouco, foi o [TypeScript](https://www.typescriptlang.org/). Como nos últimos meses tudo isso (e muito mais) se tornou parte da minha stack como front-end na [Studio Sol](https://www.studiosol.com.br/), decidi escrever um post mais completo, com uma visão mais prática sobre tudo isso.
 
 Agora vamos ao que interessa. Para melhor entendimento, vamos dividir este post em algumas partes básicas:
 

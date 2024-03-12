@@ -13,7 +13,7 @@ const minifyGraphqlLoader = {
 };
 
 const pratannaBox = {
-  link: "http://gabrielprates.com/pratanna-box/",
+  link: "https://gabrielprates.com/pratanna-box/",
   title: "pratanna-box",
   source: "https://github.com/gabsprates/pratanna-box",
   description: `
@@ -26,7 +26,7 @@ const pratannaBox = {
 };
 
 const regraDe3Online = {
-  link: "https://regrade3.online/",
+  link: "https://gabrielprates.com/regrade3.online/",
   title: "regrade3.online",
   source: "https://github.com/gabsprates/regrade3.online",
   description: `
