@@ -1,3 +1,5 @@
+@use "variables";
+
 .post-content {
   code {
     color: #b00;
@@ -8,7 +10,7 @@
   }
 
   a > code {
-    color: $brand-color;
+    color: variables.$brand-color;
     border: 0;
     padding: 0;
     background: none;
@@ -16,10 +18,10 @@
   }
 
   pre {
-    color: $grey-color-light;
+    color: variables.$grey-color-light;
     padding: 10px;
     font-size: 15px;
-    background: $text-color;
+    background: variables.$text-color;
     overflow-x: auto;
     border-radius: 5px;
   }
@@ -34,6 +36,6 @@
 
   .hljs,
   .hljs-subst {
-    color: $grey-color-light;
+    color: variables.$grey-color-light;
   }
 }

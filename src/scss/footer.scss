@@ -1,7 +1,10 @@
+@use "mixins";
+@use "variables";
+
 .site-footer {
   color: #fff;
-  padding: $spacing-unit 0;
-  border-top: 5px solid $main-color-dark;
+  padding: variables.$spacing-unit 0;
+  border-top: 5px solid variables.$main-color-dark;
   background-color: rgba(0, 0, 0, 0.3);
 
   a,
@@ -23,49 +26,49 @@
 
 .footer-heading {
   font-size: 18px;
-  margin-bottom: $spacing-unit / 2;
+  margin-bottom: calc(variables.$spacing-unit / 2);
 }
 
 .footer-col-wrapper {
-  color: $grey-color;
+  color: variables.$grey-color;
   display: flex;
   font-size: 15px;
   justify-content: space-between;
 }
 
 .footer-col {
-  padding-right: $spacing-unit / 2;
-  margin-bottom: $spacing-unit / 2;
+  padding-right: calc(variables.$spacing-unit / 2);
+  margin-bottom: calc(variables.$spacing-unit / 2);
 }
 
 .footer-col-1 {
-  width: calc(35% - (#{$spacing-unit} / 2));
+  width: calc(35% - (#{variables.$spacing-unit} / 2));
 }
 
 .footer-col-2 {
-  width: calc(20% - (#{$spacing-unit} / 2));
+  width: calc(20% - (#{variables.$spacing-unit} / 2));
 }
 
 .footer-col-3 {
-  width: calc(45% - (#{$spacing-unit} / 2));
+  width: calc(45% - (#{variables.$spacing-unit} / 2));
 }
 
-@include media-query($on-laptop) {
+@include mixins.media-query(variables.$on-laptop) {
   .footer-col-1,
   .footer-col-2 {
-    width: calc(50% - (#{$spacing-unit} / 2));
+    width: calc(50% - (#{variables.$spacing-unit} / 2));
   }
 
   .footer-col-3 {
-    width: calc(100% - (#{$spacing-unit} / 2));
+    width: calc(100% - (#{variables.$spacing-unit} / 2));
   }
 }
 
-@include media-query($on-palm) {
+@include mixins.media-query(variables.$on-palm) {
   .footer-col-wrapper {
     display: block;
   }
   .footer-col {
-    width: calc(100% - (#{$spacing-unit} / 2));
+    width: calc(100% - (#{variables.$spacing-unit} / 2));
   }
 }

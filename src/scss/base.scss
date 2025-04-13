@@ -1,3 +1,8 @@
+@use "sass:color";
+@use "mixins";
+@use "variables";
+@use "extend";
+
 * {
   margin: 0;
   padding: 0;
@@ -14,9 +19,9 @@ body {
   * Basic styling
   */
 body {
-  font: $base-font-weight #{$base-font-size}/#{$base-line-height}
-    $base-font-family;
-  color: $text-color;
+  font: variables.$base-font-weight #{variables.$base-font-size}/#{variables.$base-line-height}
+    variables.$base-font-family;
+  color: variables.$text-color;
   font-feature-settings: "kern" 1;
   font-kerning: normal;
   background-image: url("/assets/adwaita-day.jpg");
@@ -41,7 +46,7 @@ ul,
 ol,
 dl,
 figure {
-  margin-bottom: $spacing-unit * 0.75;
+  margin-bottom: variables.$spacing-unit * 0.75;
 }
 
 /**
@@ -60,7 +65,7 @@ figure > img {
 }
 
 figcaption {
-  font-size: $small-font-size;
+  font-size: variables.$small-font-size;
 }
 
 /**
@@ -68,8 +73,8 @@ figcaption {
   */
 hr {
   border: 0;
-  border-bottom: 2px solid $grey-color-light;
-  margin-bottom: $spacing-unit;
+  border-bottom: 2px solid variables.$grey-color-light;
+  margin-bottom: variables.$spacing-unit;
 }
 
 /**
@@ -77,7 +82,7 @@ hr {
   */
 ul,
 ol {
-  margin-left: $spacing-unit;
+  margin-left: variables.$spacing-unit;
 }
 
 li {
@@ -96,22 +101,22 @@ h3,
 h4,
 h5,
 h6 {
-  font-weight: $base-font-weight;
+  font-weight: variables.$base-font-weight;
 }
 
 /**
   * Links
   */
 a {
-  color: $brand-color;
+  color: variables.$brand-color;
   text-decoration: none;
 
   &:visited {
-    color: darken($brand-color, 15%);
+    color: color.adjust(variables.$brand-color, $lightness: -15%);
   }
 
   &:hover {
-    color: $text-color;
+    color: variables.$text-color;
     text-decoration: underline;
   }
 }
@@ -120,8 +125,8 @@ a {
   * Blockquotes
   */
 blockquote {
-  color: $grey-color;
-  border-left: 5px solid $grey-color-light;
+  color: variables.$grey-color;
+  border-left: 5px solid variables.$grey-color-light;
   padding-left: 18px;
   padding-top: 8px;
   padding-bottom: 12px;
@@ -137,17 +142,19 @@ blockquote {
   * Wrapper
   */
 .wrapper {
-  max-width: calc(#{$content-width} - (#{$spacing-unit} * 2));
+  max-width: calc(
+    #{variables.$content-width} - (#{variables.$spacing-unit} * 2)
+  );
   margin-left: auto;
   margin-right: auto;
-  padding-left: $spacing-unit;
-  padding-right: $spacing-unit;
-  @extend %clearfix;
+  padding-left: variables.$spacing-unit;
+  padding-right: variables.$spacing-unit;
+  @extend .clearfix;
 
-  @include media-query($on-laptop) {
-    max-width: calc(#{$content-width} - (#{$spacing-unit}));
-    padding-left: $spacing-unit / 2;
-    padding-right: $spacing-unit / 2;
+  @include mixins.media-query(variables.$on-laptop) {
+    max-width: calc(#{variables.$content-width} - (#{variables.$spacing-unit}));
+    padding-left: calc(variables.$spacing-unit / 2);
+    padding-right: calc(variables.$spacing-unit / 2);
   }
 }
 
@@ -155,8 +162,8 @@ blockquote {
  * Page content
  */
 .page-content {
-  padding: $spacing-unit 0;
-  background-color: $background-color;
+  padding: variables.$spacing-unit 0;
+  background-color: variables.$background-color;
 }
 
 .page-heading {
@@ -171,15 +178,15 @@ blockquote {
   list-style: none;
 
   > li {
-    margin-bottom: $spacing-unit;
-    border-bottom: 1px solid $grey-color-light;
-    padding-bottom: $spacing-unit;
+    margin-bottom: variables.$spacing-unit;
+    border-bottom: 1px solid variables.$grey-color-light;
+    padding-bottom: variables.$spacing-unit;
   }
 }
 .list-more {
   display: inline-block;
 
-  border: 1px solid $brand-color;
+  border: 1px solid variables.$brand-color;
   padding: 0 8px;
   transition: all 0.1s ease-in-out;
   border-radius: 3px;
@@ -187,7 +194,7 @@ blockquote {
   &:hover {
     color: #fff;
     text-decoration: none;
-    background-color: darken($brand-color, $amount: 8);
+    background-color: color.adjust(variables.$brand-color, $lightness: -8%);
   }
 
   + .list-more {
