@@ -12,7 +12,7 @@ const config = {
     style: path.resolve(__dirname, "./src/scss/main.scss"),
   },
   target: "node",
-  devtool: "inline-source-map",
+  devtool: process.env.NODE_ENV === "production" ? false : "inline-source-map",
   externals: [nodeExternals()],
 
   devServer: {
@@ -37,7 +37,23 @@ const config = {
       },
       {
         test: /\.scss$/,
-        use: [MiniCssExtractPlugin.loader, "css-loader", "sass-loader"],
+        use: [
+          MiniCssExtractPlugin.loader,
+          {
+            loader: "css-loader",
+            options: {
+              url: false,
+            },
+          },
+          {
+            loader: "sass-loader",
+            options: {
+              sassOptions: {
+                style: "compressed",
+              },
+            },
+          },
+        ],
       },
       {
         test: /\.(md|markdown)$/,
