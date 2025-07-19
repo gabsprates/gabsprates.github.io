@@ -16,7 +16,7 @@ const config = {
   externals: [nodeExternals()],
 
   devServer: {
-    contentBase: paths.dist,
+    static: paths.dist,
   },
 
   resolve: {

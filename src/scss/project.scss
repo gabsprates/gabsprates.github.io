@@ -1,4 +1,6 @@
+@use "variables";
+
 .project-title {
-  color: $brand-color;
+  color: variables.$brand-color;
   font-size: 24px;
 }

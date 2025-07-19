@@ -42,6 +42,8 @@ app.get("/feed.xml", (req, res) => {
 });
 
 app.get("/*", async (req, res) => {
+  const { devMiddleware } = res.locals.webpack;
+
   try {
     delete require.cache[require.resolve(paths.bundles.main)];
     const { site, renderer } = require(paths.bundles.main);
@@ -50,7 +52,7 @@ app.get("/*", async (req, res) => {
       url: req.url,
       site,
       posts: res.$POSTS,
-      stats: res.locals.webpackStats,
+      stats: devMiddleware.stats,
     });
 
     if (result.error) throw result.error;
