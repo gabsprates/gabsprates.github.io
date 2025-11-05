@@ -15,7 +15,7 @@ export const Projects = () => {
 
       <ul className="list">
         {projects.map((post) => (
-          <li key={post.link}>
+          <li key={post.link || post.source}>
             <h2 className="project-title">{post.title}</h2>
 
             <div
