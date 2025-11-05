@@ -6,10 +6,129 @@
 #js #frontend #opensource #busquemconhecimento</description>
     <link>https://gabrielprates.com/</link>
     <atom:link href="https://gabrielprates.com/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sat, 19 Jul 2025 03:57:49 +0200</pubDate>
-    <lastBuildDate>Sat, 19 Jul 2025 03:57:49 +0200</lastBuildDate>
+    <pubDate>Thu, 06 Nov 2025 00:27:25 +0100</pubDate>
+    <lastBuildDate>Thu, 06 Nov 2025 00:27:25 +0100</lastBuildDate>
     <generator>Gabriel Prates Blog Generator v1</generator>
     
+      <item>
+        <title>Cinco anos depois, ainda lembro o que fiz aqui?</title>
+        <description>&lt;p&gt;Cinco anos e meio se passaram desde que eu procurei um gerador de site estático para substituir o Jekyll e, depois de alguns testes, resolvi fazer o meu próprio. Em &lt;strong&gt;cinco anos&lt;/strong&gt; (neste blog): não escrevi nenhum post novo, adicionei uma página para falar dos meus projetos e mudei minha foto de perfil. &lt;strong&gt;Nada mais&lt;/strong&gt;. Um dos motivos: não documentei nada do que fiz, além dos testes, e já não lembrava se daria trabalho pra rodar tudo e escrever algum conteúdo novo. Neste post vou falar um pouco sobre esse processo e aproveitar pra explicar &lt;del&gt;(documentar)&lt;/del&gt; o que fiz; e ver se vale a pena manter. Por onde começar?&lt;/p&gt;
+&lt;h2 id=&quot;colocando-tudo-pra-rodar-outra-vez&quot;&gt;Colocando tudo pra rodar outra vez&lt;/h2&gt;
+&lt;p&gt;Dando um pouco mais de contexto, o projeto em si é um gerador de páginas estáticas, no formato blog, que usa React e TypeScript, com posts escritos em arquivos Markdown.&lt;/p&gt;
+&lt;!-- Quando eu era criança e apagava a luz do quarto, eu ficava olhando pro interruptor de luz que brilhava bem fraquinho no escuro pensando &quot;_é a única coisa que eu vejo e sei onde está_&quot;. Olhando pra esse projeto, me sinto no quarto escuro outra vez e o interruptor brilhando é o script `build` do `package.json`. Esse é o meu ponto de partida pra essa análise. Espero que depois de &quot;apertar esse botão&quot;, eu consiga &quot;ver&quot; o que temos por aqui. _Click!_ --&gt;
+
+&lt;p&gt;Bem, cinco anos depois, com certeza já não era mais a mesma versão do sistema operacional, nem do Node.js. O que mais? Aaah, as dependências do projeto... Geralmente uma dor de cabeça... Pra falar a verdade, após clonar o repositório, nem &lt;code&gt;yarn install&lt;/code&gt; funcionava mais (Node.js, yarn e pacotes já não se davam bem). O pior é que se você já não lembra nem tem documentado o porquê de ter usado uma biblioteca, ou até uma versão específica de uma delas, como vai saber o que deve e não deve atualizar?&lt;/p&gt;
+&lt;p&gt;A primeira coisa que fiz foi atualizar o webpack (&lt;em&gt;&amp;quot;Oi velho amigo, quanto tempo!&amp;quot;&lt;/em&gt;). Honestamente, já faz alguns anos que nem uso mais webpack no meu dia-a-dia, e olha que eu falava bastante dele por aqui. Até inventei de começar uma série de artigos que ia &amp;quot;&lt;em&gt;focar nos core concepts do webpack e tentar clarear como as coisas funcionam&lt;/em&gt;&amp;quot;. Série de um post só. Isso até me ajudou a desenvolver o sentimento de &amp;quot;se quer ver alguma coisa ir pra frente, ache uma forma de facilitar o uso dela&amp;quot;, o que muita gente chama de &lt;strong&gt;Developer Experience&lt;/strong&gt;. Enfim, atualizei o time todo: &lt;code&gt;webpack&lt;/code&gt;, &lt;code&gt;webpack-cli&lt;/code&gt;, &lt;code&gt;webpack-dev-middleware&lt;/code&gt;, &lt;code&gt;webpack-dev-server&lt;/code&gt;, &lt;code&gt;webpack-node-externals&lt;/code&gt;, &lt;code&gt;html-webpack-plugin&lt;/code&gt;. Alguns breaking changes aqui e ali, com configurações e coisas na execução do server, mas tudo fluindo.&lt;/p&gt;
+&lt;p&gt;Próximo, as coisas de CSS. SASS, outro que já não uso tanto. O ecossistema do CSS evoluiu tanto, né? Não é como se não precisássemos mais de nenhum tipo de pré, ou pós, processamento, mas boa parte das coisas já são possíveis nativamente. Bom, descobri que um tal de &lt;code&gt;node-sass&lt;/code&gt; já não se usava mais, agora é só o &lt;code&gt;sass&lt;/code&gt; mesmo. Os companheiros também foram atualizados: &lt;code&gt;css-loader&lt;/code&gt;, &lt;code&gt;sass-loader&lt;/code&gt;, &lt;code&gt;style-loader&lt;/code&gt;. Quase me esqueci: &lt;code&gt;mini-css-extract-plugin&lt;/code&gt;, que nostalgia. Bom, com esses tive que pesquisar um pouco mais nos &lt;em&gt;release notes&lt;/em&gt; e novas configurações, mas no fim deu certo também. E obrigado time do SASS que fizeram uma ferramenta pra atualizar o código automaticamente, a maior parte do &lt;em&gt;diff&lt;/em&gt;.&lt;/p&gt;
+&lt;p&gt;Por último, TypeScript. Esse sim, já vai comigo há alguns anos e nossa relação só melhora. Felizmente, sem dores de cabeça, tudo segue funcionando corretamente aqui.&lt;/p&gt;
+&lt;p&gt;Isso tudo foi só pra fazer meu &lt;code&gt;dev server&lt;/code&gt; funcionar. Ainda não lembrava como o &lt;code&gt;build&lt;/code&gt; funcionava, mas daqui já dá pra focar no que queremos saber.&lt;/p&gt;
+&lt;h2 id=&quot;uma-visão-geral&quot;&gt;Uma visão geral&lt;/h2&gt;
+&lt;p&gt;Com o processo de atualizar as dependências, algumas coisas foram voltando à memória, como por exemplo o uso do webpack para gerar os arquivos CSS (do SASS) e os scripts JavaScript (do TypeScript), executados pelo Node.js, responsáveis por gerar os arquivos HTML.&lt;/p&gt;
+&lt;p&gt;Hoje em dia enxergo isso como um nível desnecessário de complexidade, mas julgar o passado com toda a bagagem do que já aprendemos com ele é fácil, difícil é lembrar porquê fiz isso tudo (😅). Acho que na época, já que o Node.js não rodava TS e eu não tinha muita fé nem no Deno, nem no ts-node, daí a necessidade de transpilar tudo.&lt;/p&gt;
+&lt;p&gt;De acordo com a configuração do webpack, meu ponto de entrada principal é &lt;code&gt;main: path.resolve(__dirname, &amp;quot;./src/renderer.tsx&amp;quot;)&lt;/code&gt; e &lt;code&gt;renderer.tsx&lt;/code&gt;, dentre outras coisas, exporta a função &lt;code&gt;renderer&lt;/code&gt; que é usada pelo &lt;strong&gt;contexto de execução&lt;/strong&gt; e:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Recebe:&lt;ul&gt;
+&lt;li&gt;A URL da página que é pedida;&lt;/li&gt;
+&lt;li&gt;As informações do site (nome, descrição, etc.);&lt;/li&gt;
+&lt;li&gt;Os caminhos dos arquivos Markdown;&lt;/li&gt;
+&lt;li&gt;As informações do resultado do build do webpack, com os assets.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Renderiza a árvore React da UI com &lt;code&gt;renderToStaticMarkup&lt;/code&gt;:&lt;ul&gt;
+&lt;li&gt;Usa &lt;code&gt;StaticRouter&lt;/code&gt; (do React Router) pra saber qual route de destino;&lt;/li&gt;
+&lt;li&gt;Alimentando os templates com as informações recebidas.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Retorna o resultado da renderização, que é a string HTML da página em questão.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/posts/overvoew-project-arch.svg&quot; alt=&quot;visão geral da arquitetura do projeto&quot;/&gt;&lt;/p&gt;
+&lt;p&gt;A árvore do React só não inclui o &lt;code&gt;&amp;lt;!DOCTYPE html&amp;gt;&lt;/code&gt;, mas todo o conteúdo da &lt;code&gt;&amp;lt;html&amp;gt;&lt;/code&gt; está ali:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;&amp;lt;meta&amp;gt;&lt;/code&gt; tags com &lt;code&gt;react-helmet&lt;/code&gt; no &lt;code&gt;&amp;lt;head&amp;gt;&lt;/code&gt;;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;&amp;lt;link rel=&amp;quot;stylesheet&amp;quot; ... /&amp;gt;&lt;/code&gt; com os estilos vindos do webpack, também no &lt;code&gt;&amp;lt;head&amp;gt;&lt;/code&gt;;&lt;/li&gt;
+&lt;li&gt;O &lt;code&gt;StaticRouter&lt;/code&gt; decidindo o que mostrar no miolo do &lt;code&gt;&amp;lt;body&amp;gt;&lt;/code&gt;;&lt;ul&gt;
+&lt;li&gt;Cada página tem seu próprio componente, com JSX e carrega o Markdown como HTML quando necessário.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;E até o &lt;code&gt;&amp;lt;script&amp;gt;&lt;/code&gt; do Disqus, pra seção dos comentários nos posts.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Olhando assim, é mais simples do que eu pensava. Os pontos mais complicados são nos componentes que geram as &lt;code&gt;&amp;lt;meta&amp;gt;&lt;/code&gt; tags &lt;code&gt;og:*&lt;/code&gt; e &lt;code&gt;application/ld+json&lt;/code&gt; pra SEO, e nas funções que lidam com Markdown e links/URLs.&lt;/p&gt;
+&lt;p&gt;Além da função &lt;code&gt;renderer&lt;/code&gt;, esse arquivo também exporta:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Um objeto literal, de configuração, seguindo uma interface, por isso o &lt;code&gt;.ts&lt;/code&gt; e a necessidade de transpilação;&lt;/li&gt;
+&lt;li&gt;A função &lt;code&gt;getPostLink&lt;/code&gt;, que monta uma string com o link do post; e&lt;/li&gt;
+&lt;li&gt;A função &lt;code&gt;pathToPostParams&lt;/code&gt;, que extrai as informações de data e &lt;em&gt;slug&lt;/em&gt; do post, baseado no nome do arquivo.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Essas últimas só estão aí por causa do TypeScript.&lt;/p&gt;
+&lt;p&gt;Eu poderia falar do outro ponto de entrada do &lt;code&gt;feed: path.resolve(__dirname, &amp;quot;./src/feed/index.tsx&amp;quot;)&lt;/code&gt;, mas é só um amontoado de concatenação de strings pra gerar o RSS do blog, dá pra deixar isso pra outro dia.&lt;/p&gt;
+&lt;p&gt;Até aqui, até me parecia OK, mas aí veio a pergunta: por que funções como &lt;code&gt;getPostLink&lt;/code&gt; e &lt;code&gt;pathToPostParams&lt;/code&gt;, além do objeto de configuração (é só um objeto!), tiveram que ser exportadas do principal ponto de entrada? Foi a hora de lembrar de como isso tudo roda. Vamos falar dos &lt;strong&gt;contextos de execução&lt;/strong&gt;.&lt;/p&gt;
+&lt;h2 id=&quot;os-contextos-de-execução-dev-server-e-build&quot;&gt;Os contextos de execução: dev server e build&lt;/h2&gt;
+&lt;p&gt;Nesse ponto já sabemos que &lt;code&gt;renderer&lt;/code&gt; precisa de algumas informações pra funcionar corretamente e que tudo precisa ser compilado pra gerar o JS que será executado de fato. Como Developer Experience é super importante, vamos falar primeiro do &lt;strong&gt;dev server&lt;/strong&gt;.&lt;/p&gt;
+&lt;h3 id=&quot;dev-server-com-webpack-e-express&quot;&gt;Dev Server com webpack e express&lt;/h3&gt;
+&lt;p&gt;Uma visão geral do dev &lt;code&gt;server.js&lt;/code&gt;:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Uma aplicação &lt;code&gt;express()&lt;/code&gt;;&lt;/li&gt;
+&lt;li&gt;Que carrega o caminho dos arquivos de posts (&lt;code&gt;{ [nome_do_arquivo.md]: &amp;#39;caminho_absoluto.md&amp;#39; }&lt;/code&gt;) no contexto da requisição através de um middleware;&lt;/li&gt;
+&lt;li&gt;Também carrega as informações do build do webpack (output, por exemplo) no contexto da requisição, através de outro middleware;&lt;/li&gt;
+&lt;li&gt;Define rotas para servir os assets que não são gerados;&lt;/li&gt;
+&lt;li&gt;Responde todas as demais requisições (&lt;code&gt;app.get(&amp;quot;/*&amp;quot;, (...)&lt;/code&gt;) com, ou o resultado da execução da função &lt;code&gt;renderer()&lt;/code&gt; (&lt;strong&gt;que é carregada em memória dinamicamente&lt;/strong&gt; após cada build), ou erro.&lt;/li&gt;
+&lt;li&gt;Faz o build do webpack de fato, escrevendo os estáticos (JS, CSS, imagens) no disco para conseguir servi-los depois e, após terminar, sobe a aplicação do express na porta &lt;code&gt;4000&lt;/code&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Aqui já dá pra ver um pouco da macarronada: começamos mesclar arquivos de &lt;strong&gt;código fonte JavaScript&lt;/strong&gt;, importando arquivos &lt;strong&gt;JavaScript gerados&lt;/strong&gt; do TypeScript, pra pegar &lt;strong&gt;informações estáticas&lt;/strong&gt;, mas &lt;strong&gt;definidas no TypeScript&lt;/strong&gt;, pra então fazer um tipo de &amp;quot;&lt;strong&gt;injeção de dependências&lt;/strong&gt;&amp;quot; pro &lt;strong&gt;código gerado ser executado&lt;/strong&gt; com as informações que precisa.&lt;/p&gt;
+&lt;p&gt;Essa parte ainda dá um nó na minha cabeça e é justo ela que eu tinha um pouco de medo quando pensava &amp;quot;vou escrever um post novo&amp;quot;, daí deixava pra lá. Agora eu me lembro de tudo... Ou quase, ainda tem o &lt;strong&gt;build&lt;/strong&gt;...&lt;/p&gt;
+&lt;h3 id=&quot;o-script-de-build&quot;&gt;O script de build&lt;/h3&gt;
+&lt;p&gt;Honestamente, tive uma boa surpresa aqui, melhor organizado do que eu pensei que estaria.&lt;/p&gt;
+&lt;p&gt;Basicamente temos um callback JavaScript mesmo, a função &lt;code&gt;runner()&lt;/code&gt;, para o compilador do webpack executar após gerar os bundles. Algumas funções com responsabilidades claras, como por exemplo &lt;code&gt;copyAssets()&lt;/code&gt; (os estáticos não gerados), &lt;code&gt;copyFavicon()&lt;/code&gt;, &lt;code&gt;copyStyle()&lt;/code&gt; (os arquivos CSS gerados), e outras que poderiam ter um isolamento melhor, como &lt;code&gt;generatePages()&lt;/code&gt; e &lt;code&gt;generateFeed()&lt;/code&gt;, que estão dentro da &lt;code&gt;runner()&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;Vamos lá, o que acontece aqui:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Primeiro, faz a validação se não houve erros na compilação;&lt;/li&gt;
+&lt;li&gt;Depois importa o bundle do main, pra usar as mesmas funções &lt;code&gt;renderer()&lt;/code&gt;, &lt;code&gt;getPostLink()&lt;/code&gt;, &lt;code&gt;pathToPostParams()&lt;/code&gt; que já comentamos antes, além do objeto &lt;code&gt;site&lt;/code&gt;;&lt;/li&gt;
+&lt;li&gt;Também importa o bundle do &lt;code&gt;feed&lt;/code&gt;, pra gerar o RSS;&lt;/li&gt;
+&lt;li&gt;Carrega o caminho dos arquivos de posts;&lt;/li&gt;
+&lt;li&gt;Copia os estilos baseado nos chunks gerados;&lt;/li&gt;
+&lt;li&gt;Copia os assets estáticos;&lt;/li&gt;
+&lt;li&gt;Copia o favicon;&lt;/li&gt;
+&lt;li&gt;Gera as páginas dos artigos com a função &lt;code&gt;renderer()&lt;/code&gt;, salvando a string HTML em um arquivo pra cada post;&lt;/li&gt;
+&lt;li&gt;Gera as páginas avulsas (&lt;strong&gt;Sobre mim&lt;/strong&gt; - super desatualizada, e &lt;strong&gt;Projetos&lt;/strong&gt;), igual pros artigos;&lt;/li&gt;
+&lt;li&gt;Gera o &lt;code&gt;feed.xml&lt;/code&gt; e fim.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Aqui tem o mesmo probleminha da macarronada do dev-server, mas até que não sente tanto.&lt;/p&gt;
+&lt;p&gt;Todo esse conteúdo copiado e gerado vai pra &lt;code&gt;/docs&lt;/code&gt; pra depois fazer o deploy.&lt;/p&gt;
+&lt;p&gt;Eita!!! O deploy, tinha me esquecido dessa gambiarra...&lt;/p&gt;
+&lt;h2 id=&quot;o-deploy-no-github-pages&quot;&gt;O deploy no GitHub Pages&lt;/h2&gt;
+&lt;p&gt;Vamos lá então... O ano era 2020 e eu só pensei &amp;quot;&lt;em&gt;GitHub Actions!&lt;/em&gt;&amp;quot;&lt;/p&gt;
+&lt;p&gt;Aqui tenho que explicar um pouco sobre as branchs do projeto:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;A &amp;quot;principal&amp;quot;, onde todo o código fonte está é a &lt;code&gt;development&lt;/code&gt;;&lt;/li&gt;
+&lt;li&gt;Quando vou escrever um novo post, geralmente fica na branch &lt;code&gt;novo_post&lt;/code&gt;;&lt;/li&gt;
+&lt;li&gt;Processo de atualização, cada um com a própria branch (eu espero);&lt;/li&gt;
+&lt;li&gt;E a &lt;code&gt;main&lt;/code&gt;, que era (olha o tempo verbal) usada pelo GitHub Pages pra publicar o site.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Agora, o que o Actions fazia a cada &lt;em&gt;push&lt;/em&gt; pra &lt;code&gt;development&lt;/code&gt;, depois de clonar a branch no container em execução, era: rodar os scripts &lt;code&gt;install&lt;/code&gt;, &lt;code&gt;test&lt;/code&gt; (pra dizer que tinha boas práticas) e &lt;code&gt;build&lt;/code&gt;, depois mover tudo de dentro de &lt;code&gt;/docs&lt;/code&gt; pra &lt;code&gt;/tmp/docs&lt;/code&gt;, copiar &lt;code&gt;/tmp/docs/CNAME&lt;/code&gt; e &lt;code&gt;/tmp/docs/.nojekyll&lt;/code&gt; (pro GitHub não rodar o Jekyll), &lt;strong&gt;remover tudo&lt;/strong&gt; do diretório de trabalho do container (incluindo &lt;code&gt;.github&lt;/code&gt;, &lt;code&gt;.gitignore&lt;/code&gt;, &lt;code&gt;.prettierignore&lt;/code&gt; e &lt;code&gt;.prettierrc&lt;/code&gt;), pra então copiar tudo de &lt;code&gt;/tmp/docs&lt;/code&gt; pra lá de novo. &lt;strong&gt;Por quê?&lt;/strong&gt; Pra depois gerar um commit, usando os tokens de acesso que criei pra essa Action (tudo pelo CI/CD e &amp;quot;Pipiline moderna&amp;quot;) e fazer push pra &lt;code&gt;master&lt;/code&gt;. Aí o GitHub fazia o deploy.&lt;/p&gt;
+&lt;p&gt;Olha, não sei você, mas eu olhei pra isso e pensei &amp;quot;&lt;em&gt;Onde é que eu tava com a cabeça?!&lt;/em&gt;&amp;quot;&lt;/p&gt;
+&lt;p&gt;O bom é que isso aí já foi pro saco, agora não tem mais Action personalizado, só o build jogando tudo em &lt;code&gt;/docs&lt;/code&gt; mesmo, mesma branch, sem tokens de acesso pessoais, só a configuração necessária pro GitHub Pages pegar o diretório correto e fazer o deploy dos estáticos. Faço o build na mão, localmente mesmo, não precisa de nenhuma automatização de CI/CD pra isso, Deus me livre!&lt;/p&gt;
+&lt;h2 id=&quot;2025-e-agora&quot;&gt;2025, e agora?&lt;/h2&gt;
+&lt;p&gt;Bom, pelo menos consegui documentar o que fiz, se algum dia for mexer de novo, vou saber onde estou me metendo.&lt;/p&gt;
+&lt;p&gt;Mas pra falar a verdade, quero mexer nisso. Tem muita coisinha aqui que dá pra ser aposentada, facilitar a vida e poder escrever sem medo do build/deploy.&lt;/p&gt;
+&lt;p&gt;É pra ser um projeto simples e, qual é, 2025 já (listinha pra me ajudar lembrar do que quero fazer):&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Node.js já tem &lt;code&gt;--watch&lt;/code&gt;, não precisa de &lt;code&gt;nodemoon&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;Node.js já suporta TypeScript, tem que ter um jeito de eu rodar React no Node diretamente com TS, sem processo de build, sem webpack, nem vite, nem nada. Vou pesquisar sobre isso.&lt;/li&gt;
+&lt;li&gt;Dá pra organizar melhor esse código, deixar as coisas no devido lugar... Pensando arquiteturalmente, qual o sentido de meu código fonte ser separado em diretórios pra &lt;code&gt;scss&lt;/code&gt; e &lt;code&gt;ts&lt;/code&gt;? O que isso me diz sobre o projeto em si? Praticamente nada. Dá pra ter uma estrutura que deixa claro sobre o que é. E de fato, &lt;code&gt;/config&lt;/code&gt;, &lt;code&gt;/core&lt;/code&gt;, &lt;code&gt;/src&lt;/code&gt;, &lt;code&gt;/types&lt;/code&gt;... Caramba, que monte de coisinha solta.&lt;/li&gt;
+&lt;li&gt;Pois esse SASS. Meu CSS nem é tão complicado assim, olha que tiro isso CSS puro, só preciso de uma oportunidade. &lt;/li&gt;
+&lt;li&gt;Preciso melhorar os links desses posts, &lt;code&gt;/ano/mes/dia/post.html&lt;/code&gt; não faz sentido nenhum pra mim aqui. Olha a frequência que eu escrevo! Pode ser melhor, e quero, mas hoje tenho família, compromissos e trabalho, passo muito mais tempo fora da tela. Bom, quero tentar mudar essas URLs sem perder SEO e ainda preservar as threads de comentários. Tenho que rever a meta tag pra &lt;em&gt;canonical URL&lt;/em&gt;.&lt;/li&gt;
+&lt;li&gt;Eu preciso muito atualizar o &lt;strong&gt;Sobre Mim&lt;/strong&gt;, muita coisa já rolou: empresas diferentes, funções diferentes, países diferentes... Certeza que foram só 5 anos? 🤔&lt;/li&gt;
+&lt;li&gt;Será que consigo atingir traduzir o conteúdo? Eita, as URLs de novo.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Quero escrever mais coisas aqui. Trabalhei em comunidade e-commerce na Black Friday, também com ambiente Cloud, com projetos open-source, aprendi que arquitetura é mais sobre &lt;em&gt;trade-offs&lt;/em&gt; do que estrutura de diretórios e que nem todo teste vale a pena ser feito; mexi um pouco com Python, um pouco de Java, senti saudade do PHP, flertei com o Rust e sigo com o mundo JS/TS.&lt;/p&gt;
+&lt;p&gt;Além das experiências profissionais, tem as culturais, linguísticas e, por que não, espirituais também. Muita coisa legal pra falar sobre, eu acho.&lt;/p&gt;
+&lt;p&gt;O que acha? Será que consigo organizar tudo e compartilhar essas ideias todas?&lt;/p&gt;
+</description>
+        <pubDate>Wed, 05 Nov 2025 00:00:00 +0100</pubDate>
+        <link>https://gabrielprates.com/2025/11/05/cinco-anos-depois-ainda-lembro-o-que-fiz-aqui.html</link>
+        <guid isPermaLink="true">https://gabrielprates.com/2025/11/05/cinco-anos-depois-ainda-lembro-o-que-fiz-aqui.html</guid>
+        
+      </item>
       <item>
         <title>Fazendo um bom Code Review</title>
         <description>&lt;p&gt;&lt;strong&gt;Como fazer um bom code review?&lt;/strong&gt; Me faço essa pergunta periodicamente, para sempre fazer melhor. Recentemente vi uma &lt;a href=&quot;https://www.youtube.com/watch?v=PJjmw9TRB7s&quot;&gt;talk&lt;/a&gt;, do &lt;a href=&quot;https://www.linkedin.com/in/derek-prior-1145a2/&quot;&gt;Derek Prior&lt;/a&gt;, sobre o assunto e acredito que ele levantou uma ótima referência de como seria um bom code review e sua cultura. Neste post, vamos explorar um pouco os pontos levantados na talk.&lt;/p&gt;
@@ -1173,41 +1292,6 @@ nomeAutor(&lt;span class=&quot;hljs-string&quot;&gt;&apos;gabriel oliveira prate
         <pubDate>Sat, 04 Mar 2017 00:00:00 +0100</pubDate>
         <link>https://gabrielprates.com/2017/03/04/atribuicao-multipla-com-destruturing-assignment.html</link>
         <guid isPermaLink="true">https://gabrielprates.com/2017/03/04/atribuicao-multipla-com-destruturing-assignment.html</guid>
-        
-      </item>
-      <item>
-        <title>O dia que eu aprendi React</title>
-        <description>&lt;p&gt;Apesar de ter ouvido falar tanto de &lt;a href=&quot;https://facebook.github.io/react/&quot;&gt;React&lt;/a&gt; (&lt;a href=&quot;http://zofe.com.br/posts/react-componentes-e-a-web/&quot;&gt;no ZOFE&lt;/a&gt;, &lt;a href=&quot;http://devnaestrada.com.br/2016/09/23/angular-vs-react.html&quot;&gt;no DNE&lt;/a&gt;, num evento da Locaweb, no FrontInBH2016 e no resto da vida), eu, de fato, não havia parado pra ver como era essa &lt;em&gt;lib&lt;/em&gt;. Até que um dia, um professor passou um trabalho que seria basicamente um &lt;em&gt;game show&lt;/em&gt; de perguntas sobre a matéria. Na hora, tive a ideia do que fazer.&lt;/p&gt;
-&lt;p&gt;Na verdade, só tive a ideia, mas fiquei sem saber o que utilizar. Comecei com Bootstrap e jQuery, porque pensei *&amp;quot;não vou arriscar e fazer algo rápido logo.&amp;quot;&lt;em&gt;, mas aí eu pensei *&amp;quot;olha, na verdade é uma boa oportunidade para testar algo novo...&amp;quot;&lt;/em&gt;, e instalei o &lt;a href=&quot;https://www.angularjs.org/&quot;&gt;AngularJS&lt;/a&gt;. Nos mesmos dias que comecei, eu estava lendo o post do Diego Eis no Medium do Tableless sobre &lt;a href=&quot;https://medium.com/tableless/hello-world-com-react-desde-o-rascunho-7629bd801d3e#.s6ibs85pt&quot;&gt;&amp;#39;hello world com React&amp;#39;&lt;/a&gt;, e adivinha? Resolvi testar o React. Tá bom, agora é sério, parei aqui.&lt;/p&gt;
-&lt;p&gt;No post, Diego Eis fala sobre umas vídeo-aulas que ele viu, do Matheus Lima, no &lt;a href=&quot;http://jscasts.teachable.com/p/comecando-com-react-js&quot;&gt;jscasts&lt;/a&gt; e aí eu resolvi dar uma olhada e seguir nesse projetinho me baseando nesse curso. Daí surgiu a &lt;a href=&quot;https://github.com/gabsprates/english-quiz/releases/tag/v1.0&quot;&gt;v1.0 do English Quiz&lt;/a&gt;, que no fim das contas funcionou bem e meu trabalho foi um sucesso &lt;del&gt;apesar de eu não ter aplicado as melhores práticas no desenvolvimento&lt;/del&gt;. Confesso que pude perceber muito mais, ou talvez, realmente entendi &lt;em&gt;closures&lt;/em&gt; fazendo esse trabalho.&lt;/p&gt;
-&lt;p&gt;Apesar do título desse post, eu não aprendi React em um dia. Na verdade, ainda não parei de aprender. Já li boa parte da documentação e implementei várias coisinhas de testes, mas cada vez que converso sobre, eu tenho uns momentos &lt;em&gt;mind blown&lt;/em&gt;.&lt;/p&gt;
-&lt;p&gt;Exatamente por isso, estou reescrevendo esse projeto. Para isso, gastei uns dias das férias estudando, testando e tendo ótimos momentos de descoberta. Acho que alguns pontos são válidos de colocar aqui separadamente, então vamos lá.&lt;/p&gt;
-&lt;h2 id=&quot;es6-es2015-or-whatever&quot;&gt;ES6, ES2015 or &lt;em&gt;whatever&lt;/em&gt;&lt;/h2&gt;
-&lt;p&gt;O primeiro deles, e na verdade o mais importante: &lt;strong&gt;JavaScript e as novas &lt;em&gt;features&lt;/em&gt; do ES6!&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;Pode parecer clichê dizer isso, mas na verdade é a parte mais importante de todo o resto. Participar da tradução do &lt;a href=&quot;https://github.com/cezaraugusto/You-Dont-Know-JS&quot;&gt;You Don&amp;#39;t Know JS&lt;/a&gt; tem me ajudado bastante, daí a base em JS eu até que já tinha, mas como falei, comecei pelas vídeo-aulas do Matheus Lima, e aquele curso era com &lt;strong&gt;ES5&lt;/strong&gt;. Daí a aplicação, apesar de funcionando, ficou com uma carinha de &amp;quot;esse código poderia ser mais bonito e mais legível&amp;quot;, daí parei pra olhar a documentação do React com mais carinho e mais tempo, vi os exemplos em &lt;strong&gt;ES6&lt;/strong&gt; e fui logo procurar saber sobre as coisas que eu ainda entendia muito, como por exemplo: sistema de módulos e o &lt;code&gt;class&lt;/code&gt; syntax sugar. Depois posso até fazer um post falando mais sobre o sistema de módulos, achei interessante, apesar de (até onde eu saiba) não ter nenhum navegador que implementou suporte (até a presente data).&lt;/p&gt;
-&lt;p&gt;Então, se você ainda não começou a usar, dá uma olhada na página do &lt;a href=&quot;http://babeljs.io/learn-es2015/&quot;&gt;Learn ES2015&lt;/a&gt;, do site do Babel. ES6 é um ótimo amigo e já está ficando velho.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;:p&lt;/strong&gt;&lt;/p&gt;
-&lt;h2 id=&quot;webpack&quot;&gt;webpack&lt;/h2&gt;
-&lt;p&gt;Já tentou usar o &lt;a href=&quot;http://webpack.github.io/docs/webpack-dev-server.html&quot;&gt;webpack-dev-server&lt;/a&gt; mas percebeu que ele não gerava um bundle no diretório de &lt;strong&gt;&lt;em&gt;output&lt;/em&gt;&lt;/strong&gt;? Eu percebi, achei que não prestava e achei que não tinha configurado direito, daí deixei pra lá... Até [{{ page.title }}]({{ post.url | prepend: site.baseurl }}) (#recursividade).&lt;/p&gt;
-&lt;p&gt;Sim, comunidades podem ajudar muito e exatamente por isso, leia as documentações e ajude. Aprendi a mexer com o &lt;a href=&quot;http://webpack.github.io/&quot;&gt;webpack&lt;/a&gt; assim, e entendi que o &lt;code&gt;webpack-dev-server&lt;/code&gt; gera o bundle em memória, enquanto roda o servidor. Valeu o estudo porque agora posso usá-lo pra qualquer outra coisa, graças aos vários loaders e plugins! Vivendo e aprendendo. Esses links do webpack vão te levar para a documentação da versão 1, que foi a que eu usei, mas como recentemente foi lançada a versão 2, aconselho você olhar a &lt;a href=&quot;https://webpack.js.org/&quot;&gt;nova documentação&lt;/a&gt;.&lt;/p&gt;
-&lt;h2 id=&quot;react-em-si&quot;&gt;React em si&lt;/h2&gt;
-&lt;p&gt;Mais uma vez: leia documentações.&lt;/p&gt;
-&lt;p&gt;A do React é muito boa e dá ótimos exemplos e explicações. Se você tiver um tempinho pra dedicar a isso, será muito produtivo. Vídeo-aulas são bacanas, principalmente quando você está um pouco cansado para ler, mas a documentação é onde você acha os verdadeiros porquês por trás das coisas.&lt;/p&gt;
-&lt;p&gt;Entender como e quando usar &lt;code&gt;state&lt;/code&gt; e &lt;code&gt;props&lt;/code&gt; é fundamental. Entender os métodos &lt;code&gt;componentDidMount()&lt;/code&gt; e &lt;code&gt;componentWillUnmount()&lt;/code&gt; também são muito importantes para o &lt;a href=&quot;https://facebook.github.io/react/docs/state-and-lifecycle.html&quot;&gt;ciclo de vida&lt;/a&gt; do componente. E a melhor parte (pra mim) &lt;a href=&quot;https://facebook.github.io/react/docs/thinking-in-react.html&quot;&gt;pensar React&lt;/a&gt; e &lt;a href=&quot;https://facebook.github.io/react/docs/composition-vs-inheritance.html&quot;&gt;pensar em composição&lt;/a&gt; ajuda muito.&lt;/p&gt;
-&lt;p&gt;Estou refatorando a aplicação e (no presente momento) estou no &lt;a href=&quot;https://facebook.github.io/react/docs/thinking-in-react.html#step-3-identify-the-minimal-but-complete-representation-of-ui-state&quot;&gt;passo 3&lt;/a&gt; do processo de pensar em React. Quando estiver OK eu aviso, ok?&lt;/p&gt;
-&lt;h2 id=&quot;outras-coisinhas&quot;&gt;Outras coisinhas&lt;/h2&gt;
-&lt;p&gt;Por um motivo bobo, resolvi colocar o &lt;code&gt;border-radius&lt;/code&gt; dos botões que estava criando com um número absurdo: &lt;code&gt;19941101px&lt;/code&gt;. O resultado foi que descobri um break point na versão 50 do Firefox. O &lt;code&gt;border-radius&lt;/code&gt; quebra em &lt;code&gt;17895698px&lt;/code&gt;. Agora, por qual motivo alguém faria isso?&lt;/p&gt;
-&lt;p&gt;&lt;code&gt;¯\_(ツ)_/¯&lt;/code&gt;&lt;/p&gt;
-&lt;p&gt;E o que mais? NodeJS e Express.js! Mas isso fica pra outro post. Sendo breve, aproveitei pra escrever uma API simples, com MVC, um CRUD básico e MongoDB pra armazenar as perguntas do quiz. Tá funcionando &lt;del&gt;hehe&lt;/del&gt;, mas já sei o que dá pra melhorar. Tá na lista.&lt;/p&gt;
-&lt;h2 id=&quot;conclusão&quot;&gt;Conclusão&lt;/h2&gt;
-&lt;p&gt;As férias da faculdade foram bem corridas, apertadas de serviço, e ótimas pra estudar outras coisas que não se vê na sala de aula. Estou feliz com esse progresso, fui até desafiado estudar Ionic2 e Angular2, mas deixa pra algum feriado prolongado aí.&lt;/p&gt;
-&lt;p&gt;Alguma dúvida? Algum comentário? Deixa aí embaixo, será um prazer trocar uma ideia.&lt;/p&gt;
-&lt;p&gt;Isso é tudo pessoal, até a próxima.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;(:&lt;/strong&gt;&lt;/p&gt;
-</description>
-        <pubDate>Fri, 03 Feb 2017 00:00:00 +0100</pubDate>
-        <link>https://gabrielprates.com/2017/02/03/o-dia-eu-que-aprendi-react.html</link>
-        <guid isPermaLink="true">https://gabrielprates.com/2017/02/03/o-dia-eu-que-aprendi-react.html</guid>
         
       </item>
   </channel>

@@ -1,0 +1,127 @@
+<!DOCTYPE html><html lang="pt-br"><head><meta charSet="UTF-8"/><title data-react-helmet="true">Cinco anos depois, ainda lembro o que fiz aqui? | Gabriel Prates</title><meta data-react-helmet="true" property="og:title" content="Cinco anos depois, ainda lembro o que fiz aqui?"/><meta data-react-helmet="true" name="author" content="Gabriel Prates"/><meta data-react-helmet="true" property="og:locale" content="pt_BR"/><meta data-react-helmet="true" name="description" content="Cinco anos e meio se passaram desde que eu procurei um gerador de site estático para substituir o Jekyll e, depois de alguns testes, resolvi fazer o meu próprio. Em cinco anos (neste blog): não escrevi nenhum post novo, adicionei uma página para falar dos meus projetos e mudei minha foto de perfil. Nada mais. Um dos motivos: não documentei nada do que fiz, além dos testes, e já não lembrava se daria trabalho pra rodar tudo e escrever algum conteúdo novo. Neste post vou falar um pouco sobre esse processo e aproveitar pra explicar (documentar) o que fiz; e ver se vale a pena manter. Por onde começar?"/><meta data-react-helmet="true" property="og:description" content="Cinco anos e meio se passaram desde que eu procurei um gerador de site estático para substituir o Jekyll e, depois de alguns testes, resolvi fazer o meu próprio. Em cinco anos (neste blog): não escrevi nenhum post novo, adicionei uma página para falar dos meus projetos e mudei minha foto de perfil. Nada mais. Um dos motivos: não documentei nada do que fiz, além dos testes, e já não lembrava se daria trabalho pra rodar tudo e escrever algum conteúdo novo. Neste post vou falar um pouco sobre esse processo e aproveitar pra explicar (documentar) o que fiz; e ver se vale a pena manter. Por onde começar?"/><meta data-react-helmet="true" property="og:url" content="https://gabrielprates.com/2025/11/05/cinco-anos-depois-ainda-lembro-o-que-fiz-aqui.html"/><meta data-react-helmet="true" property="og:site_name" content="Gabriel Prates"/><meta data-react-helmet="true" property="og:image" content="https://gabrielprates.com/assets/perfil-small.jpg"/><meta data-react-helmet="true" property="og:type" content="article"/><meta data-react-helmet="true" property="article:published_time" content="2025-11-04T23:00:00.000Z"/><link data-react-helmet="true" rel="canonical" href="https://gabrielprates.com/2025/11/05/cinco-anos-depois-ainda-lembro-o-que-fiz-aqui.html"/><script data-react-helmet="true" type="application/ld+json">{"@type":"BlogPosting","url":"https://gabrielprates.com/2025/11/05/cinco-anos-depois-ainda-lembro-o-que-fiz-aqui.html","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"https://gabrielprates.com/assets/perfil-small.jpg"},"name":"Gabriel Prates"},"author":{"@type":"Person","name":"Gabriel Prates"},"headline":"Cinco anos depois, ainda lembro o que fiz aqui?","description":"Cinco anos e meio se passaram desde que eu procurei um gerador de site estático para substituir o Jekyll e, depois de alguns testes, resolvi fazer o meu próprio. Em cinco anos (neste blog): não escrevi nenhum post novo, adicionei uma página para falar dos meus projetos e mudei minha foto de perfil. Nada mais. Um dos motivos: não documentei nada do que fiz, além dos testes, e já não lembrava se daria trabalho pra rodar tudo e escrever algum conteúdo novo. Neste post vou falar um pouco sobre esse processo e aproveitar pra explicar (documentar) o que fiz; e ver se vale a pena manter. Por onde começar?","@context":"https://schema.org","dateModified":"2025-11-04T23:00:00.000Z","datePublished":"2025-11-04T23:00:00.000Z","mainEntityOfPage":{"@type":"WebPage","@id":"https://gabrielprates.com/2025/11/05/cinco-anos-depois-ainda-lembro-o-que-fiz-aqui.html"}}</script><meta http-equiv="X-UA-Compatible" content="IE=edge"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="theme-color" content="#406b63"/><link rel="stylesheet" href="/style.css"/><link type="image/x-icon" rel="shortcut icon" href="/favicon.ico"/><link rel="alternate" type="application/rss+xml" title="Gabriel Prates" href="https://gabrielprates.com/feed.xml"/><link href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700" rel="stylesheet"/></head><body><header class="site-header"><div class="wrapper"><a class="site-title" href="/" title="Gabriel Prates"><img alt="Gabriel Prates" src="/assets/perfil-small.jpg" class="site-title__image"/>Gabriel Prates</a><nav class="site-nav"><button class="menu-icon"><span></span><span></span><span></span></button><div class="trigger"><a href="/about/" title="Sobre mim" class="page-link">Sobre mim</a><a href="/projects/" title="Projetos" class="page-link">Projetos</a><a href="https://slides.com/gabsprates" title="Talks" target="_blank" class="page-link">Talks</a></div></nav></div></header><div class="page-content"><main class="wrapper"><article class="post" itemscope="" itemType="http://schema.org/BlogPosting"><header class="post-header"><h1 class="post-title" itemProp="name headline">Cinco anos depois, ainda lembro o que fiz aqui?</h1><p class="post-meta"><time dateTime="2025-11-04T23:00:00.000Z" itemProp="datePublished">Nov 5, 2025</time></p></header><div class="post-content"><p>Cinco anos e meio se passaram desde que eu procurei um gerador de site estático para substituir o Jekyll e, depois de alguns testes, resolvi fazer o meu próprio. Em <strong>cinco anos</strong> (neste blog): não escrevi nenhum post novo, adicionei uma página para falar dos meus projetos e mudei minha foto de perfil. <strong>Nada mais</strong>. Um dos motivos: não documentei nada do que fiz, além dos testes, e já não lembrava se daria trabalho pra rodar tudo e escrever algum conteúdo novo. Neste post vou falar um pouco sobre esse processo e aproveitar pra explicar <del>(documentar)</del> o que fiz; e ver se vale a pena manter. Por onde começar?</p>
+<h2 id="colocando-tudo-pra-rodar-outra-vez">Colocando tudo pra rodar outra vez</h2>
+<p>Dando um pouco mais de contexto, o projeto em si é um gerador de páginas estáticas, no formato blog, que usa React e TypeScript, com posts escritos em arquivos Markdown.</p>
+<!-- Quando eu era criança e apagava a luz do quarto, eu ficava olhando pro interruptor de luz que brilhava bem fraquinho no escuro pensando "_é a única coisa que eu vejo e sei onde está_". Olhando pra esse projeto, me sinto no quarto escuro outra vez e o interruptor brilhando é o script `build` do `package.json`. Esse é o meu ponto de partida pra essa análise. Espero que depois de "apertar esse botão", eu consiga "ver" o que temos por aqui. _Click!_ -->
+
+<p>Bem, cinco anos depois, com certeza já não era mais a mesma versão do sistema operacional, nem do Node.js. O que mais? Aaah, as dependências do projeto... Geralmente uma dor de cabeça... Pra falar a verdade, após clonar o repositório, nem <code>yarn install</code> funcionava mais (Node.js, yarn e pacotes já não se davam bem). O pior é que se você já não lembra nem tem documentado o porquê de ter usado uma biblioteca, ou até uma versão específica de uma delas, como vai saber o que deve e não deve atualizar?</p>
+<p>A primeira coisa que fiz foi atualizar o webpack (<em>&quot;Oi velho amigo, quanto tempo!&quot;</em>). Honestamente, já faz alguns anos que nem uso mais webpack no meu dia-a-dia, e olha que eu falava bastante dele por aqui. Até inventei de começar uma série de artigos que ia &quot;<em>focar nos core concepts do webpack e tentar clarear como as coisas funcionam</em>&quot;. Série de um post só. Isso até me ajudou a desenvolver o sentimento de &quot;se quer ver alguma coisa ir pra frente, ache uma forma de facilitar o uso dela&quot;, o que muita gente chama de <strong>Developer Experience</strong>. Enfim, atualizei o time todo: <code>webpack</code>, <code>webpack-cli</code>, <code>webpack-dev-middleware</code>, <code>webpack-dev-server</code>, <code>webpack-node-externals</code>, <code>html-webpack-plugin</code>. Alguns breaking changes aqui e ali, com configurações e coisas na execução do server, mas tudo fluindo.</p>
+<p>Próximo, as coisas de CSS. SASS, outro que já não uso tanto. O ecossistema do CSS evoluiu tanto, né? Não é como se não precisássemos mais de nenhum tipo de pré, ou pós, processamento, mas boa parte das coisas já são possíveis nativamente. Bom, descobri que um tal de <code>node-sass</code> já não se usava mais, agora é só o <code>sass</code> mesmo. Os companheiros também foram atualizados: <code>css-loader</code>, <code>sass-loader</code>, <code>style-loader</code>. Quase me esqueci: <code>mini-css-extract-plugin</code>, que nostalgia. Bom, com esses tive que pesquisar um pouco mais nos <em>release notes</em> e novas configurações, mas no fim deu certo também. E obrigado time do SASS que fizeram uma ferramenta pra atualizar o código automaticamente, a maior parte do <em>diff</em>.</p>
+<p>Por último, TypeScript. Esse sim, já vai comigo há alguns anos e nossa relação só melhora. Felizmente, sem dores de cabeça, tudo segue funcionando corretamente aqui.</p>
+<p>Isso tudo foi só pra fazer meu <code>dev server</code> funcionar. Ainda não lembrava como o <code>build</code> funcionava, mas daqui já dá pra focar no que queremos saber.</p>
+<h2 id="uma-visão-geral">Uma visão geral</h2>
+<p>Com o processo de atualizar as dependências, algumas coisas foram voltando à memória, como por exemplo o uso do webpack para gerar os arquivos CSS (do SASS) e os scripts JavaScript (do TypeScript), executados pelo Node.js, responsáveis por gerar os arquivos HTML.</p>
+<p>Hoje em dia enxergo isso como um nível desnecessário de complexidade, mas julgar o passado com toda a bagagem do que já aprendemos com ele é fácil, difícil é lembrar porquê fiz isso tudo (😅). Acho que na época, já que o Node.js não rodava TS e eu não tinha muita fé nem no Deno, nem no ts-node, daí a necessidade de transpilar tudo.</p>
+<p>De acordo com a configuração do webpack, meu ponto de entrada principal é <code>main: path.resolve(__dirname, &quot;./src/renderer.tsx&quot;)</code> e <code>renderer.tsx</code>, dentre outras coisas, exporta a função <code>renderer</code> que é usada pelo <strong>contexto de execução</strong> e:</p>
+<ul>
+<li>Recebe:<ul>
+<li>A URL da página que é pedida;</li>
+<li>As informações do site (nome, descrição, etc.);</li>
+<li>Os caminhos dos arquivos Markdown;</li>
+<li>As informações do resultado do build do webpack, com os assets.</li>
+</ul>
+</li>
+<li>Renderiza a árvore React da UI com <code>renderToStaticMarkup</code>:<ul>
+<li>Usa <code>StaticRouter</code> (do React Router) pra saber qual route de destino;</li>
+<li>Alimentando os templates com as informações recebidas.</li>
+</ul>
+</li>
+<li>Retorna o resultado da renderização, que é a string HTML da página em questão.</li>
+</ul>
+<p><img src="/assets/posts/overvoew-project-arch.svg" alt="visão geral da arquitetura do projeto"/></p>
+<p>A árvore do React só não inclui o <code>&lt;!DOCTYPE html&gt;</code>, mas todo o conteúdo da <code>&lt;html&gt;</code> está ali:</p>
+<ul>
+<li><code>&lt;meta&gt;</code> tags com <code>react-helmet</code> no <code>&lt;head&gt;</code>;</li>
+<li><code>&lt;link rel=&quot;stylesheet&quot; ... /&gt;</code> com os estilos vindos do webpack, também no <code>&lt;head&gt;</code>;</li>
+<li>O <code>StaticRouter</code> decidindo o que mostrar no miolo do <code>&lt;body&gt;</code>;<ul>
+<li>Cada página tem seu próprio componente, com JSX e carrega o Markdown como HTML quando necessário.</li>
+</ul>
+</li>
+<li>E até o <code>&lt;script&gt;</code> do Disqus, pra seção dos comentários nos posts.</li>
+</ul>
+<p>Olhando assim, é mais simples do que eu pensava. Os pontos mais complicados são nos componentes que geram as <code>&lt;meta&gt;</code> tags <code>og:*</code> e <code>application/ld+json</code> pra SEO, e nas funções que lidam com Markdown e links/URLs.</p>
+<p>Além da função <code>renderer</code>, esse arquivo também exporta:</p>
+<ul>
+<li>Um objeto literal, de configuração, seguindo uma interface, por isso o <code>.ts</code> e a necessidade de transpilação;</li>
+<li>A função <code>getPostLink</code>, que monta uma string com o link do post; e</li>
+<li>A função <code>pathToPostParams</code>, que extrai as informações de data e <em>slug</em> do post, baseado no nome do arquivo.</li>
+</ul>
+<p>Essas últimas só estão aí por causa do TypeScript.</p>
+<p>Eu poderia falar do outro ponto de entrada do <code>feed: path.resolve(__dirname, &quot;./src/feed/index.tsx&quot;)</code>, mas é só um amontoado de concatenação de strings pra gerar o RSS do blog, dá pra deixar isso pra outro dia.</p>
+<p>Até aqui, até me parecia OK, mas aí veio a pergunta: por que funções como <code>getPostLink</code> e <code>pathToPostParams</code>, além do objeto de configuração (é só um objeto!), tiveram que ser exportadas do principal ponto de entrada? Foi a hora de lembrar de como isso tudo roda. Vamos falar dos <strong>contextos de execução</strong>.</p>
+<h2 id="os-contextos-de-execução-dev-server-e-build">Os contextos de execução: dev server e build</h2>
+<p>Nesse ponto já sabemos que <code>renderer</code> precisa de algumas informações pra funcionar corretamente e que tudo precisa ser compilado pra gerar o JS que será executado de fato. Como Developer Experience é super importante, vamos falar primeiro do <strong>dev server</strong>.</p>
+<h3 id="dev-server-com-webpack-e-express">Dev Server com webpack e express</h3>
+<p>Uma visão geral do dev <code>server.js</code>:</p>
+<ul>
+<li>Uma aplicação <code>express()</code>;</li>
+<li>Que carrega o caminho dos arquivos de posts (<code>{ [nome_do_arquivo.md]: &#39;caminho_absoluto.md&#39; }</code>) no contexto da requisição através de um middleware;</li>
+<li>Também carrega as informações do build do webpack (output, por exemplo) no contexto da requisição, através de outro middleware;</li>
+<li>Define rotas para servir os assets que não são gerados;</li>
+<li>Responde todas as demais requisições (<code>app.get(&quot;/*&quot;, (...)</code>) com, ou o resultado da execução da função <code>renderer()</code> (<strong>que é carregada em memória dinamicamente</strong> após cada build), ou erro.</li>
+<li>Faz o build do webpack de fato, escrevendo os estáticos (JS, CSS, imagens) no disco para conseguir servi-los depois e, após terminar, sobe a aplicação do express na porta <code>4000</code>.</li>
+</ul>
+<p>Aqui já dá pra ver um pouco da macarronada: começamos mesclar arquivos de <strong>código fonte JavaScript</strong>, importando arquivos <strong>JavaScript gerados</strong> do TypeScript, pra pegar <strong>informações estáticas</strong>, mas <strong>definidas no TypeScript</strong>, pra então fazer um tipo de &quot;<strong>injeção de dependências</strong>&quot; pro <strong>código gerado ser executado</strong> com as informações que precisa.</p>
+<p>Essa parte ainda dá um nó na minha cabeça e é justo ela que eu tinha um pouco de medo quando pensava &quot;vou escrever um post novo&quot;, daí deixava pra lá. Agora eu me lembro de tudo... Ou quase, ainda tem o <strong>build</strong>...</p>
+<h3 id="o-script-de-build">O script de build</h3>
+<p>Honestamente, tive uma boa surpresa aqui, melhor organizado do que eu pensei que estaria.</p>
+<p>Basicamente temos um callback JavaScript mesmo, a função <code>runner()</code>, para o compilador do webpack executar após gerar os bundles. Algumas funções com responsabilidades claras, como por exemplo <code>copyAssets()</code> (os estáticos não gerados), <code>copyFavicon()</code>, <code>copyStyle()</code> (os arquivos CSS gerados), e outras que poderiam ter um isolamento melhor, como <code>generatePages()</code> e <code>generateFeed()</code>, que estão dentro da <code>runner()</code>.</p>
+<p>Vamos lá, o que acontece aqui:</p>
+<ol>
+<li>Primeiro, faz a validação se não houve erros na compilação;</li>
+<li>Depois importa o bundle do main, pra usar as mesmas funções <code>renderer()</code>, <code>getPostLink()</code>, <code>pathToPostParams()</code> que já comentamos antes, além do objeto <code>site</code>;</li>
+<li>Também importa o bundle do <code>feed</code>, pra gerar o RSS;</li>
+<li>Carrega o caminho dos arquivos de posts;</li>
+<li>Copia os estilos baseado nos chunks gerados;</li>
+<li>Copia os assets estáticos;</li>
+<li>Copia o favicon;</li>
+<li>Gera as páginas dos artigos com a função <code>renderer()</code>, salvando a string HTML em um arquivo pra cada post;</li>
+<li>Gera as páginas avulsas (<strong>Sobre mim</strong> - super desatualizada, e <strong>Projetos</strong>), igual pros artigos;</li>
+<li>Gera o <code>feed.xml</code> e fim.</li>
+</ol>
+<p>Aqui tem o mesmo probleminha da macarronada do dev-server, mas até que não sente tanto.</p>
+<p>Todo esse conteúdo copiado e gerado vai pra <code>/docs</code> pra depois fazer o deploy.</p>
+<p>Eita!!! O deploy, tinha me esquecido dessa gambiarra...</p>
+<h2 id="o-deploy-no-github-pages">O deploy no GitHub Pages</h2>
+<p>Vamos lá então... O ano era 2020 e eu só pensei &quot;<em>GitHub Actions!</em>&quot;</p>
+<p>Aqui tenho que explicar um pouco sobre as branchs do projeto:</p>
+<ul>
+<li>A &quot;principal&quot;, onde todo o código fonte está é a <code>development</code>;</li>
+<li>Quando vou escrever um novo post, geralmente fica na branch <code>novo_post</code>;</li>
+<li>Processo de atualização, cada um com a própria branch (eu espero);</li>
+<li>E a <code>main</code>, que era (olha o tempo verbal) usada pelo GitHub Pages pra publicar o site.</li>
+</ul>
+<p>Agora, o que o Actions fazia a cada <em>push</em> pra <code>development</code>, depois de clonar a branch no container em execução, era: rodar os scripts <code>install</code>, <code>test</code> (pra dizer que tinha boas práticas) e <code>build</code>, depois mover tudo de dentro de <code>/docs</code> pra <code>/tmp/docs</code>, copiar <code>/tmp/docs/CNAME</code> e <code>/tmp/docs/.nojekyll</code> (pro GitHub não rodar o Jekyll), <strong>remover tudo</strong> do diretório de trabalho do container (incluindo <code>.github</code>, <code>.gitignore</code>, <code>.prettierignore</code> e <code>.prettierrc</code>), pra então copiar tudo de <code>/tmp/docs</code> pra lá de novo. <strong>Por quê?</strong> Pra depois gerar um commit, usando os tokens de acesso que criei pra essa Action (tudo pelo CI/CD e &quot;Pipiline moderna&quot;) e fazer push pra <code>master</code>. Aí o GitHub fazia o deploy.</p>
+<p>Olha, não sei você, mas eu olhei pra isso e pensei &quot;<em>Onde é que eu tava com a cabeça?!</em>&quot;</p>
+<p>O bom é que isso aí já foi pro saco, agora não tem mais Action personalizado, só o build jogando tudo em <code>/docs</code> mesmo, mesma branch, sem tokens de acesso pessoais, só a configuração necessária pro GitHub Pages pegar o diretório correto e fazer o deploy dos estáticos. Faço o build na mão, localmente mesmo, não precisa de nenhuma automatização de CI/CD pra isso, Deus me livre!</p>
+<h2 id="2025-e-agora">2025, e agora?</h2>
+<p>Bom, pelo menos consegui documentar o que fiz, se algum dia for mexer de novo, vou saber onde estou me metendo.</p>
+<p>Mas pra falar a verdade, quero mexer nisso. Tem muita coisinha aqui que dá pra ser aposentada, facilitar a vida e poder escrever sem medo do build/deploy.</p>
+<p>É pra ser um projeto simples e, qual é, 2025 já (listinha pra me ajudar lembrar do que quero fazer):</p>
+<ul>
+<li>Node.js já tem <code>--watch</code>, não precisa de <code>nodemoon</code>.</li>
+<li>Node.js já suporta TypeScript, tem que ter um jeito de eu rodar React no Node diretamente com TS, sem processo de build, sem webpack, nem vite, nem nada. Vou pesquisar sobre isso.</li>
+<li>Dá pra organizar melhor esse código, deixar as coisas no devido lugar... Pensando arquiteturalmente, qual o sentido de meu código fonte ser separado em diretórios pra <code>scss</code> e <code>ts</code>? O que isso me diz sobre o projeto em si? Praticamente nada. Dá pra ter uma estrutura que deixa claro sobre o que é. E de fato, <code>/config</code>, <code>/core</code>, <code>/src</code>, <code>/types</code>... Caramba, que monte de coisinha solta.</li>
+<li>Pois esse SASS. Meu CSS nem é tão complicado assim, olha que tiro isso CSS puro, só preciso de uma oportunidade. </li>
+<li>Preciso melhorar os links desses posts, <code>/ano/mes/dia/post.html</code> não faz sentido nenhum pra mim aqui. Olha a frequência que eu escrevo! Pode ser melhor, e quero, mas hoje tenho família, compromissos e trabalho, passo muito mais tempo fora da tela. Bom, quero tentar mudar essas URLs sem perder SEO e ainda preservar as threads de comentários. Tenho que rever a meta tag pra <em>canonical URL</em>.</li>
+<li>Eu preciso muito atualizar o <strong>Sobre Mim</strong>, muita coisa já rolou: empresas diferentes, funções diferentes, países diferentes... Certeza que foram só 5 anos? 🤔</li>
+<li>Será que consigo atingir traduzir o conteúdo? Eita, as URLs de novo.</li>
+</ul>
+<p>Quero escrever mais coisas aqui. Trabalhei em comunidade e-commerce na Black Friday, também com ambiente Cloud, com projetos open-source, aprendi que arquitetura é mais sobre <em>trade-offs</em> do que estrutura de diretórios e que nem todo teste vale a pena ser feito; mexi um pouco com Python, um pouco de Java, senti saudade do PHP, flertei com o Rust e sigo com o mundo JS/TS.</p>
+<p>Além das experiências profissionais, tem as culturais, linguísticas e, por que não, espirituais também. Muita coisa legal pra falar sobre, eu acho.</p>
+<p>O que acha? Será que consigo organizar tudo e compartilhar essas ideias todas?</p>
+</div></article><hr/><div id="disqus_thread"></div><script>var disqus_config = function () {
+  this.page.url = "https://gabrielprates.com/2025/11/05/cinco-anos-depois-ainda-lembro-o-que-fiz-aqui.html";
+  this.page.identifier = "/2025/11/05/cinco-anos-depois-ainda-lembro-o-que-fiz-aqui";
+};
+(function() {  // DON'T EDIT BELOW THIS LINE
+  var d = document, s = d.createElement('script');
+  s.src = '//gabsprates.disqus.com/embed.js';
+  s.setAttribute('data-timestamp', +new Date());
+  (d.head || d.body).appendChild(s);
+})();</script><noscript>Please enable JavaScript to view the<!-- --> <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript></main></div><footer class="site-footer"><div class="wrapper"><h2 class="footer-heading">Gabriel Prates</h2><div class="footer-col-wrapper"><div class="footer-col footer-col-1"><ul class="contact-list"><li><a href="https://github.com/gabsprates" title="Gabriel Prates no GitHub" target="_blank">github@<!-- -->gabsprates</a></li><li><a href="https://twitter.com/gabsprates" title="Gabriel Prates no Twitter" target="_blank">twitter@<!-- -->gabsprates</a></li><li><a href="https://br.linkedin.com/in/gabrielprates" title="Gabriel Prates no LinkedIn" target="_blank">linkedin@<!-- -->gabrielprates</a></li><li><a href="https://gabrielprates.com" title="Meu site" target="_blank">gabrielprates.com</a></li></ul></div><div class="footer-col footer-col-3"><p>Desenvolvedor há mais de 14 anos e baterista nas horas vagas
+#js #frontend #opensource #busquemconhecimento</p></div></div></div></footer><script id="dsq-count-scr" src="//gabsprates.disqus.com/count.js" async=""></script><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-92988633-1', 'auto');
+ga('send', 'pageview');</script></body></html>
