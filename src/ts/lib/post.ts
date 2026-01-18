@@ -10,7 +10,7 @@ export const getPostFile = (
   const { day, year, month, post } = params;
   const postPath = posts[`${year}-${month}-${day}-${post}.md`];
 
-  if (!postPath) throw new Error("Not Found");
+  if (!postPath) throw new Error(`Not Found: ${JSON.stringify(params)}`);
 
   return fs.readFileSync(postPath, { encoding: "utf-8" });
 };
